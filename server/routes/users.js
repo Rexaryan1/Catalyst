@@ -20,6 +20,7 @@ router.get('/', async (req, res) => {
 
 router.post('/',async (req, res) => {
   try {
+    if(!req.body.username) res.status(400).json({message : "Please send a 'username'"});
     var result = await User.insertOne(req.body);
     res.json(result); // Send as JSON response
   } catch (error) {
