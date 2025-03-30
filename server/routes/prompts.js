@@ -10,10 +10,9 @@ const timeLog = (req, res, next) => {
 router.use(timeLog)
 
 /* GET users listing. */
-router.post('/', function(req, res, next) {
-  Prompt.prompt(req.body);
-  res.send('respond with a resource');
-
+router.post('/', async function(req, res, next) {
+  const response = await Prompt.promptJson(req.body.prompt);
+  res.send(response);
 });
 
 module.exports = router;
