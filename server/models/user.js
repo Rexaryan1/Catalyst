@@ -4,7 +4,10 @@ const ObjectId = Schema.ObjectId;
 
 const userSchema = new Schema({
   userId: ObjectId,
-  username: String
+  username: String,
+  firstName: String,
+  lastName: String,
+  prompts: Array
 });
 
 const User = mongoose.model('users', userSchema);
