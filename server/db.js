@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 dotenv.config();
 
-const connectionString = "";
+const userConnectionString = process.env.ATLAS_URI
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 async function run() {
   try {
@@ -13,6 +13,6 @@ async function run() {
     console.error("MongoDB connection error:", error);
   }
 }
-run().catch(console.dir);
+run()
 
 module.exports = mongoose;
