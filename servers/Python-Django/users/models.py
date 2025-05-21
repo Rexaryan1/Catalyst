@@ -18,6 +18,8 @@ class UserProfiles(models.Model):
     average_time_per_question = models.FloatField(blank=True, null=True)
     created_at = models.DateTimeField(blank=True, null=True)
     modified_at = models.DateTimeField(blank=True, null=True)
+    # More fields need to be added
+    
 
     class Meta:
         managed = False
