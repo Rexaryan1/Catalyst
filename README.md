@@ -6,3 +6,13 @@ npm i ---- Install neccesary packages
 # Commands
 npm start server      ---  starts the server that listens and updates with changes
 npm start start        ---- just do a single start
+
+To start the django server, navigate to : Catalyst/servers/Python-Django 
+
+# Guideline to run
+pip install -r requirements.txt
+
+# Commands
+python3 manage.py runserver
+
+
