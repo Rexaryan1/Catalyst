@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import *
 from users.models import Users
+from users.services import *
 
 # Create your views here.
 def index(request : HttpRequest):
@@ -9,3 +10,5 @@ def index(request : HttpRequest):
     elif request.method == "POST":
         print("hit")
         Users.objects.get_or_create(request.body)
+
+
