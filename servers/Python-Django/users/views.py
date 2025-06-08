@@ -10,4 +10,9 @@ def index(request : HttpRequest):
     elif request.method == "POST":
         print("hit")
         Users.objects.get_or_create(request.body)
+
+def roadmap(request : HttpRequest):
+    user1 = Users.objects.all()
+    user1 = user1[0]
+    RoadmapService.generate_roadmap(user1.id,"Generate a roadmap")
     

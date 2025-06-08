@@ -1,10 +1,13 @@
 
 import json
+from django.conf import settings
 from typing import Optional
 from django.utils import timezone
-from .models import UserProfiles, Users
+from users.models import UserProfiles, Users
 import ollama
+from groq import Groq
 
+client = Groq(api_key= settings.AI["key"])
 
 class RoadmapGenerationError(Exception):
     """Custom exception for roadmap generation failures"""
@@ -59,19 +62,19 @@ class RoadmapService:
 
     def generate_roadmap(self, user_id: str, user_prompt: str) -> dict:
         try:
-            structured_prompt = self.build_structured_prompt(user_id, user_prompt)
-
-            response = ollama.generate(
-                model=self.llm_model,
-                prompt=structured_prompt,
-                options={
-                    'temperature': 0.7,
-                    'max_tokens': 2000
-                }
+            response = client.chat.completions.create(
+                model=settings.AI["model"],
+                messages=[
+                    {
+                        "role": "user",
+                        "content": structured_prompt
+                    }
+                ],
             )
+            response = response.choices[0].message.content
 
             return {
-                "roadmap": response['text'],
+                "roadmap": response,
                 "prompt_used": structured_prompt,
                 "model": self.llm_model,
                 "generated_at": timezone.now().isoformat()
