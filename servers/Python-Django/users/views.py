@@ -10,5 +10,4 @@ def index(request : HttpRequest):
     elif request.method == "POST":
         print("hit")
         Users.objects.get_or_create(request.body)
-
-
+    
