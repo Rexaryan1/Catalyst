@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from question.models import Questions
+from question.models import Question
 
 def index(request):
-    return HttpResponse(Questions.objects.all())
+    return HttpResponse(Question.objects.all())

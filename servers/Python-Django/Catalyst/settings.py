@@ -34,7 +34,9 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     "question",
     "users",
-    "analytics",
+    "roadmap",
+    "dashboard",
+    "practice",
     "ai_integration",
     "django.contrib.admin",
     "django.contrib.auth",

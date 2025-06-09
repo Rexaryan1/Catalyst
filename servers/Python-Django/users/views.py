@@ -1,15 +1,15 @@
 from django.shortcuts import render
 from django.http import *
-from users.models import Users
+from users.models import User
 from users.services import *
 
 # Create your views here.
 def index(request : HttpRequest):
     if request.method == "GET":
-        return HttpResponse(Users.objects.all())
+        return HttpResponse(User.objects.all())
     elif request.method == "POST":
         print("hit")
-        Users.objects.get_or_create(request.body)
+        User.objects.get_or_create(request.body)
 
 def roadmap(request : HttpRequest):
     user1 = Users.objects.all()

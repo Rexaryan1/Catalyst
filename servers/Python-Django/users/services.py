@@ -3,7 +3,11 @@ import json
 from django.conf import settings
 from typing import Optional
 from django.utils import timezone
+<<<<<<< HEAD
 from users.models import UserProfiles, Users
+=======
+from .models import UserProfile, User
+>>>>>>> 27e38c1 (changes to models and added practice)
 import ollama
 from groq import Groq
 
@@ -20,10 +24,10 @@ class RoadmapService:
         self.base_prompt = """You are an expert JEE preparation advisor. Create a detailed study roadmap 
         based on the following student profile and additional instructions:"""
 
-    def _get_user_profile(self, user_id: str) -> Optional[UserProfiles]:
+    def _get_user_profile(self, user_id: str) -> Optional[UserProfile]:
         try:
-            return UserProfiles.objects.get(user__id=user_id)
-        except UserProfiles.DoesNotExist:
+            return UserProfile.objects.get(user__id=user_id)
+        except UserProfile.DoesNotExist:
             return None
         except Exception as e:
             raise RoadmapGenerationError(f"Error fetching profile: {str(e)}")
@@ -53,7 +57,7 @@ class RoadmapService:
 
             prompt = f"{self.base_prompt}\n\nStudent Profile:\n{json.dumps(structured_data, indent=2)}\n\n"
             prompt += f"Additional Instructions:\n{user_prompt}\n\n"
-            prompt += "Provide a week-by-week roadmap focusing on weak areas while maintaining strong topics. Include practice recommendations and key milestones."
+            prompt += "Provide a week-by-week roadmap focusing on weak areas while maintaining strong topics. Include roadmap recommendations and key milestones."
 
             return prompt
 
