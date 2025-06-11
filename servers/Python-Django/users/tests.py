@@ -2,7 +2,6 @@ from django.test import TestCase
 from .services import RoadmapService
 
 # Create your tests here.
-<<<<<<< HEAD
 def RoadmapTestCase(TestCase):
     def test_roadmap_creation(self):
         # Arrange
@@ -17,6 +16,3 @@ def RoadmapTestCase(TestCase):
         roadmap = service.create_roadmap(roadmap_data)
         # Assert
         self.assertIsNotNone(roadmap)
-=======
-
->>>>>>> 27e38c1 (changes to models and added practice)

@@ -3,11 +3,7 @@ import json
 from django.conf import settings
 from typing import Optional
 from django.utils import timezone
-<<<<<<< HEAD
 from users.models import UserProfiles, Users
-=======
-from .models import UserProfile, User
->>>>>>> 27e38c1 (changes to models and added practice)
 import ollama
 from groq import Groq
 
