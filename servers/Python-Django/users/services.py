@@ -15,9 +15,8 @@ class RoadmapGenerationError(Exception):
 
 
 class RoadmapService:
-    def __init__(self):
-        self.llm_model = "llama3.2"
-        self.base_prompt = """You are an expert JEE preparation advisor. Create a detailed study roadmap 
+    llm_model = "llama3.2"
+    base_prompt = """You are an expert JEE preparation advisor. Create a detailed study roadmap 
         based on the following student profile and additional instructions:"""
 
     @staticmethod
@@ -83,8 +82,7 @@ class RoadmapService:
             return {
                 "roadmap": response,
                 "prompt_used": structured_prompt,
-                "model": self.llm_model,
-                "generated_at": timezone.now().isoformat()
+                "model": RoadmapService.llm_model
             }
 
         except Exception as e:
