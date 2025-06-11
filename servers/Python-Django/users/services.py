@@ -3,7 +3,7 @@ import json
 from django.conf import settings
 from typing import Optional
 from django.utils import timezone
-from users.models import UserProfiles, Users
+from users.models import UserProfile, User
 import ollama
 from groq import Groq
 
