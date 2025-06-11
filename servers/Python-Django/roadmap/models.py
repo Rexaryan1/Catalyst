@@ -24,8 +24,8 @@ class Roadmap(models.Model):
 
 
 class RoadmapQuestion(models.Model):
-    roadmap = models.ForeignKey(Roadmap, on_delete=models.CASCADE, primary_key=True)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE, primary_key=True)
+    roadmap = models.ForeignKey(Roadmap, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
     position = models.IntegerField(blank=True, null=True)
 
     class Meta:
