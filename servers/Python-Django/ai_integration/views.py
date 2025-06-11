@@ -6,3 +6,4 @@ def index(request):
 
     return render(request , "ai.html")
 
+    
