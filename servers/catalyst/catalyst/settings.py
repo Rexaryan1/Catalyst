@@ -76,12 +76,24 @@ WSGI_APPLICATION = 'catalyst.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "postgres",
+        "USER": "postgres.ahadzhvmsfefuuyuhixv",
+        "PASSWORD": "1jU7TKr602okVSSa",
+        "PORT": "6543",
+        "HOST": "aws-0-ap-south-1.pooler.supabase.com",
+        'OPTIONS': {
+            'options': '-c statement_timeout=10000',
+            'connect_timeout': 10,
+        },
     }
 }
 
+AI = {
+    "key": "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",
+    "model": "llama3-8b-8192"
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
