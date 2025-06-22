@@ -6,12 +6,13 @@ from langchain.chains import LLMChain
 import json
 import logging
 from langchain_groq import ChatGroq
+from django.conf import settings
 
 logger = logging.getLogger(__name__)
 
 def generate_roadmap(user_id, subject, topic, additional_comments=None):
     # Placeholder logic — replace with actual roadmap generation logic
-    llm = ChatGroq(model="llama3-70b-8192", api_key="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")
+    llm = ChatGroq(model="llama3-70b-8192", api_key= settings.AI["key"])
     profile=buildUserProfile(user_id)
     question_set= fetch_relevant_questions(subject,topic,additional_comments)
     final_roadmap=generate_roadmap_blocks(llm,profile,subject,topic,additional_comments,question_set)

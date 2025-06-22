@@ -2,6 +2,7 @@ from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 from langchain_groq import ChatGroq  # Import Groq's LLM
 from users.models import UserProfile
+from django.conf import settings
 
 def buildUserProfile(user_id):
     profile = UserProfile.objects.get(user_id=user_id)
@@ -32,8 +33,7 @@ def buildUserProfile(user_id):
     prompt = PromptTemplate.from_template(template)
 
     # Replace with your actual Groq API key or load it from env vars
-    llm = ChatGroq(model="llama3-70b-8192", api_key="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")
-
+    llm = ChatGroq(model="llama3-70b-8192", api_key= settings.AI["key"])
     chain = LLMChain(llm=llm, prompt=prompt)
     summary = chain.run(user_data)
     return summary
