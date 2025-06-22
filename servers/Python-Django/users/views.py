@@ -12,7 +12,7 @@ def index(request : HttpRequest):
         User.objects.get_or_create(request.body)
 
 def roadmap(request : HttpRequest):
-    user1 = Users.objects.all()
+    user1 = User.objects.all()
     user1 = user1[0]
-    RoadmapService.generate_roadmap(user1.id,"Generate a roadmap")
-    
+    AI_response = RoadmapService.generate_roadmap(user1.id,"Generate a roadmap")
+    return HttpResponse(AI_response['roadmap'])
