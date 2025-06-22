@@ -1,7 +1,6 @@
 from django.urls import path
-
-from . import views
+from roadmap.views import generate_roadmap_view
 
 urlpatterns = [
-    path('' , views.index , name='index'),
+    path("generate/", generate_roadmap_view, name="generate-roadmap"),
 ]
