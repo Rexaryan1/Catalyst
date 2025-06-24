@@ -1,3 +1,4 @@
 djangorestframework
 pyJWT
 django-cors-headers
+langchain_groq
