@@ -4,15 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c4918d33-b8a2-4c41-923e-854124b66782" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/servers/catalyst/requirements.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/servers/catalyst/users/serializers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/servers/catalyst/users/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="23348df1-ff3b-492a-9dff-0bb49d496c85" name="Changes" comment="users app migrated">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/servers/catalyst/catalyst/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/servers/catalyst/catalyst/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/servers/catalyst/catalyst/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/servers/catalyst/catalyst/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/servers/catalyst/users/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/servers/catalyst/users/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/servers/catalyst/users/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/servers/catalyst/users/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/servers/catalyst/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/servers/catalyst/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,21 +31,24 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "Saksham20402"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Saksham20402&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "git@github.com:Rexaryan1/Catalyst.git",
-    "accountId": "e2bb492b-6587-4ef0-881b-3a0a923bfd06"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;git@github.com:Rexaryan1/Catalyst.git&quot;,
+    &quot;accountId&quot;: &quot;e2bb492b-6587-4ef0-881b-3a0a923bfd06&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 4
-}]]></component>
+}</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
   <component name="ProjectId" id="2yrybsKPtKDsXqgpGWsuhBiK0Hc" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -56,20 +56,49 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Django Server.Catalyst.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "auth",
+    "git-widget-placeholder": "Migrations",
     "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "/Users/sakshamlall/Documents/Projects/Catalyst",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "ml.llm.LLMThirdPartyAiProvidersConfigurable",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration name="Catalyst" type="Python.DjangoServer" factoryName="Django server">
+      <module name="Catalyst" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DJANGO_SETTINGS_MODULE" value="catalyst.settings" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -87,6 +116,15 @@
       <updated>1750607061537</updated>
       <workItem from="1750607063249" duration="9066000" />
     </task>
+    <task id="LOCAL-00001" summary="users app migrated">
+      <option name="closed" value="true" />
+      <created>1750754840174</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1750754840174</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -102,5 +140,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="users app migrated" />
+    <option name="LAST_COMMIT_MESSAGE" value="users app migrated" />
   </component>
 </project>
