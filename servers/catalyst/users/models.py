@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.contrib.postgres.fields import ArrayField
 
 # Create your models here.
 class User(AbstractUser):
@@ -9,3 +10,23 @@ class User(AbstractUser):
     username = None
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
+
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    learning_streak = models.IntegerField(blank=True, null=True)
+    strong_topics = ArrayField(
+        base_field=models.TextField(),
+        default=list,
+        blank=True,
+    )
+    weak_topics = ArrayField(
+        base_field=models.TextField(),
+        default=list,
+        blank=True,
+    )
+    average_accuracy = models.FloatField(blank=True, null=True)
+    avg_difficulty = models.FloatField(blank=True, null=True)
+    average_time_per_question = models.FloatField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    modified_at = models.DateTimeField(auto_now=True, blank=True, null=True)
