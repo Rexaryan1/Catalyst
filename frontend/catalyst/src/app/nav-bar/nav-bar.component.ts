@@ -16,13 +16,9 @@ export class NavBarComponent {
   renderLogin(): void {
     // Logic to render the login page can be added here
     this.toggleLoginVisibility();
-    const overlay = document.getElementById('overlay');
-    if (overlay) {
-      overlay.style.display = 'block';
-    }
   }
 
-  ///* Helper functions to close the login page */
+  ///* Helper functions to close the login page and Overlay */
   toggleLoginVisibility() {
     this.showLoginPage.set(!this.showLoginPage());
     if (this.showLoginPage()) {
@@ -31,7 +27,7 @@ export class NavBarComponent {
         overlay.style.display = 'block';
       }
       overlay?.addEventListener('click', () => {
-        this.toggleLoginVisibility();
+        this.showLoginPage.set(false);
         overlay.style.display = 'none';
       });
     }
