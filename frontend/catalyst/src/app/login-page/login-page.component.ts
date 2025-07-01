@@ -44,11 +44,12 @@ export class LoginPageComponent {
     }
   }
   onSignIn() {
+    console.log('SignIn Payload:', this.signInForm.value);
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
 
-    this.http.post(`${this.apiUrl}/login/`, this.signInForm.value , {
+    this.http.post(`http://localhost:8000/api/login`, this.signInForm.value , {
       headers,
       withCredentials : true
     }).subscribe({
@@ -65,11 +66,12 @@ export class LoginPageComponent {
   }
 
   onSignUp() {
+    console.log('SignUp Payload:', this.signUpForm.value);
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
 
-    this.http.post(`${this.apiUrl}/register/`, this.signUpForm.value, {
+    this.http.post(`http://localhost:8000/api/register`, this.signUpForm.value, {
       headers,
       withCredentials: true
     }).subscribe({

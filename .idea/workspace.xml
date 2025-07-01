@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23348df1-ff3b-492a-9dff-0bb49d496c85" name="Changes" comment="users app migrated">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="23348df1-ff3b-492a-9dff-0bb49d496c85" name="Changes" comment="Frontend Auth still not working">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/servers/catalyst/catalyst/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/servers/catalyst/catalyst/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/servers/catalyst/catalyst/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/servers/catalyst/catalyst/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/servers/catalyst/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/servers/catalyst/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/catalyst/.angular/cache/17.3.17/catalyst/.tsbuildinfo" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/catalyst/.angular/cache/17.3.17/catalyst/.tsbuildinfo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/catalyst/src/app/login-page/login-page.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/catalyst/src/app/login-page/login-page.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/catalyst/src/app/login-page/login-page.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/catalyst/src/app/login-page/login-page.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +19,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -37,12 +37,12 @@
     &quot;assignee&quot;: &quot;Saksham20402&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;git@github.com:Rexaryan1/Catalyst.git&quot;,
-    &quot;accountId&quot;: &quot;e2bb492b-6587-4ef0-881b-3a0a923bfd06&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "git@github.com:Rexaryan1/Catalyst.git",
+    "accountId": "2bb71c88-293a-4248-afcf-cf86ecabef17"
   }
-}</component>
+}]]></component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -58,10 +58,12 @@
   "keyToString": {
     "Django Server.Catalyst.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Node.js.login-page.component.ts.executor": "Debug",
     "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "Migrations",
+    "git-widget-placeholder": "Auth-API",
     "junie.onboarding.icon.badge.shown": "true",
     "last_opened_file_path": "/Users/sakshamlall/Documents/Projects/Catalyst",
     "node.js.detected.package.eslint": "true",
@@ -69,6 +71,8 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "ml.llm.LLMThirdPartyAiProvidersConfigurable",
+    "ts.external.directory.path": "/Applications/WebStorm.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -102,19 +106,19 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-b26f3e71634d-JavaScript-PY-251.26094.141" />
-        <option value="bundled-python-sdk-9f8e2b94138c-36ea0e71a18c-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-251.26094.141" />
+        <option value="bundled-js-predefined-d6986cc7102b-b26f3e71634d-JavaScript-WS-251.26094.131" />
       </set>
     </attachedChunks>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="c4918d33-b8a2-4c41-923e-854124b66782" name="Changes" comment="" />
+      <changelist id="23348df1-ff3b-492a-9dff-0bb49d496c85" name="Changes" comment="users app migrated" />
       <created>1750607061537</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1750607061537</updated>
       <workItem from="1750607063249" duration="9066000" />
+      <workItem from="1751184531683" duration="14055000" />
     </task>
     <task id="LOCAL-00001" summary="users app migrated">
       <option name="closed" value="true" />
@@ -124,7 +128,15 @@
       <option name="project" value="LOCAL" />
       <updated>1750754840174</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Frontend Auth still not working">
+      <option name="closed" value="true" />
+      <created>1751300023000</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1751300023000</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -143,6 +155,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="users app migrated" />
-    <option name="LAST_COMMIT_MESSAGE" value="users app migrated" />
+    <MESSAGE value="Frontend Auth still not working" />
+    <option name="LAST_COMMIT_MESSAGE" value="Frontend Auth still not working" />
   </component>
 </project>
