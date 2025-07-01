@@ -3,6 +3,10 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 
+// This file is used to configure the application with the necessary providers and routes.
+// It sets up the router with the defined routes for the application.
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes)]
+  providers: [
+    provideRouter(routes)
+  ]
 };
