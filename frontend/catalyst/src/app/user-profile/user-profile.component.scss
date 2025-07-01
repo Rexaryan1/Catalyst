@@ -1,0 +1,33 @@
+.user-view-wrapper {
+    color: rgb(15, 7, 7);
+    background-color: rgb(21, 6, 6);
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+
+}
+
+/* IT HAS BEEN LONG SINCE */
+h1 {
+    padding: 50em;
+    margin: 2em 2em;
+    width: 11em;
+
+    padding: 30px;
+    font-family: 'Antonio';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 70.0446px;
+    line-height: 91px;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.01em;
+
+    color: #EAE9E5;
+}
+
+dashboard-card {
+    position: relative;
+    
+}

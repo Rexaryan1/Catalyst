@@ -9,7 +9,8 @@ import { NgClass } from '@angular/common';
   styleUrl: './dashboard-card.component.scss'
 })
 export class DashboardCardComponent {
-  @Input() color: any;
-  @Input() title: any;
-  @Input() content: any;
+  @Input() color: any = "";
+  @Input() title: any = "";
+  @Input() content: any = "";
+  @Input() backgroundColor: any = "";
 }

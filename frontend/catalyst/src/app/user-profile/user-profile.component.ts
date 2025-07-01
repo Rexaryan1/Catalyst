@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { DashboardCardComponent } from "../cards/dashboard-card/dashboard-card.component";
 
 @Component({
   selector: 'app-user-profile',
   standalone: true,
-  imports: [],
+  imports: [DashboardCardComponent],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.scss'
 })
