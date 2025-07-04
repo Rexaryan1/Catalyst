@@ -41,7 +41,7 @@ def fetch_relevant_questions(
     """
     try:
         # better and industry way of initialising the chroma db
-        chroma_client = chromadb.PersistentClient(path="/Users/abhinavrana/Desktop/ai-agents-for-beginners/chroma_db")
+        chroma_client = chromadb.PersistentClient(path="/Users/abhinavrana/Catalyst/servers/chroma_db")
         collection = chroma_client.get_or_create_collection(name="questions")
         search_query = f"{subject} {topic} {additional_comments}".strip()
 

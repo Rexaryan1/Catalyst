@@ -29,7 +29,7 @@ class RoadmapQuestion(models.Model):
     class Meta:
         db_table = 'roadmap_question'
         unique_together = (('roadmap', 'question'),)
-        managed = False
+        managed = True
 
 
 from django.db import models

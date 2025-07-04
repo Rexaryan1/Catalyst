@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'roadmap',
     'question',
-
+    'practice',
+    'dashboard'
 ]
 
 MIDDLEWARE = [
