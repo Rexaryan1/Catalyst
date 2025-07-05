@@ -6,9 +6,9 @@ import { NavBarComponent } from "../nav-bar/nav-bar.component";
   selector: 'dashboard',
   standalone: true,
   imports: [DashboardCardComponent, NavBarComponent],
-  templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.scss'
+  templateUrl: './landing-page.component.html',
+  styleUrl: './landing-page.component.scss'
 })
-export class Dashboard {
+export class LandingPage {
 
 }

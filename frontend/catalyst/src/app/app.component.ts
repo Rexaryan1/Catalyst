@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { RouterOutlet, RouterLink, provideRouter } from '@angular/router';
 import { NavBarComponent } from "./nav-bar/nav-bar.component";
-import { Dashboard } from './landing-page/landing-page.component';
+import { LandingPage } from './landing-page/landing-page.component';
 import { Route } from '@angular/router';
 import { routes } from './app.routes';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, NavBarComponent, Dashboard],
+  imports: [RouterOutlet, RouterLink, NavBarComponent, LandingPage],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
