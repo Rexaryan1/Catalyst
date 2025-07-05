@@ -9,8 +9,8 @@ describe('DashboardCardComponent', () => {
     await TestBed.configureTestingModule({
       imports: [DashboardCardComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(DashboardCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
