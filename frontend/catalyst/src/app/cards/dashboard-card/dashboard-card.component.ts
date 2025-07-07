@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { NgClass } from '@angular/common';
 
 @Component({
@@ -9,8 +9,8 @@ import { NgClass } from '@angular/common';
   styleUrl: './dashboard-card.component.scss'
 })
 export class DashboardCardComponent {
-  @Input() color: any = "";
-  @Input() title: any = "";
-  @Input() content: any = "";
-  @Input() backgroundColor: any = "";
+  color = input("bg-primary");
+  title = input("");
+  content = input("");
+  backgroundColor = input("");
 }
