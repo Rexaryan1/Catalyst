@@ -2,8 +2,9 @@
     [style.backgroundColor]="backgroundColor()">
     <!-- <img src="..." class="card-img-top" alt="..."> -->
     <div class="card-body">
-        <h5 class="card-title display-6 p-3">{{title()}}</h5>
-        <p class="card-text">{{content()}}</p>
+        <h5 *ngIf="title()" class="card-title display-6 p-3">{{title()}}</h5>
+        <p *ngIf="!displayImg" class="card-text">{{content}}</p>
+        <img *ngIf="displayImg" [src]="content" class="rounded-3" alt="Card image">
         <!-- <a href="#" class="btn btn-secondary align-bottom">Go somewhere</a> -->
     </div>
 </div>
