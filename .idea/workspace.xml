@@ -4,29 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23348df1-ff3b-492a-9dff-0bb49d496c85" name="Changes" comment="Frontend Auth still not working">
+    <list default="true" id="346ef7fb-361c-4837-bbe6-36ebf939613a" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/Catalyst.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Catalyst.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/catalyst/.angular/cache/17.3.17/catalyst/.tsbuildinfo" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/catalyst/.angular/cache/17.3.17/catalyst/.tsbuildinfo" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/catalyst/src/app/login-page/login-page.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/catalyst/src/app/login-page/login-page.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/catalyst/src/app/login-page/login-page.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/catalyst/src/app/login-page/login-page.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/catalyst/.angular/cache/17.3.17/vite/deps/_metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/catalyst/.angular/cache/17.3.17/vite/deps/_metadata.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/catalyst/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/catalyst/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/catalyst/src/app/Pages/landing-page/landing-page.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/catalyst/src/app/Pages/landing-page/landing-page.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/catalyst/src/app/Pages/landing-page/landing-page.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/catalyst/src/app/Pages/landing-page/landing-page.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/catalyst/src/app/Pages/landing-page/landing-page.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/catalyst/src/app/Pages/landing-page/landing-page.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/catalyst/src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/catalyst/src/app/app.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/catalyst/src/app/nav-bar/nav-bar.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/catalyst/src/app/nav-bar/nav-bar.component.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Python Script" />
-        <option value="TypeScript File" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="Migrations" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -43,35 +41,28 @@
     "accountId": "2bb71c88-293a-4248-afcf-cf86ecabef17"
   }
 }]]></component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
-  </component>
   <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 4
+  &quot;associatedIndex&quot;: 6
 }</component>
-  <component name="ProjectId" id="2yrybsKPtKDsXqgpGWsuhBiK0Hc" />
+  <component name="ProjectId" id="2z8MWlzaUyhEe8IMgojCrbjQT2G" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Django Server.Catalyst.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Node.js.login-page.component.ts.executor": "Debug",
     "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "Auth-API",
+    "git-widget-placeholder": "HomePage",
     "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "/Users/sakshamlall/Documents/Projects/Catalyst",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "ml.llm.LLMThirdPartyAiProvidersConfigurable",
     "ts.external.directory.path": "/Applications/WebStorm.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external",
     "vue.rearranger.settings.migration": "true"
   }
@@ -84,7 +75,6 @@
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
-        <env name="DJANGO_SETTINGS_MODULE" value="catalyst.settings" />
       </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="" />
@@ -112,50 +102,18 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="23348df1-ff3b-492a-9dff-0bb49d496c85" name="Changes" comment="users app migrated" />
-      <created>1750607061537</created>
+      <changelist id="346ef7fb-361c-4837-bbe6-36ebf939613a" name="Changes" comment="" />
+      <created>1751108282548</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1750607061537</updated>
-      <workItem from="1750607063249" duration="9066000" />
-      <workItem from="1751184531683" duration="14055000" />
+      <updated>1751108282548</updated>
+      <workItem from="1751108283932" duration="1373000" />
+      <workItem from="1751643577129" duration="6264000" />
+      <workItem from="1752165338183" duration="369000" />
     </task>
-    <task id="LOCAL-00001" summary="users app migrated">
-      <option name="closed" value="true" />
-      <created>1750754840174</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1750754840174</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Frontend Auth still not working">
-      <option name="closed" value="true" />
-      <created>1751300023000</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1751300023000</updated>
-    </task>
-    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="users app migrated" />
-    <MESSAGE value="Frontend Auth still not working" />
-    <option name="LAST_COMMIT_MESSAGE" value="Frontend Auth still not working" />
   </component>
 </project>
