@@ -3,3 +3,4 @@ package-lock.json
 .gitignore
 */server/.env
 .env
+.angular
