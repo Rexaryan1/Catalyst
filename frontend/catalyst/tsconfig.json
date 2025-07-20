@@ -8,7 +8,7 @@
       "@app/*": ["app/*"],
       "@assets/*": ["assets/*"],
       "@pages/*": ["app/Pages/*"],
-      "@cards/*": ["./app/cards/*"],
+      "@components/*": ["app/components/*"],
       "@environments/*": ["environments/*"]
     },
     "strict": true,

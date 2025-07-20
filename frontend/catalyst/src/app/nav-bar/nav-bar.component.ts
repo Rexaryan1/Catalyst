@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { LoginPageComponent } from "../cards/login-page/login-page.component";
+import { LoginPageComponent } from "../components/cards/login-page/login-page.component";
 import { NgIf } from '@angular/common';
 import e from 'express';
 @Component({

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DashboardCardComponent } from '@cards/dashboard-card/dashboard-card.component';
+import { DashboardCardComponent } from '@app/components/cards/dashboard-card/dashboard-card.component';
 @Component({
   selector: 'app-user-profile',
   standalone: true,

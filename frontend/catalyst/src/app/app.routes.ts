@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginPageComponent } from './cards/login-page/login-page.component';
-import { QuestionCardComponent } from './cards/question-card/question-card.component';
+import { LoginPageComponent } from './components/cards/login-page/login-page.component';
+import { QuestionCardComponent } from './components/cards/question-card/question-card.component';
 import { UserProfileComponent } from './Pages/user-profile/user-profile.component';
 import { LandingPage } from '@pages/landing-page/landing-page.component';
 import { PromptPageComponent } from '@pages/prompt-page/prompt-page.component';
