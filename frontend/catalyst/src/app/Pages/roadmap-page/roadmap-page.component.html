@@ -1,0 +1,13 @@
+<!-- app.component.html -->
+<div style="text-align: center;">
+  <h1>{{ title }}</h1>
+</div>
+
+<div style="height: 600px; width: 100%; padding: 20px; box-sizing: border-box;">
+  <app-mind-map
+    [data]="mindMapData"
+    [showProgress]="true"
+    (nodeClick)="handleNodeClick($event)">
+  </app-mind-map>
+</div>
+
