@@ -1,0 +1,57 @@
+<div class="mind-map-container">
+  <svg
+    [attr.width]="width"
+    [attr.height]="height"
+    class="mind-map-svg">
+
+    <!-- Edges -->
+    <g class="edges">
+      <line
+        *ngFor="let edge of processedEdges; trackBy: trackEdge"
+        [attr.x1]="edge.x1"
+        [attr.y1]="edge.y1"
+        [attr.x2]="edge.x2"
+        [attr.y2]="edge.y2"
+        class="edge">
+      </line>
+    </g>
+
+    <!-- Nodes -->
+    <g class="nodes">
+      <g *ngFor="let node of processedNodes; trackBy: trackNode"
+         [attr.transform]="'translate(' + node.x + ',' + node.y + ')'">
+
+        <!-- Progress ring background -->
+        <circle *ngIf="showProgress && node.progress !== undefined"
+                [attr.r]="getNodeRadius(node) + 4"
+                class="progress-background">
+        </circle>
+
+        <!-- Progress ring -->
+        <circle *ngIf="showProgress && node.progress !== undefined"
+                [attr.r]="getNodeRadius(node) + 4"
+                class="progress-ring"
+                [attr.stroke-dasharray]="getProgressCircumference(node)"
+                [attr.stroke-dashoffset]="getProgressOffset(node)">
+        </circle>
+
+        <!-- Main node -->
+        <circle
+          [attr.r]="getNodeRadius(node)"
+          [attr.class]="'node node-' + node.type"
+          [attr.fill]="node.style?.fill"
+          (click)="onNodeClick(node)">
+        </circle>
+
+        <!-- Node label -->
+        <text
+          dy="0.35em"
+          text-anchor="middle"
+          class="node-text"
+          [attr.fill]="node.style?.textColor">
+          {{ node.label }}
+        </text>
+      </g>
+    </g>
+  </svg>
+</div>

@@ -1,5 +1,6 @@
-import { ApplicationConfig } from '@angular/core';
+import { ApplicationConfig , } from '@angular/core';
 import { provideRouter } from '@angular/router';
+
 
 import { routes } from './app.routes';
 
@@ -7,6 +8,7 @@ import { routes } from './app.routes';
 // It sets up the router with the defined routes for the application.
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(routes)
+    provideRouter(routes),
+
   ]
 };
