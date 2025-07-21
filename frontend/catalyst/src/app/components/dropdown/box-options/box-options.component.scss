@@ -1,0 +1,26 @@
+.options-container {
+    width: 10rem;
+    background-color: #292929f8;
+    border: 1px solid #ccc;
+
+    position: absolute;
+    max-height: 10rem;
+    overflow-y: scroll;
+
+    font-size: x-small;
+}
+
+.options-title {
+    margin-bottom: 0.5rem;
+
+}
+
+.option-text {
+    padding: 0.5rem;
+    font-size: x-small;
+}
+
+.list-group-item {
+    color: #fff;
+    margin: 5px;
+}
