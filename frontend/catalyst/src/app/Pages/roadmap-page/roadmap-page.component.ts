@@ -1,7 +1,7 @@
 
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import{MindMapComponent, MindMapNode} from "@cards/mind-map/mind-map.component";
+import { MindMapComponent, MindMapNode } from "@app/cards/mind-map/mind-map.component";
 
 
 
