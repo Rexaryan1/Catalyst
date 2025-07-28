@@ -1,5 +1,5 @@
-.user-view-wrapper {
-    color: rgb(15, 7, 7);
+:host {
+    color: rgb(228, 222, 222);
     background-color: rgb(21, 6, 6);
     height: 100%;
     width: 100%;
@@ -7,9 +7,9 @@
 }
 
 /* IT HAS BEEN LONG SINCE */
-h1 {
-    padding: 50em;
-    margin: 2em 2em;
+h2 {
+    padding: 0.5rem;
+    margin: 0.25rem 5em 0em 1em;
     width: 11em;
 
     padding: 30px;
@@ -21,17 +21,18 @@ h1 {
     align-items: center;
     letter-spacing: 0.01em;
 
-    color: #EAE9E5;
+    color: #888888d7;
 }
 
-dashboard-card {
-    .card-body {
-        opacity: 0;
-        // position: relative;
-        // margin: 12px;
-    }
+#topHalf,
+#bottomHalf {
+    display: inline-block;
+    height: 50%;
+}
 
-    display: flex;
-    width: 350px;
-    height: 350px;
+img {
+    object-fit: cover;
+    transform: translate(calc(50vw - 50%), 5vh);
+    height: 45vh;
+    width: 25vw;
 }
