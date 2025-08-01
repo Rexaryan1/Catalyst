@@ -17,10 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls.conf import include
+from notifications.views import save_push_subscription
+from notifications.views import get_vapid_public_key
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('users.urls')),
     path("roadmap/", include("roadmap.urls")),
-
+    path('api/save-push-subscription/', save_push_subscription),
+    path('api/vapid-public-key/', get_vapid_public_key, name='vapid_public_key')
 ]

@@ -6,6 +6,7 @@ from django.contrib.postgres.fields import ArrayField
 class Question(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     topic = models.CharField(max_length=255, blank=True, null=True)
+    subject = models.CharField(max_length=255, blank=True, null=True)
     difficulty = models.CharField(max_length=50, blank=True,
                                   null=True)  # Instead of TextField, since difficulty is likely a short string like 'easy', 'medium'
     source = models.TextField(blank=True, null=True)

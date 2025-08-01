@@ -11,6 +11,12 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+from celery.schedules import crontab
+import os
+from dotenv import load_dotenv
+from datetime import timedelta
+import nltk
+nltk.data.path.append('/opt/nltk_data')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -43,7 +49,8 @@ INSTALLED_APPS = [
     'roadmap',
     'question',
     'practice',
-    'dashboard'
+    'dashboard',
+    'notifications'
 ]
 
 MIDDLEWARE = [
@@ -150,3 +157,41 @@ CORS_ALLOWED_ORIGINS = [
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
+
+CELERY_BROKER_URL = 'rediss://:ARgjAAIjcDEzYzUxODMxN2NlMDA0ZTBmYjQ5Y2RkNWU0Mzg5MzM3MnAxMA@dashing-monkfish-6179.upstash.io:6379/0'  
+CELERY_RESULT_BACKEND = 'django-db'
+INSTALLED_APPS += ['django_celery_results']
+INSTALLED_APPS += ['django_celery_beat']
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+EMAIL_HOST_USER = 'rmitu22@gmail.com'
+EMAIL_HOST_PASSWORD = 'lixiaxsllqrzzegr'
+
+# Default "from" email address for outgoing emails
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+# Your sending email constant (used in your send method)
+CATALYST_EMAIL = DEFAULT_FROM_EMAIL
+
+
+CELERY_BEAT_SCHEDULE = {
+    'send_daily_notifications': {
+        'task': 'notifications.tasks.send_daily_notifications',
+        'schedule': timedelta(seconds=30),  # every 30 seconds
+    },
+}
+
+# # only for testing purposes
+# CELERY_TASK_ALWAYS_EAGER = True
+
+
+
+load_dotenv(os.path.join(BASE_DIR, '.env'), override=True)
+VAPID_PUBLIC_KEY = os.getenv('VAPID_PUBLIC_KEY')
+VAPID_PRIVATE_KEY = os.getenv('VAPID_PRIVATE_KEY')
+if not VAPID_PUBLIC_KEY or not VAPID_PRIVATE_KEY:
+    raise Exception("VAPID keys are missing. Please set them in your .env file.")
