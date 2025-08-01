@@ -12,6 +12,7 @@ import {RoadmapPageComponent} from "@pages/roadmap-page/roadmap-page.component";
 
 
 
+
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'home', component: LandingPage },
@@ -19,7 +20,6 @@ export const routes: Routes = [
     { path: 'questionCard', component: QuestionCardComponent },
     { path: 'userHome', component: UserProfileComponent },
     {path : 'plan' , component : StudyPlanComponent},
-  {path: 'roadmap' , component : RoadmapPageComponent}
-
+    {path: 'roadmap' , component : RoadmapPageComponent}
 
 ];
