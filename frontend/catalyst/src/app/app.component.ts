@@ -2,9 +2,6 @@ import { Component } from '@angular/core';
 import { RouterOutlet, RouterLink, provideRouter } from '@angular/router';
 import { NavBarComponent } from "./nav-bar/nav-bar.component";
 import { LandingPage } from './Pages/landing-page/landing-page.component';
-import { Route } from '@angular/router';
-import { routes } from './app.routes';
-import "@fontsource/antonio";
 
 @Component({
   selector: 'app-root',
