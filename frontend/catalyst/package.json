@@ -20,7 +20,6 @@
     "@angular/platform-browser": "^17.3.0",
     "@angular/platform-browser-dynamic": "^17.3.0",
     "@angular/router": "^17.3.0",
-    "@fontsource/antonio": "^5.2.6",
     "angular-calendar-heatmap": "^0.3.2",
     "bootstrap": "^5.3.7",
     "cal-heatmap": "^4.2.4",
