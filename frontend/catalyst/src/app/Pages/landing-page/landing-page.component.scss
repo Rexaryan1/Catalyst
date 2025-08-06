@@ -34,8 +34,23 @@ dashboard-card {
   font-family: 'Antonio';
   color: #EAE9E5;
   font-weight: bold;
-  font-size: 5rem;
+  font-size: 6rem;
   margin-bottom: 0.5rem;
+
+  @media (max-width: 768px) {
+    font-size: 3rem;
+  }
+}
+.hero-subtitle {
+  font-family: 'Antonio';
+  color: #EAE9E5;
+  font-weight: bold;
+  font-size: 3.5rem;
+  margin-bottom: 0.5rem;
+
+  @media (max-width: 768px) {
+    font-size: 3rem;
+  }
 
   @media (max-width: 768px) {
     font-size: 3rem;
