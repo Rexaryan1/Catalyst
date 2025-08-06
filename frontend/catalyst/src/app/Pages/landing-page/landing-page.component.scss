@@ -1,23 +1,23 @@
 .dashboard-container {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 h1 {
-    font-family: 'Antonio';
-    color: #9dadec;
-    font-weight: bold;
-    font-size: 5rem;
+  font-family: 'Antonio';
+  color: #9dadec;
+  font-weight: bold;
+  font-size: 5rem;
 }
 
 dashboard-card {
-    // .card-body {
-    //     position: relative;
-    //     margin: 12px;
-    width: 24vw;
-    min-height: 23rem;
-    height: 23rem;
-    // }
+  // .card-body {
+  //     position: relative;
+  //     margin: 12px;
+  width: 24vw;
+  min-height: 23rem;
+  height: 23rem;
+  // }
 }
 
 .dashboard-container {
@@ -41,6 +41,7 @@ dashboard-card {
     font-size: 3rem;
   }
 }
+
 .hero-subtitle {
   font-family: 'Antonio';
   color: #EAE9E5;
@@ -98,7 +99,7 @@ dashboard-card {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 
   &:hover {
-    transform: translateY(-5px);
+    transform: translateY(-10px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
   }
 }
@@ -166,5 +167,3 @@ dashboard-card {
     grid-row: 3;
   }
 }
-
-

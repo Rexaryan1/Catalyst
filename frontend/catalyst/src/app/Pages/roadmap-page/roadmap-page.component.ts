@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
-import {RoadmapListComponent} from "@pages/roadmap-list/roadmap-list.component";
-import {NavBarComponent} from "@app/nav-bar/nav-bar.component";
+import { RoadmapListComponent } from "@pages/roadmap-page/roadmap-list/roadmap-list.component";
+import { NavBarComponent } from "@app/nav-bar/nav-bar.component";
 
 @Component({
   selector: 'app-roadmap-page',
