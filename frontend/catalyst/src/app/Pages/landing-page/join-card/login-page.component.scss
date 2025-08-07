@@ -246,3 +246,19 @@ footer a {
 	color: #3c97bf;
 	text-decoration: none;
 }
+
+@media screen and (max-width: 768px) {
+	.container {
+		width: 90%;
+		left: 5%;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+
+	.overlay-container {
+		display: none;
+	}
+	.form-container {
+		width: 100%;
+	}
+}
