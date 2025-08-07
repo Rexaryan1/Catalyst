@@ -8,6 +8,7 @@ import { PromptPageComponent } from '@pages/prompt-page/prompt-page.component';
 import {StudyPlanComponent} from "@pages/study-plan/study-plan.component";
 import {RoadmapListComponent} from "@pages/roadmap-list/roadmap-list.component";
 import {RoadmapPageComponent} from "@pages/roadmap-page/roadmap-page.component";
+import {authGuard} from "@app/services/auth/auth.guard";
 
 
 
@@ -18,7 +19,7 @@ export const routes: Routes = [
     { path: 'home', component: LandingPage },
     { path: 'prompt', component: PromptPageComponent },
     { path: 'questionCard', component: QuestionCardComponent },
-    { path: 'userHome', component: UserProfileComponent },
+    { path: 'userHome', component: UserProfileComponent , canActivate: [authGuard]},
     {path : 'plan' , component : StudyPlanComponent},
     {path: 'roadmap' , component : RoadmapPageComponent}
 

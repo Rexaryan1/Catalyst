@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { DashboardCardComponent } from '@app/components/cards/dashboard-card/dashboard-card.component';
-import { NavButton } from './nav-button/nav-button.component';
+import { NavButtonComponent } from './nav-button/nav-button.component';
 import { RoadmapsScrollComponent } from "./roadmaps-scroll/roadmaps-scroll.component";
 @Component({
   selector: 'app-user-profile',
   standalone: true,
-  imports: [DashboardCardComponent, NavButton, RoadmapsScrollComponent],
+  imports: [DashboardCardComponent, NavButtonComponent, RoadmapsScrollComponent],
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.scss']
 })

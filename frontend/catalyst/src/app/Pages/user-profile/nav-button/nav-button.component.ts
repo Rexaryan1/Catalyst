@@ -7,7 +7,7 @@ import { Component, Input } from '@angular/core';
   templateUrl: './nav-button.component.html',
   styleUrl: './nav-button.component.scss'
 })
-export class NavButton {
+export class NavButtonComponent {
 
   @Input() key: string = '';
   @Input() value: string = '';

@@ -56,7 +56,7 @@ export class LoginPageComponent {
       next: (response: any) => {
         // Store JWT token
         localStorage.setItem('jwt', response.jwt);
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/userHome']);
       },
       error: (error) => {
         console.error('Login failed:', error);
