@@ -16,19 +16,17 @@ body {
 	margin: 0;
 }
 
-.courses-container {
-	
-}
 
 .course {
 	background-color: #fff;
 	border-radius: 10px;
 	box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
 	display: flex;
-	max-width: 100%;
 	margin: 20px;
 	overflow: hidden;
-	width: 700px;
+
+	width: 60vw;
+	height: 80vh;
 }
 
 .course h6 {
@@ -40,7 +38,7 @@ body {
 
 .course h2 {
 	letter-spacing: 1px;
-	margin: 10px 0;
+	margin: 10px 0 40px 0;
 }
 
 .course-preview {
@@ -67,10 +65,10 @@ body {
 
 .progress-container {
 	position: absolute;
-	top: 30px;
-	right: 30px;
+	top: 50px;
+	right: 40px;
 	text-align: right;
-	width: 150px;
+	width: 10vw;
 }
 
 .progress {
@@ -92,9 +90,17 @@ body {
 }
 
 .progress-text {
-	font-size: 10px;
+	font-size: 14px;
 	opacity: 0.6;
-	letter-spacing: 1px;
+	letter-spacing: 1.5px;
+	margin-top: 10px;
+}
+
+.question-text {
+	font-size: 30px;
+	line-height: 1.5;
+	margin: 70px 0 0 0;
+	opacity: 0.5;
 }
 
 .btn {
