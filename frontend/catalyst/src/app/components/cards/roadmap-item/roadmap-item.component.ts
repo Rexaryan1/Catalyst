@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RoadmapItem, Question } from './roadmap-item.interface';
+import { DisplayManagerService } from '@services/display-manager/display-manager.service';
 
 @Component({
   selector: 'app-roadmap-item',
@@ -11,6 +12,8 @@ import { RoadmapItem, Question } from './roadmap-item.interface';
 })
 
 export class RoadmapItemComponent {
+  constructor(private displayManager: DisplayManagerService) {}
+
   @Input() roadmapItem!: RoadmapItem;
   @Output() saveToggle = new EventEmitter<string>();
   @Output() questionClick = new EventEmitter<{roadmapId: string, questionId: string}>();
@@ -30,6 +33,7 @@ export class RoadmapItemComponent {
       roadmapId: this.roadmapItem.id,
       questionId: questionId
     });
+    this.displayManager.displayOverlay("question", questionId);
   }
 
   onQuestionBookmark(questionId: string): void {

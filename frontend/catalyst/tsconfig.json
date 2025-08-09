@@ -9,7 +9,8 @@
       "@assets/*": ["assets/*"],
       "@pages/*": ["app/Pages/*"],
       "@components/*": ["app/components/*"],
-      "@environments/*": ["environments/*"]
+      "@environments/*": ["environments/*"],
+      "@services/*": ["app/services/*"],
     },
     "strict": true,
     "noImplicitOverride": true,
