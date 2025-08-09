@@ -8,7 +8,8 @@
   min-height: 100vh;
 }
 
-.left-panel, .right-panel {
+.left-panel,
+.right-panel {
   width: 50%;
   box-sizing: border-box;
 }
@@ -20,7 +21,8 @@
   gap: 26px;
   max-height: 100vh;
   overflow-y: auto;
-  padding-right: 8px; /* Space for scrollbar */
+  padding-right: 8px;
+  /* Space for scrollbar */
 }
 
 /* Roadmap block - Linear layout with exact dimensions */
@@ -153,13 +155,14 @@
 }
 
 /* Responsive design */
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
   .container {
-    flex-direction: column;
+    flex-direction: row;
     gap: 16px;
   }
 
-  .left-panel, .right-panel {
+  .left-panel,
+  .right-panel {
     width: 100%;
   }
 

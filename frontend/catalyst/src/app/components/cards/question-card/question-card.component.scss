@@ -6,12 +6,12 @@
 
 :host {
 	position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		padding: 2rem;
-		border-radius: 8px;
-		z-index: 1000;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	padding: 2rem;
+	border-radius: 8px;
+	z-index: 1000;
 }
 
 body {
@@ -54,17 +54,18 @@ body {
 	background-color: #2A265F;
 	color: #fff;
 	padding: 30px;
-	max-width: 250px;
+	width: clamp(210px, 14vw, 300px);
+
+	a {
+		color: #fff;
+		display: inline-block;
+		font-size: 12px;
+		opacity: 0.6;
+		margin-top: 30px;
+		text-decoration: none;
+	}
 }
 
-.course-preview a {
-	color: #fff;
-	display: inline-block;
-	font-size: 12px;
-	opacity: 0.6;
-	margin-top: 30px;
-	text-decoration: none;
-}
 
 .roadmap-info {
 	padding: 30px;
@@ -139,10 +140,10 @@ body {
 	transform: translateX(-10px);
 }
 
-.social-panel {	
+.social-panel {
 	background-color: #fff;
 	border-radius: 16px;
-	box-shadow: 0 16px 31px -17px rgba(0,31,97,0.6);
+	box-shadow: 0 16px 31px -17px rgba(0, 31, 97, 0.6);
 	border: 5px solid #001F61;
 	display: flex;
 	flex-direction: column;
@@ -150,7 +151,7 @@ body {
 	align-items: center;
 	font-family: 'Muli';
 	position: relative;
-	height: 169px;	
+	height: 169px;
 	width: 370px;
 	max-width: calc(100% - 10px);
 }
@@ -196,9 +197,9 @@ body {
 
 .social-panel h4 {
 	margin: 20px 0;
-	color: #97A5CE;	
-	font-family: 'Muli';	
-	font-size: 14px;	
+	color: #97A5CE;
+	font-family: 'Muli';
+	font-size: 14px;
 	line-height: 18px;
 	text-transform: uppercase;
 }
@@ -276,13 +277,10 @@ body {
 	text-decoration: none;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 1400px) {
 
-	.social-panel-container.visible {
-		transform: translateX(0px);
+	.course-preview {
+		display: none;
 	}
-	
-	.floating-btn {
-		right: 10px;
-	}
+
 }
