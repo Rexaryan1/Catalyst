@@ -1,7 +1,7 @@
 from django.urls import path
 
-from . import views
+from dashboard.views import get_user_profileData
 
 urlpatterns = [
-    path('' , views.index , name='index'),
+    path("get/", get_user_profileData, name="user-profile"),
 ]

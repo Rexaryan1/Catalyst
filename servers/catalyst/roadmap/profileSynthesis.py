@@ -4,12 +4,18 @@ from django.core.exceptions import ObjectDoesNotExist
 from users.models import UserProfile
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
-from langchain_groq import ChatGroq
+from langchain_cerebras import ChatCerebras
 from django.conf import settings
-from catalyst.constants import LLM_MODEL
+import os
+from dotenv import load_dotenv
+from catalyst.constants import LLM_MODEL, MAX_TOKENS1, LLM_TEMP1
 
 logger = logging.getLogger(__name__)
 
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.abspath(os.path.join(CURRENT_DIR, '..'))
+load_dotenv(os.path.join(BASE_DIR, '.env'), override=True)
+CEREBRAS_API_KEY = os.getenv("CEREBRAS_API_KEY")
 
 def buildUserProfile(user_id: str) -> Dict[str, str]:
     """
@@ -57,11 +63,11 @@ def buildUserProfile(user_id: str) -> Dict[str, str]:
         Keep it concise, grounded in the data, and easy for an LLM or a human coach to reuse in a personalized roadmap.
         """
 
-        llm = ChatGroq(
+        llm = ChatCerebras(
             model=LLM_MODEL, 
-            api_key=settings.AI["key"],
-            temperature=0.3,
-            max_tokens=600
+            api_key=CEREBRAS_API_KEY,
+            temperature=LLM_TEMP1,
+            max_tokens=MAX_TOKENS1
         )
         prompt = PromptTemplate.from_template(template)
         chain = LLMChain(llm=llm, prompt=prompt)

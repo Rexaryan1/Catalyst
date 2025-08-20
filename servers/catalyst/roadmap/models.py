@@ -18,6 +18,7 @@ class Roadmap(models.Model):
         db_table = 'roadmaps'
         verbose_name = "Roadmap"
         verbose_name_plural = "Roadmaps"
+        unique_together = ('user', 'title')
 
     def __str__(self):
         return self.title

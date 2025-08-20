@@ -6,6 +6,9 @@ from .models import WebPushSubscription
 from pywebpush import webpush, WebPushException
 import json
 from django.conf import settings
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 
 class NotificationObserver:
     def send(self, user, message, **kwargs):
@@ -13,12 +16,26 @@ class NotificationObserver:
 
 class EmailObserver(NotificationObserver):
     def send(self, user, message, **kwargs):
-        send_mail(
-            subject="Your New Learning Notification",
-            message=message,
+        subject = "Your New Learning Notification"
+
+        # Render the HTML content from template (image URL is hardcoded in template)
+        html_content = render_to_string('email/notification.html', {
+            'subject': subject,
+            'user_name': user.name,
+            'message': message,
+        })
+
+        # Create plain-text version for email clients that do not support HTML
+        text_content = strip_tags(html_content)
+
+        email = EmailMultiAlternatives(
+            subject=subject,
+            body=text_content,
             from_email=CATALYST_EMAIL,
-            recipient_list=[user.email],
+            to=[user.email],
         )
+        email.attach_alternative(html_content, "text/html")
+        email.send()
 
 class PushObserver(NotificationObserver):
     def send(self, user, message, **kwargs):

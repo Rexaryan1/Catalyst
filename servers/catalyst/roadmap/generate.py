@@ -5,11 +5,11 @@ from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 import json
 import logging
-from langchain_groq import ChatGroq
+from langchain_cerebras import ChatCerebras
 from django.conf import settings
 import os
 from dotenv import load_dotenv
-from catalyst.constants import MAX_QUESTIONS_PER_ROADMAP, TRANSFORMERS_MODEL, COLLECTION_NAME, LLM_MODEL
+from catalyst.constants import MAX_QUESTIONS_PER_ROADMAP, TRANSFORMERS_MODEL, COLLECTION_NAME, LLM_MODEL1, MAX_TOKENS, LLM_TEMP2
 from qdrant_client import QdrantClient
 import torch
 import numpy as np
@@ -31,6 +31,7 @@ load_dotenv(os.path.join(BASE_DIR, '.env'), override=True)
 
 VECTOR_DB_URL = os.getenv("VECTOR_DB_URL")
 VECTOR_DB_KEY = os.getenv("VECTOR_DB_KEY")
+CEREBRAS_API_KEY = os.getenv("CEREBRAS_API_KEY")
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -39,7 +40,12 @@ def generate_roadmap(user_id: str, subject: str, topic: str, additional_comments
     Full pipeline: builds user profile, fetches questions, and composes roadmap via LLM or fallback.
     """
     try:
-        llm = ChatGroq(model_name=LLM_MODEL, api_key=settings.AI["key"])
+        llm = ChatCerebras(
+            model_name=LLM_MODEL1, 
+            api_key=CEREBRAS_API_KEY,
+            temperature=LLM_TEMP2,
+            max_tokens=MAX_TOKENS
+        )
         profile = buildUserProfile(user_id)
         question_set = fetch_relevant_questions(subject, topic, MAX_QUESTIONS_PER_ROADMAP, additional_comments)
 

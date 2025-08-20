@@ -103,10 +103,10 @@ DATABASES = {
     }
 }
 
-AI = {
-    "key": "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",
-    "model": "llama3-8b-8192"
-}
+# AI = {
+#     "key": "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",
+#     "model": "llama3-8b-8192"
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators

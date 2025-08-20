@@ -6,11 +6,13 @@ from notifications.services.qloo_service import fetch_qloo_interests, deduplicat
 from notifications.models import Notification
 from notifications.observer import EmailObserver, PushObserver, NotificationDistributor
 import logging
+import os
+from dotenv import load_dotenv
 from langchain import LLMChain
-from langchain_groq import ChatGroq
+from langchain_cerebras import ChatCerebras
 from langchain.prompts import PromptTemplate
 from django.conf import settings
-from catalyst.constants import NOTIFICATION_PROMPT_TEMPLATE, LLM_TEMP, MAX_TOKENS, LLM_MODEL
+from catalyst.constants import NOTIFICATION_PROMPT_TEMPLATE, LLM_TEMP, MAX_TOKENS1, LLM_MODEL
 import re
 from collections import Counter
 import nltk
@@ -19,7 +21,10 @@ import random
 from nltk import pos_tag, word_tokenize, bigrams
 
 logger = logging.getLogger(__name__)
-
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.abspath(os.path.join(CURRENT_DIR, '..'))
+load_dotenv(os.path.join(BASE_DIR, '.env'), override=True)
+CEREBRAS_API_KEY = os.getenv("CEREBRAS_API_KEY")
 @shared_task
 def process_user_interests_async(user_id, comments):
     try:
@@ -68,11 +73,11 @@ def send_daily_notifications(self):
     distributor.register(EmailObserver())
     distributor.register(PushObserver())
 
-    llm = ChatGroq(
+    llm = ChatCerebras(
         model=LLM_MODEL,
-        api_key=settings.AI["key"],
+        api_key=CEREBRAS_API_KEY,
         temperature=LLM_TEMP,
-        max_tokens=MAX_TOKENS
+        max_tokens=MAX_TOKENS1
     )
     NOTIFICATION_PROMPT = NOTIFICATION_PROMPT_TEMPLATE
     prompt = PromptTemplate.from_template(NOTIFICATION_PROMPT)
