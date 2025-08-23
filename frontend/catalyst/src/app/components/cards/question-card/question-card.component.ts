@@ -1,4 +1,4 @@
-import { Input, Component, Output, EventEmitter } from '@angular/core';
+import { Input, Component, Output, EventEmitter, input } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
@@ -10,6 +10,8 @@ import { RouterModule } from '@angular/router';
   styleUrl: './question-card.component.scss'
 })
 export class QuestionCardComponent {
+  
+  @Input() question: any;
 
   ngAfterViewInit() {
     const floating_btn = document.querySelector('.floating-btn');
