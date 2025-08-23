@@ -15,10 +15,14 @@ from celery.schedules import crontab
 import os
 from dotenv import load_dotenv
 from datetime import timedelta
+import os
 import nltk
-nltk.data.path.append('/opt/nltk_data')
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+NLTK_DATA_PATH = os.path.join(BASE_DIR, 'nltk_data')
+
+nltk.data.path.append(NLTK_DATA_PATH)
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
