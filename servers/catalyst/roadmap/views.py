@@ -33,7 +33,7 @@ def generate_roadmap_view(request):
         roadmap_formatted = reshape_roadmap_for_response(roadmap)
         roadmap_instance = save_roadmap_response(user_id, raw_roadmap_data=roadmap_formatted)
         comments = serializer.validated_data.get(ADDITIONAL_COMMENTS, '')
-        process_user_interests_async.delay(user_id, comments)
+#        process_user_interests_async.delay(user_id, comments)
         return Response(
             {
                 "message": "Roadmap generated successfully",
