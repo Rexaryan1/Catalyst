@@ -35,7 +35,8 @@ SECRET_KEY = 'django-insecure-dj%m-9=0b118+=&&_-c^dg1fd)n=h8_#a+&o5m3%7err!qg*%-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['catalyst-38ab.onrender.com','localhost', '127.0.0.1']
+
 
 
 # Application definition
