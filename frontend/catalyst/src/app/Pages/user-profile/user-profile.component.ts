@@ -2,6 +2,14 @@ import { Component } from '@angular/core';
 import { DashboardCardComponent } from '@app/components/cards/dashboard-card/dashboard-card.component';
 import { NavButton } from './nav-button/nav-button.component';
 import { RoadmapsScrollComponent } from "./roadmaps-scroll/roadmaps-scroll.component";
+import { DataManagerService } from '@services/data-manager/data-manager.service';
+
+export interface UserProfile {
+  name: string;
+  email: string;
+  bio: string;
+}
+
 @Component({
   selector: 'app-user-profile',
   standalone: true,
@@ -15,6 +23,18 @@ export class UserProfileComponent {
     email: 'john.doe@example.com',
     bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
   };
+  constructor(private dataService: DataManagerService) {}
 
+  ngOnInit() {
+    this.dataService.loadData<UserProfile>('user', async () => {
+      const res = await fetch('/api/user');
+      return await res.json();
+    });
 
+    this.dataService.select<UserProfile>('user').subscribe(user => {
+      if (user) {
+        this.user = user;
+      }
+    }
+  }
 }
