@@ -66,6 +66,7 @@ googleapis-common-protos==1.70.0
 groq==0.26.0
 grpcio==1.72.1
 grpcio-status==1.71.0
+gunicorn==23.0.0
 h11==0.16.0
 h2==4.2.0
 h5py==3.14.0

@@ -23,8 +23,15 @@ from nltk import pos_tag, word_tokenize, bigrams
 logger = logging.getLogger(__name__)
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 BASE_DIR = os.path.abspath(os.path.join(CURRENT_DIR, '..'))
-load_dotenv(os.path.join(BASE_DIR, '.env'), override=True)
+
+if os.getenv("RENDER") != "true":
+    load_dotenv(os.path.join(BASE_DIR, '.env'), override=True)
+
 CEREBRAS_API_KEY = os.getenv("CEREBRAS_API_KEY")
+
+if not CEREBRAS_API_KEY:
+    raise Exception("CEREBRAS_API_KEY is missing. Please set it as an environment variable.")
+
 @shared_task
 def process_user_interests_async(user_id, comments):
     try:

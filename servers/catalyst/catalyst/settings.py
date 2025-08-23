@@ -181,7 +181,7 @@ CATALYST_EMAIL = DEFAULT_FROM_EMAIL
 CELERY_BEAT_SCHEDULE = {
     'send_daily_notifications': {
         'task': 'notifications.tasks.send_daily_notifications',
-        'schedule': timedelta(seconds=30),  # every 30 seconds
+        'schedule': timedelta(hours=6),  # every 30 seconds
     },
 }
 
@@ -189,8 +189,9 @@ CELERY_BEAT_SCHEDULE = {
 # CELERY_TASK_ALWAYS_EAGER = True
 
 
+if os.getenv("RENDER") != "true":
+    load_dotenv(os.path.join(BASE_DIR, '.env'), override=True)
 
-load_dotenv(os.path.join(BASE_DIR, '.env'), override=True)
 VAPID_PUBLIC_KEY = os.getenv('VAPID_PUBLIC_KEY')
 VAPID_PRIVATE_KEY = os.getenv('VAPID_PRIVATE_KEY')
 if not VAPID_PUBLIC_KEY or not VAPID_PRIVATE_KEY:

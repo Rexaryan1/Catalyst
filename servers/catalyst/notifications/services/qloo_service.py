@@ -12,10 +12,14 @@ from dotenv import load_dotenv
 import random
 
 
-load_dotenv()
+if os.getenv("RENDER") != "true":
+    load_dotenv()
 
 QLOO_API_KEY = os.getenv('QLOO_API_KEY')
 QLOO_BASE_URL = os.getenv('QLOO_BASE_URL', QLOO_URL)
+
+if not QLOO_API_KEY:
+    raise Exception("QLOO_API_KEY is missing. Please set it as an environment variable.")
 
 try:
     _stopwords = set(stopwords.words('english'))

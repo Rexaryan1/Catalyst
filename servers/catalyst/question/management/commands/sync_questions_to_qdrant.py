@@ -10,6 +10,8 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
+if os.getenv("RENDER") != "true":
+    load_dotenv()
 
 class Command(BaseCommand):
 
