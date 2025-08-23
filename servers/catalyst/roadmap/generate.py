@@ -27,11 +27,16 @@ import uuid
 logger = logging.getLogger(__name__)
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 BASE_DIR = os.path.abspath(os.path.join(CURRENT_DIR, '..'))
-load_dotenv(os.path.join(BASE_DIR, '.env'), override=True)
+
+if os.getenv("RENDER") != "true":
+    load_dotenv(os.path.join(BASE_DIR, '.env'), override=True)
 
 VECTOR_DB_URL = os.getenv("VECTOR_DB_URL")
 VECTOR_DB_KEY = os.getenv("VECTOR_DB_KEY")
 CEREBRAS_API_KEY = os.getenv("CEREBRAS_API_KEY")
+
+if not VECTOR_DB_URL or not VECTOR_DB_KEY or not CEREBRAS_API_KEY:
+    raise Exception("One or more critical environment variables (VECTOR_DB_URL, VECTOR_DB_KEY, CEREBRAS_API_KEY) are missing.")
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
