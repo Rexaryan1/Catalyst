@@ -6,7 +6,7 @@ import torch
 from typing import List, Tuple
 from nltk.corpus import stopwords
 from nltk import download as nltk_download
-from catalyst.ai_resources import model, tokenizer, device
+from catalyst.ai_resources import generate_embedding_from_text
 from catalyst.constants import QLOO_URL,QLOO_URL_SEARCH,QLOO_URL_TAGS,MAX_RES_QLOO,MAX_QLOO_ITEMS,MOVIE_ENTITY,BOOK_ENTITY,TAG_TYPES,FALLBACK_TAGS
 from dotenv import load_dotenv
 import random
@@ -46,22 +46,6 @@ def extract_keywords(text: str) -> List[str]:
 
 def normalize_interest(interest: str) -> str:
     return interest.strip().lower().replace("-", " ").replace("_", " ")
-
-
-def generate_embedding_from_text(text: str) -> List[float]:
-    inputs = tokenizer(
-        text,
-        return_tensors="pt",
-        truncation=True,
-        padding=True,
-        max_length=256
-    ).to(device)
-
-    with torch.no_grad():
-        output = model(**inputs)
-        cls_vector = output.last_hidden_state[:, 0, :]
-        embedding = cls_vector.cpu().numpy()[0].tolist()
-    return embedding
 
 
 def cosine_similarity(candidate_emb: np.ndarray, existing_embeds: np.ndarray) -> np.ndarray:

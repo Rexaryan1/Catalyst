@@ -13,7 +13,7 @@ from catalyst.constants import MAX_QUESTIONS_PER_ROADMAP, TRANSFORMERS_MODEL, CO
 from qdrant_client import QdrantClient
 import torch
 import numpy as np
-from catalyst.ai_resources import model, tokenizer, device
+from catalyst.ai_resources import _generate_query_vector
 from dotenv import load_dotenv, find_dotenv
 from question.models import Question
 import ast
@@ -94,26 +94,6 @@ def fetch_relevant_questions(
         logger.error(f"🔥 Failed to fetch relevant questions: {e}", exc_info=True)
         return []
     
-def _generate_query_vector(subject: str, topic: str, additional_comments: str) -> List[float]:
-    """
-    Turns input query into a semantic vector using the global model.
-    """
-    query_text = f"Subject: {subject}. Topic: {topic}. {additional_comments}".strip()
-    logger.info(f"🧠 Generating embedding for: {query_text}")
-
-    inputs = tokenizer(
-        query_text,
-        return_tensors="pt",
-        truncation=True,
-        padding=True,
-        max_length=256
-    ).to(device)
-
-    with torch.no_grad():
-        output = model(**inputs)
-        cls_vector = output.last_hidden_state[:, 0, :]
-        return cls_vector.cpu().numpy()[0].tolist()
-
 
 def _query_qdrant(query_vector: List[float], top_k: int):
     """
