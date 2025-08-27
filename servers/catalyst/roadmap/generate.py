@@ -1,20 +1,17 @@
 from .profileSynthesis import buildUserProfile
 from typing import Dict, Any, List, Optional
-import chromadb
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 import json
 import logging
 from langchain_cerebras import ChatCerebras
-from django.conf import settings
 import os
 from dotenv import load_dotenv
-from catalyst.constants import MAX_QUESTIONS_PER_ROADMAP, TRANSFORMERS_MODEL, COLLECTION_NAME, LLM_MODEL1, MAX_TOKENS, LLM_TEMP2
+from catalyst.constants import MAX_QUESTIONS_PER_ROADMAP, COLLECTION_NAME, LLM_MODEL1, MAX_TOKENS, LLM_TEMP2
 from qdrant_client import QdrantClient
 import torch
-import numpy as np
 from catalyst.ai_resources import _generate_query_vector
-from dotenv import load_dotenv, find_dotenv
+from dotenv import load_dotenv
 from question.models import Question
 import ast
 from typing import Optional, Union
@@ -34,23 +31,27 @@ if os.getenv("RENDER") != "true":
 VECTOR_DB_URL = os.getenv("VECTOR_DB_URL")
 VECTOR_DB_KEY = os.getenv("VECTOR_DB_KEY")
 CEREBRAS_API_KEY = os.getenv("CEREBRAS_API_KEY")
+client = QdrantClient(url=VECTOR_DB_URL, api_key=VECTOR_DB_KEY)
+
+llm = ChatCerebras(
+        model_name=LLM_MODEL1, 
+        api_key=CEREBRAS_API_KEY,
+        temperature=LLM_TEMP2,
+        max_tokens=MAX_TOKENS
+    )
 
 if not VECTOR_DB_URL or not VECTOR_DB_KEY or not CEREBRAS_API_KEY:
     raise Exception("One or more critical environment variables (VECTOR_DB_URL, VECTOR_DB_KEY, CEREBRAS_API_KEY) are missing.")
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
+
+
 def generate_roadmap(user_id: str, subject: str, topic: str, additional_comments: str = None) -> dict:
     """
     Full pipeline: builds user profile, fetches questions, and composes roadmap via LLM or fallback.
     """
     try:
-        llm = ChatCerebras(
-            model_name=LLM_MODEL1, 
-            api_key=CEREBRAS_API_KEY,
-            temperature=LLM_TEMP2,
-            max_tokens=MAX_TOKENS
-        )
         profile = buildUserProfile(user_id)
         question_set = fetch_relevant_questions(subject, topic, MAX_QUESTIONS_PER_ROADMAP, additional_comments)
 
@@ -100,8 +101,6 @@ def _query_qdrant(query_vector: List[float], top_k: int):
     Queries Qdrant for top_k semantically similar items.
     """
     logger.info("🔍 Querying Qdrant...")
-    client = QdrantClient(url=VECTOR_DB_URL, api_key=VECTOR_DB_KEY)
-
     results = client.search(
         collection_name=COLLECTION_NAME,
         query_vector=query_vector,
@@ -164,7 +163,7 @@ def _format_results(results, question_metadata: Dict[str, Question]) -> List[Dic
     return formatted
 
 
-import json
+
 
 def generate_roadmap_blocks(
     llm,

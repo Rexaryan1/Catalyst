@@ -18,6 +18,13 @@ if os.getenv("RENDER") != "true":
     load_dotenv(os.path.join(BASE_DIR, '.env'), override=True)
 CEREBRAS_API_KEY = os.getenv("CEREBRAS_API_KEY")
 
+llm = ChatCerebras(
+        model=LLM_MODEL, 
+        api_key=CEREBRAS_API_KEY,
+        temperature=LLM_TEMP1,
+        max_tokens=MAX_TOKENS1
+    )
+
 def buildUserProfile(user_id: str) -> Dict[str, str]:
     """
     Generate a rich but concise user learning profile summary using precomputed and cached data.
@@ -63,13 +70,6 @@ def buildUserProfile(user_id: str) -> Dict[str, str]:
 
         Keep it concise, grounded in the data, and easy for an LLM or a human coach to reuse in a personalized roadmap.
         """
-
-        llm = ChatCerebras(
-            model=LLM_MODEL, 
-            api_key=CEREBRAS_API_KEY,
-            temperature=LLM_TEMP1,
-            max_tokens=MAX_TOKENS1
-        )
         prompt = PromptTemplate.from_template(template)
         chain = LLMChain(llm=llm, prompt=prompt)
 
@@ -88,6 +88,7 @@ def buildUserProfile(user_id: str) -> Dict[str, str]:
     except Exception as e:
         logger.error(f"Error generating user profile for {user_id}: {e}", exc_info=True)
         return _fallback_user_profile(user_id)
+    
 
 def _fallback_user_profile(user_id: str) -> Dict[str, str]:
     """Return a generic fallback profile if user-specific generation fails."""
