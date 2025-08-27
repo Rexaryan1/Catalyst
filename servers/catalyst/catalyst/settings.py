@@ -35,11 +35,24 @@ SECRET_KEY = 'django-insecure-dj%m-9=0b118+=&&_-c^dg1fd)n=h8_#a+&o5m3%7err!qg*%-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['catalyst-38ab.onrender.com','localhost', '127.0.0.1']
+ALLOWED_HOSTS = [
+    'django-web-109334363006.us-central1.run.app',
+    'localhost',
+    '127.0.0.1',
+    'catalyst-38ab.onrender.com'
+]
+
+STATIC_URL = '/static/'
+
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
 
 
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -67,6 +80,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.common.CommonMiddleware'
 ]
 
@@ -201,3 +215,5 @@ VAPID_PUBLIC_KEY = os.getenv('VAPID_PUBLIC_KEY')
 VAPID_PRIVATE_KEY = os.getenv('VAPID_PRIVATE_KEY')
 if not VAPID_PUBLIC_KEY or not VAPID_PRIVATE_KEY:
     raise Exception("VAPID keys are missing. Please set them in your .env file.")
+
+
