@@ -19,4 +19,14 @@ export class PromptPageComponent {
     componentRef.instance.title = 'Select an Option';
 
   }
+  ngOnInit() {
+    this.dataService.loadData<UserProfile>('user', async () => {
+      const res = await fetch('/api/user');
+      return await res.json();
+    });
+
+    this.dataService.select<UserProfile>('user').subscribe(user => {
+      if (user) {
+        this.user = user;
+      }
 }
