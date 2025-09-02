@@ -7,7 +7,9 @@
   background: var(--color-primary-green, #46675d);
   height: 271px;
   position: relative;
-  width: 483px;
+  width: 517px;
+  border-radius: 10px;
+  overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 
   &:hover {

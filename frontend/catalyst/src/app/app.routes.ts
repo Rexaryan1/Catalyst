@@ -24,5 +24,6 @@ export const routes: Routes = [
     { path: 'userHome', component: UserProfileComponent },
     { path: 'plan', component: StudyPlanComponent },
     { path: 'roadmap', component: RoadmapPageComponent }
+  //  { path: 'roadmap', component: RoadmapListComponent }
 
 ];

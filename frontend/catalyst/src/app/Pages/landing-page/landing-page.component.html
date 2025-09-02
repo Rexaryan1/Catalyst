@@ -18,52 +18,18 @@
     </div>
     <!-- Cards Grid Section -->
     <div class="cards-grid">
-      <!-- Roadmap Card -->
-      <dashboard-card color="bg-primary" title="Roadmaps"
-        content="Generate AI-powered learning roadmaps tailored to your goals. Start your personalized journey today."
-        class="grid-item-1">
-      </dashboard-card>
 
-      <!-- Quizzes Card -->
-      <dashboard-card color="bg-success" title="Quizzes"
-        content="Adaptive quizzes that understand your learning style and provide personalized feedback."
-        class="grid-item-2">
-      </dashboard-card>
+      <app-roadmap-card />
+      <app-landing-dashboard-card />
+      <div class = "grid-item-3">
+       <app-profile-summary />
+        <app-quick-access />
+      </div>
 
-      <app-profile-summary />
 
-      <!-- Wide Card with Navigation -->
-      <!--<div class="wide-card bg-info grid-item-3">
-        <div class="wide-card-content">
-
-          <div class="action-buttons">
-            <button class="btn btn-outline-light action-btn">
-              <i class="fas fa-user"></i>
-              Profile
-            </button>
-            <button class="btn btn-outline-light action-btn">
-              <i class="fas fa-chart-line"></i>
-              Progress
-            </button>
-            <button class="btn btn-outline-light action-btn">
-              <i class="fas fa-cog"></i>
-              Settings
-            </button>
-            <button class="btn btn-outline-light action-btn">
-              <i class="fas fa-question-circle"></i>
-              Help
-            </button>
-          </div>
-        </div>
-      </div> -->
-
-      <!-- Analytics Card
-      <dashboard-card color="bg-warning" title="Analytics"
-        content="Track your learning progress with detailed insights and performance metrics." class="grid-item-3">
-      </dashboard-card>
-    </div> -->
 
 
   </div>
   <app-beta-page *ngIf="showLoginPage()"></app-beta-page>
+</div>
 </div>
