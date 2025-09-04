@@ -22,7 +22,7 @@ export const routes: Routes = [
     { path: 'userHome', component: UserProfileComponent },
     { path: 'plan', component: StudyPlanComponent },
     { path: 'roadmap', component: RoadmapPageComponent },
-  {path: 'preview' , component: PingBoardComponent},
+    {path: 'preview' , component: PingBoardComponent},
   //  { path: 'roadmap', component: RoadmapListComponent }
 
 ];
