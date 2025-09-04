@@ -49,14 +49,15 @@ export class LoginPageComponent {
       'Content-Type': 'application/json',
     });
 
-    this.http.post(`http://localhost:8000/api/login`, this.signInForm.value , {
+    this.http.post(`https://django-web-109334363006.us-central1.run.app/api/login`, this.signInForm.value , {
       headers,
       withCredentials : true
     }).subscribe({
       next: (response: any) => {
         // Store JWT token
         localStorage.setItem('jwt', response.jwt);
-        this.router.navigate(['/dashboard']);
+        alert('Login successful: You are being redirected to the home page');
+        this.router.navigate(['/prompt']);
       },
       error: (error) => {
         console.error('Login failed:', error);
@@ -71,7 +72,7 @@ export class LoginPageComponent {
       'Content-Type': 'application/json',
     });
 
-    this.http.post(`http://localhost:8000/api/register`, this.signUpForm.value, {
+    this.http.post(`https://django-web-109334363006.us-central1.run.app/api/register`, this.signUpForm.value, {
       headers,
       withCredentials: true
     }).subscribe({
