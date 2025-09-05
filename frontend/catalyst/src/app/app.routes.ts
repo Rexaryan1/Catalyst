@@ -12,6 +12,7 @@ import {RoadmapBlockComponent} from "@components/cards/roadmap-block/roadmap-blo
 import {ScoreCardComponent} from "@components/cards/profile-summary/score-card/score-card.component";
 import {ProfileSummaryComponent} from "@components/cards/profile-summary/profile-summary.component";
 import {PingBoardComponent} from "@components/cards/ping-board/ping-board.component";
+import {SolutionComponent} from "@components/cards/solution/solution.component";
 
 
 export const routes: Routes = [
@@ -22,7 +23,7 @@ export const routes: Routes = [
     { path: 'userHome', component: UserProfileComponent },
     { path: 'plan', component: StudyPlanComponent },
     { path: 'roadmap', component: RoadmapPageComponent },
-    {path: 'preview' , component: PingBoardComponent},
+    {path: 'preview' , component: SolutionComponent},
   //  { path: 'roadmap', component: RoadmapListComponent }
 
 ];
