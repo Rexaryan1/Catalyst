@@ -200,13 +200,9 @@ CATALYST_EMAIL = DEFAULT_FROM_EMAIL
 CELERY_BEAT_SCHEDULE = {
     'send_daily_notifications': {
         'task': 'notifications.tasks.send_daily_notifications',
-        'schedule': timedelta(hours=6),  # every 30 seconds
+        'schedule': timedelta(hours=12),  
     },
 }
-
-# # only for testing purposes
-# CELERY_TASK_ALWAYS_EAGER = True
-
 
 if os.getenv("RENDER") != "true":
     load_dotenv(os.path.join(BASE_DIR, '.env'), override=True)

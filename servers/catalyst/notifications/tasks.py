@@ -74,7 +74,7 @@ def extract_keywords_from_comments(comments, top_n=10):
     freq = Counter(combined)
     return [word for word, _ in freq.most_common(top_n)]
 
-@shared_task(bind=True, max_retries=2, default_retry_delay=60)
+@shared_task(bind=True, max_retries=2, default_retry_delay=7200)
 def send_daily_notifications(self):
     distributor = NotificationDistributor()
     distributor.register(EmailObserver())
@@ -144,4 +144,5 @@ def send_daily_notifications(self):
             distributor.notify(user, message, keyword_used=keyword_used)
         except Exception as e:
             logger.error(f"Failed to send notification to user {user.id}: {e}")
+            raise self.retry(exc=exc)
 
