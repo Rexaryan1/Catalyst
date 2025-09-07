@@ -9,7 +9,7 @@
     <h1 style="color: #2c3e50;">{{ subject }}</h1>
 
     <div style="text-align: center; margin: 20px 0;">
-        <img src="{% static 'images/Catalyst-Icon-02.png' %}" alt="Notification Image" style="max-width: 100%; height: auto;" />
+        <img src="{{ domain_url }}{% static 'images/email-02.png' %}" alt="Notification Image" style="max-width: 100%; height: auto;" />
     </div>
 
     <p>Hello {{ user_name }},</p>
@@ -19,5 +19,6 @@
     <p>Best regards,<br/>The Catalyst Team</p>
 </body>
 </html>
+
 
 

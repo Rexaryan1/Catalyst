@@ -18,14 +18,15 @@ class EmailObserver(NotificationObserver):
     def send(self, user, message, **kwargs):
         subject = "Your New Learning Notification"
 
-        # Render the HTML content from template (image URL is hardcoded in template)
+        domain_url = kwargs.get('domain_url', 'https://django-web-109334363006.us-central1.run.app')  # Use localhost for local testing by default
+
         html_content = render_to_string('email/notification.html', {
             'subject': subject,
             'user_name': user.name,
             'message': message,
+            'domain_url': domain_url,
         })
 
-        # Create plain-text version for email clients that do not support HTML
         text_content = strip_tags(html_content)
 
         email = EmailMultiAlternatives(
@@ -36,6 +37,7 @@ class EmailObserver(NotificationObserver):
         )
         email.attach_alternative(html_content, "text/html")
         email.send()
+
 
 class PushObserver(NotificationObserver):
     def send(self, user, message, **kwargs):
