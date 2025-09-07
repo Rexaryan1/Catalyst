@@ -3,8 +3,17 @@ from rest_framework.views import APIView
 from .serializers import UserSerializer
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
-from .models import User
+from .models import User, UserProfile
 import jwt, datetime
+from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework import status
+from .serializers import (
+    UserProfileSerializer,
+    UserWithProfileSerializer,
+    ProfileUpdateSerializer,
+    ChangePasswordSerializer
+)
+
 
 
 # Create your views here.
@@ -70,3 +79,209 @@ class LogoutView(APIView):
             "message" : "success"
         }
         return response
+
+
+
+class BaseAuthenticatedView(APIView):
+    """Base class that handles JWT cookie authentication"""
+
+    def get_user_from_token(self, request):
+        """Extract and validate user from JWT cookie"""
+        token = request.COOKIES.get("jwt")
+
+        if not token:
+            raise AuthenticationFailed("Unauthenticated")
+
+        try:
+            payload = jwt.decode(token, "secret", algorithms=["HS256"])
+        except jwt.ExpiredSignatureError:
+            raise AuthenticationFailed("Token expired")
+        except jwt.InvalidTokenError:
+            raise AuthenticationFailed("Invalid token")
+
+        user = User.objects.filter(id=payload["id"]).first()
+        if not user:
+            raise AuthenticationFailed("User not found")
+
+        return user
+
+
+class ProfileView(BaseAuthenticatedView):
+    """Get user profile"""
+
+    def get(self, request):
+        user = self.get_user_from_token(request)
+
+        # Ensure profile exists
+        profile, created = UserProfile.objects.get_or_create(user=user)
+
+        serializer = UserProfileSerializer(profile)
+        return Response(serializer.data)
+
+
+class ProfileUpdateView(BaseAuthenticatedView):
+    """Update user profile"""
+
+    def put(self, request):
+        return self._update_profile(request, partial=False)
+
+    def patch(self, request):
+        return self._update_profile(request, partial=True)
+
+    def _update_profile(self, request, partial=False):
+        user = self.get_user_from_token(request)
+
+        # Get or create profile
+        profile, created = UserProfile.objects.get_or_create(user=user)
+
+        serializer = ProfileUpdateSerializer(
+            profile,
+            data=request.data,
+            partial=partial
+        )
+
+        if serializer.is_valid():
+            serializer.save()
+            # Return full profile data
+            response_serializer = UserProfileSerializer(profile)
+            return Response(response_serializer.data)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class UserWithProfileView(BaseAuthenticatedView):
+    """Get user data with profile - extends your existing UserView"""
+
+    def get(self, request):
+        user = self.get_user_from_token(request)
+
+        # Ensure profile exists
+        profile, created = UserProfile.objects.get_or_create(user=user)
+
+        serializer = UserWithProfileSerializer(user)
+        return Response(serializer.data)
+
+
+class ChangePasswordView(BaseAuthenticatedView):
+    """Change user password"""
+
+    def post(self, request):
+        user = self.get_user_from_token(request)
+
+        serializer = ChangePasswordSerializer(data=request.data)
+
+        if serializer.is_valid():
+            # Check old password
+            if not user.check_password(serializer.validated_data['old_password']):
+                return Response(
+                    {'error': 'Old password is incorrect'},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+
+            # Set new password
+            user.set_password(serializer.validated_data['new_password'])
+            user.save()
+
+            return Response({'message': 'Password changed successfully'})
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ProfileImageUploadView(BaseAuthenticatedView):
+    """Upload profile image"""
+    parser_classes = [MultiPartParser, FormParser]
+
+    def post(self, request):
+        user = self.get_user_from_token(request)
+
+        # Get or create profile
+        profile, created = UserProfile.objects.get_or_create(user=user)
+
+        if 'profile_image' not in request.FILES:
+            return Response(
+                {'error': 'No image file provided'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        # Validate file type
+        file = request.FILES['profile_image']
+        if not file.content_type.startswith('image/'):
+            return Response(
+                {'error': 'File must be an image'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        # Validate file size (max 5MB)
+        if file.size > 5 * 1024 * 1024:
+            return Response(
+                {'error': 'Image file too large (max 5MB)'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        profile.profile_image = file
+        profile.save()
+
+        serializer = UserProfileSerializer(profile)
+        return Response({
+            'message': 'Profile image uploaded successfully',
+            'profile': serializer.data
+        })
+
+    def delete(self, request):
+        """Remove profile image"""
+        user = self.get_user_from_token(request)
+
+        try:
+            profile = user.profile
+            if profile.profile_image and profile.profile_image.name != 'profile_images/default.jpg':
+                profile.profile_image.delete()
+                profile.profile_image = 'profile_images/default.jpg'
+                profile.save()
+
+                return Response({'message': 'Profile image removed successfully'})
+            else:
+                return Response(
+                    {'error': 'No profile image to remove'},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+        except UserProfile.DoesNotExist:
+            return Response(
+                {'error': 'Profile not found'},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+
+class ProfileStatsView(BaseAuthenticatedView):
+    """Get profile statistics and completion status"""
+
+    def get(self, request):
+        user = self.get_user_from_token(request)
+
+        try:
+            profile = user.profile
+
+            # Calculate profile completion
+            fields_to_check = ['bio', 'phone', 'location', 'birth_date']
+            completed_fields = sum(1 for field in fields_to_check if getattr(profile, field))
+
+            has_image = (profile.profile_image and
+                        profile.profile_image.name != 'profile_images/default.jpg')
+
+            completion_percentage = ((completed_fields + (1 if has_image else 0)) /
+                                   (len(fields_to_check) + 1)) * 100
+
+            stats = {
+                'profile_completion': round(completion_percentage),
+                'has_profile_image': has_image,
+                'completed_fields': completed_fields,
+                'total_fields': len(fields_to_check) + 1,
+                'missing_fields': [field for field in fields_to_check
+                                 if not getattr(profile, field)],
+                'last_updated': profile.updated_at,
+                'member_since': profile.created_at,
+            }
+
+            return Response(stats)
+
+        except UserProfile.DoesNotExist:
+            return Response({'error': 'Profile not found'}, status=404)

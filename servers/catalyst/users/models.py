@@ -1,9 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.postgres.fields import ArrayField
-from django.db import models
-from django.contrib.postgres.fields import ArrayField
-from django.db.models import Count, Q, Subquery, OuterRef
 
 # Create your models here.
 class User(AbstractUser):
@@ -41,9 +38,17 @@ class UserProfileQuerySet(models.QuerySet):
         )
 
 
-class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+class UserProfile( models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE,related_name='profile', primary_key=True)
     learning_streak = models.IntegerField(blank=True, null=True)
+    bio = models.TextField(max_length=500, blank=True, null=True)
+    phone = models.CharField(max_length=20, blank=True, null=True)
+    profile_image = models.ImageField(
+        upload_to='profile_images/',
+        default='profile_images/default.jpg',
+        blank=True,
+        null=True
+    )
     strong_topics = ArrayField(
         base_field=models.TextField(),
         default=list,
@@ -61,4 +66,3 @@ class UserProfile(models.Model):
     embedding_list = models.JSONField(default=list, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     modified_at = models.DateTimeField(auto_now=True, blank=True, null=True)
-    objects = UserProfileQuerySet.as_manager()

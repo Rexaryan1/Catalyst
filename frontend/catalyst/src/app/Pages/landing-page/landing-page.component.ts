@@ -3,11 +3,18 @@ import { CommonModule } from '@angular/common';
 import { DashboardCardComponent } from '../../components/cards/dashboard-card/dashboard-card.component';
 import { NavBarComponent } from "../../nav-bar/nav-bar.component";
 import { LoginPageComponent } from "@app/Pages/landing-page/join-card/login-page.component";
+import {ProfileSummaryComponent} from "@components/cards/profile-summary/profile-summary.component";
+import {RoadmapCardComponent} from "@pages/landing-page/roadmap-card/roadmap-card.component";
+import {
+  LandingDashboardCardComponent
+} from "@pages/landing-page/landing-dashboard-card/landing-dashboard-card.component";
+import {QuickAccessComponent} from "@pages/landing-page/quick-access/quick-access.component";
+
 
 @Component({
   selector: 'dashboard',
   standalone: true,
-  imports: [DashboardCardComponent, NavBarComponent, CommonModule, LoginPageComponent],
+  imports: [LandingDashboardCardComponent, NavBarComponent, CommonModule, LoginPageComponent, ProfileSummaryComponent, RoadmapCardComponent, DashboardCardComponent, LandingDashboardCardComponent, QuickAccessComponent],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.scss'
 })

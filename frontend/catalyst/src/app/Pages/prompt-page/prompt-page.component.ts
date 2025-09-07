@@ -11,12 +11,22 @@ import { BoxOptionsComponent } from '../../components/dropdown/box-options/box-o
 })
 export class PromptPageComponent {
 
- @ViewChild('dropdownSubject', { read: ViewContainerRef }) dropdownSubject!: ViewContainerRef;
-
-  openDropdown() {
-    // this.dropdownSubject.clear();
-    const componentRef = this.dropdownSubject.createComponent(BoxOptionsComponent);
-    componentRef.instance.title = 'Select an Option';
-
-  }
+ // @ViewChild('dropdownSubject', { read: ViewContainerRef }) dropdownSubject!: ViewContainerRef;
+ //
+ //  openDropdown() {
+ //    // this.dropdownSubject.clear();
+ //    const componentRef = this.dropdownSubject.createComponent(BoxOptionsComponent);
+ //    componentRef.instance.title = 'Select an Option';
+ //
+ //  }
+ //  ngOnInit() {
+ //    this.dataService.loadData<UserProfile>('user', async () => {
+ //      const res = await fetch('/api/user');
+ //      return await res.json();
+ //    });
+ //
+ //    this.dataService.select<UserProfile>('user').subscribe(user => {
+ //      if (user) {
+ //        this.user = user;
+ //      }
 }
