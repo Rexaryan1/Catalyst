@@ -18,7 +18,7 @@ class EmailObserver(NotificationObserver):
     def send(self, user, message, **kwargs):
         subject = "Your New Learning Notification"
 
-        domain_url = kwargs.get('domain_url', 'https://django-web-109334363006.us-central1.run.app')  # Use localhost for local testing by default
+        domain_url = kwargs.get('domain_url', 'https://django-web-109334363006.asia-south2.run.app')  # Use localhost for local testing by default
 
         html_content = render_to_string('email/notification.html', {
             'subject': subject,
