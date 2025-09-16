@@ -1,0 +1,22 @@
+.graphic-3 {
+  background-color: #EAE9E5;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  max-height: 80vh;
+}
+
+@media (max-width: 768px) {
+  .graphic-3 {
+    width: 100%;
+  }
+}

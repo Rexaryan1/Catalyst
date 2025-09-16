@@ -1,0 +1,67 @@
+<!-- app/roadmap/roadmap-wizard.component.html -->
+<div [formGroup] = "form" class="wizard">
+  <!-- Left: graphic that changes per step -->
+  <div class="left" [@swapGraphic]="stepIndex()">
+    <ng-container [ngSwitch]="stepIndex()">
+      <app-graphic-1 *ngSwitchCase="0"></app-graphic-1>
+      <app-graphic-2 *ngSwitchCase="1"></app-graphic-2>
+      <app-graphic-3 *ngSwitchCase="2"></app-graphic-3>
+    </ng-container>
+  </div>
+
+  <!-- Right: prompt + inline input -->
+  <div class="right">
+    <div *ngIf="stepIndex() === 0">
+      <p>
+        Which <span class="highlight" (click)="showSubjectInput.set(true)">subject</span> are we thinking today?
+      </p>
+      <input
+        *ngIf="showSubjectInput()"
+        type="text"
+        placeholder="e.g., Data Structures"
+        [formControl]="$any(form.get('subject'))"
+      />
+    </div>
+
+    <div *ngIf="stepIndex() === 1">
+      <p>
+        What <span class="highlight" (click)="showTopicInput.set(true)">topic</span> should I serve you with?
+      </p>
+      <input
+        *ngIf="showTopicInput()"
+        type="text"
+        placeholder="e.g., Dynamic Programming"
+        [formControl]="$any(form.get('topic'))"
+      />
+    </div>
+
+    <div *ngIf="stepIndex() === 2">
+      <p>
+        Choose your <span class="highlight" (click)="showIntentInput.set(true)">goal</span>.
+      </p>
+      <div *ngIf="showIntentInput()" class="intent-grid">
+        <label><input type="radio" value="exam" formControlName="intent" /> Preparing for an exam</label>
+        <label><input type="radio" value="upskilling" formControlName="intent" /> Upskilling</label>
+        <label><input type="radio" value="revision" formControlName="intent" /> Revision</label>
+        <label><input type="radio" value="understanding" formControlName="intent" /> Understanding the topic</label>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button type="button" (click)="back()" [disabled]="stepIndex() === 0">Back</button>
+      <button
+        type="button"
+        (click)="next()"
+        [disabled]="(stepIndex()===0 && form.get('subject')?.invalid)
+                 || (stepIndex()===1 && form.get('topic')?.invalid)
+                 || (stepIndex()===2 && form.get('intent')?.invalid)">
+        {{ stepIndex() < totalSteps - 1 ? 'Next' : 'Save' }}
+      </button>
+    </div>
+
+    <!-- Progress -->
+    <mat-progress-bar mode="determinate" [value]="progress()" ></mat-progress-bar>
+    <div class="percent">{{ progress() }}%</div>
+  </div>
+</div>
+
