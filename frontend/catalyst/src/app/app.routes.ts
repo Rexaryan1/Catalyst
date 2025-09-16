@@ -12,17 +12,19 @@ import {RoadmapBlockComponent} from "@components/cards/roadmap-block/roadmap-blo
 import {ScoreCardComponent} from "@components/cards/profile-summary/score-card/score-card.component";
 import {ProfileSummaryComponent} from "@components/cards/profile-summary/profile-summary.component";
 import {PingBoardComponent} from "@components/cards/ping-board/ping-board.component";
+import {SolutionComponent} from "@components/cards/solution/solution.component";
+import {RoadmapWizardComponent} from "@components/roadmap-wizard/roadmap-wizard.component";
 
 
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'home', component: LandingPage },
-    { path: 'prompt', component: PromptPageComponent },
+    { path: 'prompt', component: RoadmapWizardComponent},
     { path: 'questionCard', component: QuestionCardComponent },
     { path: 'userHome', component: UserProfileComponent },
     { path: 'plan', component: StudyPlanComponent },
     { path: 'roadmap', component: RoadmapPageComponent },
-    {path: 'preview' , component: PingBoardComponent},
+    {path: 'preview' , component: RoadmapWizardComponent},
   //  { path: 'roadmap', component: RoadmapListComponent }
 
 ];
