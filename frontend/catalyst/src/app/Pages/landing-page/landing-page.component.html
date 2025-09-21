@@ -1,6 +1,6 @@
 <app-nav-bar></app-nav-bar>
 <div class="dashboard-container bg-dark text-white ">
-  <div class="container pt-5">
+  <div class="container-fluid pt-5">
     <!-- Hero Section -->
     <div class="hero-section text-center mb-5">
       <div>
@@ -18,17 +18,9 @@
     </div>
     <!-- Cards Grid Section -->
     <div class="cards-grid">
-
-      <app-roadmap-card />
-      <app-landing-dashboard-card />
-      <div class = "grid-item-3">
-       <app-profile-summary />
-        <app-quick-access />
-      </div>
-
-
-
-
+      <div class="grid-item-1"><app-roadmap-card /></div>
+      <div class="grid-item-2"><app-landing-dashboard-card /></div>
+      <div class="grid-item-3"><app-profile-summary /><app-quick-access /></div>
   </div>
   <app-beta-page *ngIf="showLoginPage()"></app-beta-page>
 </div>

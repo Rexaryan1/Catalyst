@@ -2,6 +2,7 @@ import { Input, Component, Output, EventEmitter } from '@angular/core';
 import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
+import { DataManagerService } from '@services/data-manager/data-manager.service';
 
 @Component({
   selector: 'app-beta-page',
@@ -11,7 +12,7 @@ import { RouterModule, Router } from '@angular/router';
   styleUrl: './login-page.component.scss'
 })
 export class LoginPageComponent {
-  private apiUrl = 'http://localhost:8000/api';
+  private path = 'login';
 
   signInForm = new FormGroup({
     email: new FormControl(''),
@@ -24,7 +25,7 @@ export class LoginPageComponent {
     password: new FormControl('')
   });
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private dataManagerService: DataManagerService) { }
 
   ngAfterViewInit() {
     const signUpButton = document.getElementById('signUp');
@@ -49,7 +50,7 @@ export class LoginPageComponent {
       'Content-Type': 'application/json',
     });
 
-    this.http.post(`http://localhost:8000/api/login`, this.signInForm.value, {
+    this.http.post(`${this.dataManagerService.backendURL}${this.path}`, this.signInForm.value, {
       headers,
       withCredentials: true
     }).subscribe({
