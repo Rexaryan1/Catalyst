@@ -50,12 +50,11 @@ export class LoginPageComponent {
       'Content-Type': 'application/json',
     });
 
-    this.http.post(`${this.dataManagerService.backendURL}${this.path}`, this.signInForm.value, {
+    this.dataManagerService.post(`${this.path}`, this.signInForm.value, {
       headers,
       withCredentials: true
     }).subscribe({
       next: (response: any) => {
-        // Store JWT token
         localStorage.setItem('jwt', response.jwt);
         this.router.navigate(['/dashboard']);
       },

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Options } from './data-manager-interface.d';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class DataManagerService {
   constructor(private http: HttpClient) {}
 
   /** -------- GET with automatic caching and HTTP options -------- */
-  get<T>(path: string, options?: { headers?: HttpHeaders; params?: HttpParams }): Observable<T> {
+  get<T>(path: string, options?: Options): Observable<T> {
     const http$ = this.http.get<T>(this.backendURL + path, options);
     return this.saveInCache(path, http$);
   }
@@ -21,7 +22,7 @@ export class DataManagerService {
   post<T>(
     path: string,
     payload: any,
-    options?: { headers?: HttpHeaders; params?: HttpParams },
+    options?: Options,
     cacheKey?: string
   ): Observable<T> {
     const http$ = this.http.post<T>(this.backendURL + path, payload, options);
