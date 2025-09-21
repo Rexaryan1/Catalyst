@@ -7,7 +7,7 @@ import {Graphic1Component} from "@components/roadmap-wizard/graphic-1/graphic-1.
 import {Graphic2Component} from "@components/roadmap-wizard/graphic-2/graphic-2.component";
 import {Graphic3Component} from "@components/roadmap-wizard/graphic-3/graphic-3.component";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
-
+import { DataManagerService } from '@services/data-manager/data-manager.service';
 
 @Component({
   selector: 'app-roadmap-wizard',
@@ -34,7 +34,7 @@ export class RoadmapWizardComponent {
   showTopicInput = signal(false);
   showIntentInput = signal(false);
 
-  constructor(private fb: FormBuilder, private api: RoadmapService) {}
+  constructor(private fb: FormBuilder, private api: RoadmapService, private dataManagerService: DataManagerService) {}
 
   get isLastStep() {
     return this.stepIndex() === this.totalSteps - 1;
@@ -75,16 +75,24 @@ export class RoadmapWizardComponent {
       console.log('Form values:', formValues);  // Also log raw form values for comparison
 
 
-      this.api.createRoadmap(payload).subscribe({
+      // this.api.createRoadmap(payload).subscribe({
+      //   next: (response) => {
+      //     console.log('Roadmap created successfully:', response);
+      //     // TODO: route to results page or render roadmap
+      //     // console.log(resp);
+      //   },
+      //   error: (err) => {
+      //     console.error('Error creating roadmap:', err);
+      //     // TODO: toast/snackbar error
+      //     // console.error(err);
+      //   },
+      // });
+      this.dataManagerService.post('roadmap/generate', payload).subscribe({
         next: (response) => {
           console.log('Roadmap created successfully:', response);
-          // TODO: route to results page or render roadmap
-          // console.log(resp);
         },
         error: (err) => {
           console.error('Error creating roadmap:', err);
-          // TODO: toast/snackbar error
-          // console.error(err);
         },
       });
     } else {

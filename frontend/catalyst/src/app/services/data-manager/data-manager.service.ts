@@ -1,44 +1,59 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, map } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
-
 export class DataManagerService {
-  /** internal data store */
-  public backendURL = 'https://catalyst-main-109334363006.asia-south2.run.app/';
-  private data: Record<string, any> = {};
+  private backendURL = 'https://api.restful-api.dev/';
+  private store: Map<string, BehaviorSubject<any>> = new Map();
 
-  /** subject to broadcast changes */
-  private subject = new BehaviorSubject<Record<string, any>>(this.data);
+  constructor(private http: HttpClient) {}
 
-  /** observable stream exposed to consumers */
-  data$: Observable<Record<string, any>> = this.subject.asObservable();
-
-  private loading: Record<string, boolean> = {};
-  constructor() { }
-
-  /** General load function (simulate API call for any key) */
-  loadData<T>(key: string, loader: () => Promise<T> | T): void {
-    if (this.loading[key]) return;
-    this.loading[key] = true;
-
-    Promise.resolve(loader()).then(value => {
-      this.data[key] = value;
-      this.subject.next({ ...this.data }); // emit updated store
-      this.loading[key] = false;
-    });
+  /** -------- GET with automatic caching and HTTP options -------- */
+  get<T>(path: string, options?: { headers?: HttpHeaders; params?: HttpParams }): Observable<T> {
+    const http$ = this.http.get<T>(this.backendURL + path, options);
+    return this.saveInCache(path, http$);
   }
 
-   /**Get observable for a specific key */
+  /** -------- POST with optional caching via cacheKey -------- */
+  post<T>(
+    path: string,
+    payload: any,
+    options?: { headers?: HttpHeaders; params?: HttpParams },
+    cacheKey?: string
+  ): Observable<T> {
+    const http$ = this.http.post<T>(this.backendURL + path, payload, options);
+    return cacheKey ? this.saveInCache(cacheKey, http$) : http$;
+  }
+
+  /** -------- Subscribe reactively to any store key -------- */
   select<T>(key: string): Observable<T | null> {
-    return this.data$.pipe(map(store => store[key] ?? null));
+    if (!this.store.has(key)) {
+      this.store.set(key, new BehaviorSubject<T | null>(null));
+    }
+    return this.store.get(key)!.asObservable();
   }
 
-  /** Get snapshot value immediately */
+  /** -------- Get cached snapshot immediately -------- */
   snapshot<T>(key: string): T | null {
-    return this.data[key] ?? null;
+    return this.store.get(key)?.getValue() ?? null;
+  }
+
+  /** -------- Clear cached value for a key -------- */
+  clear(key: string) {
+    this.store.delete(key);
+  }
+
+  /** -------- Helper: tap observable and save result in cache -------- */
+  private saveInCache<T>(key: string, observable$: Observable<T>): Observable<T> {
+    if (!this.store.has(key)) {
+      this.store.set(key, new BehaviorSubject<T | null>(null));
+    }
+
+    return observable$.pipe(
+      tap(res => this.store.get(key)!.next(res)) // side effect: update store
+    );
   }
 }
-
