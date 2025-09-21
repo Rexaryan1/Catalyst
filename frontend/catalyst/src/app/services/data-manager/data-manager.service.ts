@@ -6,7 +6,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
   providedIn: 'root'
 })
 export class DataManagerService {
-  private backendURL = 'https://api.restful-api.dev/';
+  private backendURL = 'https://catalyst-main-109334363006.asia-south2.run.app/';
   private store: Map<string, BehaviorSubject<any>> = new Map();
 
   constructor(private http: HttpClient) {}
