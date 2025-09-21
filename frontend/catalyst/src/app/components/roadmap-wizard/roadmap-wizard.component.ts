@@ -1,8 +1,7 @@
 import { Component, computed, signal } from '@angular/core';
 import {FormBuilder, Validators, FormGroup, FormControl, ReactiveFormsModule} from '@angular/forms';
-import { RoadmapService } from '@services/roadmap-wizard/roadmap.service';
 import {CommonModule, NgIf, NgSwitchCase} from "@angular/common";
-import { RoadmapRequest} from "@services/roadmap-wizard/types"
+import {RoadmapRequest} from "@components/roadmap-wizard/roadmap-types.interface";
 import {Graphic1Component} from "@components/roadmap-wizard/graphic-1/graphic-1.component";
 import {Graphic2Component} from "@components/roadmap-wizard/graphic-2/graphic-2.component";
 import {Graphic3Component} from "@components/roadmap-wizard/graphic-3/graphic-3.component";
@@ -34,7 +33,7 @@ export class RoadmapWizardComponent {
   showTopicInput = signal(false);
   showIntentInput = signal(false);
 
-  constructor(private fb: FormBuilder, private api: RoadmapService, private dataManagerService: DataManagerService) {}
+  constructor(private fb: FormBuilder, private dataManagerService: DataManagerService) {}
 
   get isLastStep() {
     return this.stepIndex() === this.totalSteps - 1;
