@@ -1,6 +1,33 @@
 .dashboard-container {
   width: 100%;
 }
+.blur-effect {
+  filter: blur(4px);
+  transition: filter 0.3s ease;
+}
+
+.login-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 998;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.login-container {
+  position: relative;
+  z-index: 999;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
 
 h1 {
   font-family: 'Antonio';
