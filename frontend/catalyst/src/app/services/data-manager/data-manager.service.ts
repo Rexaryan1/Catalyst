@@ -10,7 +10,27 @@ export class DataManagerService {
   private backendURL = 'https://catalyst-main-109334363006.asia-south2.run.app/';
   private store: Map<string, BehaviorSubject<any>> = new Map();
 
-  constructor(private http: HttpClient) {}
+  jwtToken = localStorage.getItem('jwtToken') || '';
+  userName = localStorage.getItem('userName') || '';
+  constructor(private http: HttpClient) {
+    this.getUserCreds();
+
+  }
+  /** -------- Fetch user credentials and store JWT token -------- */
+  private getUserCreds() {
+    this.post('api/login',{
+      "email": "test20@test.com",
+      "password": "qwertyuiop"
+    }).subscribe({
+      next: (res: any) => {
+        this.jwtToken = res.jwt;
+        localStorage.setItem('jwtToken', res.jwt);
+      },
+      error: (err) => {
+        console.error('Error fetching user credentials:', err);
+      }
+    });
+  }
 
   /** -------- GET with automatic caching and HTTP options -------- */
   get<T>(path: string, options?: Options): Observable<T> {
