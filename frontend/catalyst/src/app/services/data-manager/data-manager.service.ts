@@ -12,6 +12,8 @@ export class DataManagerService {
 
   jwtToken = localStorage.getItem('jwtToken') || '';
   userName = localStorage.getItem('userName') || '';
+  cookie = localStorage.getItem('cookie') || '';
+
   constructor(private http: HttpClient) {
     this.getUserCreds();
 
@@ -24,7 +26,9 @@ export class DataManagerService {
     }).subscribe({
       next: (res: any) => {
         this.jwtToken = res.jwt;
+        this.cookie = `jwt=${this.jwtToken}; Path=/; HttpOnly;`;
         localStorage.setItem('jwtToken', res.jwt);
+        localStorage.setItem('cookie', this.cookie);
       },
       error: (err) => {
         console.error('Error fetching user credentials:', err);
@@ -45,6 +49,17 @@ export class DataManagerService {
     options?: Options,
     cacheKey?: string
   ): Observable<T> {
+
+    if (!options?.headers) {
+      options = {
+        ...options,
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.jwtToken}`,
+        })
+      };
+    }
+    
     const http$ = this.http.post<T>(this.backendURL + path, payload, options);
     return cacheKey ? this.saveInCache(cacheKey, http$) : http$;
   }
