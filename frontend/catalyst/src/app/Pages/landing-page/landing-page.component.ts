@@ -21,24 +21,39 @@ import {QuickAccessComponent} from "@pages/landing-page/quick-access/quick-acces
 export class LandingPage {
   showLoginPage = signal<boolean>(false);
 
+  handleOverlayClick(event: MouseEvent): void {
+    // Only close if clicking the overlay itself, not the login form
+    if ((event.target as HTMLElement).classList.contains('login-overlay')) {
+      this.toggleLoginVisibility();
+    }
+  }
+
+
+
+
   openBetaCard(): void {
     // Logic to render the login page can be added here
     this.toggleLoginVisibility();
   }
 
-  ///* Helper functions to close the login page and Overlay */
   toggleLoginVisibility() {
     this.showLoginPage.set(!this.showLoginPage());
-    if (this.showLoginPage()) {
-      const overlay = document.getElementById('overlay');
-      if (overlay) {
-        overlay.style.display = 'block';
-      }
-      overlay?.addEventListener('click', () => {
-        this.showLoginPage.set(false);
-        overlay.style.display = 'none';
-      });
-    }
   }
+
+
+  ///* Helper functions to close the login page and Overlay */
+  // toggleLoginVisibility() {
+  //   this.showLoginPage.set(!this.showLoginPage());
+  //   if (this.showLoginPage()) {
+  //     const overlay = document.getElementById('overlay');
+  //     if (overlay) {
+  //       overlay.style.display = 'block';
+  //     }
+  //     overlay?.addEventListener('click', () => {
+  //       this.showLoginPage.set(false);
+  //       overlay.style.display = 'none';
+  //     });
+  //   }
+  // }
 }
 

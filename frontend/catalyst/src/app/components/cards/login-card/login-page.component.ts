@@ -11,6 +11,13 @@ import { RouterModule , Router } from '@angular/router';
   styleUrl: './login-page.component.scss'
 })
 export class LoginPageComponent {
+
+  @Output() closeLogin = new EventEmitter<void>();
+  close(): void {
+    this.closeLogin.emit();
+  }
+
+
   private apiUrl = 'http://localhost:8000/api';
 
   signInForm = new FormGroup({
@@ -49,7 +56,7 @@ export class LoginPageComponent {
       'Content-Type': 'application/json',
     });
 
-    this.http.post(`https://django-web-109334363006.us-central1.run.app/api/login`, this.signInForm.value , {
+    this.http.post(`https://catalyst-main-109334363006.asia-south2.run.app/api/login`, this.signInForm.value , {
       headers,
       withCredentials : true
     }).subscribe({
@@ -72,7 +79,7 @@ export class LoginPageComponent {
       'Content-Type': 'application/json',
     });
 
-    this.http.post(`https://django-web-109334363006.us-central1.run.app/api/register`, this.signUpForm.value, {
+    this.http.post(`https://catalyst-main-109334363006.asia-south2.run.app/api/register`, this.signUpForm.value, {
       headers,
       withCredentials: true
     }).subscribe({

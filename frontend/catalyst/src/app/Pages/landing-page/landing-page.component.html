@@ -1,4 +1,6 @@
-<app-nav-bar></app-nav-bar>
+<app-nav-bar [class.blur-effect]="showLoginPage()"></app-nav-bar>
+
+
 <div class="dashboard-container bg-dark text-white ">
   <div class="container-fluid pt-5">
     <!-- Hero Section -->
@@ -22,6 +24,11 @@
       <div class="grid-item-2"><app-landing-dashboard-card /></div>
       <div class="grid-item-3"><app-profile-summary /><app-quick-access /></div>
   </div>
-  <app-beta-page *ngIf="showLoginPage()"></app-beta-page>
-</div>
-</div>
+    </div>
+  </div>
+
+<div *ngIf="showLoginPage()" class="login-overlay" (click)="handleOverlayClick($event)">
+  <app-beta-page class="login-container" (closeLogin)="toggleLoginVisibility()"></app-beta-page>
+  </div>
+
+
