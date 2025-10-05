@@ -52,8 +52,16 @@ dashboard-card {
   min-height: 100vh;
 }
 
-.hero-section {
+.top-left-section {
+  width:60vw;
   margin-bottom: 3rem;
+}
+.top-right-section {
+  width:29vw;
+  margin-bottom: 3rem;
+}
+.top-left-section, .top-right-section {
+  display: inline-block;
 }
 
 .hero-title {

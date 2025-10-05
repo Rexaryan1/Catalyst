@@ -1,22 +1,22 @@
 <app-nav-bar [class.blur-effect]="showLoginPage()"></app-nav-bar>
 
 <div class="dashboard-container text-white ">
-  <div class="container-fluid pt-5">
+  <div class="container-fluid pt-1">
     <!-- Hero Section -->
-    <div class="hero-section text-center mb-5">
+    <div class="top-left-section text-center ">
       <div>
-        <h1 class="hero-title">Catalyst</h1>
-        <h1 class="hero-subtitle">Learn Smarter, Retain Longer</h1>
+        <h1 class="hero-title">Hey,</h1>
+        <h1 class="hero-subtitle">Are you ready to rock with us ?</h1>
       </div>
-
-      <br><br>
+    </div>
+    <div class="top-right-section text-center">
       <p class="lead mt-4">Your AI-powered learning companion—personalized, dynamic, and always by your side.</p>
-      <br>
 
-      <div class="d-flex justify-content-center mb-4">
+      <div class="d-flex justify-content-center">
         <button type="button" class="btn btn-light p-3 get-started-btn" (click)="openBetaCard()">Join Beta </button>
       </div>
     </div>
+
     <!-- Cards Grid Section -->
     <div class="cards-grid">
       <div class="grid-item-1"><app-roadmap-card /></div>
