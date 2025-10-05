@@ -1,6 +1,4 @@
-.dashboard-container {
-  width: 100%;
-}
+
 .blur-effect {
   filter: blur(4px);
   transition: filter 0.3s ease;
@@ -47,6 +45,7 @@ dashboard-card {
 }
 
 .dashboard-container {
+  background-color: var(--background-color);
   width: 100%;
   min-height: 100vh;
   padding-bottom: 2rem;
@@ -99,7 +98,7 @@ dashboard-card {
 // Grid Layout
 .cards-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
 
   // Responsive breakpoints

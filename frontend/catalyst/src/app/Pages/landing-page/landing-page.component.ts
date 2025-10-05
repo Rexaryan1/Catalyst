@@ -19,6 +19,8 @@ import {QuickAccessComponent} from "@pages/landing-page/quick-access/quick-acces
   styleUrl: './landing-page.component.scss'
 })
 export class LandingPage {
+  constructor() { }
+  
   showLoginPage = signal<boolean>(false);
 
   handleOverlayClick(event: MouseEvent): void {
@@ -27,9 +29,6 @@ export class LandingPage {
       this.toggleLoginVisibility();
     }
   }
-
-
-
 
   openBetaCard(): void {
     // Logic to render the login page can be added here
