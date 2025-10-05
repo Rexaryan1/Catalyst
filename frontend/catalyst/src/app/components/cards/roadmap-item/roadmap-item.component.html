@@ -39,7 +39,7 @@
 
       <div class="question-item"
            *ngFor="let question of roadmapItem.questions"
-           (click)="onQuestionClick(question.id)">
+           (click)="onQuestionClick(question)">
         <div class="question-content">
           <div class="question-title">{{ question.title }}</div>
           <div class="question-summary">{{ question.summary }}</div>

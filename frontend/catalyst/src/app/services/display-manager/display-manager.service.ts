@@ -47,8 +47,14 @@ export class DisplayManagerService {
     const compRef: ComponentRef<QuestionCardComponent> =
       createComponent(QuestionCardComponent, { environmentInjector: this.env });
 
+      // 2. Attach it to Angular's change detection
+    this.appRef.attachView(compRef.hostView);
+
     // 3. Add to DOM manually
     document.body.appendChild((compRef.hostView as any).rootNodes[0]);
     return compRef;
+
+     // 4. Trigger change detection manually (ensures hooks fire)
+    compRef.changeDetectorRef.detectChanges();
   }
 }

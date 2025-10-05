@@ -1,6 +1,7 @@
 import { Input, Component, Output, EventEmitter, input } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { DataManagerService } from '@services/data-manager/data-manager.service';
 
 @Component({
   selector: 'app-question-card',
@@ -10,8 +11,15 @@ import { RouterModule } from '@angular/router';
   styleUrl: './question-card.component.scss'
 })
 export class QuestionCardComponent {
-  
-  @Input() question: any;
+
+  constructor(private dataManager: DataManagerService) {}
+
+  question: any
+  ngOnInit() {
+    // Initialization logic here
+    this.question = this.dataManager.snapshot("question")
+
+  }
 
   ngAfterViewInit() {
     const floating_btn = document.querySelector('.floating-btn');

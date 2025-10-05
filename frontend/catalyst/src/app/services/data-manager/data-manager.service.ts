@@ -63,6 +63,14 @@ export class DataManagerService {
     return cacheKey ? this.saveInCache(cacheKey, http$) : http$;
   }
 
+  /** set value in cached Store */
+  set<T>(key: string, value: T) {
+    if (!this.store.has(key)) {
+      this.store.set(key, new BehaviorSubject<T | null>(null));
+    }
+    this.store.get(key)!.next(value);
+  }
+
   /** -------- Subscribe reactively to any store key -------- */
   select<T>(key: string): Observable<T | null> {
     if (!this.store.has(key)) {
