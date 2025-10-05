@@ -4,12 +4,13 @@
     top: 0;
     z-index: 1000;
 
+    background-color: var(--background-color);
+    
 }
 
-////remove after We go Live
-//.hidden {
-//    display: none;
-//}
+a , span{
+    color: var(--color-white);
+}
 
 @media screen and (max-width: 768px) {
     .navbar {

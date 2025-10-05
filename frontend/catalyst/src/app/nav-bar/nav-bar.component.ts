@@ -1,7 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, viewChild, ViewContainerRef } from '@angular/core';
 import { LoginPageComponent } from "../components/cards/login-card/login-page.component";
 import { NgIf } from '@angular/common';
-import e from 'express';
 @Component({
   selector: 'app-nav-bar',
   standalone: true,
@@ -12,6 +11,10 @@ import e from 'express';
 })
 export class NavBarComponent {
   showLoginPage = signal<boolean>(false);
+  userLoggedIn = signal<boolean>(true);
+
+  userName = 'Aryan V.';
+  userAvatar = 'assets/aryan.jpg';
 
   renderLogin(): void {
     // Logic to render the login page can be added here
