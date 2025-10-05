@@ -218,7 +218,7 @@ p {
     }
 
     &::-webkit-scrollbar-thumb {
-      background: #46675D;
+      background: var(--color-green);
       border-radius: 0;
 
       &:hover {

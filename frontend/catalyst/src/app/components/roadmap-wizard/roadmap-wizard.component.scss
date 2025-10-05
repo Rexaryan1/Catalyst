@@ -4,7 +4,7 @@
   font-style: italic;
   cursor: pointer;
   text-decoration: underline;
-  color: #46675D;
+  color: var(--color-green);
   font-weight: 500;
   transition: color 0.3s ease;
 }
@@ -86,7 +86,7 @@
       width: 100%;
       padding: 0.75rem 1rem;
       margin-bottom: 1.5rem;
-      border: 2px solid #46675D;
+      border: 2px solid var(--color-green);
       border-radius: 6px;
       background-color: #1F1F1F;
       color: #EAE9E5;
@@ -116,7 +116,7 @@
     // Button styling
     button,
     .btn {
-      background-color: #46675D;
+      background-color: var(--color-green);
       border: none;
       color: #EAE9E5;
       padding: 0.75rem 1.5rem;
@@ -159,12 +159,12 @@
     // Secondary button variant
     .btn-secondary {
       background-color: transparent;
-      border: 2px solid #46675D;
-      color: #46675D;
+      border: 2px solid var(--color-green);
+      color: var(--color-green);
     }
 
     .btn-secondary:hover {
-      background-color: #46675D;
+      background-color: var(--color-green);
       color: #EAE9E5;
     }
 
@@ -184,7 +184,7 @@
 
     .progress-bar-fill {
       height: 100%;
-      background-color: #46675D;
+      background-color: var(--color-green);
       border-radius: 4px;
       transition: width 0.3s ease;
       position: relative;
@@ -208,7 +208,7 @@
 
     // Material progress bar override (if using Angular Material)
     ::ng-deep .mat-progress-bar-fill::after {
-      background-color: #46675D !important;
+      background-color: var(--color-green) !important;
     }
 
     ::ng-deep .mat-progress-bar-buffer {
@@ -229,7 +229,7 @@
     // Card/section styling
     .wizard-section {
       background-color: rgba(31, 31, 31, 0.5);
-      border: 1px solid #46675D;
+      border: 1px solid var(--color-green);
       border-radius: 8px;
       padding: 1.5rem;
       margin-bottom: 1.5rem;

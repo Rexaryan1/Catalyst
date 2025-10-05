@@ -22,7 +22,7 @@
   &:hover {
     transform: translateY(-4px);
     box-shadow: 0 8px 24px rgba(70, 103, 93, 0.3);
-    border-color: #46675D;
+    border-color: var(--color-green);
   }
 
   &:active {
@@ -152,7 +152,7 @@
 
     &.saved {
       background: rgba(70, 103, 93, 0.2);
-      border-color: #46675D;
+      border-color: var(--color-green);
     }
 
     svg {
@@ -208,7 +208,7 @@
 
     .progress-fill {
       height: 100%;
-      background: linear-gradient(90deg, #46675D 0%, #BEDCE4 100%);
+      background: linear-gradient(90deg, var(--color-green) 0%, #BEDCE4 100%);
       transition: width 0.4s ease;
       border-radius: 0;
     }
@@ -356,7 +356,7 @@
 
       &.bookmarked {
         background: rgba(70, 103, 93, 0.2);
-        border-color: #46675D;
+        border-color: var(--color-green);
       }
 
       svg {
