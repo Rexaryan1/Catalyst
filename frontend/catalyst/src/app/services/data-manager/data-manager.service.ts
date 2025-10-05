@@ -11,8 +11,7 @@ export class DataManagerService {
   private store: Map<string, BehaviorSubject<any>> = new Map();
 
   jwtToken = localStorage.getItem('jwtToken') || '';
-  userName = localStorage.getItem('userName') || '';
-  cookie = localStorage.getItem('cookie') || '';
+  cookie = localStorage.getItem('sessionCookie') || '';
 
   constructor(private http: HttpClient) {
     this.getUserCreds();
@@ -23,12 +22,12 @@ export class DataManagerService {
     this.post('api/login',{
       "email": "test20@test.com",
       "password": "qwertyuiop"
-    }).subscribe({
+    },{withCredentials:true}).subscribe({
       next: (res: any) => {
         this.jwtToken = res.jwt;
         this.cookie = `jwt=${this.jwtToken}; Path=/; HttpOnly;`;
         localStorage.setItem('jwtToken', res.jwt);
-        localStorage.setItem('cookie', this.cookie);
+        localStorage.setItem('sessionCookie', this.cookie);
       },
       error: (err) => {
         console.error('Error fetching user credentials:', err);
