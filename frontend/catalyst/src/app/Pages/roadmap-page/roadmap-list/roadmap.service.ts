@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, catchError, of } from 'rxjs';
 import { RoadmapItem, Question } from "@components/cards/roadmap-item/roadmap-item.interface";
-
+import { DataManagerService } from '@services/data-manager/data-manager.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -10,51 +10,40 @@ export class RoadmapService {
   private roadmapItemsSubject = new BehaviorSubject<RoadmapItem[]>([]);
   roadmapItems$: Observable<RoadmapItem[]> = this.roadmapItemsSubject.asObservable();
 
-  constructor(private http: HttpClient) {
-    this.loadDataFromJson();
-  }
-
-  private loadDataFromJson(): void {
-    this.http.get<any>('/assets/data/example.json')
-      .pipe(
-        catchError(error => {
-          console.error('Error loading roadmap data from JSON:', error);
-          return of({ data: { roadmapItems: this.getFallbackData() } });
-        })
-      )
-      .subscribe(data => {
-        const roadmapItems = data.data?.roadmapItems || this.getFallbackData();
-        this.roadmapItemsSubject.next(roadmapItems);
-      });
-  }
-
-  private getFallbackData(): RoadmapItem[] {
-    // Fallback data in case JSON loading fails
-    return [
-      {
-        id: 'fallback-1',
-        title: 'Fallback Topic',
-        summary: 'This is fallback data loaded when JSON import fails. Please check your example.json file.',
-        difficulty: 'Easy',
-        progressPercentage: 0,
-        isSaved: false,
-        isExpanded: false,
-        questions: [
-          {
-            id: 'fallback-q1',
-            title: 'Sample Question',
-            summary: 'This is a sample question from fallback data.',
-            isBookmarked: false,
-            difficulty: 'Easy'
-          }
-        ]
+  constructor(private http: HttpClient, private dataManager: DataManagerService) {
+    this.dataManager.select('roadmap').subscribe({
+      next: (data : any) => {
+        if (data && data.roadmapItems) {
+          this.roadmapItemsSubject.next(data.roadmapItems);
+        } else {
+          console.log('No roadmap data found in DataManagerService');
+          this.loadDataFromJson();
+        }
       }
-    ];
+    });
   }
 
   // Method to reload data from JSON (useful for refreshing data)
   reloadData(): void {
-    this.loadDataFromJson();
+    this.dataManager.select('roadmap').subscribe({
+      next: (data : any) => {
+        if (data && data.roadmapItems) {
+          this.roadmapItemsSubject.next(data.roadmapItems);
+        } else {
+          console.log('No roadmap data found in DataManagerService');
+          this.loadDataFromJson();
+        }
+      }
+    });
+  }
+
+
+  private loadDataFromJson(): void {
+    this.http.get<any>('/assets/data/example.json')
+      .subscribe(data => {
+        const roadmapItems = data.data?.roadmapItems
+        this.roadmapItemsSubject.next(roadmapItems);
+      });
   }
 
   getRoadmapItems(): RoadmapItem[] {

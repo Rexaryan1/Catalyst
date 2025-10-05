@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { DataManagerService } from '@services/data-manager/data-manager.service';
 import { RoadmapListComponent } from "@pages/roadmap-page/roadmap-list/roadmap-list.component";
 import { NavBarComponent } from "@app/nav-bar/nav-bar.component";
 
@@ -11,5 +11,21 @@ import { NavBarComponent } from "@app/nav-bar/nav-bar.component";
   styleUrl: './roadmap-page.component.scss'
 })
 export class RoadmapPageComponent {
+  roadmapData: Object | null = null;
+  constructor(private dataManager: DataManagerService) {}
 
+  ngOnInit() {
+    this.dataManager.select('roadmap').subscribe({
+      next: (data) => {
+        if (data) this.roadmapData = data;
+        else console.log('No roadmap data found');
+      },
+      error: (error) => {
+        console.error('Error fetching roadmap data:', error);
+      }
+    });
+  }
+
+  ngAfterViewInit() {
+  }
 }

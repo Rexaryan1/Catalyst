@@ -4,9 +4,7 @@ import { LoginPageComponent } from './components/cards/login-card/login-page.com
 import { QuestionCardComponent } from './components/cards/question-card/question-card.component';
 import { UserProfileComponent } from './Pages/user-profile/user-profile.component';
 import { LandingPage } from '@pages/landing-page/landing-page.component';
-import { PromptPageComponent } from '@pages/prompt-page/prompt-page.component';
 import { StudyPlanComponent } from "@pages/study-plan/study-plan.component";
-import { RoadmapListComponent } from "@app/Pages/roadmap-page/roadmap-list/roadmap-list.component";
 import { RoadmapPageComponent } from "@pages/roadmap-page/roadmap-page.component";
 import {RoadmapBlockComponent} from "@components/cards/roadmap-block/roadmap-block.component";
 import {ScoreCardComponent} from "@components/cards/profile-summary/score-card/score-card.component";
@@ -24,7 +22,4 @@ export const routes: Routes = [
     { path: 'userHome', component: UserProfileComponent },
     { path: 'plan', component: StudyPlanComponent },
     { path: 'roadmap', component: RoadmapPageComponent },
-    {path: 'preview' , component: RoadmapWizardComponent},
-  //  { path: 'roadmap', component: RoadmapListComponent }
-
 ];

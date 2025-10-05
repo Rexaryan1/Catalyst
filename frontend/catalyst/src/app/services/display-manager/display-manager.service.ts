@@ -28,8 +28,6 @@ export class DisplayManagerService {
       overlay.style.display = 'block';
     }
 
- 
-
     let refView : ComponentRef<any> | null = null;
     if (type) {
       refView = this.createView(type, id);

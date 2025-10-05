@@ -86,7 +86,7 @@ export class RoadmapWizardComponent {
       //     // console.error(err);
       //   },
       // });
-      this.dataManagerService.post('roadmap/generate/', payload,{withCredentials: true}).subscribe({
+      this.dataManagerService.post('roadmap/generate/', payload,{withCredentials: true},"roadmap").subscribe({
         next: (response) => {
           console.log('Roadmap created successfully:', response);
         },
