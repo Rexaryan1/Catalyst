@@ -13,8 +13,8 @@ export class RoadmapService {
   constructor(private http: HttpClient, private dataManager: DataManagerService) {
     this.dataManager.select('roadmap').subscribe({
       next: (data : any) => {
-        if (data && data.roadmapItems) {
-          this.roadmapItemsSubject.next(data.roadmapItems);
+        if (data && data?.data?.roadmapItems) {
+          this.roadmapItemsSubject.next(data.data.roadmapItems);
         } else {
           console.log('No roadmap data found in DataManagerService');
           this.loadDataFromJson();

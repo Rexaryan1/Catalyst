@@ -7,6 +7,7 @@ import {Graphic2Component} from "@components/roadmap-wizard/graphic-2/graphic-2.
 import {Graphic3Component} from "@components/roadmap-wizard/graphic-3/graphic-3.component";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import { DataManagerService } from '@services/data-manager/data-manager.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-roadmap-wizard',
@@ -33,7 +34,9 @@ export class RoadmapWizardComponent {
   showTopicInput = signal(false);
   showIntentInput = signal(false);
 
-  constructor(private fb: FormBuilder, private dataManagerService: DataManagerService) {}
+  constructor(private fb: FormBuilder, private dataManagerService: DataManagerService, private router: Router) {
+
+  }
 
   get isLastStep() {
     return this.stepIndex() === this.totalSteps - 1;
@@ -89,6 +92,7 @@ export class RoadmapWizardComponent {
       this.dataManagerService.post('roadmap/generate/', payload,{withCredentials: true},"roadmap").subscribe({
         next: (response) => {
           console.log('Roadmap created successfully:', response);
+          this.router.navigate(['/roadmap']);
         },
         error: (err) => {
           console.error('Error creating roadmap:', err);
