@@ -5,29 +5,28 @@
     <!-- Hero Section -->
     <div class="top-left-section text-center ">
       <div>
-        <h1 class="hero-title">Hey,</h1>
-        <h1 class="hero-subtitle">Are you ready to rock with us ?</h1>
+        <h1 class="hero-title">Hello,</h1>
+        <h1 class="hero-subtitle">Ready to build with Catalyst?</h1>
       </div>
     </div>
     <div class="top-right-section text-center">
-      <p class="lead mt-4">Your AI-powered learning companion—personalized, dynamic, and always by your side.</p>
+      <p class="lead mt-4">Your AI-powered learning companion — personalized, dynamic, and ready to help you grow.</p>
 
       <div class="d-flex justify-content-center">
-        <button type="button" class="btn btn-light p-3 get-started-btn" (click)="openBetaCard()">Join Beta </button>
+        <button type="button" class="btn btn-light p-3 get-started-btn" aria-label="Get started with Catalyst"
+          (click)="openBetaCard()">Get Started</button>
       </div>
     </div>
 
     <!-- Cards Grid Section -->
     <div class="cards-grid">
       <div class="grid-item-1"><app-roadmap-card /></div>
-      <div class="grid-item-2"><app-landing-dashboard-card /></div>
+      <div class="grid-item-2"><landing-dashboard-card /></div>
       <div class="grid-item-3"><app-profile-summary /><app-quick-access /></div>
-  </div>
     </div>
   </div>
 
-<div *ngIf="showLoginPage()" class="login-overlay" (click)="handleOverlayClick($event)">
-  <app-beta-page class="login-container" (closeLogin)="toggleLoginVisibility()"></app-beta-page>
+  <div *ngIf="showLoginPage()" class="login-overlay" (click)="handleOverlayClick($event)">
+    <app-beta-page class="login-container" (closeLogin)="toggleLoginVisibility()"></app-beta-page>
   </div>
-
-
+</div>
