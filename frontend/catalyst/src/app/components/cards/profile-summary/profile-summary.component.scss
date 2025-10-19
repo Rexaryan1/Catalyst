@@ -5,7 +5,6 @@
 }
 .profile-summary {
   background: var(--color-primary-green, #46675d);
-  height: 271px;
   position: relative;
   width: 517px;
   overflow: hidden;
@@ -21,7 +20,6 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 265.34px;
   position: relative;
 }
 
@@ -60,7 +58,6 @@
   font-weight: 700;
   position: relative;
   width: 247.07px;
-  height: 52.28px;
   transform-origin: 0 0;
   transform: rotate(0deg) scale(1, 1);
   display: flex;
@@ -69,7 +66,6 @@
 }
 
 .summary-info{
-  height: 181.15px;
   width: 265.34px;
   display: flex;
   flex-direction: column;
