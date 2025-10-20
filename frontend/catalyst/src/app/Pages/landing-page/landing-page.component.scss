@@ -110,6 +110,7 @@ h1 {
 
   .grid-item-1,.grid-item-2{
     flex-grow: 1;
+    min-width: 19rem;
   }
   /* Make special items span full width on narrower screens if needed */
   @media (max-width: 1250px) {
