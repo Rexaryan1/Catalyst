@@ -101,33 +101,35 @@ h1 {
 }
 
 // Grid -> Flex Layout
-.cards-grid {
+.cards-flex-layout {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-  align-items: stretch;
-  justify-content: center;  // changed from flex-start to center
-  padding: 1rem;           // add some padding around the grid
+  justify-content: space-around;  // changed from flex-start to center
+  padding: 2rem; 
 
-  /* style direct children (the card wrappers) so they grow and wrap */
-  >div {
-    box-sizing: border-box;
-    height: 350px;
-    flex: 1 1 300px;
-    width: 100%;
+  .grid-item-1,.grid-item-2{
+    flex-grow: 1;
+  }
+  /* Make special items span full width on narrower screens if needed */
+  @media (max-width: 1250px) {
+    .grid-item-3 {
+    }
   }
 
-  @media screen and (max-width: 1260px) {
-    .grid-item-1,
-    .grid-item-2{
+  @media (max-width: 768px) {
 
-    }
-    .grid-item-3{
-    }
-
+    
   }
 
 }
+@media (max-width: 768px) {
+    .cards-flex-layout {
+      flex-direction: column;
+    }
+  }
+
+
 
 
 
@@ -150,24 +152,3 @@ dashboard-card {
 }
 
 
-
-/* Make special items span full width on narrower screens if needed */
-@media (max-width: 1249px) {
-
-  .grid-item-3,
-  .grid-item-4 {
-    max-width: 100%;
-    width: 100%;
-  }
-}
-
-@media (max-width: 768px) {
-
-  .grid-item-3,
-  .grid-item-4 {
-    grid-column: none;
-    grid-row: none;
-    height: auto;
-    width: 100%;
-  }
-}
