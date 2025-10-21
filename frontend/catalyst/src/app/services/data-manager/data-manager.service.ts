@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, observable, Observable, tap } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Options } from './data-manager-interface.d';
+import { environment } from '@environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataManagerService {
   private backendURL = 'https://catalyst-main-109334363006.asia-south2.run.app/';
+  // private backendURL = environment.apiUrl;
   private store: Map<string, BehaviorSubject<any>> = new Map();
 
   jwtToken = localStorage.getItem('jwtToken') || '';
@@ -19,10 +21,10 @@ export class DataManagerService {
   }
   /** -------- Fetch user credentials and store JWT token -------- */
   private getUserCreds() {
-    this.post('api/login',{
+    this.post('api/login', {
       "email": "test20@test.com",
       "password": "qwertyuiop"
-    },{withCredentials:true}).subscribe({
+    }, { withCredentials: true }).subscribe({
       next: (res: any) => {
         this.jwtToken = res.jwt;
         this.cookie = `jwt=${this.jwtToken}; Path=/; HttpOnly;`;
@@ -58,7 +60,7 @@ export class DataManagerService {
         })
       };
     }
-    
+
     const http$ = this.http.post<T>(this.backendURL + path, payload, options);
     return cacheKey ? this.saveInCache(cacheKey, http$) : http$;
   }
