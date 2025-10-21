@@ -27,6 +27,7 @@
 
 .percent {
   margin-top: 6px;
+  width: 40px;
   font-weight: 600;
   color: #BEDCE4;
 }
@@ -50,17 +51,33 @@
     line-height: 1.6;
 
     // Typography
-    h1, h2, h3, h4, h5, h6 {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
       color: #EAE9E5;
       font-weight: 600;
       margin-bottom: 1.5rem;
       line-height: 1.3;
     }
 
-    h1 { font-size: 2.5rem; }
-    h2 { font-size: 2rem; }
-    h3 { font-size: 1.5rem; }
-    h4 { font-size: 1.25rem; }
+    h1 {
+      font-size: 2.5rem;
+    }
+
+    h2 {
+      font-size: 2rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+    }
+
+    h4 {
+      font-size: 1.25rem;
+    }
 
     p {
       color: #BEDCE4;
@@ -174,11 +191,13 @@
     }
 
     .progress-bar {
-      width: 100%;
+      width: 50%;
       height: 8px;
       background-color: #1F1F1F;
       border-radius: 4px;
       overflow: hidden;
+      margin-left: auto;
+      margin-right: auto;
       box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
     }
 
@@ -202,8 +221,13 @@
     }
 
     @keyframes shimmer {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(100%); }
+      0% {
+        transform: translateX(-100%);
+      }
+
+      100% {
+        transform: translateX(100%);
+      }
     }
 
     // Material progress bar override (if using Angular Material)
@@ -216,7 +240,8 @@
     }
 
     // List styling
-    ul, ol {
+    ul,
+    ol {
       margin-bottom: 1.5rem;
       padding-left: 1.5rem;
     }
@@ -270,10 +295,16 @@
     @media (max-width: 768px) {
       padding: 1.5rem;
 
-      h1 { font-size: 2rem; }
-      h2 { font-size: 1.75rem; }
+      h1 {
+        font-size: 2rem;
+      }
 
-      button, .btn {
+      h2 {
+        font-size: 1.75rem;
+      }
+
+      button,
+      .btn {
         width: 100%;
         margin-bottom: 0.5rem;
         margin-right: 0;
@@ -287,10 +318,32 @@
   }
 }
 
-.highlight { font-style: italic; cursor: pointer; text-decoration: underline; }
-.intent-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.controls { display: flex; gap: 12px; align-items: center; }
-.percent { margin-top: 6px; font-weight: 600; }
+.highlight {
+  font-style: italic;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.intent-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.controls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 0 0px 20px 0px;
+}
+
+
+.percent {
+  margin-top: 6px;
+  font-weight: 600;
+  margin-left: auto;
+  margin-right: auto;
+}
 
 
 
@@ -310,9 +363,3 @@
     padding: 2rem;
   }
 }
-
-
-
-
-
-
