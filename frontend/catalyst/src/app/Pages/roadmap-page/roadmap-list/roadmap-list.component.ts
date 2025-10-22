@@ -9,7 +9,7 @@ import { RoadmapItemComponent } from "@components/cards/roadmap-item/roadmap-ite
   selector: 'app-roadmap-list',
   standalone: true,
   imports: [CommonModule, RoadmapItemComponent],
-  templateUrl: './roadmap-list.component.html',
+  templateUrl: 'roadmap-list.component.html',
   styleUrls: ['./roadmap-list.component.scss']
 })
 export class RoadmapListComponent implements OnInit, OnDestroy {

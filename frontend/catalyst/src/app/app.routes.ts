@@ -18,7 +18,6 @@ export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'home', component: LandingPage },
     { path: 'prompt', component: RoadmapWizardComponent},
-    { path: 'questionCard', component: QuestionCardComponent },
     { path: 'userHome', component: UserProfileComponent },
     { path: 'plan', component: StudyPlanComponent },
     { path: 'roadmap', component: RoadmapPageComponent },

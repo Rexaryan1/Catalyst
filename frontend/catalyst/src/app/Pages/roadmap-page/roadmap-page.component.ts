@@ -6,7 +6,7 @@ import { NavBarComponent } from "@app/nav-bar/nav-bar.component";
 @Component({
   selector: 'app-roadmap-page',
   standalone: true,
-  imports: [RoadmapListComponent, NavBarComponent],
+  imports: [NavBarComponent, RoadmapListComponent],
   templateUrl: './roadmap-page.component.html',
   styleUrl: './roadmap-page.component.scss'
 })
