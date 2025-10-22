@@ -75,7 +75,7 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 
   &:hover {
-    transform: translateY(-5px);
+    transform: translateY(-10px) scale(2,2);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
   }
 }
