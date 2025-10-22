@@ -1,6 +1,8 @@
 import { Component, signal, viewChild, ViewContainerRef } from '@angular/core';
 import { LoginPageComponent } from "../components/cards/login-card/login-page.component";
 import { NgIf } from '@angular/common';
+import { DataManagerService } from '@services/data-manager/data-manager.service';
+
 @Component({
   selector: 'app-nav-bar',
   standalone: true,
@@ -11,10 +13,20 @@ import { NgIf } from '@angular/common';
 })
 export class NavBarComponent {
   showLoginPage = signal<boolean>(false);
-  userLoggedIn = signal<boolean>(true);
 
-  userName = 'Aryan V.';
+  userName = '';
   userAvatar = 'assets/aryan.jpg';
+  constructor(public dataManager: DataManagerService) {
+  }
+
+  ngOnInit(): void {
+    this.dataManager.select('userProfile').subscribe((profile: any) => {
+      if (profile) {
+        this.userName = profile.name;
+        this.userAvatar = profile.avatar || 'assets/aryan.jpg';
+      }
+    });
+  }
 
   renderLogin(): void {
     // Logic to render the login page can be added here

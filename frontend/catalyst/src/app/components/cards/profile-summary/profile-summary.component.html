@@ -2,11 +2,11 @@
     <img src="../../../../assets/aryan.jpg"/>
   <div class = "summary-info">
     <div class="welcome">welcome</div>
-    <div class="name">Aryan V.</div>
+    <div class="name">{{ userProfile?.name }}</div>
     <div class="profile-summary-scores-flex">
-      <app-score-card />
-      <app-score-card />
-      <app-score-card />
+      <app-score-card [score]="userProfile?.profile.learning_streak" [metricName]="'Learning Streak'"/>
+      <app-score-card [score]="userProfile?.profile.average_accuracy" [metricName]="'Average Accuracy'"/>
+      <app-score-card [score]="userProfile?.profile.average_time_per_question" [metricName]="'Average Time Per Question'"/>
     </div>
   </div>
 </div>

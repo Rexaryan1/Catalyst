@@ -3,6 +3,7 @@ import { BehaviorSubject, observable, Observable, tap } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Options } from './data-manager-interface.d';
 import { environment } from '@environments/environment';
+import { signal } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -12,27 +13,62 @@ export class DataManagerService {
   // private backendURL = environment.apiUrl;
   private store: Map<string, BehaviorSubject<any>> = new Map();
 
+  isUserLoggedIn = signal<boolean>(false);
+
   jwtToken = localStorage.getItem('jwtToken') || '';
   cookie = localStorage.getItem('sessionCookie') || '';
 
   constructor(private http: HttpClient) {
-    this.getUserCreds();
-
   }
+
   /** -------- Fetch user credentials and store JWT token -------- */
-  private getUserCreds() {
+  public checkLoggedInStatus(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.get('api/user', { withCredentials: true }).subscribe({
+        next: (res: any) => {
+          if (res.id) {
+            this.isUserLoggedIn.set(true);
+            this.getUserProfile();
+          }
+          resolve();
+        },
+        error: (err) => {
+          if (err.status === 401 || err.status === 403) {
+            this.isUserLoggedIn.set(false);
+            resolve();
+          }
+          console.error('Error checking logged-in status:', err);
+          reject(err);
+        }
+      });
+    });
+  }
+
+  public login(email: any, password: any) {
     this.post('api/login', {
-      "email": "test20@test.com",
-      "password": "qwertyuiop"
+      "email": email,
+      "password": password
     }, { withCredentials: true }).subscribe({
       next: (res: any) => {
         this.jwtToken = res.jwt;
         this.cookie = `jwt=${this.jwtToken}; Path=/; HttpOnly;`;
         localStorage.setItem('jwtToken', res.jwt);
         localStorage.setItem('sessionCookie', this.cookie);
+        location.reload();
       },
       error: (err) => {
         console.error('Error fetching user credentials:', err);
+      }
+    });
+  }
+  /** -------- Fetch user profile and store in cache -------- */
+  private getUserProfile() {
+    this.get('api/user/profile', { withCredentials: true }).subscribe({
+      next: (res: any) => {
+        this.set('userProfile', res);
+      },
+      error: (err) => {
+        console.error('Error fetching user profile:', err);
       }
     });
   }

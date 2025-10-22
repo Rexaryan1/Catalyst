@@ -1,7 +1,8 @@
 import { Input, Component, Output, EventEmitter } from '@angular/core';
 import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule , Router } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
+import { DataManagerService } from '@services/data-manager/data-manager.service';
 
 @Component({
   selector: 'app-login-page',
@@ -17,9 +18,6 @@ export class LoginPageComponent {
     this.closeLogin.emit();
   }
 
-
-  private apiUrl = 'http://localhost:8000/api';
-
   signInForm = new FormGroup({
     email: new FormControl(''),
     password: new FormControl('')
@@ -31,7 +29,7 @@ export class LoginPageComponent {
     password: new FormControl('')
   });
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router, private dataManager: DataManagerService) { }
 
   ngAfterViewInit() {
     const signUpButton = document.getElementById('signUp');
@@ -52,25 +50,7 @@ export class LoginPageComponent {
   }
   onSignIn() {
     console.log('SignIn Payload:', this.signInForm.value);
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-
-    this.http.post(`https://catalyst-main-109334363006.asia-south2.run.app/api/login`, this.signInForm.value , {
-      headers,
-      withCredentials : true
-    }).subscribe({
-      next: (response: any) => {
-        // Store JWT token
-        localStorage.setItem('jwt', response.jwt);
-        alert('Login successful: You are being redirected to the home page');
-        this.router.navigate(['/prompt']);
-      },
-      error: (error) => {
-        console.error('Login failed:', error);
-        alert('Login failed: ' + (error.error?.detail || 'Unknown error'));
-      }
-    });
+    this.dataManager.login(this.signInForm.value.email, this.signInForm.value.password);
   }
 
   onSignUp() {

@@ -1,4 +1,4 @@
-<app-nav-bar [class.blur-effect]="showLoginPage()"></app-nav-bar>
+<app-nav-bar></app-nav-bar>
 
 <div class="dashboard-container text-white ">
   <div class="container-fluid pt-1">
@@ -13,20 +13,18 @@
       <p class="lead mt-4">Your AI-powered learning companion — personalized, dynamic, and ready to help you grow.</p>
 
       <div class="d-flex justify-content-center">
-        <button type="button" class="btn btn-light p-3 get-started-btn" aria-label="Get started with Catalyst"
-          (click)="openBetaCard()">Get Started</button>
+        <button type="button" class="btn btn-light p-3 get-started-btn" aria-label="Get started with Catalyst">Get
+          Started</button>
       </div>
     </div>
 
     <!-- Cards Grid Section -->
-    <div class="cards-flex-layout">
+    <div *ngIf="this.dataManager.isUserLoggedIn()" class="cards-flex-layout">
       <div class="grid-item-1"><app-roadmap-card /></div>
       <div class="grid-item-2"><landing-dashboard-card /></div>
       <div class="grid-item-3"><app-profile-summary /><app-quick-access /></div>
     </div>
   </div>
 
-  <div *ngIf="showLoginPage()" class="login-overlay" (click)="handleOverlayClick($event)">
-    <app-beta-page class="login-container" (closeLogin)="toggleLoginVisibility()"></app-beta-page>
-  </div>
+  <!-- <app-beta-page class="login-container" (closeLogin)="toggleLoginVisibility()"></app-beta-page> -->
 </div>
