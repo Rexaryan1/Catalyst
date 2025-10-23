@@ -59,8 +59,7 @@ export class LoginPageComponent {
       'Content-Type': 'application/json',
     });
 
-    this.http.post(`https://catalyst-main-109334363006.asia-south2.run.app/api/register`, this.signUpForm.value, {
-      headers,
+    this.dataManager.post(`api/register`, this.signUpForm.value, {
       withCredentials: true
     }).subscribe({
       next: () => {
