@@ -9,7 +9,27 @@ import { RoadmapItemComponent } from "@components/cards/roadmap-item/roadmap-ite
   selector: 'app-roadmap-list',
   standalone: true,
   imports: [CommonModule, RoadmapItemComponent],
-  templateUrl: './roadmap-list.component.html',
+  template: `
+    <div class="container">
+      <div class="left-panel">
+        <h2>Roadmap Progress</h2>
+        <p>Track your progress through data structures and algorithms. Click on any topic to explore questions and practice problems.</p>
+      </div>
+
+      <div class="right-panel">
+        <div class="roadmap-grid">
+          <app-roadmap-item
+            *ngFor="let item of roadmapItems"
+            [roadmapItem]="item"
+            (saveToggle)="onSaveToggle($event)"
+            (questionClick)="onQuestionClick($event)"
+            (questionBookmark)="onQuestionBookmark($event)"
+            (toggleExpansion)="onToggleExpansion($event)">
+          </app-roadmap-item>
+        </div>
+      </div>
+    </div>
+  `,
   styleUrls: ['./roadmap-list.component.scss']
 })
 export class RoadmapListComponent implements OnInit, OnDestroy {

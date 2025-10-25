@@ -1,3 +1,12 @@
+/* Container for left and right components */
+.container {
+  display: flex;
+  width: 100%;
+  gap: 24px;
+  padding: 16px;
+  box-sizing: border-box;
+  min-height: 100vh;
+}
 
 .left-panel,
 .right-panel {
@@ -147,7 +156,10 @@
 
 /* Responsive design */
 @media (max-width: 1000px) {
-
+  .container {
+    flex-direction: row;
+    gap: 16px;
+  }
 
   .left-panel,
   .right-panel {
@@ -194,7 +206,9 @@
 }
 
 @media (max-width: 480px) {
-
+  .container {
+    padding: 12px;
+  }
 
   .roadmap-block-container {
     gap: 8px;

@@ -1,14 +1,2 @@
-<div class="left-panel">
-    <h2>Roadmap Progress</h2>
-    <p>Track your progress through data structures and algorithms. Click on any topic to explore questions and
-        practice problems.</p>
-</div>
-
-<div class="right-panel">
-    <div class="roadmap-grid">
-        <app-roadmap-item *ngFor="let item of roadmapItems" [roadmapItem]="item" (saveToggle)="onSaveToggle($event)"
-            (questionClick)="onQuestionClick($event)" (questionBookmark)="onQuestionBookmark($event)"
-            (toggleExpansion)="onToggleExpansion($event)">
-        </app-roadmap-item>
-    </div>
-</div>
+<app-nav-bar></app-nav-bar>
+<app-roadmap-list></app-roadmap-list>
