@@ -4,3 +4,11 @@
         practice problems.</p>
 </div>
 
+<div class="right-panel">
+    <div class="roadmap-grid">
+        <app-roadmap-item *ngFor="let item of roadmapItems" [roadmapItem]="item" (saveToggle)="onSaveToggle($event)"
+            (questionClick)="onQuestionClick($event)" (questionBookmark)="onQuestionBookmark($event)"
+            (toggleExpansion)="onToggleExpansion($event)">
+        </app-roadmap-item>
+    </div>
+</div>
