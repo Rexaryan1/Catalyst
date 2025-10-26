@@ -65,6 +65,7 @@ export class LoginPageComponent {
       next: () => {
         alert('Registration successful! Please sign in');
         const container = document.getElementById('container');
+        this.router.navigate(['/home']);
         if (container) container.classList.remove("right-panel-active");
       },
       error: (error) => {

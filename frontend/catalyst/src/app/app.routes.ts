@@ -17,6 +17,7 @@ import {RoadmapWizardComponent} from "@components/roadmap-wizard/roadmap-wizard.
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'home', component: LandingPage },
+    { path: 'register', component: LoginPageComponent },
     { path: 'prompt', component: RoadmapWizardComponent},
     { path: 'userHome', component: UserProfileComponent },
     { path: 'plan', component: StudyPlanComponent },
