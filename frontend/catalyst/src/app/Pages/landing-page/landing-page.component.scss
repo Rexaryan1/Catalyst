@@ -31,7 +31,7 @@
 
 
 h1 {
-  font-family: 'Antonio';
+  font-family: 'Erbaum-Regular', sans-serif;
   color: #9dadec;
   font-weight: bold;
   font-size: 5rem;
@@ -61,7 +61,7 @@ h1 {
 }
 
 .hero-title {
-  font-family: 'Antonio';
+  font-family: 'Erbaum-Regular', sans-serif;
   color: #EAE9E5;
   font-weight: bold;
   font-size: 6rem;
@@ -73,7 +73,7 @@ h1 {
 }
 
 .hero-subtitle {
-  font-family: 'Antonio';
+  font-family: 'Erbaum-Regular', sans-serif;
   color: #EAE9E5;
   font-weight: bold;
   font-size: 3.5rem;
@@ -106,7 +106,7 @@ h1 {
   flex-wrap: wrap;
   gap: 1rem;
   justify-content: space-around;  // changed from flex-start to center
-  padding: 2rem; 
+  padding: 2rem;
 
   .grid-item-1,.grid-item-2{
     flex-grow: 1;
@@ -120,7 +120,7 @@ h1 {
 
   @media (max-width: 768px) {
 
-    
+
   }
 
 }

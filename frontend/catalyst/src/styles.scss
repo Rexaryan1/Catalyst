@@ -6,3 +6,17 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   --primary-color: #007bff;
   --font-size-base: 16px;
 }
+
+@font-face {
+      font-family: 'Erbaum'; /* Choose a name for your font */
+      src: url('assets/font/Erbaum-Regular.ttf') format('truetype'); /* Adjust path and format as needed */
+      font-weight: normal; /* Define font weight if applicable */
+      font-style: normal; /* Define font style if applicable */
+    }
+@font-face {
+      font-family: 'Erbaum-Bold';
+      src: url('assets/font/Erbaum-Bold.ttf') format('truetype');
+      font-weight: bold;
+      font-style: normal;
+    }
+
