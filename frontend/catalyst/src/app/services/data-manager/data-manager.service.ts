@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, observable, Observable, tap } from 'rxjs';
+import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Options } from './data-manager-interface.d';
 import { environment } from '@environments/environment';
@@ -18,7 +19,7 @@ export class DataManagerService {
   jwtToken = localStorage.getItem('jwtToken') || '';
   cookie = localStorage.getItem('sessionCookie') || '';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
   }
 
   /** -------- Fetch user credentials and store JWT token -------- */
@@ -54,7 +55,8 @@ export class DataManagerService {
         this.cookie = `jwt=${this.jwtToken}; Path=/; HttpOnly;`;
         localStorage.setItem('jwtToken', res.jwt);
         localStorage.setItem('sessionCookie', this.cookie);
-        location.reload();
+        this.isUserLoggedIn.set(true);
+        this.router.navigate(['/home']);
       },
       error: (err) => {
         console.error('Error fetching user credentials:', err);
