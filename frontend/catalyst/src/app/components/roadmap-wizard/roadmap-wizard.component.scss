@@ -1,12 +1,14 @@
 @use '@angular/material' as mat;
 
 .highlight {
+  font-family: Erbaum;
   font-style: italic;
   cursor: pointer;
   text-decoration: underline;
-  color: var(--color-green);
+  color: #EAE9E5;
   font-weight: 500;
   transition: color 0.3s ease;
+  font-size: x-large;
 }
 
 .highlight:hover {
@@ -80,9 +82,10 @@
     }
 
     p {
-      color: #BEDCE4;
+      font-family: Erbaum;
+      color: #858585;
       margin-bottom: 1.5rem;
-      font-size: 1rem;
+      font-size: xx-large;
     }
 
     // Labels and form text

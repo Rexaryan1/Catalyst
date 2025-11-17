@@ -25,7 +25,10 @@
 
     <div *ngIf="stepIndex() === 1">
       <p>
-        What <span class="highlight" (click)="showTopicInput.set(true)">topic</span> should I serve you with?
+        Which <span class="highlight" (click)="showSubjectInput.set(true)">subject</span> are we thinking today?
+      </p>
+      <p>
+        and what <span class="highlight" (click)="showTopicInput.set(true)">topic</span> should I serve you with?
       </p>
       <input
         *ngIf="showTopicInput()"
