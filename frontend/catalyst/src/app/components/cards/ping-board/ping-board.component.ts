@@ -5,7 +5,7 @@ import {NotificationComponent} from "@components/cards/ping-board/notification/n
   selector: 'app-ping-board',
   standalone: true,
   imports: [
-    NotificationComponent
+   
   ],
   templateUrl: './ping-board.component.html',
   styleUrl: './ping-board.component.scss'

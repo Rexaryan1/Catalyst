@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, ApplicationConfig } from '@angular/core';
+import { ApplicationConfig, inject, provideAppInitializer } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 
@@ -10,11 +10,9 @@ import { DataManagerService } from '@services/data-manager/data-manager.service'
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes), provideAnimationsAsync(), provideHttpClient(),
-    {
-      provide: APP_INITIALIZER,
-      useFactory: (dataManager: DataManagerService) => () => dataManager.checkLoggedInStatus(),
-      deps: [DataManagerService],
-      multi: true
-    }
+    provideAppInitializer(() => {
+        const initializerFn = ((dataManager: DataManagerService) => () => dataManager.checkLoggedInStatus())(inject(DataManagerService));
+        return initializerFn();
+      })
   ]
 };
