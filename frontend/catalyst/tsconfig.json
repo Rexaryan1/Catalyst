@@ -5,12 +5,24 @@
     "outDir": "./dist/out-tsc",
     "baseUrl": "./src",
     "paths": {
-      "@app/*": ["app/*"],
-      "@assets/*": ["assets/*"],
-      "@pages/*": ["app/Pages/*"],
-      "@components/*": ["app/components/*"],
-      "@environments/*": ["environments/*"],
-      "@services/*": ["app/services/*"],
+      "@app/*": [
+        "app/*"
+      ],
+      "@assets/*": [
+        "assets/*"
+      ],
+      "@pages/*": [
+        "app/Pages/*"
+      ],
+      "@components/*": [
+        "app/components/*"
+      ],
+      "@environments/*": [
+        "environments/*"
+      ],
+      "@services/*": [
+        "app/services/*"
+      ]
     },
     "strict": true,
     "noImplicitOverride": true,
@@ -22,7 +34,7 @@
     "sourceMap": true,
     "declaration": false,
     "experimentalDecorators": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "importHelpers": true,
     "target": "ES2022",
     "module": "ES2022",
