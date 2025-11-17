@@ -1,6 +1,5 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DashboardCardComponent } from '../../components/cards/dashboard-card/dashboard-card.component';
 import { NavBarComponent } from "../../nav-bar/nav-bar.component";
 import { LoginPageComponent } from "@app/Pages/landing-page/join-card/login-page.component";
 import {ProfileSummaryComponent} from "@components/cards/profile-summary/profile-summary.component";
@@ -14,7 +13,7 @@ import { DataManagerService } from '@services/data-manager/data-manager.service'
 @Component({
   selector: 'dashboard',
   standalone: true,
-  imports: [LandingDashboardCardComponent, NavBarComponent, CommonModule, LoginPageComponent, ProfileSummaryComponent, RoadmapCardComponent, DashboardCardComponent, LandingDashboardCardComponent, QuickAccessComponent],
+  imports: [LandingDashboardCardComponent, NavBarComponent, CommonModule, LoginPageComponent, ProfileSummaryComponent, RoadmapCardComponent, LandingDashboardCardComponent, QuickAccessComponent],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.scss'
 })
