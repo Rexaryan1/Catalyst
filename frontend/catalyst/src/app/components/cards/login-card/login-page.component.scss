@@ -203,7 +203,7 @@ input:focus {
 
 .overlay {
   /* new gradient using requested palette */
-  background: linear-gradient(135deg, var(--color-green) 0%, var(--clr-muted) 100%);
+  background: var(--color-green) ;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 0 0;
