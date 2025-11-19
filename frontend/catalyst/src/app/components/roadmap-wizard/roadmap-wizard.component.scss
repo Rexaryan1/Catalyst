@@ -1,8 +1,8 @@
 @use '@angular/material' as mat;
 
 mat-progress-bar {
-  --mdc-linear-progress-active-indicator-color: var(--color-green);
-  --mdc-linear-progress-track-color: #444444;
+  --mat-progress-bar-active-indicator-color: var(--color-green);
+  --mat-progress-bar-track-color: #444444;
 }
 
 .highlight {
