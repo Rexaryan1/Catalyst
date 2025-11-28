@@ -1,5 +1,5 @@
 import { Input, Component, Output, EventEmitter } from '@angular/core';
-import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
 import { DataManagerService } from '@services/data-manager/data-manager.service';
@@ -29,7 +29,7 @@ export class LoginPageComponent {
     password: new FormControl('')
   });
 
-  constructor(private http: HttpClient, private router: Router, private dataManager: DataManagerService) { }
+  constructor(private http: HttpClient, private router: Router, private dataManager: DataManagerService) {}
 
   ngAfterViewInit() {
     const signUpButton = document.getElementById('signUp');
@@ -38,16 +38,17 @@ export class LoginPageComponent {
 
     if (signUpButton && container) {
       signUpButton.addEventListener('click', () => {
-        container.classList.add("right-panel-active");
+        container.classList.add('right-panel-active');
       });
     }
 
     if (signInButton && container) {
       signInButton.addEventListener('click', () => {
-        container.classList.remove("right-panel-active");
+        container.classList.remove('right-panel-active');
       });
     }
   }
+
   onSignIn() {
     console.log('SignIn Payload:', this.signInForm.value);
     this.dataManager.login(this.signInForm.value.email, this.signInForm.value.password);
@@ -55,25 +56,46 @@ export class LoginPageComponent {
 
   onSignUp() {
     console.log('SignUp Payload:', this.signUpForm.value);
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
 
     this.dataManager.post(`api/register`, this.signUpForm.value, {
       withCredentials: true
     }).subscribe({
       next: () => {
-        alert('Registration successful! Please sign in');
+        alert('Registration successful! You are now signed in.');
         const container = document.getElementById('container');
         this.router.navigate(['/home']);
-        if (container) container.classList.remove("right-panel-active");
+        if (container) container.classList.remove('right-panel-active');
       },
-      error: (error) => {
+      error: (error: any) => {
+        // Specific 400 validation handling (e.g., {"email": ["user with this email already exists."]})
+        const body = error?.error;
+        let message = 'Unknown error';
+
+        if (error?.status === 400 && body) {
+          if (Array.isArray(body?.email) && body.email.length > 0) {
+            message = body.email[0];
+          } else if (typeof body?.email === 'string') {
+            message = body.email;
+          } else if (Array.isArray(body?.non_field_errors) && body.non_field_errors.length > 0) {
+            message = body.non_field_errors[0];
+          } else if (typeof body?.detail === 'string') {
+            message = body.detail;
+          } else if (typeof body?.message === 'string') {
+            message = body.message;
+          } else if (typeof body === 'string') {
+            message = body;
+          }
+        } else if (typeof body?.detail === 'string') {
+          message = body.detail;
+        } else if (typeof body?.message === 'string') {
+          message = body.message;
+        } else if (typeof body === 'string') {
+          message = body;
+        }
+
         console.error('Registration failed:', error);
-        alert('Registration failed: ' + (error.error?.detail || 'Unknown error'));
+        alert(`Registration failed: ${message}`);
       }
     });
   }
-
 }
-
