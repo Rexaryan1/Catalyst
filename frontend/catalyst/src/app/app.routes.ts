@@ -12,6 +12,7 @@ import {ProfileSummaryComponent} from "@components/cards/profile-summary/profile
 import {PingBoardComponent} from "@components/cards/ping-board/ping-board.component";
 import {SolutionComponent} from "@components/cards/solution/solution.component";
 import {RoadmapWizardComponent} from "@components/roadmap-wizard/roadmap-wizard.component";
+import {SignupPage} from "@pages/signup-page/signup-page";
 
 
 export const routes: Routes = [
@@ -22,4 +23,5 @@ export const routes: Routes = [
     { path: 'userHome', component: UserProfileComponent },
     { path: 'plan', component: StudyPlanComponent },
     { path: 'roadmap', component: RoadmapPageComponent },
+  {path: 'preview' , component: SignupPage}
 ];

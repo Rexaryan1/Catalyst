@@ -1,6 +1,7 @@
 .roadmap-card{
   background: #bedce4;
   height: 341px;
+  width: 320px;
   position: relative;
   overflow: hidden;
   border-radius: 10px;
@@ -75,7 +76,7 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 
   &:hover {
-    transform: translateY(-10px) scale(2,2);
+    transform: translateY(-1px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
   }
 }

@@ -5,7 +5,6 @@
     <!-- Hero Section -->
     <div class="top-left-section text-center ">
       <div>
-        <h1 class="hero-title">Hello,</h1>
         <h1 class="hero-subtitle">Ready to take your learning to the next level?</h1>
       </div>
     </div>
@@ -22,6 +21,7 @@
     <div *ngIf="this.dataManager.isUserLoggedIn()" class="cards-flex-layout">
       <div class="grid-item-1"><app-roadmap-card /></div>
       <div class="grid-item-2"><landing-dashboard-card /></div>
+
       <div class="grid-item-3"><app-profile-summary /><app-quick-access /></div>
     </div>
   </div>

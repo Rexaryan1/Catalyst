@@ -2,6 +2,7 @@
   background: #2f2f2f;
   border-radius: 10px;
   height: 341px;
+  width: 320px;
   position: relative;
 
   &:hover {
@@ -27,5 +28,8 @@
 }
 
 .apexcharts-canvas {
-  left: 50px;
+  position: relative;
+  left: 65px;
+  bottom: 52.5px;
+
 }
