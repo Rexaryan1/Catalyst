@@ -52,6 +52,9 @@ h1 {
   margin-left: 2rem;
   width: 29vw;
   margin-bottom: 3rem;
+  position : relative;
+  left: 20px;
+
 }
 
 .top-left-section,
@@ -73,11 +76,27 @@ h1 {
 }
 
 .hero-subtitle {
-  font-family: 'Erbaum-Regular', sans-serif;
+  font-family: 'Erbaum', sans-serif;
   color: #EAE9E5;
-  font-weight: bold;
-  font-size: 3.5rem;
+  text-align: left;
+  font-weight: 400;
+  font-size: 64px;
   margin-bottom: 0.5rem;
+  line-height: 114%;
+  letter-spacing: -0.06em;
+  position: relative;
+  top: -80px;
+  transform-origin: 0 0;
+  transform: rotate(0deg) scale(1, 1);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex: 1 1 320px;
+  width: 900px;
+
+
+
+
 
   @media (max-width: 768px) {
     font-size: 3rem;
@@ -104,32 +123,19 @@ h1 {
 .cards-flex-layout {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: space-around;  // changed from flex-start to center
+  gap: clamp(1rem, 2vw, 2rem);
+  //justify-content: space-around;  // changed from flex-start to center
   padding: 2rem;
 
   .grid-item-1,.grid-item-2{
-    flex-grow: 1;
-    min-width: 19rem;
+    flex: 1 1 320px;
+    min-width: 280px;
+    max-width: 450px;
+    aspect-ratio: 320 / 340;
   }
   /* Make special items span full width on narrower screens if needed */
-  @media (max-width: 1250px) {
-    .grid-item-3 {
-    }
-  }
-
-  @media (max-width: 768px) {
-
-
-  }
 
 }
-@media (max-width: 768px) {
-    .cards-flex-layout {
-      flex-direction: column;
-    }
-  }
-
 
 
 
