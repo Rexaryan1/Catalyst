@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginPageComponent } from './components/cards/login-card/login-page.component';
-import { QuestionCardComponent } from './components/cards/question-card/question-card.component';
 import { UserProfileComponent } from './Pages/user-profile/user-profile.component';
 import { LandingPage } from '@pages/landing-page/landing-page.component';
 import { StudyPlanComponent } from "@pages/study-plan/study-plan.component";
@@ -13,18 +11,18 @@ import { ProfileSummaryComponent } from "@components/cards/profile-summary/profi
 import { PingBoardComponent } from "@components/cards/ping-board/ping-board.component";
 import { SolutionComponent } from "@components/cards/solution/solution.component";
 import { RoadmapWizardComponent } from "@components/roadmap-wizard/roadmap-wizard.component";
-import {SignupPage} from "@pages/signup-page/signup-page";
+import { SignupPage } from "@pages/signup-page/signup-page";
 
 
 
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'home', component: LandingPage },
-    { path: 'register', component: LoginPageComponent },
+    { path: 'register', component: SignupPage },
     { path: 'prompt', component: RoadmapWizardComponent },
     { path: 'dashboard', component: UserDashboardComponent },
     { path: 'userHome', component: UserProfileComponent },
     { path: 'plan', component: StudyPlanComponent },
     { path: 'roadmap', component: RoadmapPageComponent },
-  {path: 'preview' , component: SignupPage}
+    { path: 'preview', component: SignupPage }
 ];
