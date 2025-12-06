@@ -1,0 +1,63 @@
+<div class="dashboard-grid">
+    <div class="summary-skills grid-item">
+        <!-- first column now contains two stacked items -->
+        <div class="sub-item">
+            <h4>Summary</h4>
+            <!-- icons with inline labels -->
+            <div class="icons-row">
+                <div class="icon-label">
+                    <img src="assets/icons/blue_circle.svg" class="icon-large" alt="Streak icon">
+                    <span>Streak</span>
+                </div>
+                <p> 12000 </p>
+            </div>
+
+            <div class="icons-row">
+                <div class="icon-label">
+                    <img src="assets/icons/pink_triangle.svg" class="icon-large" alt="Delta icon">
+                    <span>Delta</span>
+                </div>
+                <p>1500</p>
+            </div>
+            <div class="icons-row">
+                <div class="icon-label">
+                    <img src="assets/icons/yellow_square.svg" class="icon-large" alt="XP icon">
+                    <span>XP Points: 1,200</span>
+                </div>
+                <p>+200</p>
+            </div>
+        </div>
+
+        <div class="sub-item">
+            <h4>Skills</h4>
+            <h6>Strong Zones</h6>
+            <div class="topic-tags-container">
+                <topic-tag *ngFor="let zone of strongZones" [topic]="zone" />
+            </div>
+            <h6>Growth Areas</h6>
+            <div class="topic-tags-container">
+                <topic-tag *ngFor="let zone of strongZones" [topic]="zone" />
+            </div>
+        </div>
+    </div>
+
+    <div class="grid-item highlights">
+        <h3>Highlights</h3>
+        <p>Content goes here</p>
+    </div>
+
+    <div class="grid-item progress-overview">
+        <h3>Progress Overview</h3>
+        <p>Content goes here</p>
+    </div>
+
+    <div class="grid-item roadmaps">
+        <h3>Recommended Resources</h3>
+        <p>Content goes here</p>
+    </div>
+
+    <div class="grid-item unknown">
+        <h3>Upcoming Events</h3>
+        <p>Content goes here</p>
+    </div>
+</div>
