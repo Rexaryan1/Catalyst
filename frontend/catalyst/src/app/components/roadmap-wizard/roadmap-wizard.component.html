@@ -13,45 +13,94 @@
   <div class="right">
     <div *ngIf="stepIndex() === 0">
       <p>
-        Which <span class="highlight" (click)="showSubjectInput.set(true)">subject</span> are we thinking today?
-      </p>
+        I want to create a roadmap for
+        <span *ngIf = "!showSubjectInput()" class="highlight" (click)="showSubjectInput.set(true)">{{ form.get('subject')?.value || 'a subject' }}</span>
+        <span *ngIf="showSubjectInput()" class="inline-field">
+          <span class="shadow-text">{{ form.get('subject')?.value || 'e.g., DSA' }}</span>
+
       <input
-        *ngIf="showSubjectInput()"
-        type="text"
-        placeholder="e.g., Data Structures"
-        [formControl]="$any(form.get('subject'))"
+
+              type="text"
+              placeholder="e.g., DSA"
+              [formControl]="$any(form.get('subject'))"
+              (blur)="showSubjectInput.set(false)"
+              (keydown.enter)="showSubjectInput.set(false)"
+              autoFocus
       />
+          </span>
+      </p>
     </div>
 
     <div *ngIf="stepIndex() === 1">
       <p>
-        Which <span class="highlight" (click)="showSubjectInput.set(true)">subject</span> are we thinking today?
-      </p>
+            I want to create a roadmap for
+            <span class="highlight-static">
+          {{ form.get('subject')?.value || 'a subject' }}
+        </span>
+        </p>
       <p>
-        and what <span class="highlight" (click)="showTopicInput.set(true)">topic</span> should I serve you with?
+        covering
+        <span *ngIf="!showTopicInput()" class="highlight" (click)="showTopicInput.set(true)">
+          {{ form.get('topic')?.value || 'a specific topic' }}
+        </span>
+        <span *ngIf="showTopicInput()" class="inline-field">
+          <span class="shadow-text">{{ form.get('topic')?.value || 'e.g., Dynamic Programming' }}</span>
+          <input
+            type="text"
+            placeholder="e.g., Dynamic Programming"
+            [formControl]="$any(form.get('topic'))"
+            (blur)="showTopicInput.set(false)"
+            (keydown.enter)="showTopicInput.set(false)"
+            autoFocus
+          />
+          </span>
       </p>
-      <input
-        *ngIf="showTopicInput()"
-        type="text"
-        placeholder="e.g., Dynamic Programming"
-        [formControl]="$any(form.get('topic'))"
-      />
     </div>
+
+
+
 
     <div *ngIf="stepIndex() === 2">
       <p>
         Choose your <span class="highlight" (click)="showIntentInput.set(true)">goal</span>.
       </p>
       <div *ngIf="showIntentInput()" class="intent-grid">
-        <label><input type="radio" value="exam" formControlName="intent" /> Preparing for an exam</label>
-        <label><input type="radio" value="upskilling" formControlName="intent" /> Upskilling</label>
-        <label><input type="radio" value="revision" formControlName="intent" /> Revision</label>
-        <label><input type="radio" value="understanding" formControlName="intent" /> Understanding the topic</label>
+        <label class="radio-card">
+          <input type="radio" value="exam" formControlName="intent" />
+          <span class="card-content">
+            <span class="card-title">Exam Prep</span>
+            <span class="card-desc">Preparing for an upcoming exam</span>
+          </span>
+        </label>
+
+        <label class="radio-card">
+          <input type="radio" value="upskilling" formControlName="intent" />
+          <span class="card-content">
+            <span class="card-title">Upskilling</span>
+            <span class="card-desc">Learning new skills for career growth</span>
+          </span>
+        </label>
+
+        <label class="radio-card">
+          <input type="radio" value="revision" formControlName="intent" />
+          <span class="card-content">
+            <span class="card-title">Revision</span>
+            <span class="card-desc">Refreshing existing knowledge</span>
+          </span>
+        </label>
+
+        <label class="radio-card">
+          <input type="radio" value="understanding" formControlName="intent" />
+          <span class="card-content">
+            <span class="card-title">Deep Dive</span>
+            <span class="card-desc">Understanding the topic in depth</span>
+          </span>
+        </label>
       </div>
     </div>
 
     <div class="controls">
-      <button type="button" (click)="back()" [disabled]="stepIndex() === 0">Back</button>
+      <button type="button" class="btn-secondary" (click)="back()" [disabled]="stepIndex() === 0">Back</button>
       <button
         type="button"
         (click)="next()"
@@ -67,4 +116,5 @@
     <div class="percent">{{ progress() }}%</div>
   </div>
 </div>
+
 

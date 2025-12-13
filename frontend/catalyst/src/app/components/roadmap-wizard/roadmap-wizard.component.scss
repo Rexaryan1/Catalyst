@@ -13,7 +13,7 @@ mat-progress-bar {
   color: #EAE9E5;
   font-weight: 500;
   transition: color 0.3s ease;
-  font-size: x-large;
+  font-size: inherit;
 }
 
 .highlight:hover {
@@ -52,10 +52,14 @@ mat-progress-bar {
 
   .right {
     flex: 1;
-    padding: 2.5rem;
+    padding: 4rem;
     color: #EAE9E5;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; // Vertically centers content
+    min-height: 100vh; // Ensures the container is full height for centering
 
     // Typography
     h1,
@@ -66,31 +70,32 @@ mat-progress-bar {
     h6 {
       color: #EAE9E5;
       font-weight: 600;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
       line-height: 1.3;
     }
 
     h1 {
-      font-size: 2.5rem;
+      font-size: 3.5rem;
     }
 
     h2 {
-      font-size: 2rem;
+      font-size: 2.5rem;
     }
 
     h3 {
-      font-size: 1.5rem;
+      font-size: 2rem;
     }
 
     h4 {
-      font-size: 1.25rem;
+      font-size: 1.5rem;
     }
 
     p {
       font-family: Erbaum;
       color: #858585;
-      margin-bottom: 1.5rem;
-      font-size: xx-large;
+      margin-bottom: 2.5rem;
+      font-size: 2.5rem;
+      line-height: 1.4;
     }
 
     // Labels and form text
@@ -316,11 +321,19 @@ mat-progress-bar {
         width: 100%;
         margin-bottom: 0.5rem;
         margin-right: 0;
+        padding: 1rem 2rem; // Larger buttons
+      font-size: 1.2rem; // Larger text
+      min-height: 56px; // Taller buttons
       }
 
       .controls {
+        display: flex;
+        gap: 20px;
         flex-direction: column;
-        align-items: stretch;
+        align-items: center;
+        margin-top: 2rem; // Add space above buttons
+      margin-bottom: 2rem;
+
       }
     }
   }
@@ -336,13 +349,16 @@ mat-progress-bar {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
+
 }
 
 .controls {
   display: flex;
-  gap: 12px;
   align-items: center;
   padding: 0 0px 20px 0px;
+  gap: 20px; // Increased gap
+      margin-top: 2rem; // Add space above buttons
+      margin-bottom: 2rem; // Add space below buttons
 }
 
 
@@ -369,5 +385,153 @@ mat-progress-bar {
   .right {
     flex: 1; // Take up remaining space
     padding: 2rem;
+  }
+}
+
+.inline-field {
+  display: inline-grid;
+  vertical-align: baseline;
+  align-items: baseline;
+  position: relative;
+  min-width: 100px; /* Minimum width for placeholder */
+
+  // Stack the input and the shadow text
+  &::after,
+  input,
+  .shadow-text {
+    width: auto;
+    grid-area: 1 / 2;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    letter-spacing: inherit;
+    box-sizing: content-box;
+    padding: 0;
+    margin: 0;
+    line-height: inherit;
+  }
+
+  // The shadow text determines the width
+  .shadow-text {
+    visibility: hidden;
+    white-space: pre;
+    height: 0; // Prevent it from affecting height
+    padding-right: 2px; // slightly extra space for cursor
+  }
+
+  // The actual input sits on top
+  input {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    color: #BEDCE4; // Active editing color
+    min-width: 10px;
+    outline: none;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    caret-color: var(--color-green); // Blinking cursor color
+    font-size: inherit !important;
+    font-family: inherit !important;
+    // Remove default input styles
+    appearance: none;
+    -webkit-appearance: none;
+
+    &::placeholder {
+      color: rgba(190, 220, 228, 0.3);
+      font-style: italic;
+    }
+
+    // Ensure no borders appear on focus
+    &:focus {
+      border: none !important;
+      box-shadow: none !important;
+      background: transparent !important;
+      outline: none !important;
+    }
+  }
+}
+
+// Update Highlight static to match look but not be clickable
+.highlight-static {
+  font-family: Erbaum;
+  font-style: italic;
+  color: #EAE9E5;
+  font-weight: 500;
+  font-size: inherit;
+  text-decoration: underline;
+  text-decoration-color: rgba(255,255,255,0.2);
+}
+
+// ... keep existing .wizard styles ...
+
+// REPLACE: intent-grid and radio styles
+.intent-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin-bottom: 2rem;
+
+  .radio-card {
+    position: relative;
+    display: flex;
+    cursor: pointer;
+    background-color: rgba(31, 31, 31, 0.5);
+    border: 2px solid #444;
+    border-radius: 12px;
+    padding: 1.25rem;
+    transition: all 0.2s ease;
+
+    &:hover {
+      border-color: #666;
+      background-color: rgba(45, 45, 45, 0.8);
+      transform: translateY(-2px);
+    }
+
+    // Hide the actual radio button
+    input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+      margin: 0;
+    }
+
+    // Style when selected (using :has selector)
+    &:has(input:checked) {
+      border-color: var(--color-green);
+      background-color: rgba(var(--color-green-rgb), 0.1); // Assuming you might have RGB vars, otherwise generic dark green tint
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+
+      .card-title {
+        color: var(--color-green);
+      }
+    }
+
+    // Fallback for older browsers if :has isn't supported,
+    // you can use this sibling selector logic if you move input before .card-content in HTML
+    // input:checked + .card-content { ... }
+
+    .card-content {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .card-title {
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #EAE9E5;
+    }
+
+    .card-desc {
+      font-size: 0.85rem;
+      color: #858585;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif; // Use body font for desc
+      font-weight: 400;
+    }
   }
 }
