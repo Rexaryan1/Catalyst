@@ -58,6 +58,8 @@ export class SignupPage {
 
   onSignUp() {
     console.log('SignUp Payload:', this.signUpForm.value);
+    const email = this.signUpForm.value.email;
+    const password = this.signUpForm.value.password;
 
     this.dataManager.post(`api/register`, this.signUpForm.value, {
       withCredentials: true
@@ -65,8 +67,10 @@ export class SignupPage {
       next: () => {
         alert('Registration successful! You are now signed in.');
         const container = document.getElementById('container');
-        this.router.navigate(['/home']);
+        // this.router.navigate(['/home']);
         if (container) container.classList.remove('right-panel-active');
+
+        this.dataManager.login(email, password);
       },
       error: (error: any) => {
         // Specific 400 validation handling (e.g., {"email": ["user with this email already exists."]})

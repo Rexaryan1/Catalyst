@@ -12,6 +12,8 @@ import { PingBoardComponent } from "@components/cards/ping-board/ping-board.comp
 import { SolutionComponent } from "@components/cards/solution/solution.component";
 import { RoadmapWizardComponent } from "@components/roadmap-wizard/roadmap-wizard.component";
 import { SignupPage } from "@pages/signup-page/signup-page";
+import {RoadmapListComponent} from "@pages/roadmap-page/roadmap-list/roadmap-list.component";
+import {SolutionPage} from "@pages/solution-page/solution-page";
 
 
 
@@ -24,5 +26,5 @@ export const routes: Routes = [
     { path: 'userHome', component: UserProfileComponent },
     { path: 'plan', component: StudyPlanComponent },
     { path: 'roadmap', component: RoadmapPageComponent },
-    { path: 'preview', component: SignupPage }
+    { path: 'preview', component: SolutionPage }
 ];
