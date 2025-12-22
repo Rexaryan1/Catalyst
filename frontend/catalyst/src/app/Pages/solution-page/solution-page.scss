@@ -1,0 +1,98 @@
+// Variables for easy tweaking
+$header-height: 60px;
+$divider-width: 20px;
+$sidebar-width: 250px;
+$bg-dark: #1F1F1F;
+$bg-white: #ffffff;
+$border-color: #ddd;
+
+.solution-page {
+  display: flex;
+  flex-direction: column;
+  background: $bg-dark;
+  height: 100vh; // Occupy full viewport height
+  overflow: hidden; // Prevent outer scrollbars
+}
+  .header {
+    height: $header-height;
+    flex-shrink: 0; // Prevent header from shrinking
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    background: $bg-dark;
+
+  }
+
+  .left-menu {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    img {
+      height: 30px;
+      width: 30px;
+      object-fit: contain;
+    }
+
+    h1 {
+      font-size: 1.2rem;
+      margin: 0;
+    }
+  }
+
+  .right-menu {
+    display: flex;
+    gap: 10px;
+  }
+
+  .content {
+    background: $bg-dark;
+    display: flex; // Row layout by default
+    flex: 1; // Fills remaining height (100vh - header)
+    overflow: hidden; // Vital for internal scrolling
+  }
+
+  .roadmap-list {
+    width: $sidebar-width;
+    background: $bg-dark;
+    overflow-y: auto; // Only this section scrolls
+    transition: width 0.3s ease, padding 0.3s ease;
+    flex-shrink: 0; // Prevent compression
+  }
+
+  .list-item {
+    padding: 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.03);
+    }
+  }
+
+  .vertical-divider {
+    width: $divider-width;
+    background: #e0e0e0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    user-select: none; // Prevent text selection on click
+    z-index: 10; // Keep above other content
+    height: 100%;
+
+    &:hover {
+      background: #d0d0d0;
+    }
+  }
+
+  .question-card {
+    flex: 1; // Takes all remaining width
+    background: $bg-white;
+    padding: 20px;
+    overflow-y: auto; // Content scrolls if too long
+  }
+
+

@@ -1,0 +1,38 @@
+<div class="solutions-page" [class.sidebar-hidden]="isSidebarHidden">
+  <header class="header">
+    <div class = "left-menu">
+         <img src="assets/logo.png" alt="Logo" class="logo">
+        <h1>Your roadmap is ready — let’s start cracking questions!</h1>
+      </div>
+    <div class="right-menu">
+      <button>Settings</button>
+      <button>HomePage</button>
+      <button>Profile</button>
+    </div>
+</header>
+  <main class="content">
+    <aside class="roadmap-list">
+      <div class="list-item" ></div>
+      <!-- Mock items for visual testing -->
+      <div class="list-item">Question 1</div>
+      <div class="list-item">Question 2</div>
+      <div class="list-item">Question 3</div>
+      <div class="list-item">Question 3</div>
+      <div class="list-item">Question 3</div>
+    </aside>
+    <div class="vertical-divider" (click)="toggleSidebar()">
+      <span class="icon">⋮</span>
+    </div>
+    <section class="question-card">
+      <h2>Question Content</h2>
+      <p>Here is the detailed question text that expands when the menu is hidden...</p>
+    </section>
+  </main>
+</div>
+
+
+
+
+
+
+
