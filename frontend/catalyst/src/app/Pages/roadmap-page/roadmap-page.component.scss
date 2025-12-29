@@ -18,3 +18,9 @@
   box-sizing: border-box;
   padding: 20px;
 }
+
+.main-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
