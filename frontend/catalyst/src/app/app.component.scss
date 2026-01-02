@@ -1,13 +1,23 @@
 :host {
   --background-color: #1f1f1f;
 
-  --color-black: #1f1f1f;  /* dark background */
-  --color-green: #46675D;  /* deep green */
-  --color-white: #EAE9E5;  /* off-white */
+  --color-black: #1f1f1f;
+  /* dark background */
+  --color-green: #46675D;
+  /* deep green */
+  --color-white: #EAE9E5;
+  /* off-white */
+
+
+  /* Fonts */
+  --font-main: "Erbaum-Book", sans-serif;
+  --font-secondary: 'ZenKakuGothicAntique-Regular', sans-serif;
+  display: block;
 }
 
 #overlay {
-  display: none; /* Hidden by default */
+  display: none;
+  /* Hidden by default */
   position: fixed;
   top: 0;
   left: 0;

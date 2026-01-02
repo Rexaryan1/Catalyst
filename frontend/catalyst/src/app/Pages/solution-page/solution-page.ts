@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import {RoadmapListComponent} from "@pages/roadmap-page/roadmap-list/roadmap-list.component";
 
 @Component({
   selector: 'app-solution-page',
-  imports: [RoadmapListComponent],
+  imports: [],
   templateUrl: './solution-page.html',
   styleUrl: './solution-page.scss',
 })

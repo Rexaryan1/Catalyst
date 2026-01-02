@@ -3,6 +3,7 @@ $color-bg-dark: #1f1f1f;
 $color-bg-cream: #eae9e5;
 $color-primary-green: #46675d;
 $color-text-black: #000000;
+$color-text-cream: #eae9e5;
 $color-text-grey: #757575;
 $color-text-dark-grey: #424242;
 $color-border: #bdbdbd;
@@ -11,253 +12,42 @@ $font-bold: "ZenKakuGothicAntique-Bold", sans-serif;
 $font-medium: "ZenKakuGothicAntique-Medium", sans-serif;
 $font-secondary: "AlbertSans-Bold", sans-serif;
 
+
 // Global Box Sizing
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
-// Main Container
-.signup-page {
-  display: flex;
-  width: 100%;
-  height: 100vh; // Full viewport height
-  background: $color-bg-dark;
-  overflow: hidden;
-  font-family: $font-main;
-}
+.main-page-container {
+  display: block;
+  height: 100vh;
+  width: 100vw;
+  background-color: $color-bg-dark;
+  font-family: var(--font-main);
+  color: $color-text-cream;
+  --button-bg: #2F2F2F;
 
-// --- Left Section: Hero ---
-.signup-hero {
-  flex: 1; // Takes up remaining space
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 0 100px; // Adjust spacing as needed
-  position: relative;
-  color: #ffffff;
-
-  &__logo {
-    position: absolute;
-    top: 60px;
-    left: 60px;
+  .left-section,
+  .right-section {
+    display: inline-block;
+    vertical-align: top;
+    height: 100%;
   }
 
-  &__content {
-    max-width: 400px;
-    margin-top: 80px; // Push down slightly to match design
-  }
-
-  &__title {
-    font-family: $font-bold;
-    font-size: 39px;
-    line-height: 47px;
-    margin-bottom: 24px;
-  }
-
-  &__text {
-    font-size: 16px;
-    line-height: 28px;
-    margin-bottom: 48px;
-    opacity: 0.9;
-  }
-
-  &__slider {
-    width: 92px;
-  }
-}
-
-// --- Right Section: Form Container ---
-.signup-form-container {
-  flex: 0 0 600px; // Fixed width container for the form section
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 40px;
-}
-
-.signup-card {
-  background: $color-bg-cream;
-  border-radius: 10px;
-  width: 100%;
-  max-width: 460px;
-  padding: 40px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  height: 100vh; // Occupy most of height
-  overflow-y: auto; // Scroll if content is too tall
-
-  &__header {
-    display: flex;
+  .left-section {
+    display: inline-flex;
     flex-direction: column;
-    gap: 4px;
+    justify-content: center;
+    gap: 20px;
+
+
+    padding: 0 100px;
+    width: 50vw;
   }
 
-  &__subtitle {
-    font-size: 13px;
-    color: $color-text-black;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-  }
-
-  &__title {
-    font-family: $font-medium;
-    font-size: 25px;
-    color: $color-text-black;
-    margin: 0;
-  }
-
-  &__footer {
-    text-align: center;
-    font-size: 13px;
-    margin-top: auto; // Push to bottom
-    font-family: "AlbertSans-Regular", sans-serif;
-
-    .link--highlight {
-      color: $color-primary-green;
-      font-family: $font-secondary;
-      text-decoration: underline;
-      font-weight: 700;
-    }
+  .right-section {
+    width: 40vw;
   }
 }
-
-// --- Form Styles ---
-.signup-form {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-top: 10px;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.form-label {
-  font-size: 13px;
-  color: $color-text-grey;
-  margin-left: 5px;
-}
-
-.input-wrapper {
-  position: relative;
-  width: 100%;
-}
-
-.form-input {
-  width: 100%;
-  height: 50px;
-  border: 1px solid $color-border;
-  border-radius: 8px;
-  background: transparent;
-  padding: 0 16px;
-  font-size: 16px;
-  color: $color-text-dark-grey;
-  font-family: $font-main;
-
-  &:focus {
-    outline: none;
-    border-color: $color-primary-green;
-  }
-}
-
-.password-toggle {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-}
-
-// --- Buttons ---
-.btn {
-  width: 100%;
-  height: 56px;
-  border-radius: 8px;
-  font-size: 13px;
-  font-weight: 700;
-  font-family: $font-bold;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  transition: all 0.2s;
-
-  &--primary {
-    background: $color-primary-green;
-    color: white;
-    border: none;
-    margin-top: 8px;
-
-    &:hover {
-      opacity: 0.9;
-    }
-  }
-
-  &--social {
-    background: #fafafa;
-    border: 1px solid #eeeeee;
-    color: #616161;
-    font-family: $font-main;
-    font-weight: 400;
-    height: 48px; // Slightly smaller than primary btn
-
-    &:hover {
-      background: #f0f0f0;
-    }
-  }
-}
-
-// --- Divider ---
-.divider {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 10px 0;
-
-  &__line {
-    flex: 1;
-    height: 1px;
-    background-color: $color-border;
-    opacity: 0.5;
-  }
-
-  &__text {
-    font-family: $font-bold;
-    font-size: 13px;
-    color: #212121;
-  }
-}
-
-// --- Social Login Wrapper ---
-.social-login {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.btn__icon{
-  width: 18px;
-  position: relative;
-  right: 30px;
-}
-
-/* Element | http://localhost:4200/ */
-
-button.btn:nth-child(3) > img:nth-child(1) {
-  margin-left: -7px;
-}
-
-/* Element | http://localhost:4200/ */
-
-button.btn:nth-child(2) > img:nth-child(1) {
-  margin-right: -16px;
-}
-

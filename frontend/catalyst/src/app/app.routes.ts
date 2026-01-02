@@ -11,7 +11,7 @@ import { ProfileSummaryComponent } from "@components/cards/profile-summary/profi
 import { PingBoardComponent } from "@components/cards/ping-board/ping-board.component";
 import { SolutionComponent } from "@components/cards/solution/solution.component";
 import { RoadmapWizardComponent } from "@components/roadmap-wizard/roadmap-wizard.component";
-import { SignupPage } from "@pages/signup-page/signup-page";
+import { MainPage } from "@pages/signup-page/signup-page";
 import {RoadmapListComponent} from "@pages/roadmap-page/roadmap-list/roadmap-list.component";
 import {SolutionPage} from "@pages/solution-page/solution-page";
 
@@ -20,7 +20,7 @@ import {SolutionPage} from "@pages/solution-page/solution-page";
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'home', component: LandingPage },
-    { path: 'register', component: SignupPage },
+    { path: 'register', component: MainPage },
     { path: 'prompt', component: RoadmapWizardComponent },
     { path: 'dashboard', component: UserDashboardComponent },
     { path: 'userHome', component: UserProfileComponent },
