@@ -1,24 +1,21 @@
-<div class = "parent">
-  <div class = "left-panel">
-        <div class="roadmap-grid">
-          <app-roadmap-item
-            *ngFor="let item of roadmapItems"
-            [roadmapItem]="item"
-            (saveToggle)="onSaveToggle($event)"
-            (questionClick)="onQuestionClick($event)"
-            (questionBookmark)="onQuestionBookmark($event)"
-            (toggleExpansion)="onToggleExpansion($event)">
-          </app-roadmap-item>
-          </div>
-          <Button class="vertical-divider">
-          Divider goes here
-          </Button>
+<div class="parent">
+  <div class="left-panel">
+    <div class="roadmap-scroll">
+      <div class="roadmap-grid">
+        <app-roadmap-item
+          *ngFor="let item of roadmapItems"
+          [roadmapItem]="item"
+          (saveToggle)="onSaveToggle($event)"
+          (questionClick)="onQuestionClick($event)"
+          (questionBookmark)="onQuestionBookmark($event)"
+          (toggleExpansion)="onToggleExpansion($event)">
+        </app-roadmap-item>
+      </div>
+    </div>
+    <Button class="vertical-divider">
+      Divider goes here
+    </Button>
 
-</div>
-
-  <div class = "question-card">
-    Question Comes here
   </div>
-
 </div>
 
