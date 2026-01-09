@@ -1,5 +1,5 @@
-<div class="course">
-	<div class="course-preview">
+
+	<div class="question-card">
 		<h6>Course</h6>
 		<h2>JavaScript Fundamentals</h2>
 		<a href="#">View all chapters <i class="fas fa-chevron-right"></i></a>
@@ -15,17 +15,17 @@
 		<h6>Chapter 4</h6>
 		<!-- <h2>{{ question.title }}</h2> -->
 		<p class="question-text">{{ question.question_text }}</p>
-		
+
 		<div class="options-container">
-            <div *ngFor="let option of question.options; let i = index" 
-                 class="option" 
+            <div *ngFor="let option of question.options; let i = index"
+                 class="option"
                  [class.selected]="selectedOption === i"
                  (click)="selectOption(i)">
                 <input type="radio" [id]="'option'+i" name="answer" [checked]="selectedOption === i">
                 <label [for]="'option'+i">{{option}}</label>
             </div>
         </div>
-        
+
         <button class="btn" (click)="checkAnswer()">Continue</button>
     </div>
-</div>
+

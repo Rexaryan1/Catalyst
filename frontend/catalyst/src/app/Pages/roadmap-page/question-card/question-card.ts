@@ -1,22 +1,23 @@
-import { Input, Component, Output, EventEmitter, input } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { DataManagerService } from '@services/data-manager/data-manager.service';
+import {Input, Component, Output, EventEmitter, input} from '@angular/core';
+import {FormGroup, FormControl} from '@angular/forms';
+import {CommonModule} from '@angular/common';
+import {RouterModule} from '@angular/router';
+import {DataManagerService} from '@services/data-manager/data-manager.service';
 
 @Component({
   selector: 'app-question-card',
-  standalone: true,
   imports: [RouterModule, CommonModule],
-  templateUrl: './question-card.component.html',
-  styleUrl: './question-card.component.scss'
+  templateUrl: './question-card.html',
+  styleUrl: './question-card.scss',
 })
-export class QuestionCardComponent {
+export class QuestionCard {
   selectedOption: number | null = null;
 
-  constructor(private dataManager: DataManagerService) {}
+  constructor(private dataManager: DataManagerService) {
+  }
 
   question: any
+
   ngOnInit() {
     // Initialization logic here
     this.question = this.dataManager.snapshot("question")
@@ -49,16 +50,17 @@ export class QuestionCardComponent {
       alert('Please select an option');
       return;
     }
-    
+
     const isCorrect = this.selectedOption === this.question.correct_index;
-    const message = isCorrect ? 
-        'Correct!' : 
-        `Incorrect! The correct answer was: ${this.question.options[this.question.correct_index]}`;
-        
-    if(confirm(message + '\n\nClick OK to continue to next question')) {
-        this.selectedOption = null;
-        // Emit event to load next question if needed
+    const message = isCorrect ?
+      'Correct!' :
+      `Incorrect! The correct answer was: ${this.question.options[this.question.correct_index]}`;
+
+    if (confirm(message + '\n\nClick OK to continue to next question')) {
+      this.selectedOption = null;
+      // Emit event to load next question if needed
     }
   }
 }
+
 
