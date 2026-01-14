@@ -62,6 +62,8 @@ export class SignupPage {
     const email = this.signUpForm.value.email;
     const password = this.signUpForm.value.password;
 
+    this.dataManager.set("signup_data", this.signUpForm.value);
+
     // this.dataManager.post(`api/register`, this.signUpForm.value, {
     //   withCredentials: true
     // }).subscribe({

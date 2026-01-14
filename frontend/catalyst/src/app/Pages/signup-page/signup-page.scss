@@ -28,12 +28,12 @@ $font-secondary: "AlbertSans-Bold", sans-serif;
   font-family: var(--font-main);
   color: $color-text-cream;
   --button-bg: #2F2F2F;
+  padding-top: 50px;
 
   .left-section,
   .right-section {
     display: inline-block;
     vertical-align: top;
-    height: 100%;
   }
 
   .left-section {
@@ -50,4 +50,15 @@ $font-secondary: "AlbertSans-Bold", sans-serif;
   .right-section {
     width: 40vw;
   }
+}
+
+.skip {
+  position: absolute;
+  right: 10rem;
+  margin-top: 1rem;
+  font-size: 30px;
+}
+
+.skip:hover {
+  cursor: pointer;
 }

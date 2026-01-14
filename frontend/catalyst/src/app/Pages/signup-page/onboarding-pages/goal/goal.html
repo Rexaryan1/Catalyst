@@ -5,12 +5,24 @@
     <h1>What is your primary goal for using Catalyst?</h1>
 </div>
 <div class="right-section">
-    <app-roadmap-button [buttonText]='"School Exams (Class 10/12 Boards)"'/>
-
-    <app-roadmap-button [buttonText]='"College Entrance Exams"'/>
-
-    <app-roadmap-button [buttonText]='"Career Advancement"'/>
-
-    <app-roadmap-button [buttonText]='"Skill Development"'/>
-
+    <app-roadmap-button 
+        [buttonText]='"School Exams (Class 10/12 Boards)"'
+        [isSelected]="selectedGoal === 'School Exams (Class 10/12 Boards)'"
+        (buttonClicked)="onGoalSelected($event)" />
+    <app-roadmap-button 
+        [buttonText]='"College Entrance Exams"'
+        [isSelected]="selectedGoal === 'College Entrance Exams'"
+        (buttonClicked)="onGoalSelected($event)" />
+    <app-roadmap-button 
+        [buttonText]='"Career Advancement"'
+        [isSelected]="selectedGoal === 'Career Advancement'"
+        (buttonClicked)="onGoalSelected($event)" />
+    <app-roadmap-button 
+        [buttonText]='"Skill Development"'
+        [isSelected]="selectedGoal === 'Skill Development'"
+        (buttonClicked)="onGoalSelected($event)" />
+    <button class="next-btn" (click)="proceedToNext()" [disabled]="!selectedGoal">Next</button>
+</div>
+<div class="skip" (click)="skip()">
+    Skip
 </div>

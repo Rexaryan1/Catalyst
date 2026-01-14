@@ -45,6 +45,8 @@ export class DataManagerService {
     });
   }
 
+  /** -------- Login user and store JWT token -------- */
+  /** routes the user back to home on successful login -------- */
   public login(email: any, password: any) {
     this.post('api/login', {
       "email": email,
@@ -63,6 +65,7 @@ export class DataManagerService {
       }
     });
   }
+  
   /** -------- Fetch user profile and store in cache -------- */
   private getUserProfile() {
     this.get('api/user/profile', { withCredentials: true }).subscribe({
