@@ -20,6 +20,8 @@ export class RoadmapItemComponent {
   @Output() questionBookmark = new EventEmitter<{roadmapId: string, questionId: string}>();
   @Output() toggleExpansion = new EventEmitter<string>();
 
+  @Output() titleClick = new EventEmitter<{ roadmapId: string; title: string }>();
+
   onSaveToggle(): void {
     this.saveToggle.emit(this.roadmapItem.id);
   }
@@ -34,7 +36,7 @@ export class RoadmapItemComponent {
       questionId: question.id
     });
 
-    this.dataManager.set("question", question);
+    //this.dataManager.set("question", question);
 
     //this.displayManager.displayOverlay("question", question.id);
   }
@@ -48,6 +50,9 @@ export class RoadmapItemComponent {
 
   getDifficultyClass(difficulty: string): string {
     return `difficulty-${difficulty.toLowerCase()}`;
+  }
+  onTitleClick(): void {
+    this.titleClick.emit({ roadmapId: this.roadmapItem.id, title: this.roadmapItem.title });
   }
 }
 

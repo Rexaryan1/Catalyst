@@ -5,18 +5,79 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 :root {
   --primary-color: #007bff;
   --font-size-base: 16px;
+   --font-default: "Erbaum", Roboto;
+}
+
+html {
+  font-family: var(--font-default);
+}
+
+body {
+  font-family: inherit;
 }
 
 @font-face {
-      font-family: 'Erbaum'; /* Choose a name for your font */
-      src: url('assets/font/Erbaum-Regular.ttf') format('truetype'); /* Adjust path and format as needed */
-      font-weight: normal; /* Define font weight if applicable */
-      font-style: normal; /* Define font style if applicable */
-    }
-@font-face {
-      font-family: 'Erbaum-Bold';
-      src: url('assets/font/Erbaum-Bold.ttf') format('truetype');
-      font-weight: bold;
-      font-style: normal;
-    }
+  font-family: "Erbaum";
+  src: url("assets/font/Erbaum-Thin.woff2") format("woff2"),
+       url("assets/font/Erbaum-Thin.woff") format("woff");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
 
+@font-face {
+  font-family: "Erbaum";
+  src: url("assets/font/Erbaum-Light.woff2") format("woff2"),
+       url("assets/font/Erbaum-Light.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Erbaum";
+  src: url("assets/font/Erbaum-Book.woff2") format("woff2"),
+       url("assets/font/Erbaum-Book.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Erbaum";
+  src: url("assets/font/Erbaum-Regular.woff2") format("woff2"),
+       url("assets/font/Erbaum-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* If you want Book vs Regular to be distinct, assign Book=350 (or remove one of them). */
+/* Otherwise keep only one 400 face to avoid ambiguity. */
+
+@font-face {
+  font-family: "Erbaum";
+  src: url("assets/font/Erbaum-Medium.woff2") format("woff2"),
+       url("assets/font/Erbaum-Medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Erbaum";
+  src: url("assets/font/Erbaum-Bold.woff2") format("woff2"),
+       url("assets/font/Erbaum-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Erbaum";
+  src: url("assets/font/Erbaum-Black.woff2") format("woff2"),
+       url("assets/font/Erbaum-Black.woff") format("woff");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}

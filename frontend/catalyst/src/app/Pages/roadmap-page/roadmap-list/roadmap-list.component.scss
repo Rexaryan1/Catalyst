@@ -13,8 +13,9 @@
   height: 100%;
   min-height: 0;
   display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 1rem;
+
+  grid-template-columns: 1fr 3vw;
+  gap: 12px;
   align-items: start;
 }
 
@@ -23,13 +24,16 @@
   height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
+
+  padding: 10px 10px;
+  box-sizing: border-box;
 }
 
 .roadmap-grid {
   display: grid;
-  gap: 12px;
-  width: 40vw;
-
+  gap: 14px;
+  width: 100%;
+  min-width: 0;
 }
 
 .vertical-divider {
@@ -42,4 +46,17 @@
   border: 0;
   padding: 12px;
   cursor: pointer;
+
+  border-radius: 10px;
+  box-sizing: border-box;
+  margin-top: 10px;
+  padding-top: 0px;
+}
+
+.divider-text {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  white-space: nowrap;
+  letter-spacing: 0.08em;
+  font-weight: 600;
 }

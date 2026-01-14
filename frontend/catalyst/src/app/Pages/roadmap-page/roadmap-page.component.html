@@ -1,8 +1,17 @@
 <div class="main-page">
-  <div class="page-title">Roadmap</div>
+  <div class="page-title">Your roadmap is ready — let’s start cracking questions!</div>
   <div class="content-area">
-    <app-roadmap-list class="roadmap-pane"></app-roadmap-list>
-    <app-question-card class="question-pane"></app-question-card>
+    <app-roadmap-list
+      class="roadmap-pane"
+      (questionSelected)="onQuestionSelected($event)">
+    </app-roadmap-list>
+
+    <app-question-card
+      class="question-pane"
+      [questions]="activeQuestions"
+      [index]="activeIndex"
+      (indexChange)="onIndexChange($event)">
+    </app-question-card>
   </div>
 
 </div>

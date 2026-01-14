@@ -13,6 +13,11 @@ export interface Question {
   id: string;
   title: string;
   summary: string;
+
+  question_text: string;
+  options: string[];
+  correct_index: number;
+
   isBookmarked: boolean;
   difficulty: 'Easy' | 'Medium' | 'Hard';
 }

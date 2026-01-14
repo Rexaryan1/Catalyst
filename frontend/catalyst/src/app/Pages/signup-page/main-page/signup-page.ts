@@ -1,9 +1,10 @@
-import { Component , EventEmitter, Output } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {DataManagerService} from "@services/data-manager/data-manager.service";
 import {CommonModule} from "@angular/common";
+import {PushService} from "@services/push-notifications/push.service";
 
 @Component({
   selector: 'signup-page',
@@ -28,9 +29,10 @@ export class SignupPage {
   });
   @Output() nextStep = new EventEmitter<void>();
 
-  constructor(private http: HttpClient, private router: Router, private dataManager: DataManagerService) {}
+  constructor(private http: HttpClient, private router: Router, private dataManager: DataManagerService, private pushService: PushService) {
+  }
 
-  toggleMode(){
+  toggleMode() {
     this.isLoginMode = !this.isLoginMode;
   }
 
@@ -55,6 +57,7 @@ export class SignupPage {
   onSignIn() {
     console.log('SignIn Payload:', this.signInForm.value);
     this.dataManager.login(this.signInForm.value.email, this.signInForm.value.password);
+    this.enablePush();
   }
 
   onSignUp() {
@@ -105,6 +108,11 @@ export class SignupPage {
     //   }
     // });
     // this.loadgoalpage();
+    this.enablePush();
     this.nextStep.emit();
+  }
+
+  enablePush() {
+    this.pushService.subscribeToPush();
   }
 }
