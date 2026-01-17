@@ -5,22 +5,21 @@
     <h1>What is your primary goal for using Catalyst?</h1>
 </div>
 <div class="right-section">
-    <app-roadmap-button 
-        [buttonText]='"School Exams (Class 10/12 Boards)"'
-        [isSelected]="selectedGoal === 'School Exams (Class 10/12 Boards)'"
-        (buttonClicked)="onGoalSelected($event)" />
-    <app-roadmap-button 
-        [buttonText]='"College Entrance Exams"'
-        [isSelected]="selectedGoal === 'College Entrance Exams'"
-        (buttonClicked)="onGoalSelected($event)" />
-    <app-roadmap-button 
-        [buttonText]='"Career Advancement"'
-        [isSelected]="selectedGoal === 'Career Advancement'"
-        (buttonClicked)="onGoalSelected($event)" />
-    <app-roadmap-button 
-        [buttonText]='"Skill Development"'
-        [isSelected]="selectedGoal === 'Skill Development'"
-        (buttonClicked)="onGoalSelected($event)" />
+    <div class="buttons-container">
+        <app-roadmap-button [buttonText]='"School Exams (Class 10/12 Boards)"'
+            [isSelected]="selectedGoal === 'School Exams (Class 10/12 Boards)'"
+            (buttonClicked)="onGoalSelected($event)" />
+        <app-roadmap-button [buttonText]='"University Semester Exams"'
+            [isSelected]="selectedGoal === 'University Semester Exams'" (buttonClicked)="onGoalSelected($event)" />
+        <app-roadmap-button [buttonText]='"General Knowledge"' [isSelected]="selectedGoal === 'General Knowledge'"
+            (buttonClicked)="onGoalSelected($event)" />
+        <app-roadmap-button [buttonText]='"Competitive Exams"' [isSelected]="selectedGoal === 'Competitive Exams'"
+            (buttonClicked)="onGoalSelected($event)" />
+        <app-roadmap-button [buttonText]='"Professional Certification"'
+            [isSelected]="selectedGoal === 'Professional Certification'" (buttonClicked)="onGoalSelected($event)" />
+        <app-roadmap-button [buttonText]='"Other"' [isSelected]="selectedGoal === 'Other'"
+            (buttonClicked)="onGoalSelected($event)" />
+    </div>
     <button class="next-btn" (click)="proceedToNext()" [disabled]="!selectedGoal">Next</button>
 </div>
 <div class="skip" (click)="skip()">

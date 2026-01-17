@@ -14,6 +14,15 @@
     align-items: center;
 }
 
+.buttons-container {
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px;
+
+}
 h4 {
     color: #797979;
     margin-top: 1.25rem;
@@ -22,7 +31,7 @@ h4 {
 .next-btn {
     margin-top: 30px;
     padding: 12px 40px;
-    background-color: var(--primary-color);
+    background-color: var(--color-light-blue);
     color: white;
     border: none;
     border-radius: 8px;
