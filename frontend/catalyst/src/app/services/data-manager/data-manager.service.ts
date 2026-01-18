@@ -47,7 +47,7 @@ export class DataManagerService {
 
   /** -------- Login user and store JWT token -------- */
   /** routes the user back to home on successful login -------- */
-  public login(email: any, password: any) {
+  public login(email: any, password: any, route: string | boolean = '/home'): void {
     this.post('api/login', {
       "email": email,
       "password": password
@@ -58,7 +58,9 @@ export class DataManagerService {
         localStorage.setItem('jwtToken', res.jwt);
         localStorage.setItem('sessionCookie', this.cookie);
         this.isUserLoggedIn.set(true);
-        this.router.navigate(['/home']);
+        
+        if (route && typeof route === 'string')
+          this.router.navigate([route]);
       },
       error: (err) => {
         console.error('Error fetching user credentials:', err);
