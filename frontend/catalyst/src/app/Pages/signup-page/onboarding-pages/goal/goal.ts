@@ -10,11 +10,11 @@ import { DataManagerService } from '@services/data-manager/data-manager.service'
 })
 export class Goal {
   @Output() nextStep = new EventEmitter<void>();
-  
+
   selectedGoal: string = '';
 
   constructor(private dataManager: DataManagerService) { }
-  
+
   ngOnInit() {
     var div = document.getElementsByClassName('skip')[0];
     div.addEventListener('click', this.skip.bind(this));
@@ -23,9 +23,9 @@ export class Goal {
   onGoalSelected(goal: string) {
     this.selectedGoal = goal;
     // Store in DataManagerService
-    let signup_data: any = this.dataManager.snapshot("signup_data") || {};
-    signup_data['goal'] = goal;
-    this.dataManager.set("signup_data", signup_data);
+    let signup_data: any = this.dataManager.snapshot("signup_profile_data") || {};
+    signup_data['primary_goal'] = goal;
+    this.dataManager.set("signup_profile_data", signup_data);
   }
 
   proceedToNext() {

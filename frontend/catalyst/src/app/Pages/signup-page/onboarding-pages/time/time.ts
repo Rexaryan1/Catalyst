@@ -21,26 +21,28 @@ export class Time {
     div.addEventListener('click', this.skip.bind(this));
   }
 
-  onTimeChanged(event: any) {
-    this.selectedTime = event.value;
+  formatLabel(value: number): string {
+    return value + ' hrs/week';
+  }
+
+  onTimeChanged(value: number) {
+    this.selectedTime = value;
+
     // Store in DataManagerService
-    let signup_data: any = this.dataManager.snapshot("signup_data") || {};
-    signup_data['time_commitment_hours'] = event.value;
-    this.dataManager.set("signup_data", signup_data);
+    let signup_data: any = this.dataManager.snapshot("signup_profile_data") || {};
+    signup_data['time_commitment_hours'] = value;
+    this.dataManager.set("signup_profile_data", signup_data);
   }
 
   registerUser() {
+    var signup_profile_data: any = this.dataManager.snapshot("signup_profile_data");
     var signup_data: any = this.dataManager.snapshot("signup_data");
 
-    this.dataManager.post(`api/register`, signup_data, {
+    this.dataManager.post(`api/profile/onboard`, signup_profile_data, {
       withCredentials: true
     }).subscribe({
       next: () => {
-        alert('Registration successful! You are now signed in.');
-        const container = document.getElementById('container');
-        // this.router.navigate(['/home']);
-        if (container) container.classList.remove('right-panel-active');
-
+        alert('Profile Registration successful! You are now signed in.');
         this.dataManager.login(signup_data.email, signup_data.password);
       },
       error: (error: any) => {
