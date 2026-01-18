@@ -33,7 +33,8 @@ $font-secondary: "AlbertSans-Bold", sans-serif;
   .left-section,
   .right-section {
     display: inline-block;
-    vertical-align: top;
+    vertical-align: middle;
+    height: 80vh;
   }
 
   .left-section {
@@ -42,8 +43,7 @@ $font-secondary: "AlbertSans-Bold", sans-serif;
     justify-content: center;
     gap: 20px;
 
-
-    padding: 0 100px;
+    padding: 0 5rem;
     width: 50vw;
   }
 
