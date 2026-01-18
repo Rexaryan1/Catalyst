@@ -25,7 +25,8 @@ export class Time {
     return value + ' hrs/week';
   }
 
-  onTimeChanged(value: number) {
+  onTimeChanged(value: number | null) {
+    if (value === null) return;
     this.selectedTime = value;
 
     // Store in DataManagerService

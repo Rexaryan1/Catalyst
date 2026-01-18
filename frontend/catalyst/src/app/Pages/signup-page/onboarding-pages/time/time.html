@@ -6,8 +6,7 @@
     <p class="subtitle">Selected: <strong>{{selectedTime}} hours/week</strong></p>
 </div>
 <div class="bottom-section">
-    <mat-slider min="1" max="12" step="1" (onValueChange)="onTimeChanged({value: $event})"
-        aria-label="Time Commitment Slider" class="slider" discrete showTickMarks>
+    <mat-slider min="1" max="12" step="1" aria-label="Time Commitment Slider" class="slider" discrete showTickMarks>
         <input matSliderThumb>
     </mat-slider>
     <div class="time-labels">
