@@ -1,0 +1,15 @@
+<div class="toast-stack" *ngIf="(inApp.items$() | async) as items">
+  <!-- Only render when there are notifications -->
+  <ng-container *ngIf="items.length > 0">
+    <div class="toast" *ngFor="let n of items">
+      <div class="toast__content">
+        <div class="toast__title">{{ n.title }}</div>
+        <div class="toast__body">{{ n.body }}</div>
+      </div>
+
+      <button class="toast__close" (click)="inApp.dismiss(n.id)" aria-label="Dismiss">
+        ×
+      </button>
+    </div>
+  </ng-container>
+</div>
