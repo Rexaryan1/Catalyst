@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import { DataManagerService } from '@services/data-manager/data-manager.service';
 import { RoadmapListComponent } from "@pages/roadmap-page/roadmap-list/roadmap-list.component";
 import { NavBarComponent } from "@app/nav-bar/nav-bar.component";
-import {QuestionCard} from "@pages/roadmap-page/question-card/question-card";
-import { Question } from "@components/cards/roadmap-item/roadmap-item.interface";
 
 @Component({
   selector: 'app-roadmap-page',

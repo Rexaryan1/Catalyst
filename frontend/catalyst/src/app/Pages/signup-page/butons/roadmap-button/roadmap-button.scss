@@ -1,0 +1,42 @@
+.button-container {
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+
+    border: 2px solid var(--color-light-blue);
+    background-color: var(--button-bg);
+    font-size: large;
+    cursor: pointer;
+    border-radius: 8px;
+    padding: 10px;
+    transition: all 0.3s ease;
+
+    margin: 20px 10px 20px 10px;
+
+    height: 75px;
+    width: 17vw;
+
+    &:hover {
+        background-color: rgba(var(--primary-color), 0.1);
+    }
+
+    &.active {
+        color: white;
+        border: 4px solid var(--primary-color);
+
+        .button-text {
+            color: white;
+            font-weight: 600;
+        }
+    }
+}
+
+.button-text {
+    // color: var(--primary-color);
+    // font-family: var(--font-main);
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 22px;
+    text-align: center;
+    margin: auto;
+}
