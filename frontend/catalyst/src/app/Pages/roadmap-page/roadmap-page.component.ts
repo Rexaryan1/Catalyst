@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { DataManagerService } from '@services/data-manager/data-manager.service';
 import { RoadmapListComponent } from "@pages/roadmap-page/roadmap-list/roadmap-list.component";
 import { NavBarComponent } from "@app/nav-bar/nav-bar.component";
-import {QuestionCard} from "@pages/roadmap-page/question-card/question-card";
 
 @Component({
   selector: 'app-roadmap-page',
@@ -13,6 +12,8 @@ import {QuestionCard} from "@pages/roadmap-page/question-card/question-card";
 })
 export class RoadmapPageComponent {
   roadmapData: Object | null = null;
+  activeQuestions: Question[] = [];
+  activeIndex = 0;
   constructor(private dataManager: DataManagerService) {}
 
   ngOnInit() {
@@ -25,6 +26,17 @@ export class RoadmapPageComponent {
         console.error('Error fetching roadmap data:', error);
       }
     });
+  }
+
+  onQuestionSelected(event: { questions: Question[]; index: number }): void {
+    this.activeQuestions = event.questions ?? [];
+    this.activeIndex = event.index ?? 0;
+  }
+
+  onIndexChange(nextIndex: number): void {
+    if (!this.activeQuestions?.length) return;
+    if (nextIndex < 0 || nextIndex >= this.activeQuestions.length) return;
+    this.activeIndex = nextIndex;
   }
 
   ngAfterViewInit() {

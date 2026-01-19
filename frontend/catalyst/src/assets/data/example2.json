@@ -1,294 +1,247 @@
 {
-  "success": true,
-  "data": {
-    "roadmapItems": [
-      {
-        "id": "linked-list-001",
-        "title": "Linked List",
-        "summary": "Master linear data structures with dynamic memory allocation. Learn to implement, traverse, and manipulate linked lists efficiently.",
-        "difficulty": "Hard",
-        "progressPercentage": 75,
-        "isSaved": false,
-        "isExpanded": false,
-        "questions": [
-          {
-            "id": "ll-reverse-001",
-            "title": "Reverse a Linked List",
-            "summary": "Given the head of a singly linked list, reverse the list and return the reversed list using iterative or recursive approach.",
-            "isBookmarked": false,
-            "difficulty": "Medium"
-          },
-          {
-            "id": "ll-cycle-002",
-            "title": "Detect Cycle in Linked List",
-            "summary": "Given head, determine if the linked list has a cycle using Floyd's cycle-finding algorithm (tortoise and hare).",
-            "isBookmarked": true,
-            "difficulty": "Medium"
-          },
-          {
-            "id": "ll-merge-003",
-            "title": "Merge Two Sorted Lists",
-            "summary": "Merge two sorted linked lists and return it as a sorted list. The list should be made by splicing together the nodes.",
-            "isBookmarked": false,
-            "difficulty": "Easy"
-          },
-          {
-            "id": "ll-remove-004",
-            "title": "Remove Nth Node From End",
-            "summary": "Given the head of a linked list, remove the nth node from the end of the list and return its head using two-pointer technique.",
-            "isBookmarked": true,
-            "difficulty": "Medium"
-          }
-        ]
-      },
-      {
-        "id": "graphs-002",
-        "title": "Graphs",
-        "summary": "Explore complex network structures and relationships. Understand graph traversal algorithms like BFS, DFS, and shortest path algorithms.",
-        "difficulty": "Hard",
-        "progressPercentage": 30,
-        "isSaved": true,
-        "isExpanded": false,
-        "questions": [
-          {
-            "id": "graph-clone-001",
-            "title": "Clone Graph",
-            "summary": "Return a deep copy of an undirected graph where each node contains a label and list of neighbors using DFS or BFS.",
-            "isBookmarked": false,
-            "difficulty": "Medium"
-          },
-          {
-            "id": "graph-schedule-002",
-            "title": "Course Schedule",
-            "summary": "Determine if you can finish all courses given prerequisites using topological sorting to detect cycles in directed graph.",
-            "isBookmarked": true,
-            "difficulty": "Medium"
-          },
-          {
-            "id": "graph-islands-003",
-            "title": "Number of Islands",
-            "summary": "Count the number of islands in a 2D binary grid representing water and land using DFS or BFS traversal.",
-            "isBookmarked": false,
-            "difficulty": "Medium"
-          },
-          {
-            "id": "graph-shortest-004",
-            "title": "Shortest Path in Binary Matrix",
-            "summary": "Find the shortest clear path from top-left to bottom-right in a binary matrix using BFS algorithm.",
-            "isBookmarked": false,
-            "difficulty": "Medium"
-          },
-          {
-            "id": "graph-ladder-005",
-            "title": "Word Ladder",
-            "summary": "Transform one word into another word by changing one letter at a time, each intermediate word must exist in dictionary.",
-            "isBookmarked": true,
-            "difficulty": "Hard"
-          }
-        ]
-      },
-      {
-        "id": "trees-003",
-        "title": "Trees",
-        "summary": "Dive into hierarchical data structures. Learn binary trees, BSTs, AVL trees, and tree traversal techniques.",
-        "difficulty": "Medium",
-        "progressPercentage": 60,
-        "isSaved": false,
-        "isExpanded": false,
-        "questions": [
-          {
-            "id": "tree-depth-001",
-            "title": "Maximum Depth of Binary Tree",
-            "summary": "Find the maximum depth of a binary tree using recursive DFS or iterative BFS approach.",
-            "isBookmarked": false,
-            "difficulty": "Easy"
-          },
-          {
-            "id": "tree-validate-002",
-            "title": "Validate Binary Search Tree",
-            "summary": "Determine if a given binary tree is a valid BST by checking in-order traversal or using bounds validation.",
-            "isBookmarked": true,
-            "difficulty": "Medium"
-          },
-          {
-            "id": "tree-lca-003",
-            "title": "Lowest Common Ancestor",
-            "summary": "Find the lowest common ancestor of two nodes in a binary tree using recursive approach with path tracking.",
-            "isBookmarked": false,
-            "difficulty": "Medium"
-          },
-          {
-            "id": "tree-level-004",
-            "title": "Binary Tree Level Order Traversal",
-            "summary": "Return the level order traversal of binary tree nodes values using BFS with queue data structure.",
-            "isBookmarked": false,
-            "difficulty": "Medium"
-          },
-          {
-            "id": "tree-serialize-005",
-            "title": "Serialize and Deserialize Binary Tree",
-            "summary": "Design algorithms to serialize a binary tree to string and deserialize string back to tree structure.",
-            "isBookmarked": true,
-            "difficulty": "Hard"
-          }
-        ]
-      },
-      {
-        "id": "recursion-004",
-        "title": "Recursion",
-        "summary": "Master the art of solving problems by breaking them into smaller subproblems. Understand base cases and recursive relationships.",
-        "difficulty": "Medium",
-        "progressPercentage": 85,
-        "isSaved": true,
-        "isExpanded": false,
-        "questions": [
-          {
-            "id": "rec-parentheses-001",
-            "title": "Generate Parentheses",
-            "summary": "Generate all combinations of well-formed parentheses for n pairs using backtracking and recursion.",
-            "isBookmarked": false,
-            "difficulty": "Medium"
-          },
-          {
-            "id": "rec-permutations-002",
-            "title": "Permutations",
-            "summary": "Return all possible permutations of an array of distinct integers using recursive backtracking algorithm.",
-            "isBookmarked": true,
-            "difficulty": "Medium"
-          },
-          {
-            "id": "rec-subsets-003",
-            "title": "Subsets",
-            "summary": "Return all possible subsets (power set) of an integer array using bit manipulation or backtracking.",
-            "isBookmarked": false,
-            "difficulty": "Medium"
-          },
-          {
-            "id": "rec-wordsearch-004",
-            "title": "Word Search",
-            "summary": "Find if a word exists in a 2D board of characters using DFS backtracking with visited state management.",
-            "isBookmarked": true,
-            "difficulty": "Medium"
-          },
-          {
-            "id": "rec-nqueens-005",
-            "title": "N-Queens",
-            "summary": "Place n queens on an n×n chessboard so that no two queens attack each other using backtracking.",
-            "isBookmarked": false,
-            "difficulty": "Hard"
-          },
-          {
-            "id": "rec-combination-006",
-            "title": "Combination Sum",
-            "summary": "Find all unique combinations where candidate numbers sum to target using recursive backtracking with pruning.",
-            "isBookmarked": false,
-            "difficulty": "Medium"
-          }
-        ]
-      },
-      {
-        "id": "arrays-005",
-        "title": "Arrays",
-        "summary": "Master fundamental array operations and algorithms. Learn sorting, searching, two-pointer techniques, and sliding window patterns.",
-        "difficulty": "Easy",
-        "progressPercentage": 40,
-        "isSaved": false,
-        "isExpanded": false,
-        "questions": [
-          {
-            "id": "array-two-sum-001",
-            "title": "Two Sum",
-            "summary": "Find two numbers in an array that add up to a specific target using hash map for O(n) solution.",
-            "isBookmarked": true,
-            "difficulty": "Easy"
-          },
-          {
-            "id": "array-best-time-002",
-            "title": "Best Time to Buy and Sell Stock",
-            "summary": "Find the maximum profit from buying and selling stock once using single-pass algorithm.",
-            "isBookmarked": false,
-            "difficulty": "Easy"
-          },
-          {
-            "id": "array-container-003",
-            "title": "Container With Most Water",
-            "summary": "Find two lines that form a container holding the most water using two-pointer technique.",
-            "isBookmarked": true,
-            "difficulty": "Medium"
-          },
-          {
-            "id": "array-3sum-004",
-            "title": "3Sum",
-            "summary": "Find all unique triplets in array that sum to zero using sorted array and two-pointer approach.",
-            "isBookmarked": false,
-            "difficulty": "Medium"
-          }
-        ]
-      },
-      {
-        "id": "dynamic-programming-006",
-        "title": "Dynamic Programming",
-        "summary": "Learn optimization techniques using overlapping subproblems and optimal substructure. Master memoization and tabulation approaches.",
-        "difficulty": "Hard",
-        "progressPercentage": 20,
-        "isSaved": true,
-        "isExpanded": false,
-        "questions": [
-          {
-            "id": "dp-fibonacci-001",
-            "title": "Fibonacci Number",
-            "summary": "Calculate nth Fibonacci number using dynamic programming to avoid redundant calculations.",
-            "isBookmarked": false,
-            "difficulty": "Easy"
-          },
-          {
-            "id": "dp-climbing-002",
-            "title": "Climbing Stairs",
-            "summary": "Find number of ways to climb n stairs taking 1 or 2 steps at a time using DP approach.",
-            "isBookmarked": true,
-            "difficulty": "Easy"
-          },
-          {
-            "id": "dp-coin-change-003",
-            "title": "Coin Change",
-            "summary": "Find minimum number of coins needed to make change for given amount using bottom-up DP.",
-            "isBookmarked": true,
-            "difficulty": "Medium"
-          },
-          {
-            "id": "dp-longest-subsequence-004",
-            "title": "Longest Increasing Subsequence",
-            "summary": "Find length of longest strictly increasing subsequence using DP with binary search optimization.",
-            "isBookmarked": false,
-            "difficulty": "Medium"
-          },
-          {
-            "id": "dp-edit-distance-005",
-            "title": "Edit Distance",
-            "summary": "Find minimum operations to convert one string to another using dynamic programming matrix.",
-            "isBookmarked": true,
-            "difficulty": "Hard"
-          }
-        ]
-      }
-    ],
-    "metadata": {
-      "totalItems": 6,
-      "totalQuestions": 29,
-      "lastUpdated": "2025-07-31T14:30:00Z",
-      "version": "1.2",
-      "categories": [
-        "Data Structures",
-        "Algorithms",
-        "Problem Solving"
-      ]
-    }
-  },
-  "pagination": {
-    "currentPage": 1,
-    "totalPages": 1,
-    "itemsPerPage": 50,
-    "hasNextPage": false,
-    "hasPreviousPage": false
-  }
+	"message": "Roadmap generated successfully",
+	"data": {
+		"roadmapItems": [
+			{
+				"id": "block-001",
+				"title": "Foundations of Force and Motion",
+				"summary": "Introduces core concepts of Newtonian mechanics, focusing on force, acceleration, and motion under gravity. Builds conceptual clarity with straightforward applications to reinforce understanding and confidence.",
+				"difficulty": "Medium",
+				"progressPercentage": 0,
+				"isSaved": false,
+				"isExpanded": false,
+				"questions": [
+					{
+						"id": "41370515-7207-455a-8e3f-8325080b2319",
+						"title": "Force equals mass times what?",
+						"question_text": "Force equals mass times what?",
+						"options": [
+							"Velocity",
+							"Distance",
+							"Acceleration",
+							"Weight"
+						],
+						"correct_index": 2,
+						"isBookmarked": false,
+						"difficulty": "Medium"
+					},
+					{
+						"id": "3dceff0c-a0d1-4931-a98a-72c2ed0d4836",
+						"title": "When you drop a ball from rest it accelerates down",
+						"question_text": "When you drop a ball from rest it accelerates downward at 9.8 m/s^2. If you instead throw it downward assuming no air resistance its acceleration immediately after leaving your hand is",
+						"options": [
+							"9.8 m/s2",
+							"more than 9.8 m/s2",
+							"less than 9.8 m/s2",
+							"Cannot say unless the speed of throw is given."
+						],
+						"correct_index": 0,
+						"isBookmarked": false,
+						"difficulty": "Medium"
+					},
+					{
+						"id": "89777f24-5872-4245-8427-c20d7905ae48",
+						"title": "If an object is already moving and the sum of all ",
+						"question_text": "If an object is already moving and the sum of all the vector forces on a mass is zero, then the object will",
+						"options": [
+							"move at a constant speed in a straight line",
+							"accelerate at a constant rate in a straight line",
+							"come to rest",
+							"increase its amount of inertia"
+						],
+						"correct_index": 0,
+						"isBookmarked": false,
+						"difficulty": "Medium"
+					}
+				]
+			},
+			{
+				"id": "block-002",
+				"title": "Forces in Interaction: Pairs and Systems",
+				"summary": "Explores action-reaction pairs, normal forces, and tension in systems. Strengthens conceptual accuracy in force interactions, directly addressing common misconceptions to improve performance in moral-scenario-like reasoning through physical analogs.",
+				"difficulty": "Medium",
+				"progressPercentage": 0,
+				"isSaved": false,
+				"isExpanded": false,
+				"questions": [
+					{
+						"id": "695a93d1-94af-48f4-841d-61ee8b394abb",
+						"title": "A man stands on a platform scale in an elevator. T",
+						"question_text": "A man stands on a platform scale in an elevator. The elevator moves upward, speeding up. What is the action-reaction force pair to the man’s weight?",
+						"options": [
+							"The force of the elevator cable on the man",
+							"The force of the man on the scale",
+							"The force of the elevator cable on the elevator",
+							"The force of the man on the Earth"
+						],
+						"correct_index": 3,
+						"isBookmarked": false,
+						"difficulty": "Medium"
+					},
+					{
+						"id": "6e97e8d2-091c-4549-9aff-5a4eb358d151",
+						"title": "A person standing on a horizontal floor is acted u",
+						"question_text": "A person standing on a horizontal floor is acted upon by two forces: the downward pull of gravity and the upward normal force of the floor. These two forces",
+						"options": [
+							"have equal magnitudes and form an action-reaction pair",
+							"have equal magnitudes and do not form an action-reaction pair",
+							"have unequal magnitudes and form an action-reaction pair",
+							"have unequal magnitudes and do not form an action-reaction pair"
+						],
+						"correct_index": 1,
+						"isBookmarked": false,
+						"difficulty": "Medium"
+					},
+					{
+						"id": "456203aa-1bf0-404d-843d-e2c07797ea26",
+						"title": "A karate chop delivers a force of 3000 N to a boar",
+						"question_text": "A karate chop delivers a force of 3000 N to a board that breaks. The force that the board exerts on the hand during this event is",
+						"options": [
+							"less than 3000 N",
+							"3000 N",
+							"greater than 3000 N",
+							"Need more information"
+						],
+						"correct_index": 1,
+						"isBookmarked": false,
+						"difficulty": "Hard"
+					},
+					{
+						"id": "a84894e4-a692-4643-a6aa-aec67087771f",
+						"title": "The team that wins in a tug-of-war is the team tha",
+						"question_text": "The team that wins in a tug-of-war is the team that",
+						"options": [
+							"produces more tension in the rope than the opponent",
+							"pushes hardest on the ground",
+							"Both",
+							"Neither"
+						],
+						"correct_index": 1,
+						"isBookmarked": false,
+						"difficulty": "Medium"
+					}
+				]
+			},
+			{
+				"id": "block-003",
+				"title": "Applications in Dynamics and Energy",
+				"summary": "Integrates force concepts with motion, energy, and torque. Challenges the learner with multi-step reasoning and synthesis, promoting deeper engagement through real-world analogs like sports and biomechanics.",
+				"difficulty": "Hard",
+				"progressPercentage": 0,
+				"isSaved": false,
+				"isExpanded": false,
+				"questions": [
+					{
+						"id": "13a9d918-7694-4a52-ad38-c8848a6a1945",
+						"title": "A rock is dropped off a cliff and strikes the grou",
+						"question_text": "A rock is dropped off a cliff and strikes the ground with an impact velocity of 30 m/s. How high was the cliff?",
+						"options": [
+							"20 m",
+							"30 m",
+							"45 m",
+							"60 m"
+						],
+						"correct_index": 2,
+						"isBookmarked": false,
+						"difficulty": "Hard"
+					},
+					{
+						"id": "75d7f5aa-829e-456e-b473-47f6239576e9",
+						"title": "An object of mass 2 kg is acted upon by three exte",
+						"question_text": "An object of mass 2 kg is acted upon by three external forces, each of magnitude 4 N. Which of the following could NOT be the resulting acceleration of the object?",
+						"options": [
+							"0 m/s^2",
+							"2 m/s^2",
+							"4 m/s^2",
+							"8 m/s^2"
+						],
+						"correct_index": 3,
+						"isBookmarked": false,
+						"difficulty": "Medium"
+					},
+					{
+						"id": "48f0ecb2-cef8-4566-a14f-47114eaa902c",
+						"title": "The impulse–momentum relationship is a direct resu",
+						"question_text": "The impulse–momentum relationship is a direct result of Newton’s",
+						"options": [
+							"first law",
+							"second law",
+							"third law",
+							"law of gravity"
+						],
+						"correct_index": 1,
+						"isBookmarked": false,
+						"difficulty": "Hard"
+					},
+					{
+						"id": "2a55c368-ba41-42ce-9ddc-e14d3c280446",
+						"title": "A torque is a force",
+						"question_text": "A torque is a force",
+						"options": [
+							"like any other force",
+							"multiplied by a lever arm",
+							"that is fictitious",
+							"that accelerates things"
+						],
+						"correct_index": 1,
+						"isBookmarked": false,
+						"difficulty": "Hard"
+					}
+				]
+			},
+			{
+				"id": "block-004",
+				"title": "Synthesis and Real-World Connections",
+				"summary": "Combines mechanics principles with interdisciplinary thinking, linking physics to human performance and habit formation. Enhances motivation by connecting to interests like 'Mindhunter' and 'The Power of Habit' through analogies in force, resistance, and momentum.",
+				"difficulty": "Medium",
+				"progressPercentage": 0,
+				"isSaved": false,
+				"isExpanded": false,
+				"questions": [
+					{
+						"id": "9de3d6f9-70e7-4b7c-bd1d-919c73af64f5",
+						"title": "A 10-N force at an angle 45° above the horizontal ",
+						"question_text": "A 10-N force at an angle 45° above the horizontal has a horizontal component of about",
+						"options": [
+							"7 N",
+							"5 N",
+							"10 N",
+							"12 N"
+						],
+						"correct_index": 0,
+						"isBookmarked": false,
+						"difficulty": "Hard"
+					},
+					{
+						"id": "198ec151-7756-4ebf-9b89-ed410ebffec2",
+						"title": "For very high force contractions lasting 1-2 secon",
+						"question_text": "For very high force contractions lasting 1-2 seconds, the initial energy source is from:",
+						"options": [
+							"Glycolysis.",
+							"creatine phosphorylation.",
+							"phosphocreatine stores.",
+							"ATP stores."
+						],
+						"correct_index": 3,
+						"isBookmarked": false,
+						"difficulty": "Medium"
+					},
+					{
+						"id": "8cc42e90-6d02-452f-abe3-9321ade92974",
+						"title": "A math book and a physics book sitting on a table ",
+						"question_text": "A math book and a physics book sitting on a table are tied together with a length of string. With the string taut one book is pushed off the edge of the table. As it falls the other book is dragged ho...",
+						"options": [
+							"zero",
+							"g/2",
+							"g",
+							"a value between zero and g"
+						],
+						"correct_index": 3,
+						"isBookmarked": false,
+						"difficulty": "Medium"
+					}
+				]
+			}
+		]
+	}
 }

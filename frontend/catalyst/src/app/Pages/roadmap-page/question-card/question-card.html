@@ -1,31 +1,57 @@
+<div class="question-card" *ngIf="question as q; else emptyState">
+  <div class="qc-header">
+    <div class="qc-title">Question</div>
+  </div>
 
-	<div class="question-card">
-		<h6>Course</h6>
-		<h2>JavaScript Fundamentals</h2>
-		<a href="#">View all chapters <i class="fas fa-chevron-right"></i></a>
-	</div>
-	<div class="roadmap-info">
-		<div class="progress-container">
-			<div class="progress">
-			</div>
-			<span class="progress-text">
-				6/9 Questions
-			</span>
-		</div>
-		<h6>Chapter 4</h6>
-		<!-- <h2>{{ question.title }}</h2> -->
-		<p class="question-text">{{ question.question_text }}</p>
+  <div class="qc-body">
+    <p class="question-text">{{ q.question_text }}</p>
 
-		<div class="options-container">
-            <div *ngFor="let option of question.options; let i = index"
-                 class="option"
-                 [class.selected]="selectedOption === i"
-                 (click)="selectOption(i)">
-                <input type="radio" [id]="'option'+i" name="answer" [checked]="selectedOption === i">
-                <label [for]="'option'+i">{{option}}</label>
-            </div>
-        </div>
-
-        <button class="btn" (click)="checkAnswer()">Continue</button>
+    <div class="options-container" role="list">
+      <button
+        *ngFor="let option of (q.options ?? []); let i = index"
+        type="button"
+        class="option"
+        role="listitem"
+        [class.selected]="optionClass(i) === 'selected'"
+        [class.correct]="optionClass(i) === 'correct'"
+        [class.incorrect]="optionClass(i) === 'incorrect'"
+        [disabled]="isSubmitted"
+        (click)="selectOption(i)"
+      >
+        <span class="option-badge">{{ ('ABCDEFGHIJKLMNOPQRSTUVWXYZ'.charAt(i)) }}</span>
+        <span class="option-label">{{ option }}</span>
+      </button>
     </div>
 
+    <div class="feedback" *ngIf="isSubmitted">
+      <p *ngIf="isCorrect" class="feedback-correct">Correct!</p>
+      <p *ngIf="isCorrect === false" class="feedback-incorrect">
+        Incorrect. Correct answer: {{ q.options[q.correct_index] }}
+      </p>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="btn" (click)="prev()" [disabled]="index <= 0">Previous</button>
+
+    <button class="btn primary" (click)="continue()">
+      {{ isSubmitted ? 'Next' : 'Check Answer' }}
+    </button>
+
+    <button class="btn" (click)="next()" [disabled]="index >= (questions.length - 1)">
+      Skip
+    </button>
+  </div>
+</div>
+
+<ng-template #emptyState>
+  <div class="question-card empty">
+    <div class="qc-header">
+      <div class="qc-title">Question</div>
+    </div>
+
+    <div class="qc-body">
+      <p class="empty-text">Select a question from the roadmap to begin.</p>
+    </div>
+  </div>
+</ng-template>

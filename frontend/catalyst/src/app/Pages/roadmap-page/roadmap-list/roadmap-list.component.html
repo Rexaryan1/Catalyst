@@ -9,11 +9,14 @@
           (questionClick)="onQuestionClick($event)"
           (questionBookmark)="onQuestionBookmark($event)"
           (toggleExpansion)="onToggleExpansion($event)">
+          (titleClick)="onTitleClick($event)">
         </app-roadmap-item>
       </div>
     </div>
     <Button class="vertical-divider">
-      Divider goes here
+      <span class="divider-text">
+        #{{ selectedRoadmapTitle || 'Roadmap' }}
+      </span>
     </Button>
 
   </div>

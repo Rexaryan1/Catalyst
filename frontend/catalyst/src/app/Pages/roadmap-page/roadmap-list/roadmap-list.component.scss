@@ -13,33 +13,18 @@
   height: 100%;
   min-height: 0;
   display: grid;
-  grid-template-columns: 1fr auto;
   gap: 1rem;
-  align-items: start;
+  grid-template-columns: 1fr 2fr;
 }
 
-.roadmap-scroll {
-  min-height: 0;
-  height: 100%;
-  overflow-y: auto;
-  overflow-x: hidden;
+.left-panel{
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
 }
 
-.roadmap-grid {
-  display: grid;
-  gap: 12px;
-  width: 40vw;
 
-}
-
-.vertical-divider {
-  height: 100%;
-  align-self: stretch;
-  width: 3vw;
-
+.vertical-divider{
   background: #9B5F53;
-  color: #EAE9E5;
-  border: 0;
-  padding: 12px;
-  cursor: pointer;
+  colour: #EAE9E5;
 }

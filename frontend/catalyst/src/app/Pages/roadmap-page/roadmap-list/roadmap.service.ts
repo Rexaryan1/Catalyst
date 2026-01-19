@@ -39,7 +39,7 @@ export class RoadmapService {
 
 
   private loadDataFromJson(): void {
-    this.http.get<any>('/assets/data/example.json')
+    this.http.get<any>('/assets/data/example2.json')
       .subscribe(data => {
         const roadmapItems = data.data?.roadmapItems
         this.roadmapItemsSubject.next(roadmapItems);
