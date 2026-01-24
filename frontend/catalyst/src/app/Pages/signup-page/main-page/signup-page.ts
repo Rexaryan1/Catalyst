@@ -4,7 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {DataManagerService} from "@services/data-manager/data-manager.service";
 import {CommonModule} from "@angular/common";
-
+// import { PushNotificationService } from '@services/push-notification/push-notification.service';
 @Component({
   selector: 'signup-page',
   imports: [
@@ -112,6 +112,6 @@ export class SignupPage {
   }
 
   enablePush() {
-    this.pushService.subscribeToPush();
+  //   this.pushService.subscribeToPush();
   }
 }

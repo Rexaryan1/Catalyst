@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { DataManagerService } from '@services/data-manager/data-manager.service';
 import { RoadmapListComponent } from "@pages/roadmap-page/roadmap-list/roadmap-list.component";
-import { NavBarComponent } from "@app/nav-bar/nav-bar.component";
-
+import { QuestionCard } from './question-card/question-card';
 @Component({
   selector: 'app-roadmap-page',
   standalone: true,
@@ -12,9 +11,9 @@ import { NavBarComponent } from "@app/nav-bar/nav-bar.component";
 })
 export class RoadmapPageComponent {
   roadmapData: Object | null = null;
-  activeQuestions: Question[] = [];
+  activeQuestions: QuestionCard[] = [];
   activeIndex = 0;
-  constructor(private dataManager: DataManagerService) {}
+  constructor(private dataManager: DataManagerService) { }
 
   ngOnInit() {
     this.dataManager.select('roadmap').subscribe({
@@ -28,7 +27,7 @@ export class RoadmapPageComponent {
     });
   }
 
-  onQuestionSelected(event: { questions: Question[]; index: number }): void {
+  onQuestionSelected(event: { questions: QuestionCard[]; index: number }): void {
     this.activeQuestions = event.questions ?? [];
     this.activeIndex = event.index ?? 0;
   }

@@ -38,7 +38,7 @@ export class RoadmapItemComponent {
 
     this.dataManager.set("question", question);
     
-    this.displayManager.displayOverlay("question", question.id);
+    // this.displayManager.displayOverlay("question", question.id);
   }
 
   onQuestionBookmark(questionId: string): void {
