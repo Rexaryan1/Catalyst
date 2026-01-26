@@ -1,0 +1,279 @@
+.roadmap-container {
+    min-height: 100vh;
+    background-color: #18181b;
+    color: #e4e4e7;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    border-bottom: 1px solid #27272a;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.avatar {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background-color: #27272a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9ca3af;
+}
+
+h1 {
+    font-size: 1.25rem;
+    font-weight: 300;
+    font-style: italic;
+    margin: 0;
+}
+
+.tabs-container {
+    position: relative;
+    padding: 2rem 1rem 0 1rem;
+}
+
+.tabs-wrapper {
+    display: flex;
+    border: 2px solid #3b82f6;
+    background-color: #27272a;
+    clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 100%, 20px 100%);
+}
+
+.tab {
+    flex: 1;
+    padding: 1rem 2rem;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    background-color: #27272a;
+    color: #9ca3af;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+
+    &.active {
+        background-color: #3f3f46;
+        color: white;
+    }
+
+    &:not(.active):hover {
+        color: #d4d4d8;
+    }
+
+    &.tab-first {
+        clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 100%, 0 100%);
+    }
+
+    &.tab-middle {
+        clip-path: polygon(15px 0, calc(100% - 15px) 0, 100% 100%, 0 100%);
+    }
+
+    &.tab-last {
+        clip-path: polygon(15px 0, 100% 0, 100% 100%, 0 100%);
+    }
+}
+
+.toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    padding: 1rem;
+}
+
+.search-container {
+    position: relative;
+    flex: 1;
+    max-width: 28rem;
+}
+
+.search-icon {
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #71717a;
+}
+
+.search-input {
+    width: 100%;
+    background-color: #27272a;
+    border: 1px solid #3f3f46;
+    border-radius: 0.375rem;
+    padding: 0.5rem 0.75rem 0.5rem 2.5rem;
+    font-size: 0.875rem;
+    color: #d4d4d8;
+
+    &::placeholder {
+        color: #71717a;
+    }
+
+    &:focus {
+        outline: none;
+        border-color: #52525b;
+    }
+}
+
+.filter-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: #27272a;
+    border: 1px solid #3f3f46;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    color: #e4e4e7;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover {
+        background-color: #3f3f46;
+    }
+}
+
+.table-header {
+    display: grid;
+    grid-template-columns: 2fr 3fr 2fr 2fr 3fr;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #27272a;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #71717a;
+    text-align: center;
+}
+
+.roadmap-list {
+    padding: 0 1rem;
+}
+
+.roadmap-row {
+    display: grid;
+    grid-template-columns: 2fr 3fr 2fr 2fr 3fr;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid #27272a;
+    align-items: center;
+    transition: background-color 0.2s;
+
+    &:hover {
+        background-color: #1f1f23;
+    }
+}
+
+.col-roadmap,
+.col-summary,
+.col-difficulty,
+.col-completion,
+.col-keywords {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.roadmap-title {
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.roadmap-date {
+    font-size: 0.75rem;
+    color: #71717a;
+    margin-top: 0.25rem;
+}
+
+.roadmap-summary {
+    font-size: 0.875rem;
+    color: #9ca3af;
+}
+
+.difficulty-badge {
+    display: inline-block;
+    padding: 0.375rem 1.5rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    min-width: 90px;
+    text-align: center;
+
+    &.difficulty-easy {
+        background-color: #16a34a;
+    }
+
+    &.difficulty-medium {
+        background-color: #ca8a04;
+    }
+
+    &.difficulty-hard {
+        background-color: #dc2626;
+    }
+
+    &.difficulty-default {
+        background-color: #52525b;
+    }
+}
+
+.progress-circle {
+    position: relative;
+    width: 4rem;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.circular-progress {
+    transform: rotate(-90deg);
+}
+
+.circle-bg {
+    color: #3f3f46;
+}
+
+.circle-progress {
+    color: #9ca3af;
+}
+
+.progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.col-keywords {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.keyword-tag {
+    padding: 0.25rem 0.75rem;
+    background-color: #27272a;
+    border: 1px solid #3f3f46;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    color: #9ca3af;
+}
