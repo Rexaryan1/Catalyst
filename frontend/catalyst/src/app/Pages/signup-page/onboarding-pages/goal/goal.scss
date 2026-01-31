@@ -4,7 +4,7 @@
 }
 
 .logo {
-    margin-bottom: 30px;
+    margin-bottom: 3px;
 }
 
 .right-section {
@@ -15,7 +15,7 @@
 }
 
 .buttons-container {
-    height: 400px;
+    height: 370px;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -23,9 +23,12 @@
     gap: 5px;
 }
 
-h4 {
-    color: #797979;
-    margin-top: 1.25rem;
+h1 {
+    margin-bottom: 1rem;
+}
+
+app-step-indicator {
+    margin-bottom: 5rem;
 }
 
 .next-btn {

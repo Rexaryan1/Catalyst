@@ -1,10 +1,11 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { RoadmapButton } from '@pages/signup-page/butons/roadmap-button/roadmap-button';
 import { DataManagerService } from '@services/data-manager/data-manager.service';
+import { StepIndicatorComponent } from "../../stepper-small/stepper-small";
 
 @Component({
   selector: 'app-goal',
-  imports: [RoadmapButton],
+  imports: [RoadmapButton, StepIndicatorComponent],
   templateUrl: './goal.html',
   styleUrl: './goal.scss',
 })
