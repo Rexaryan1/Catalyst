@@ -38,6 +38,7 @@ export class Time {
   registerUser() {
     var signup_profile_data: any = this.dataManager.snapshot("signup_profile_data");
     var signup_data: any = this.dataManager.snapshot("signup_data");
+    console.log('Registering user with profile data:', signup_profile_data);
 
     this.dataManager.post(`api/profile/onboard`, signup_profile_data, {
       withCredentials: true
@@ -86,13 +87,9 @@ export class Time {
 
   proceedToNext() {
     this.registerUser();
-    if (this.dataManager.isUserLoggedIn())
-      this.nextStep.emit();
   }
 
   skip() {
     this.registerUser();
-    if (this.dataManager.isUserLoggedIn())
-      this.nextStep.emit();
   }
 }

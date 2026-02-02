@@ -1,10 +1,10 @@
-import { Component , EventEmitter, Output } from '@angular/core';
-import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
-import {HttpClient} from "@angular/common/http";
-import {Router} from "@angular/router";
-import {DataManagerService} from "@services/data-manager/data-manager.service";
-import {CommonModule} from "@angular/common";
-
+import { Component, EventEmitter, Output } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
+import { HttpClient } from "@angular/common/http";
+import { Router } from "@angular/router";
+import { DataManagerService } from "@services/data-manager/data-manager.service";
+import { CommonModule } from "@angular/common";
+// import { PushNotificationService } from '@services/push-notification/push-notification.service';
 @Component({
   selector: 'signup-page',
   imports: [
@@ -77,7 +77,7 @@ export class SignupPage {
         this.nextStep.emit();
       },
       error: (error: any) => {
-        // Specific 400 validation handling (e.g., {"email": ["user with this email already exists."]})
+
         const body = error?.error;
         let message = 'Unknown error';
 
@@ -107,8 +107,6 @@ export class SignupPage {
         alert(`Registration failed: ${message}`);
       }
     });
-    // this.loadgoalpage();
-    this.nextStep.emit();
   }
 
   enablePush() {
