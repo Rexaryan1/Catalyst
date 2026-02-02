@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, catchError, of } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { RoadmapItem, Question } from "@components/cards/roadmap-item/roadmap-item.interface";
 import { DataManagerService } from '@services/data-manager/data-manager.service';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -10,11 +11,18 @@ export class RoadmapService {
   private roadmapItemsSubject = new BehaviorSubject<RoadmapItem[]>([]);
   roadmapItems$: Observable<RoadmapItem[]> = this.roadmapItemsSubject.asObservable();
 
+  private roadmapIdSubject = new BehaviorSubject<string | null>(null);
+  roadmapId$: Observable<string | null> = this.roadmapIdSubject.asObservable();
+
   constructor(private http: HttpClient, private dataManager: DataManagerService) {
     this.dataManager.select('roadmap').subscribe({
-      next: (data : any) => {
+      next: (data: any) => {
         if (data && data?.data?.roadmapItems) {
           this.roadmapItemsSubject.next(data.data.roadmapItems);
+
+          if (data?.data?.roadmap_id) {
+            this.roadmapIdSubject.next(data.data.roadmap_id);
+          }
         } else {
           console.log('No roadmap data found in DataManagerService');
           this.loadDataFromJson();
@@ -23,31 +31,26 @@ export class RoadmapService {
     });
   }
 
-  // Method to reload data from JSON (useful for refreshing data)
-  reloadData(): void {
-    this.dataManager.select('roadmap').subscribe({
-      next: (data : any) => {
-        if (data && data.roadmapItems) {
-          this.roadmapItemsSubject.next(data.roadmapItems);
-        } else {
-          console.log('No roadmap data found in DataManagerService');
-          this.loadDataFromJson();
-        }
-      }
-    });
-  }
-
+  // ... existing code ...
 
   private loadDataFromJson(): void {
     this.http.get<any>('/assets/data/example2.json')
       .subscribe(data => {
-        const roadmapItems = data.data?.roadmapItems
+        const roadmapItems = data.data?.roadmapItems;
         this.roadmapItemsSubject.next(roadmapItems);
+
+        if (data?.data?.roadmap_id) {
+          this.roadmapIdSubject.next(data.data.roadmap_id);
+        }
       });
   }
 
   getRoadmapItems(): RoadmapItem[] {
     return this.roadmapItemsSubject.value;
+  }
+
+  getRoadmapId(): string | null {
+    return this.roadmapIdSubject.value;
   }
 
   updateRoadmapItem(updatedItem: RoadmapItem): void {

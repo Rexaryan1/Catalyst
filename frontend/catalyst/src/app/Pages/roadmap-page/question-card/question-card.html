@@ -24,7 +24,7 @@
     </div>
 
     <div class="feedback" *ngIf="isSubmitted">
-      <p *ngIf="isCorrect" class="feedback-correct">Correct!</p>
+      <p @if(isCorrect) class="feedback-correct">Correct!</p>
       <p *ngIf="isCorrect === false" class="feedback-incorrect">
         Incorrect. Correct answer: {{ q.options[q.correct_index] }}
       </p>

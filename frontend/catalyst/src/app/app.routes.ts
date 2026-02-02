@@ -28,5 +28,5 @@ export const routes: Routes = [
     { path: 'plan', component: StudyPlanComponent },
     { path: 'roadmap-tracker', component: RoadmapTrackerComponent },
     { path: 'roadmap', component: RoadmapPageComponent },
-    { path: 'preview', component: RoadmapPageComponent }
+    { path: 'preview', component: RoadmapPageComponent}
 ];

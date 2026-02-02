@@ -55,7 +55,7 @@ export class SignupPage {
   onSignIn() {
     console.log('SignIn Payload:', this.signInForm.value);
     this.dataManager.login(this.signInForm.value.email, this.signInForm.value.password);
-    this.enablePush();
+    // this.enablePush();
   }
 
   onSignUp() {
@@ -109,7 +109,7 @@ export class SignupPage {
     });
   }
 
-  enablePush() {
-    this.pushService.subscribeToPush();
-  }
+  // enablePush() {
+  //   this.pushService.subscribeToPush();
+  // }
 }
