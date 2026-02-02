@@ -15,7 +15,7 @@ import {RoadmapItemComponent} from "@components/cards/roadmap-item/roadmap-item.
 export class RoadmapListComponent implements OnInit, OnDestroy {
   roadmapItems: RoadmapItem[] = [];
   private destroy$ = new Subject<void>();
-  @Output() questionSelected = new EventEmitter<{ questions: Question[]; index: number }>();
+  @Output() questionSelected = new EventEmitter<{roadmapId: string; questions: Question[]; index: number }>();
 
   selectedRoadmapTitle: string | null = null;
   constructor(private roadmapService: RoadmapService) {
@@ -47,9 +47,7 @@ export class RoadmapListComponent implements OnInit, OnDestroy {
     const index = item.questions.findIndex(q => q.id === event.questionId);
     if (index < 0) return;
 
-    this.questionSelected.emit({questions: item.questions, index});
-
-    // Handle question click - navigate to question detail, etc.
+    this.questionSelected.emit({ roadmapId: item.id, questions: item.questions, index });
   }
   onTitleClick(event: { roadmapId: string; title: string }): void {
     this.selectedRoadmapTitle = event.title;

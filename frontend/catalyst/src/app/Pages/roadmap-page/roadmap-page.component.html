@@ -1,5 +1,5 @@
 <div class="main-page">
-  <div class="page-title">Your roadmap is ready — let’s start cracking questions!</div>
+  <div class="page-title">Roadmap</div>
   <div class="content-area">
     <app-roadmap-list
       class="roadmap-pane"
@@ -10,8 +10,14 @@
       class="question-pane"
       [questions]="activeQuestions"
       [index]="activeIndex"
-      (indexChange)="onIndexChange($event)">
+      (indexChange)="onIndexChange($event)"
+      (answered)="onAnswered($event)">
     </app-question-card>
+  </div>
+  <div class="content-area">
+    <button class="btn primary" (click)="submitForAnalysis()" [disabled]="!activeBlockId">
+      Submit for analysis
+    </button>
   </div>
 
 </div>
