@@ -28,12 +28,13 @@ $font-secondary: "AlbertSans-Bold", sans-serif;
   font-family: var(--font-main);
   color: $color-text-cream;
   --button-bg: #2F2F2F;
+  padding-top: 50px;
 
   .left-section,
   .right-section {
     display: inline-block;
-    vertical-align: top;
-    height: 100%;
+    vertical-align: middle;
+    height: 80vh;
   }
 
   .left-section {
@@ -42,12 +43,22 @@ $font-secondary: "AlbertSans-Bold", sans-serif;
     justify-content: center;
     gap: 20px;
 
-
-    padding: 0 100px;
+    padding: 0 5rem;
     width: 50vw;
   }
 
   .right-section {
     width: 40vw;
   }
+}
+
+.skip {
+  position: absolute;
+  right: 10rem;
+  margin-top: 1rem;
+  font-size: 30px;
+}
+
+.skip:hover {
+  cursor: pointer;
 }

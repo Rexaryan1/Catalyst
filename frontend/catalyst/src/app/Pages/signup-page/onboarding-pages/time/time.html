@@ -1,0 +1,21 @@
+<div class="left-section">
+    <div class="logo">
+        <img src="../../../assets/Catalyst-Favicon.ico" alt="Catalyst Logo" width="100" height="100">
+    </div>
+    <h1>How much time can you commit weekly?</h1>
+    <p class="subtitle">Selected: <strong>{{selectedTime}} hours/week</strong></p>
+</div>
+<div class="bottom-section">
+    <mat-slider min="1" max="12" step="1" aria-label="Time Commitment Slider" class="slider" discrete showTickMarks>
+        <input matSliderThumb>
+    </mat-slider>
+    <div class="time-labels">
+        <span>1 hour</span>
+        <span>12 hours</span>
+    </div>
+    <button class="register-btn" (click)="proceedToNext()">Register & Continue</button>
+</div>
+
+<div class="skip" (click)="skip()">
+    Skip
+</div>

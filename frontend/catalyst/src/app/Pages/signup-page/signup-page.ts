@@ -6,14 +6,15 @@ import { DataManagerService } from "@services/data-manager/data-manager.service"
 import { CommonModule } from "@angular/common";
 import { SignupPage } from "./main-page/signup-page";
 import { Goal } from './onboarding-pages/goal/goal';
-
+import { Time } from './onboarding-pages/time/time';
 @Component({
   selector: 'main-page',
   imports: [
     ReactiveFormsModule,
     CommonModule,
     SignupPage,
-    Goal
+    Goal,
+    Time
   ],
   templateUrl: './signup-page.html',
   styleUrl: './signup-page.scss',
@@ -22,11 +23,6 @@ import { Goal } from './onboarding-pages/goal/goal';
 
 export class MainPage {
   step = 1;
-  isLoginMode = false;
-  signInForm = new FormGroup({
-    email: new FormControl(''),
-    password: new FormControl('')
-  });
 
   signUpForm = new FormGroup({
     name: new FormControl(''),
@@ -36,12 +32,10 @@ export class MainPage {
 
   constructor(private http: HttpClient, private router: Router, private dataManager: DataManagerService) { }
 
-  toggleMode() {
-    this.isLoginMode = !this.isLoginMode;
-  }
-
   next_page() {
     this.step += 1;
+    if (this.step > 3) {
+      this.router.navigate(['/dashboard']);
+    }
   }
-
 }

@@ -1,0 +1,50 @@
+.slider {
+    width: 60%;
+}
+
+.bottom-section {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+}
+
+.left-section {
+    height: 40vh;
+    width: 60vw;
+}
+
+.time-labels {
+    display: flex;
+    justify-content: space-between;
+    width: 60%;
+    font-size: 14px;
+    color: #666;
+    margin-top: 10px;
+}
+
+.register-btn {
+    padding: 12px 40px;
+    background-color: var(--color-green);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+
+    &:hover {
+        opacity: 0.9;
+        transform: translateY(-2px);
+    }
+}
+
+.subtitle {
+    font-size: 14px;
+    color: #666;
+    margin-top: 10px;
+}

@@ -1,0 +1,30 @@
+.step-indicator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.step-boxes {
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+}
+
+.step-box {
+    border: 1px solid #52525b;
+    background-color: transparent;
+    width: 1.5rem; // 10px
+    height: 0.3rem; // 10px
+    transition: all 0.2s;
+    background-color: white;
+
+    &.active {
+        background-color: var(--color-green);
+        width: 2.5rem; // 20px (2x larger)
+        height: 1rem; // 20px (2x larger)
+    }
+
+    &:not(.active):hover {
+        border-color: #9ca3af;
+    }
+}
