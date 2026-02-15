@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import { DataManagerService } from '@services/data-manager/data-manager.service';
 // Difficulty Level Enum
 export enum DifficultyLevel {
   EASY = 'EASY',
@@ -31,6 +31,43 @@ export class RoadmapTrackerComponent {
   activeTab: string = 'in-progress';
   searchTerm: string = '';
 
+
+  constructor(private dataManager: DataManagerService) { }
+
+  ngOnInit(): void {
+    // Fetch roadmaps from backend API and populate the roadmaps array
+    this.dataManager.post('/roadmap/roadmap-list', { "search": "", "filters": {} }, { withCredentials: true }).subscribe({
+      next: (res: any) => {
+        // Assuming the response is an array of roadmaps
+        this.roadmaps = res.response.map((roadmap: any) => {
+
+          if (roadmap.avg_difficulty === 'Easy') {
+            roadmap.difficulty = DifficultyLevel.EASY;
+          } else if (roadmap.avg_difficulty === 'Medium') {
+            roadmap.difficulty = DifficultyLevel.MEDIUM;
+          } else if (roadmap.avg_difficulty === 'Hard') {
+            roadmap.difficulty = DifficultyLevel.HARD;
+          }
+
+          roadmap.progress_percntg = Math.round(roadmap.progress_percntg);
+
+          return {
+            id: roadmap.id,
+            title: roadmap.title,
+            date: roadmap.date,
+            summary: roadmap.description,
+            difficulty: roadmap.difficulty,
+            completion: roadmap.progress_percntg,
+            keywords: roadmap.preview_topics
+          }
+        });
+        // this.roadmaps = this.roadmaps.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+      },
+      error: (err) => {
+        console.error('Error fetching roadmaps:', err);
+      }
+    });
+  }
   roadmaps: Roadmap[] = [
     {
       id: 1,
