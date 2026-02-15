@@ -39,7 +39,7 @@
                 <circle cx="11" cy="11" r="8"></circle>
                 <path d="m21 21-4.3-4.3"></path>
             </svg>
-            <input type="text" placeholder="Search Roadmap" [(ngModel)]="searchTerm" class="search-input">
+            <input type="text" placeholder="Search Roadmap" [(ngModel)]="searchTerm"  (ngModelChange)="onSearchChange($event)" class="search-input">
         </div>
         <button class="filter-button">
             Filter
