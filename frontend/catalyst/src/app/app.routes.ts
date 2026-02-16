@@ -15,6 +15,10 @@ import { MainPage } from "@pages/signup-page/signup-page";
 import { RoadmapListComponent } from "@pages/roadmap-page/roadmap-list/roadmap-list.component";
 import { SolutionPage } from "@pages/solution-page/solution-page";
 import { RoadmapTrackerComponent } from './Pages/roadmap-tracker/roadmap-tracker';
+import {HeatmapSmall} from "@components/cards/heatmap-small/heatmap-small";
+import {
+  LandingDashboardCardComponent
+} from "@pages/landing-page/landing-dashboard-card/landing-dashboard-card.component";
 
 
 
@@ -28,5 +32,5 @@ export const routes: Routes = [
     { path: 'plan', component: StudyPlanComponent },
     { path: 'roadmap-tracker', component: RoadmapTrackerComponent },
     { path: 'roadmap', component: RoadmapPageComponent },
-    { path: 'preview', component: RoadmapPageComponent}
+    { path: 'preview', component: LandingDashboardCardComponent}
 ];
