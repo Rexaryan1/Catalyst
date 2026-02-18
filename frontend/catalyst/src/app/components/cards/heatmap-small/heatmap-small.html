@@ -1,1 +1,29 @@
-<p>heatmap-small works!</p>
+<div class="heatmap-shell">
+  <div class="heatmap">
+    <div class="labels" aria-hidden="true">
+      <div class="label" *ngFor="let w of weekdayLabels">{{ w }}</div>
+    </div>
+
+    <div
+      class="grid"
+      role="grid"
+      [style.--cols]="columns"
+      [attr.aria-label]="'Submission heatmap for last ' + days + ' days'"
+    >
+      <div
+        *ngFor="let c of cells; let i = index; trackBy: trackByIndex"
+        class="cell"
+        role="gridcell"
+        [class.is-empty]="!c.iso"
+        [class.l0]="c.level === 0"
+        [class.l1]="c.level === 1"
+        [class.l2]="c.level === 2"
+        [class.l3]="c.level === 3"
+        [class.l4]="c.level === 4"
+        [class.l5]="c.level === 5"
+        [attr.aria-label]="cellAriaLabel(c)"
+        [attr.title]="c.iso ? (c.iso + ' • ' + c.count + ' submissions') : ''"
+      ></div>
+    </div>
+  </div>
+</div>

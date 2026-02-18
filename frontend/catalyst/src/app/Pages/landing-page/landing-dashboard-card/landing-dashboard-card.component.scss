@@ -1,9 +1,19 @@
-.landing-dashboard-card {
-  background: #2f2f2f;
-  border-radius: 10px;
-  height: 341px;
-  width: 320px;
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.dashboard-card {
+  background: #2F2F2F;
+  height: 100%;
+  width: 100%;
   position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+
+  align-items: stretch;
+  justify-content: stretch;
 
   &:hover {
     transform: translateY(-5px);
@@ -11,25 +21,54 @@
   }
 }
 
-.DASHBOARD {
+.heatmap {
+  flex: 1 1 auto;
+  width: 100%;
+
+  display: block;
+  min-height: 0;
+
+height: 113%;
+right: -60px;
+position: relative;
+top: -41px;
+  margin-right: 0;
+}
+
+.dashboard-title{
   color: #f7f6f3;
-  text-align: left;
-  font-family: "Erbaum-Medium", sans-serif;
-  font-size: 42px;
-  letter-spacing: -0.03em;
-  font-weight: 500;
   position: relative;
-  top: 320px;
+   top: 320px;
+  font-size: 2.5rem;
   transform-origin: 0 0;
   transform: rotate(-90deg) scale(1, 1);
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
+
+  //text-align: left;
+  //font-family: "Erbaum-Medium", sans-serif;
+  //font-size: 42px;
+  //letter-spacing: -0.03em;
+  //font-weight: 500;
+
+  //display: flex;
+  //align-items: center;
+  //justify-content: flex-start;
 }
 
-.apexcharts-canvas {
-  position: relative;
-  left: 65px;
-  bottom: 52.5px;
+
+
+
+/* Inline | http://localhost:4200/home */
+
+.dashboard-title[_ngcontent-ng-c2775016969] {
 
 }
+
+/* Element | http://localhost:4200/ */
+
+div.heatmap {
+  padding-right: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  padding-top: 0px;
+}
+

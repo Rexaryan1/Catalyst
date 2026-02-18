@@ -18,7 +18,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
 
 .login-container {
@@ -28,7 +27,6 @@
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-
 
 h1 {
   font-family: 'Erbaum-Regular', sans-serif;
@@ -52,9 +50,8 @@ h1 {
   margin-left: 2rem;
   width: 29vw;
   margin-bottom: 3rem;
-  position : relative;
+  position: relative;
   left: 20px;
-
 }
 
 .top-left-section,
@@ -94,14 +91,6 @@ h1 {
   flex: 1 1 320px;
   width: 900px;
 
-
-
-
-
-  @media (max-width: 768px) {
-    font-size: 3rem;
-  }
-
   @media (max-width: 768px) {
     font-size: 3rem;
   }
@@ -119,43 +108,91 @@ h1 {
   }
 }
 
-// Grid -> Flex Layout
-.cards-flex-layout {
-  display: flex;
-  flex-wrap: wrap;
-  gap: clamp(1rem, 2vw, 2rem);
-  //justify-content: space-around;  // changed from flex-start to center
-  padding: 2rem;
+/* ---------- Cards Layout ---------- */
+.cards-grid {
+  --gap: clamp(14px, 2vw, 28px);
+  --pad: clamp(16px, 2.4vw, 32px);
 
-  .grid-item-1,.grid-item-2{
-    flex: 1 1 320px;
-    min-width: 280px;
-    max-width: 450px;
-    aspect-ratio: 320 / 340;
-  }
-  /* Make special items span full width on narrower screens if needed */
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--gap);
+  padding: var(--pad);
 
+  /* keeps scaling pleasing on large screens */
+  max-width: 1400px;
+  margin: 0 auto;
+  align-items: stretch;
 }
 
+.card-slot {
+  min-width: 0;
+  display: flex;
+}
 
-
-
-// Dashboard card styling — ensure cards stretch to fill wrapper
-dashboard-card {
+.card-slot > * {
   width: 100%;
   height: 100%;
-  min-height: 200px;  // reduced slightly so cards are not overly tall
-  box-sizing: border-box;
+  min-width: 0;
+}
+
+/* Roadmap + Dashboard: keep Figma-ish ratio (326x341) but with sensible bounds */
+.card-roadmap,
+.card-dashboard {
+  grid-column: span 1;
+  aspect-ratio: 326 / 341;
+  min-height: 260px;
+  max-height: 420px;
+}
+
+.card-stack {
+  grid-column: span 2;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  gap: var(--gap);
+}
 
-  &:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+.card-stack > .stack-item {
+  width: 100%;
+}
+
+/* ---------- Medium: 2 columns (two-row setup) ---------- */
+@media (max-width: 1024px) {
+  .cards-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .card-roadmap,
+  .card-dashboard {
+    grid-column: span 1;
+    max-height: none;
+  }
+
+  .card-stack {
+    grid-column: 1 / -1;
   }
 }
 
+/* ---------- Small/Portrait: single column + cards look intentionally smaller ---------- */
+@media (max-width: 640px) {
+  .cards-grid {
+    grid-template-columns: 1fr;
+    justify-items: center; /* center the card wrappers */
+  }
 
+  .card-roadmap,
+  .card-dashboard,
+  .card-stack {
+    grid-column: 1 / -1;
+    width: min(440px, 100%); /* "smaller cards" look */
+  }
+
+  .card-roadmap,
+  .card-dashboard {
+    min-height: 230px;
+  }
+
+  .card-stack {
+    display: flex;
+    flex-direction: column;
+  }
+}

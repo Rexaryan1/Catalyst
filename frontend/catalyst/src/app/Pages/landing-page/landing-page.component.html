@@ -12,17 +12,26 @@
       <p class="lead mt-4">Your AI-powered learning companion — personalized, dynamic, and ready to help you grow.</p>
 
       <div class="d-flex justify-content-center">
-        <button type="button" class="btn btn-light p-3 get-started-btn" aria-label="Get started with Catalyst">Get
-          Started</button>
+        <button type="button" class="btn btn-light p-3 get-started-btn" aria-label="Get started with Catalyst">
+          Get Started
+        </button>
       </div>
     </div>
 
     <!-- Cards Grid Section -->
-    <div *ngIf="this.dataManager.isUserLoggedIn()" class="cards-flex-layout">
-      <div class="grid-item-1"><app-roadmap-card /></div>
-      <div class="grid-item-2"><landing-dashboard-card /></div>
+    <div *ngIf="this.dataManager.isUserLoggedIn()" class="cards-grid">
+      <section class="card-slot card-roadmap">
+        <app-roadmap-card />
+      </section>
 
-      <div class="grid-item-3"><app-profile-summary /><app-quick-access /></div>
+      <section class="card-slot card-dashboard">
+        <landing-dashboard-card />
+      </section>
+
+      <section class="card-slot card-stack">
+        <app-profile-summary class="stack-item" />
+        <app-quick-access class="stack-item" />
+      </section>
     </div>
   </div>
 
