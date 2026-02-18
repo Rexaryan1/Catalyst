@@ -1,0 +1,105 @@
+<div class="dashboard-container">
+    <header class="dashboard-header">
+        <div class="logo-section">
+            <div class="avatar"></div>
+            <h1>{{ title }}</h1>
+        </div>
+        <button class="download-btn" *ngIf="showDownloadButton">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M7 10L12 15L17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                <path d="M12 15V3" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+            </svg>
+            Download
+        </button>
+    </header>
+
+    <div class="dashboard-grid">
+        <!-- Accuracy Card -->
+        <div class="grid-item accuracy">
+            <div class="accuracy-card">
+                <div class="percentage-display">
+                    <span class="percentage">{{ data.accuracy?.percentage }}%</span>
+                </div>
+                <div class="card-footer">
+                    <div class="label">{{ data.accuracy?.label }}</div>
+                    <div class="sublabel">{{ data.accuracy?.sublabel }}</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Card -->
+        <div class="grid-item progres">
+            <div class="progres-card">
+                <div class="card-header">
+                    <span class="label">{{ data.progress?.label }}</span>
+                </div>
+                <div class="progres-circle">
+                    <svg viewBox="0 0 120 120" class="circular-chart">
+                        <circle class="circle-bg" cx="60" cy="60" r="58"></circle>
+                        <circle class="circle-progres" cx="60" cy="60" r="58" [attr.stroke-dasharray]="strokeDashArray"
+                            [attr.stroke-dashoffset]="dashOffset">
+                        </circle>
+                    </svg>
+                    <div class="percentage-text">
+                        <span class="percentage">{{ data.progress?.percentage }}%</span>
+                        <span class="sublabel">{{ data.progress?.sublabel }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Average Time Card -->
+        <div class="grid-item average-time">
+            <div class="average-time-card">
+                <div class="card-content">
+                    <div class="card-footer">
+                        <div class="sublabel">{{ data.averageTime?.sublabel }}</div>
+                        <div class="label">{{ data.averageTime?.label }}</div>
+                    </div>
+                    <div class="time-display-vertical">
+                        <span class="time">{{ data.averageTime?.time }}</span>
+                        <span class="unit">min</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Attempts Card -->
+        <div class="grid-item recent-attempts">
+            <div class="recent-attempts-card">
+                <div class="card-header">
+                    <h3>Recent attempts</h3>
+                </div>
+                <div class="attempts-list">
+                    <div class="attempt-item" *ngFor="let attempt of data.recentAttempts?.attempts; let i = index"
+                        [style.animation-delay]="(i * 0.1) + 's'">
+                        <div class="attempt-content">
+                            <div class="question">{{ attempt.question }}</div>
+                            <div class="meta">
+                                <span class="icon" [ngClass]="attempt.status === 'correct' ? 'correct' : 'incorrect'">
+                                    <svg *ngIf="attempt.status === 'correct'" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    <svg *ngIf="attempt.status === 'incorrect'" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </span>
+                                <span class="date">{{ attempt.date }}</span>
+                                <span class="time-meta" *ngIf="attempt.time">{{ attempt.time }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

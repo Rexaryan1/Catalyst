@@ -15,22 +15,24 @@ import { MainPage } from "@pages/signup-page/signup-page";
 import { RoadmapListComponent } from "@pages/roadmap-page/roadmap-list/roadmap-list.component";
 import { SolutionPage } from "@pages/solution-page/solution-page";
 import { RoadmapTrackerComponent } from './Pages/roadmap-tracker/roadmap-tracker';
-import {HeatmapSmall} from "@components/cards/heatmap-small/heatmap-small";
+import { HeatmapSmall } from "@components/cards/heatmap-small/heatmap-small";
 import {
   LandingDashboardCardComponent
 } from "@pages/landing-page/landing-dashboard-card/landing-dashboard-card.component";
+import { ProgressDashboardComponent } from './Pages/progress-dashboard/progress-dashboard';
 
 
 
 export const routes: Routes = [
-    { path: '', redirectTo: '/home', pathMatch: 'full' },
-    { path: 'home', component: LandingPage },
-    { path: 'register', component: MainPage },
-    { path: 'prompt', component: RoadmapWizardComponent },
-    { path: 'dashboard', component: UserDashboardComponent },
-    { path: 'userHome', component: UserProfileComponent },
-    { path: 'plan', component: StudyPlanComponent },
-    { path: 'roadmap-tracker', component: RoadmapTrackerComponent },
-    { path: 'roadmap', component: RoadmapPageComponent },
-    { path: 'preview', component: LandingDashboardCardComponent}
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'home', component: LandingPage },
+  { path: 'register', component: MainPage },
+  { path: 'prompt', component: RoadmapWizardComponent },
+  { path: 'dashboard', component: UserDashboardComponent },
+  { path: 'userHome', component: UserProfileComponent },
+  { path: 'plan', component: StudyPlanComponent },
+  { path: 'roadmap-tracker', component: RoadmapTrackerComponent },
+  { path: 'roadmap', component: RoadmapPageComponent },
+  { path: 'preview', component: LandingDashboardCardComponent },
+  { path: 'progress', component: ProgressDashboardComponent },
 ];
