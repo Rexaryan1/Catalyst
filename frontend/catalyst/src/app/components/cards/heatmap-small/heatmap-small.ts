@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import {  NgFor} from '@angular/common';
 import { Observable } from 'rxjs';
 import { HeatmapService, HeatmapDay } from '@services/heatmap/heatmap.service';
 
@@ -13,7 +13,7 @@ type HeatmapCell = {
 @Component({
   selector: 'app-heatmap-small',
   standalone: true,
-  imports: [NgFor, NgIf, AsyncPipe],
+  imports: [NgFor],
   templateUrl: './heatmap-small.html',
   styleUrl: './heatmap-small.scss',
 })
