@@ -11,14 +11,15 @@
       [questions]="activeQuestions"
       [index]="activeIndex"
       (indexChange)="onIndexChange($event)"
-      (answered)="onAnswered($event)">
+      (answered)="onAnswered($event)"
+      (submitClicked)="submitForAnalysis()">
     </app-question-card>
   </div>
-  <div class="content-area">
-    <button class="btn primary" (click)="submitForAnalysis()" [disabled]="!activeBlockId">
-      Submit for analysis
-    </button>
-  </div>
+
+<!--    <button class="btn primary" (click)="submitForAnalysis()" [disabled]="!activeBlockId">-->
+<!--      Submit for analysis-->
+<!--    </button>-->
+
 
 </div>
 

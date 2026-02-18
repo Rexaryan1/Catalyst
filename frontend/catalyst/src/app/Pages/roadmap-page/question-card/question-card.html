@@ -1,6 +1,15 @@
 <div class="question-card" *ngIf="question as q; else emptyState">
   <div class="qc-header">
     <div class="qc-title">Question</div>
+    <div class="analysis-menu">
+      <button (click)="onSubmitClicked()" class="btn-submit">
+        Submit for analysis
+      </button>
+      <div class="timer-badge" [class.paused]="isSubmitted">
+        <span class="material-icons">timer</span>
+        <span class="timer-display">{{ formattedTime }}</span>
+      </div>
+    </div>
   </div>
 
   <div class="qc-body">
@@ -41,6 +50,7 @@
     <button class="btn" (click)="next()" [disabled]="index >= (questions.length - 1)">
       Skip
     </button>
+
   </div>
 </div>
 
