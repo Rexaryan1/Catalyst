@@ -16,13 +16,17 @@
 }
 
 .qc-header {
+  display: flex;
+  justify-content: space-between;
   padding: 14px 16px;
   border-bottom: 1px solid rgba(247, 246, 243, 0.08);
   background: rgba(255, 255, 255, 0.02);
 }
 
 .qc-title {
-  font-family: var(--font-main, "Erbaum-Book", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif);
+  display: flex;
+  align-items: center;
+
   font-size: 12px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -41,7 +45,7 @@
   margin: 0;
   color: rgba(247, 246, 243, 0.96);
 
-  font-family: var(--font-main, "Erbaum-Book", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif);
+
   font-size: 18px;
   line-height: 1.35;
   letter-spacing: 0.01em;
@@ -104,7 +108,6 @@
   align-items: center;
   justify-content: center;
 
-  font-family: var(--font-main, "Erbaum-Book", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif);
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.02em;
@@ -115,7 +118,7 @@
 }
 
 .option-label {
-  font-family: var(--font-main, "Erbaum-Book", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif);
+
   font-size: 14px;
   line-height: 1.35;
   letter-spacing: 0.01em;
@@ -157,7 +160,6 @@
 
   p {
     margin: 0;
-    font-family: var(--font-main, "Erbaum-Book", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif);
     font-size: 13px;
     line-height: 1.35;
   }
@@ -189,7 +191,7 @@
   border: 1px solid rgba(247, 246, 243, 0.14);
   color: rgba(234, 233, 229, 0.95);
 
-  font-family: var(--font-main, "Erbaum-Book", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif);
+
   font-size: 13px;
   letter-spacing: 0.01em;
 
@@ -227,7 +229,7 @@
   .empty-text {
     margin: 0;
     color: rgba(234, 233, 229, 0.70);
-    font-family: var(--font-main, "Erbaum-Book", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif);
+
     font-size: 14px;
     text-align: center;
   }
@@ -247,4 +249,78 @@
   .btn {
     transition: none !important;
   }
+}
+
+.timer-badge{
+display: flex;
+  align-items: center;
+  background: #1f1f1f;
+  border-radius: 10px;
+  padding: 6px 9px 6px 9px;
+  //display: flex;
+
+  gap: 10px;
+  //align-items: flex-start;
+  justify-content: flex-start;
+  width: 157px;
+  height: 36px;
+  position: relative;
+
+}
+.timer-display{
+  color: var(--color-primary-blue, #bedce4);
+  text-align: left;
+
+
+  font-size: 16px;
+  line-height: 6.87px;
+  font-weight: 300;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.btn-submit{
+  border-radius: 10px;
+  color: rgba(234, 233, 229, 0.95);
+  font-size: 13px;
+    width: 187px;
+  height: 36px;
+  letter-spacing: 0.01em;
+
+  cursor: pointer;
+  transition: transform 0.16s ease, background 0.16s ease, border-color 0.16s ease;
+
+  background: rgba(70, 103, 93, 0.22);
+  border-color: rgba(70, 103, 93, 0.55);
+  border-style: solid;
+  border-width: 1px;
+  padding: 13px 16px 13px 16px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+
+
+  &:hover:not(:disabled) {
+    background: rgba(190, 220, 228, 0.10);
+    border-color: rgba(190, 220, 228, 0.45);
+    transform: translateY(-1px);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+}
+
+.analysis-menu{
+  display: flex;
+  gap: 10px;
 }
