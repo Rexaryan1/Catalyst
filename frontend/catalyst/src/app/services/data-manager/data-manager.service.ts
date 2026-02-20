@@ -12,7 +12,7 @@ import { signal } from '@angular/core';
 export class DataManagerService {
   private backendURL = 'https://catalyst-main-1036749949194.us-central1.run.app/';
   //private backendURL = 'https://catalyst-main-1036749949194.asia-south2.run.app/';
-  // private backendURL = environment.apiUrl;
+
   private store: Map<string, BehaviorSubject<any>> = new Map();
 
   isUserLoggedIn = signal<boolean>(false);
