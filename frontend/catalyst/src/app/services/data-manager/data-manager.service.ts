@@ -10,7 +10,8 @@ import { signal } from '@angular/core';
   providedIn: 'root'
 })
 export class DataManagerService {
-  private backendURL = 'https://catalyst-main-1036749949194.asia-south2.run.app/';
+  private backendURL = 'https://catalyst-main-1036749949194.us-central1.run.app/';
+  //private backendURL = 'https://catalyst-main-1036749949194.asia-south2.run.app/';
   // private backendURL = environment.apiUrl;
   private store: Map<string, BehaviorSubject<any>> = new Map();
 
@@ -58,7 +59,7 @@ export class DataManagerService {
         localStorage.setItem('jwtToken', res.jwt);
         localStorage.setItem('sessionCookie', this.cookie);
         this.isUserLoggedIn.set(true);
-        
+
         if (route && typeof route === 'string')
           this.router.navigate([route]);
       },
@@ -67,7 +68,7 @@ export class DataManagerService {
       }
     });
   }
-  
+
   /** -------- Fetch user profile and store in cache -------- */
   private getUserProfile() {
     this.get('api/user/profile', { withCredentials: true }).subscribe({

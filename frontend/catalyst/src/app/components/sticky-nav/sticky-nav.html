@@ -1,0 +1,23 @@
+<!-- sticky-nav.component.html -->
+<div
+  *ngIf="isVisible"
+  class="sticky-nav"
+  [class.expanded]="isExpanded"
+  [style.top.%]="topPosition"
+  (mouseenter)="isExpanded = true"
+  (mouseleave)="isExpanded = false"
+  cdkDrag
+  cdkDragLockAxis="y"
+  (cdkDragEnded)="onDragEnded($event)">
+
+  <div class="nav-container">
+    <button
+      *ngFor="let item of navItems"
+      class="nav-button"
+      [routerLink]="item.route"
+      [title]="item.label">
+      <img class="icon" [src]="item.icon" [alt]="item.label" />
+      <span class="label" *ngIf="isExpanded">{{ item.label }}</span>
+    </button>
+  </div>
+</div>

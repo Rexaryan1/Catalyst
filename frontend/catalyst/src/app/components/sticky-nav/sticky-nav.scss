@@ -1,0 +1,60 @@
+.sticky-nav {
+  position: fixed;
+  right: 0;
+
+  /* top is controlled by [style.top.%]="topPosition" */
+  transform: none;
+
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 8px 0 0 8px;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+  transition: width 0.3s ease;
+  width: 60px;
+
+  cursor: move;
+}
+
+.sticky-nav.expanded {
+  width: 200px;
+}
+
+.nav-container {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 0;
+}
+
+.nav-button {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.nav-button:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  object-fit: contain;
+}
+
+.label {
+  margin-left: 12px;
+  opacity: 0;
+  animation: fadeIn 0.3s forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}

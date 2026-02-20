@@ -20,6 +20,7 @@ import {
   LandingDashboardCardComponent
 } from "@pages/landing-page/landing-dashboard-card/landing-dashboard-card.component";
 import { ProgressDashboardComponent } from './Pages/progress-dashboard/progress-dashboard';
+import {StickyNav} from "@components/sticky-nav/sticky-nav";
 
 
 
@@ -33,6 +34,6 @@ export const routes: Routes = [
   { path: 'plan', component: StudyPlanComponent },
   { path: 'roadmap-tracker', component: RoadmapTrackerComponent },
   { path: 'roadmap', component: RoadmapPageComponent },
-  { path: 'preview', component: LandingDashboardCardComponent },
+  { path: 'preview', component: StickyNav },
   { path: 'progress', component: ProgressDashboardComponent },
 ];
