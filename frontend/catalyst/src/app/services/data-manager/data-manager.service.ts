@@ -10,7 +10,7 @@ import { signal } from '@angular/core';
   providedIn: 'root'
 })
 export class DataManagerService {
-  private backendURL = 'https://catalyst-main-1036749949194.us-central1.run.app/';
+  private backendURL = 'https://api.catalystedutech.com';
   //private backendURL = 'https://catalyst-main-1036749949194.asia-south2.run.app/';
 
   private store: Map<string, BehaviorSubject<any>> = new Map();
