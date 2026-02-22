@@ -19,7 +19,7 @@ import { HeatmapSmall } from "@components/cards/heatmap-small/heatmap-small";
 import {
   LandingDashboardCardComponent
 } from "@pages/landing-page/landing-dashboard-card/landing-dashboard-card.component";
-import { ProgressDashboardComponent } from './Pages/progress-dashboard/progress-dashboard';
+import { ProgressDashboardComponent } from './Pages/reports/progress-dashboard';
 import {StickyNav} from "@components/sticky-nav/sticky-nav";
 
 
