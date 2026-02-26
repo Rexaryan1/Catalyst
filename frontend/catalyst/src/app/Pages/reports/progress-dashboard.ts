@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { DisplayManagerService } from '@services/display-manager/display-manager.service';
+import { ComponentRef, EnvironmentInjector, ApplicationRef, Injectable, inject } from '@angular/core';
 // Data Models
 export interface ProgressData {
   percentage: number;
@@ -72,8 +73,15 @@ export class ProgressDashboardComponent {
       ]
     }
   };
+  private ds = inject(DisplayManagerService);
 
   readonly radius = 58;
+
+  downloadReport(): void {
+    // Implement report download logic here
+
+    this.ds.open(ProgressDashboardComponent, { data: this.data });
+  }
 
   get circumference(): number {
     return 2 * Math.PI * this.radius;
