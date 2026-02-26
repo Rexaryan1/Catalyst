@@ -3,7 +3,7 @@
   *ngIf="isVisible"
   class="sticky-nav"
   [class.expanded]="isExpanded"
-  [style.top.%]="topPosition"
+  [style.top.px]="topPx"
   (mouseenter)="isExpanded = true"
   (mouseleave)="isExpanded = false"
   cdkDrag

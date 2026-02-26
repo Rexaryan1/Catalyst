@@ -1,116 +1,141 @@
 <div class="roadmap-container">
-    <!-- Header -->
-    <div class="header">
-        <div class="header-left">
-            <div class="avatar">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
-                </svg>
-            </div>
-            <h1>Roadmaps You've Built</h1>
-        </div>
+  <!-- Header -->
+  <div class="header">
+    <div class="header-left">
+      <div class="avatar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+      </div>
+      <h1>Roadmaps You've Built</h1>
     </div>
+  </div>
 
-    <!-- Tabs -->
-    <div class="tabs-container">
-        <div class="tabs-wrapper">
-            <button class="tab tab-first" [class.active]="activeTab === 'completed'"
-                (click)="setActiveTab('completed')">
-                Completed
-            </button>
-            <button class="tab tab-middle" [class.active]="activeTab === 'in-progress'"
-                (click)="setActiveTab('in-progress')">
-                In Progress
-            </button>
-            <button class="tab tab-last" [class.active]="activeTab === 'not-started'"
-                (click)="setActiveTab('not-started')">
-                Not Started
-            </button>
-        </div>
+  <!-- Tabs -->
+  <!--    <div class="tabs-container">-->
+  <!--        <div class="tabs-wrapper">-->
+  <!--            <button class="tab tab-first" [class.active]="activeTab === 'completed'"-->
+  <!--                (click)="setActiveTab('completed')">-->
+  <!--                Completed-->
+  <!--            </button>-->
+  <!--            <button class="tab tab-middle" [class.active]="activeTab === 'in-progress'"-->
+  <!--                (click)="setActiveTab('in-progress')">-->
+  <!--                In Progress-->
+  <!--            </button>-->
+  <!--            <button class="tab tab-last" [class.active]="activeTab === 'not-started'"-->
+  <!--                (click)="setActiveTab('not-started')">-->
+  <!--                Not Started-->
+  <!--            </button>-->
+  <!--        </div>-->
+  <!--    </div>-->
+
+  <!-- Search and Filter Bar -->
+  <div class="toolbar">
+    <div class="search-container">
+      <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+           fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"></circle>
+        <path d="m21 21-4.3-4.3"></path>
+      </svg>
+      <input type="text" placeholder="Search Roadmap" [(ngModel)]="searchTerm" (ngModelChange)="onSearchChange($event)"
+             class="search-input">
     </div>
+    <button class="filter-button">
+      Filter
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+      </svg>
+      <select
+        [(ngModel)]="selectedDifficulty"
+        (ngModelChange)="onDifficultyChange($event)"
+        style="background: transparent; border: none; color: inherit; padding: 0.5rem 1rem; cursor: pointer;"
+        aria-label="Filter by difficulty"
+      >
+        <option [ngValue]="null">All</option>
+        <option [ngValue]="'Easy'">Easy</option>
+        <option [ngValue]="'Medium'">Medium</option>
+        <option [ngValue]="'Hard'">Hard</option>
+      </select>
+    </button>
+    <button class="filter-button">
+      Sort
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m21 16-4 4-4-4"></path>
+        <path d="M17 20V4"></path>
+        <path d="m3 8 4-4 4 4"></path>
+        <path d="M7 4v16"></path>
+      </svg>
+      <select
+        [(ngModel)]="selectedSort"
+        (ngModelChange)="onSortChange($event)"
+        style="background: transparent; border: none; color: inherit; padding: 0.5rem 1rem; cursor: pointer;"
+        aria-label="Sort roadmaps"
+      >
+        <option [ngValue]="'created_at_desc'">Newest</option>
+        <option [ngValue]="'created_at_asc'">Oldest</option>
+      </select>
+    </button>
+  </div>
 
-    <!-- Search and Filter Bar -->
-    <div class="toolbar">
-        <div class="search-container">
-            <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="11" cy="11" r="8"></circle>
-                <path d="m21 21-4.3-4.3"></path>
-            </svg>
-            <input type="text" placeholder="Search Roadmap" [(ngModel)]="searchTerm"  (ngModelChange)="onSearchChange($event)" class="search-input">
-        </div>
-        <button class="filter-button">
-            Filter
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
-            </svg>
-        </button>
-        <button class="filter-button">
-            Sort
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="m21 16-4 4-4-4"></path>
-                <path d="M17 20V4"></path>
-                <path d="m3 8 4-4 4 4"></path>
-                <path d="M7 4v16"></path>
-            </svg>
-        </button>
-    </div>
+  <!-- Table Header -->
+  <div class="table-header">
+    <div class="col-roadmap">Roadmap</div>
+    <div class="col-summary">Summary</div>
+    <div class="col-difficulty">Difficulty</div>
+    <div class="col-completion">Finish/Undone</div>
+    <div class="col-keywords">Topics Covered</div>
+  </div>
 
-    <!-- Table Header -->
-    <div class="table-header">
-        <div class="col-roadmap">Roadmap</div>
-        <div class="col-summary">Summary</div>
-        <div class="col-difficulty">Difficulty</div>
-        <div class="col-completion">Finish/Undone</div>
-        <div class="col-keywords">Topics Covered</div>
-    </div>
+  <!-- Roadmap List -->
+  <div class="roadmap-list">
+    <div
+      class="roadmap-row"
+      *ngFor="let roadmap of roadmaps"
+      (click)="onRoadmapClick(roadmap)"
+      style="cursor: pointer;">
+      <!-- Roadmap -->
+      <div class="col-roadmap">
+        <div class="roadmap-title">{{ roadmap.title }}</div>
+        <div class="roadmap-date">{{ roadmap.date }}</div>
+      </div>
 
-    <!-- Roadmap List -->
-    <div class="roadmap-list">
-        <div class="roadmap-row" *ngFor="let roadmap of roadmaps">
-            <!-- Roadmap -->
-            <div class="col-roadmap">
-                <div class="roadmap-title">{{ roadmap.title }}</div>
-                <div class="roadmap-date">{{ roadmap.date }}</div>
-            </div>
+      <!-- Summary -->
+      <div class="col-summary">
+        <div class="roadmap-summary">{{ roadmap.summary }}</div>
+      </div>
 
-            <!-- Summary -->
-            <div class="col-summary">
-                <div class="roadmap-summary">{{ roadmap.summary }}</div>
-            </div>
-
-            <!-- Difficulty -->
-            <div class="col-difficulty">
+      <!-- Difficulty -->
+      <div class="col-difficulty">
                 <span class="difficulty-badge" [ngClass]="getDifficultyColor(roadmap.difficulty)">
                     {{ roadmap.difficulty }}
                 </span>
-            </div>
+      </div>
 
-            <!-- Completion -->
-            <div class="col-completion">
-                <div class="progress-circle">
-                    <svg width="64" height="64" class="circular-progress">
-                        <circle cx="32" cy="32" r="28" stroke="currentColor" stroke-width="4" fill="none"
-                            class="circle-bg" />
-                        <circle cx="32" cy="32" r="28" stroke="currentColor" stroke-width="4" fill="none"
-                            [attr.stroke-dasharray]="getCircumference()"
-                            [attr.stroke-dashoffset]="getCircleStrokeDashoffset(roadmap.completion)"
-                            class="circle-progress" stroke-linecap="round" />
-                    </svg>
-                    <div class="progress-text">{{ roadmap.completion }}%</div>
-                </div>
-            </div>
+      <!-- Completion -->
+      <div class="col-completion">
+        <div class="progress-circle">
+          <svg width="64" height="64" class="circular-progress">
+            <circle cx="32" cy="32" r="28" stroke="currentColor" stroke-width="4" fill="none"
+                    class="circle-bg"/>
+            <circle cx="32" cy="32" r="28" stroke="currentColor" stroke-width="4" fill="none"
+                    [attr.stroke-dasharray]="getCircumference()"
+                    [attr.stroke-dashoffset]="getCircleStrokeDashoffset(roadmap.completion)"
+                    class="circle-progress" stroke-linecap="round"/>
+          </svg>
+          <div class="progress-text">{{ roadmap.completion }}%</div>
+        </div>
+      </div>
 
-            <!-- Keywords -->
-            <div class="col-keywords">
+      <!-- Keywords -->
+      <div class="col-keywords">
                 <span class="keyword-tag" *ngFor="let keyword of roadmap.keywords">
                     {{ keyword }}
                 </span>
-            </div>
-        </div>
+      </div>
     </div>
+  </div>
 </div>

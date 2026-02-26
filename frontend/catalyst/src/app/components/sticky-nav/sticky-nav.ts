@@ -14,22 +14,25 @@ export class StickyNav {
   isExpanded = false;
   isVisible = true;
 
-  // persisted "stick" position (percentage from top of viewport)
-  topPosition = 50;
+  // Use pixels to avoid % math causing it to drift/disappear
+  topPx = Math.round(window.innerHeight / 2);
+
+  private readonly edgeMarginPx = 12;
 
   navItems = [
     { label: 'Dashboard', icon: 'assets/icons/dashboard-icon.svg', route: '/dashboard' },
     { label: 'Home', icon: 'assets/icons/home-icon.svg', route: '/home' },
     { label: 'Generate', icon: 'assets/icons/generate-icon.svg', route: '/prompt' },
-    { label: 'Solve', icon: 'assets/icons/solve.svg', route: '/roadmap' },
+    { label: 'Solve', icon: 'assets/icons/solve.svg', route: '/roadmap-tracker' },
   ];
 
-  excludedRoute = '/home';
+  private readonly excludedRoutes = ['/home', '/register'];
 
   constructor(private router: Router) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        this.isVisible = !event.url.includes(this.excludedRoute);
+        const url = event.urlAfterRedirects || event.url;
+        this.isVisible = !this.excludedRoutes.some(r => url.startsWith(r));
       }
     });
   }
@@ -40,14 +43,16 @@ export class StickyNav {
 
     const viewportHeight = window.innerHeight;
 
-    // keep the whole nav within the viewport
-    const maxTopPx = Math.max(0, viewportHeight - rect.height);
-    const clampedTopPx = Math.min(Math.max(0, rect.top), maxTopPx);
+    // If dragged too far, clamp it and effectively "stick" to the nearest corner (top-right or bottom-right).
+    const minTop = this.edgeMarginPx;
+    const maxTop = Math.max(minTop, viewportHeight - rect.height - this.edgeMarginPx);
 
-    const maxPercent = maxTopPx === 0 ? 0 : (clampedTopPx / maxTopPx) * 100;
-    this.topPosition = Math.max(0, Math.min(100, maxPercent));
+    const desiredTop = rect.top;
+    const clampedTop = Math.min(Math.max(minTop, desiredTop), maxTop);
 
-    // remove CDK's translate so we're purely using [style.top.%] + right: 0
+    this.topPx = Math.round(clampedTop);
+
+    // Remove CDK's translate so positioning is purely via fixed right + topPx
     event.source.reset();
   }
 }
