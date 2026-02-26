@@ -1,7 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RoadmapItem, Question } from './roadmap-item.interface';
-import { DisplayManagerService } from '@services/display-manager/display-manager.service';
 import { DataManagerService } from '@services/data-manager/data-manager.service';
 @Component({
   selector: 'app-roadmap-item',
@@ -12,12 +11,12 @@ import { DataManagerService } from '@services/data-manager/data-manager.service'
 })
 
 export class RoadmapItemComponent {
-  constructor(private displayManager: DisplayManagerService, private dataManager: DataManagerService) {}
+  constructor(private dataManager: DataManagerService) { }
 
   @Input() roadmapItem!: RoadmapItem;
   @Output() saveToggle = new EventEmitter<string>();
-  @Output() questionClick = new EventEmitter<{roadmapId: string, questionId: string}>();
-  @Output() questionBookmark = new EventEmitter<{roadmapId: string, questionId: string}>();
+  @Output() questionClick = new EventEmitter<{ roadmapId: string, questionId: string }>();
+  @Output() questionBookmark = new EventEmitter<{ roadmapId: string, questionId: string }>();
   @Output() toggleExpansion = new EventEmitter<string>();
 
   @Output() titleClick = new EventEmitter<{ roadmapId: string; title: string }>();
