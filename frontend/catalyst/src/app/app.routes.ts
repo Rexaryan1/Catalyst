@@ -25,7 +25,7 @@ import {StickyNav} from "@components/sticky-nav/sticky-nav";
 
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '', redirectTo: '/register', pathMatch: 'full' },
   { path: 'home', component: LandingPage },
   { path: 'register', component: MainPage },
   { path: 'prompt', component: RoadmapWizardComponent },
