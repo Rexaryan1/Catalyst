@@ -24,6 +24,7 @@
     box-sizing: border-box;
     flex: 1;
     justify-content: center;
+    text-decoration: none;
 
     &:hover {
       background: rgba(70, 103, 93, 0.1);
@@ -40,37 +41,7 @@
     height: 18px;
     color: var(--color-green);
     flex-shrink: 0;
-
-    &.dashboard-icon {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      justify-content: center;
-
-      .bar {
-        height: 2px;
-        background: currentColor;
-        border-radius: 1px;
-
-        &:nth-child(1) { width: 10px; }
-        &:nth-child(2) { width: 14px; }
-        &:nth-child(3) { width: 8px; }
-      }
-    }
-
-    &.generate-icon {
-      display: flex;
-      gap: 2px;
-      align-items: center;
-      justify-content: center;
-
-      .dot {
-        width: 3px;
-        height: 3px;
-        background: currentColor;
-        border-radius: 50%;
-      }
-    }
+    object-fit: contain;
   }
 
   .access-label {
