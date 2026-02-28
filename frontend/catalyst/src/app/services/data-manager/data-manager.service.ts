@@ -59,6 +59,7 @@ export class DataManagerService {
         localStorage.setItem('jwtToken', res.jwt);
         localStorage.setItem('sessionCookie', this.cookie);
         this.isUserLoggedIn.set(true);
+        this.getUserProfile();
 
         if (route && typeof route === 'string')
           this.router.navigate([route]);
