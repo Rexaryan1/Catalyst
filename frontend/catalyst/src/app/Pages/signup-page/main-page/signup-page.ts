@@ -15,7 +15,7 @@ import { CommonModule } from "@angular/common";
   styleUrl: './signup-page.scss',
 })
 export class SignupPage {
-  isLoginMode = false;
+  isLoginMode = true;
   signInForm = new FormGroup({
     email: new FormControl(''),
     password: new FormControl('')
