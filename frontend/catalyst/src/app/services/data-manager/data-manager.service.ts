@@ -29,7 +29,7 @@ export class DataManagerService {
   }
 
   private isRegisterRoute(path: string): boolean {
-    return path === '/register' || path === '/regitster';
+    return path === '/register';
   }
 
   /** -------- Fetch user credentials and store JWT token -------- */
