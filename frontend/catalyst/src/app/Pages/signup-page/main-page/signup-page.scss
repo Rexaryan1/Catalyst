@@ -70,22 +70,38 @@ $font-secondary: "AlbertSans-Bold", sans-serif;
 .signup-form-container {
   flex: 0 0 600px; // Fixed width container for the form section
   display: flex;
-  align-items: center;
   justify-content: center;
-  padding: 40px;
+  align-items: flex-end; // makes the card touch the bottom edge
+  padding-top: 40px;     // space from the top edge (card should NOT touch top)
+  padding-bottom: 0;     // card should touch bottom
 }
 
 .signup-card {
   background: $color-bg-cream;
-  border-radius: 10px;
   width: 100%;
   max-width: 460px;
+
   padding: 40px;
+  padding-bottom: 0; // footer will be absolutely positioned; body handles spacing
+
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  height: 100vh; // Occupy most of height
-  overflow-y: auto; // Scroll if content is too tall
+
+  height: calc(100vh - 40px); // leaves the top gap, still touches bottom
+  overflow: hidden; // body scrolls; footer stays visible
+
+  position: relative; // anchor the absolute footer to this card
+
+  border-radius: 10px 10px 0 0; // only top corners rounded
+
+  &__body {
+    flex: 1 1 auto;
+    overflow-y: auto;
+
+    // Reserve space so the last scrollable content isn't hidden behind the fixed footer area.
+    // Increase if your footer becomes taller.
+    padding-bottom: 64px;
+  }
 
   &__header {
     display: flex;
@@ -108,10 +124,18 @@ $font-secondary: "AlbertSans-Bold", sans-serif;
   }
 
   &__footer {
+    position: absolute; // stays at the bottom of the card (which touches the bottom of the screen)
+    left: 0;
+    right: 0;
+    bottom: 0;
+
     text-align: center;
     font-size: 13px;
-    margin-top: auto; // Push to bottom
     font-family: "AlbertSans-Regular", sans-serif;
+
+    background: $color-bg-cream; // prevents scrolling content showing through
+    padding: 14px 40px;          // match card side padding
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
 
     .link--highlight {
       color: $color-primary-green;
