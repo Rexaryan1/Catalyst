@@ -60,8 +60,9 @@
         (click)="onQuestionClick(question)"
       >
         <div class="question-content">
-          <div class="question-title">{{ question.title }}</div>
-          <div class="question-summary">{{ question.summary }}</div>
+          <div class="question-title">{{ getQuestionListTitle(question) }}</div>
+          <div class="question-summary">{{ question.topic ?? '' }}</div>
+
           <div class="question-difficulty">
             <span class="difficulty-text" [ngClass]="getDifficultyClass(question.difficulty)">
               {{ question.difficulty }}

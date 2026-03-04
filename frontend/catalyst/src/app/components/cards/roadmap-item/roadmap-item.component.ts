@@ -36,7 +36,6 @@ export class RoadmapItemComponent {
     });
 
     //this.dataManager.set("question", question);
-    //this.displayManager.displayOverlay("question", question.id);
   }
 
   onQuestionBookmark(questionId: string): void {
@@ -51,6 +50,27 @@ export class RoadmapItemComponent {
   }
   onTitleClick(): void {
     this.titleClick.emit({ roadmapId: this.roadmapItem.id, title: this.roadmapItem.title });
+  }
+
+  getQuestionListTitle(question: Question): string {
+    const text = (question.question_text ?? '').trim();
+    if (!text) return 'Question';
+
+    const words = text.split(/\s+/).filter(Boolean);
+    const wordPreview = words.slice(0, 5).join(' ');
+    const needsWordEllipsis = words.length > 5;
+
+    const maxChars = 38;
+    const charPreview = wordPreview.length > maxChars
+      ? wordPreview.slice(0, maxChars).trimEnd()
+      : wordPreview;
+
+    const needsCharEllipsis = wordPreview.length > maxChars;
+
+    const preview = charPreview;
+    const needsEllipsis = needsWordEllipsis || needsCharEllipsis || text.length > preview.length;
+
+    return needsEllipsis ? `${preview}…` : preview;
   }
 }
 

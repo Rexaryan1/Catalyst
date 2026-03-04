@@ -11,9 +11,11 @@ export interface RoadmapItem {
 
 export interface Question {
   id: string;
-  title: string;
-  summary: string;
+  title? : string;
+  summary? : string;
 
+  topic?: string;
+  status?: 'unanswered' | 'answered' | string;
   question_text: string;
   options: string[];
   correct_index: number;
