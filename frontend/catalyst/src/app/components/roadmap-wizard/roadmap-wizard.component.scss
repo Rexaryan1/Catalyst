@@ -5,6 +5,50 @@ mat-progress-bar {
   --mat-progress-bar-track-color: #444444;
 }
 
+// Loading Spinner Styles
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.spinner-container {
+  text-align: center;
+}
+
+.spinner {
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top: 4px solid #fff;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 15px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-text {
+  color: #fff;
+  font-size: 1rem;
+  margin: 0;
+}
+
 .highlight {
   font-family: Erbaum;
   font-style: italic;
@@ -322,8 +366,8 @@ mat-progress-bar {
         margin-bottom: 0.5rem;
         margin-right: 0;
         padding: 1rem 2rem; // Larger buttons
-      font-size: 1.2rem; // Larger text
-      min-height: 56px; // Taller buttons
+        font-size: 1.2rem; // Larger text
+        min-height: 56px; // Taller buttons
       }
 
       .controls {
@@ -332,7 +376,7 @@ mat-progress-bar {
         flex-direction: column;
         align-items: center;
         margin-top: 2rem; // Add space above buttons
-      margin-bottom: 2rem;
+        margin-bottom: 2rem;
 
       }
     }
@@ -357,8 +401,8 @@ mat-progress-bar {
   align-items: center;
   padding: 0 0px 20px 0px;
   gap: 20px; // Increased gap
-      margin-top: 2rem; // Add space above buttons
-      margin-bottom: 2rem; // Add space below buttons
+  margin-top: 2rem; // Add space above buttons
+  margin-bottom: 2rem; // Add space below buttons
 }
 
 
@@ -393,7 +437,8 @@ mat-progress-bar {
   vertical-align: baseline;
   align-items: baseline;
   position: relative;
-  min-width: 100px; /* Minimum width for placeholder */
+  min-width: 100px;
+  /* Minimum width for placeholder */
 
   // Stack the input and the shadow text
   &::after,
@@ -462,7 +507,7 @@ mat-progress-bar {
   font-weight: 500;
   font-size: inherit;
   text-decoration: underline;
-  text-decoration-color: rgba(255,255,255,0.2);
+  text-decoration-color: rgba(255, 255, 255, 0.2);
 }
 
 // ... keep existing .wizard styles ...
@@ -503,7 +548,7 @@ mat-progress-bar {
     &:has(input:checked) {
       border-color: var(--color-green);
       background-color: rgba(var(--color-green-rgb), 0.1); // Assuming you might have RGB vars, otherwise generic dark green tint
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 
       .card-title {
         color: var(--color-green);
