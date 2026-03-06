@@ -104,11 +104,12 @@ export class RoadmapPageComponent {
       attempts,
     };
 
-    this.dataManager.post<any>('practice/saveAttempts', payload).subscribe({
+    this.dataManager.post<any>('practice/saveAttempts', payload , {withCredentials: true}).subscribe({
       next: (res) => {
         // Store full response so any component can use snapshot/select.
         this.dataManager.set('practiceReport', res);
         console.log('Submitted for analysis:', res);
+        //console.log(this.dataManager.snapshot('practiceReport'));
       },
       error: (err) => {
         console.error('Submit failed:', err);
