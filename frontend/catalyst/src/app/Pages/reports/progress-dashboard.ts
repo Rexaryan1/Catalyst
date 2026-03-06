@@ -1,8 +1,30 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DisplayManagerService } from '@services/display-manager/display-manager.service';
 import { ComponentRef, EnvironmentInjector, ApplicationRef, Injectable, inject } from '@angular/core';
-// Data Models
+
+// Server Response Models
+export interface QuestionAttempt {
+  selected_index: number;
+  is_correct: boolean;
+  answered_at: string;
+}
+
+export interface Question {
+  question_id: string;
+  selected_index: number;
+  correct_index: number;
+  last_attempts: QuestionAttempt[];
+}
+
+export interface ServerProgressData {
+  accuracy_pct: number;
+  mean_time_seconds: number;
+  roadmap_completion_pct: number;
+  questions: Question[];
+}
+
+// Display Models
 export interface ProgressData {
   percentage: number;
   label?: string;
@@ -46,41 +68,94 @@ export interface DashboardData {
   templateUrl: './progress-dashboard.html',
   styleUrls: ['./progress-dashboard.scss']
 })
-export class ProgressDashboardComponent {
+export class ProgressDashboardComponent implements OnInit {
   @Input() title: string = 'Your Progress, Decoded.';
   @Input() showDownloadButton: boolean = true;
-  @Input() data: DashboardData = {
+  @Input() data?: ServerProgressData;
+
+  displayData: DashboardData = {
     accuracy: {
-      percentage: 86,
+      percentage: 0,
       label: 'Accuracy',
       sublabel: 'Solid consistency, keep it up.'
     },
     progress: {
-      percentage: 20,
+      percentage: 0,
       label: 'Progress',
       sublabel: 'Solved'
     },
     averageTime: {
-      time: '14:06',
+      time: '0:00',
       label: 'Average Time',
       sublabel: 'Good balance of speed and thought.'
     },
     recentAttempts: {
-      attempts: [
-        { question: 'Force equals mass equals what?', date: '3/N/25', status: 'correct', time: '10:08h' },
-        { question: 'Force equals mass equals what?', date: '3/N/25', status: 'correct', time: '10:08h' },
-        { question: 'Force equals mass equals what?', date: '3/N/25', status: 'incorrect', time: '10:08h' }
-      ]
+      attempts: []
     }
   };
-  private ds = inject(DisplayManagerService);
 
+  private ds = inject(DisplayManagerService);
   readonly radius = 58;
 
-  downloadReport(): void {
-    // Implement report download logic here
+  ngOnInit(): void {
+    if (this.data) {
+      this.transformServerData(this.data);
+    }
+  }
 
-    this.ds.open(ProgressDashboardComponent, { data: this.data });
+  transformServerData(serverData: ServerProgressData): void {
+    // Update accuracy
+    if (this.displayData.accuracy) {
+      this.displayData.accuracy.percentage = Math.round(serverData.accuracy_pct);
+    }
+
+    // Update progress
+    if (this.displayData.progress) {
+      this.displayData.progress.percentage = Math.round(serverData.roadmap_completion_pct);
+    }
+
+    // Convert mean_time_seconds to mm:ss format
+    if (this.displayData.averageTime) {
+      this.displayData.averageTime.time = this.secondsToTime(serverData.mean_time_seconds);
+    }
+
+    // Transform questions to recent attempts
+    if (this.displayData.recentAttempts && serverData.questions.length > 0) {
+      this.displayData.recentAttempts.attempts = serverData.questions.map((q, index) => {
+        const lastAttempt = q.last_attempts[q.last_attempts.length - 1];
+        return {
+          question: `Question ${index + 1}`,
+          date: this.formatDate(lastAttempt.answered_at),
+          status: lastAttempt.is_correct ? 'correct' : 'incorrect',
+          time: this.formatTime(lastAttempt.answered_at)
+        };
+      });
+    }
+  }
+
+  private secondsToTime(seconds: number): string {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  }
+
+  private formatDate(dateString: string): string {
+    const date = new Date(dateString);
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const year = date.getFullYear().toString().slice(-2);
+    return `${month}/${day}/${year}`;
+  }
+
+  private formatTime(dateString: string): string {
+    const date = new Date(dateString);
+    const hours = date.getHours().toString().padStart(2, '0');
+    const mins = date.getMinutes().toString().padStart(2, '0');
+    return `${hours}:${mins}h`;
+  }
+
+  downloadReport(): void {
+    this.ds.open(ProgressDashboardComponent, { data: this.displayData });
   }
 
   get circumference(): number {
@@ -88,7 +163,7 @@ export class ProgressDashboardComponent {
   }
 
   get dashOffset(): number {
-    const percentage = this.data.progress?.percentage || 0;
+    const percentage = this.displayData.progress?.percentage || 0;
     return this.circumference - (percentage / 100) * this.circumference;
   }
 

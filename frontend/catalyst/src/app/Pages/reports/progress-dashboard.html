@@ -23,11 +23,11 @@
         <div class="grid-item accuracy">
             <div class="accuracy-card">
                 <div class="percentage-display">
-                    <span class="percentage">{{ data.accuracy?.percentage }}%</span>
+                    <span class="percentage">{{ displayData.accuracy?.percentage }}%</span>
                 </div>
                 <div class="card-footer">
-                    <div class="label">{{ data.accuracy?.label }}</div>
-                    <div class="sublabel">{{ data.accuracy?.sublabel }}</div>
+                    <div class="label">{{ displayData.accuracy?.label }}</div>
+                    <div class="sublabel">{{ displayData.accuracy?.sublabel }}</div>
                 </div>
             </div>
         </div>
@@ -36,7 +36,7 @@
         <div class="grid-item progres">
             <div class="progres-card">
                 <div class="card-header">
-                    <span class="label">{{ data.progress?.label }}</span>
+                    <span class="label">{{ displayData.progress?.label }}</span>
                 </div>
                 <div class="progres-circle">
                     <svg viewBox="0 0 120 120" class="circular-chart">
@@ -46,8 +46,8 @@
                         </circle>
                     </svg>
                     <div class="percentage-text">
-                        <span class="percentage">{{ data.progress?.percentage }}%</span>
-                        <span class="sublabel">{{ data.progress?.sublabel }}</span>
+                        <span class="percentage">{{ displayData.progress?.percentage }}%</span>
+                        <span class="sublabel">{{ displayData.progress?.sublabel }}</span>
                     </div>
                 </div>
             </div>
@@ -58,11 +58,11 @@
             <div class="average-time-card">
                 <div class="card-content">
                     <div class="card-footer">
-                        <div class="sublabel">{{ data.averageTime?.sublabel }}</div>
-                        <div class="label">{{ data.averageTime?.label }}</div>
+                        <div class="sublabel">{{ displayData.averageTime?.sublabel }}</div>
+                        <div class="label">{{ displayData.averageTime?.label }}</div>
                     </div>
                     <div class="time-display-vertical">
-                        <span class="time">{{ data.averageTime?.time }}</span>
+                        <span class="time">{{ displayData.averageTime?.time }}</span>
                         <span class="unit">min</span>
                     </div>
                 </div>
@@ -76,7 +76,8 @@
                     <h3>Recent attempts</h3>
                 </div>
                 <div class="attempts-list">
-                    <div class="attempt-item" *ngFor="let attempt of data.recentAttempts?.attempts; let i = index"
+                    <div class="attempt-item"
+                        *ngFor="let attempt of displayData.recentAttempts?.attempts; let i = index"
                         [style.animation-delay]="(i * 0.1) + 's'">
                         <div class="attempt-content">
                             <div class="question">{{ attempt.question }}</div>
