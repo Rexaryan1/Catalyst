@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UserProfileComponent } from './Pages/user-profile/user-profile.component';
 import { LandingPage } from '@pages/landing-page/landing-page.component';
-import { StudyPlanComponent } from "@pages/study-plan/study-plan.component";
 import { RoadmapPageComponent } from "@pages/roadmap-page/roadmap-page.component";
 import { UserDashboardComponent } from "@pages/user-dashboard/user-dashboard.component";
 import { RoadmapBlockComponent } from "@components/cards/roadmap-block/roadmap-block.component";
@@ -20,7 +19,7 @@ import {
   LandingDashboardCardComponent
 } from "@pages/landing-page/landing-dashboard-card/landing-dashboard-card.component";
 import { ProgressDashboardComponent } from './Pages/reports/progress-dashboard';
-import {StickyNav} from "@components/sticky-nav/sticky-nav";
+import { StickyNav } from "@components/sticky-nav/sticky-nav";
 
 
 
@@ -31,7 +30,8 @@ export const routes: Routes = [
   { path: 'prompt', component: RoadmapWizardComponent },
   { path: 'dashboard', component: UserDashboardComponent },
   { path: 'userHome', component: UserProfileComponent },
-  { path: 'plan', component: StudyPlanComponent },
+  //TODO: change to remmove
+  // { path: 'plan', component: StudyPlanComponent },
   { path: 'roadmap-tracker', component: RoadmapTrackerComponent },
   { path: 'roadmap', component: RoadmapPageComponent },
   { path: 'preview', component: StickyNav },
