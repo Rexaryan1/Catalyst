@@ -3,6 +3,7 @@ import { environment } from '@environments/environment';
 import { enableProdMode } from '@angular/core';
 import { appConfig } from './app/app.config';
 import { AppComponent } from './app/app.component';
+import '@lottiefiles/dotlottie-wc';
 
 if (environment.production) {
   enableProdMode();
