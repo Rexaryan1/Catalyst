@@ -293,7 +293,6 @@
                 stroke: #4A9B83;
                 stroke-width: 8;
                 stroke-linecap: round;
-                stroke-dashoffset: 364.42; // Initial full circle (2 * PI * 58)
                 transition: stroke-dashoffset 1s cubic-bezier(0.4, 0, 0.2, 1);
             }
         }
