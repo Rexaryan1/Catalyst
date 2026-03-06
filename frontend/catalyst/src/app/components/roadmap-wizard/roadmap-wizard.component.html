@@ -1,5 +1,13 @@
+<!-- Loading Spinner -->
+<div class="loading-overlay" *ngIf="isLoading()">
+  <div class="spinner-container">
+    <div class="spinner"></div>
+    <p class="loading-text">Loading...</p>
+  </div>
+</div>
+
 <!-- app/roadmap/roadmap-wizard.component.html -->
-<div [formGroup] = "form" class="wizard">
+<div [formGroup]="form" class="wizard">
   <!-- Left: graphic that changes per step -->
   <div class="left" [@swapGraphic]="stepIndex()">
     <ng-container [ngSwitch]="stepIndex()">
@@ -14,30 +22,24 @@
     <div *ngIf="stepIndex() === 0">
       <p>
         I want to create a roadmap for
-        <span *ngIf = "!showSubjectInput()" class="highlight" (click)="showSubjectInput.set(true)">{{ form.get('subject')?.value || 'a subject' }}</span>
+        <span *ngIf="!showSubjectInput()" class="highlight" (click)="showSubjectInput.set(true)">{{
+          form.get('subject')?.value || 'a subject' }}</span>
         <span *ngIf="showSubjectInput()" class="inline-field">
           <span class="shadow-text">{{ form.get('subject')?.value || 'e.g., DSA' }}</span>
 
-      <input
-
-              type="text"
-              placeholder="e.g., DSA"
-              [formControl]="$any(form.get('subject'))"
-              (blur)="showSubjectInput.set(false)"
-              (keydown.enter)="showSubjectInput.set(false)"
-              autoFocus
-      />
-          </span>
+          <input type="text" placeholder="e.g., DSA" [formControl]="$any(form.get('subject'))"
+            (blur)="showSubjectInput.set(false)" (keydown.enter)="showSubjectInput.set(false)" autoFocus />
+        </span>
       </p>
     </div>
 
     <div *ngIf="stepIndex() === 1">
       <p>
-            I want to create a roadmap for
-            <span class="highlight-static">
+        I want to create a roadmap for
+        <span class="highlight-static">
           {{ form.get('subject')?.value || 'a subject' }}
         </span>
-        </p>
+      </p>
       <p>
         covering
         <span *ngIf="!showTopicInput()" class="highlight" (click)="showTopicInput.set(true)">
@@ -45,20 +47,11 @@
         </span>
         <span *ngIf="showTopicInput()" class="inline-field">
           <span class="shadow-text">{{ form.get('topic')?.value || 'e.g., Dynamic Programming' }}</span>
-          <input
-            type="text"
-            placeholder="e.g., Dynamic Programming"
-            [formControl]="$any(form.get('topic'))"
-            (blur)="showTopicInput.set(false)"
-            (keydown.enter)="showTopicInput.set(false)"
-            autoFocus
-          />
-          </span>
+          <input type="text" placeholder="e.g., Dynamic Programming" [formControl]="$any(form.get('topic'))"
+            (blur)="showTopicInput.set(false)" (keydown.enter)="showTopicInput.set(false)" autoFocus />
+        </span>
       </p>
     </div>
-
-
-
 
     <div *ngIf="stepIndex() === 2">
       <p>
@@ -101,14 +94,11 @@
 
     <div class="controls">
       <button type="button" class="btn-secondary" (click)="back()" [disabled]="stepIndex() === 0">Back</button>
-      <button
-        type="button"
-        (click)="next()"
-        [disabled]="(stepIndex()===0 && form.get('subject')?.invalid)
+      <button type="button" (click)="next()" [disabled]="(stepIndex()===0 && form.get('subject')?.invalid)
                  || (stepIndex()===1 && form.get('topic')?.invalid)
-                 || (stepIndex()===2 && form.get('intent')?.invalid)">
-        {{ stepIndex() < totalSteps - 1 ? 'Next' : 'Save' }}
-      </button>
+                 || (stepIndex()===2 && form.get('intent')?.invalid)
+                 || isLoading()">
+        {{ stepIndex() < totalSteps - 1 ? 'Next' : 'Save' }} </button>
     </div>
 
     <!-- Progress -->
@@ -116,5 +106,3 @@
     <div class="percent">{{ progress() }}%</div>
   </div>
 </div>
-
-
