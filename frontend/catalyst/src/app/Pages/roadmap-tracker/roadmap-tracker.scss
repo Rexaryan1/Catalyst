@@ -1,6 +1,6 @@
 .roadmap-container {
     min-height: 100vh;
-    background-color: #18181b;
+    background-color: var(--background-color);
     color: #e4e4e7;
 }
 
@@ -215,15 +215,15 @@ h1 {
     text-align: center;
 
     &.difficulty-easy {
-        background-color: #16a34a;
+        background-color: #AEFF95;
     }
 
     &.difficulty-medium {
-        background-color: #ca8a04;
+        background-color: #FFF6BF;
     }
 
     &.difficulty-hard {
-        background-color: #dc2626;
+        background-color: #fb8972;
     }
 
     &.difficulty-default {
