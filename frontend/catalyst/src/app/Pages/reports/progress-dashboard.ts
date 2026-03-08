@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DisplayManagerService } from '@services/display-manager/display-manager.service';
 import { ComponentRef, EnvironmentInjector, ApplicationRef, Injectable, inject } from '@angular/core';
-
+import { DataManagerService } from '@services/data-manager/data-manager.service';
 // Server Response Models
 export interface QuestionAttempt {
   selected_index: number;
@@ -14,6 +14,7 @@ export interface Question {
   question_id: string;
   selected_index: number;
   correct_index: number;
+  question_text?: string;
   last_attempts: QuestionAttempt[];
 }
 
@@ -95,6 +96,7 @@ export class ProgressDashboardComponent implements OnInit {
   };
 
   private ds = inject(DisplayManagerService);
+  private dataManager = inject(DataManagerService);
   readonly radius = 58;
 
   ngOnInit(): void {
@@ -119,12 +121,22 @@ export class ProgressDashboardComponent implements OnInit {
       this.displayData.averageTime.time = this.secondsToTime(serverData.mean_time_seconds);
     }
 
+    var fe_questions: any = this.dataManager.snapshot('roadmap');
+    fe_questions = fe_questions.data.roadmapItems.flatMap((item: any) => item.questions);
+
+    serverData.questions.forEach((serverQ) => {
+      const feQ = fe_questions?.find((q: any) => q.id === serverQ.question_id);
+      if (feQ) {
+        serverQ.question_text = feQ.question_text;
+      }
+    });
+
     // Transform questions to recent attempts
     if (this.displayData.recentAttempts && serverData.questions.length > 0) {
       this.displayData.recentAttempts.attempts = serverData.questions.map((q, index) => {
         const lastAttempt = q.last_attempts[q.last_attempts.length - 1];
         return {
-          question: `Question ${index + 1}`,
+          question: q.question_text || `Question ${index + 1}`,
           date: this.formatDate(lastAttempt.answered_at),
           status: lastAttempt.is_correct ? 'correct' : 'incorrect',
           time: this.formatTime(lastAttempt.answered_at)
