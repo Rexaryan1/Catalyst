@@ -9,13 +9,14 @@ import {DataManagerService} from "@services/data-manager/data-manager.service";
 import {PushService} from "@services/push-notifications/push.service";
 import {StickyNav} from "@components/sticky-nav/sticky-nav";
 import {Footer} from "@components/footer/footer"
+import {Header} from "@components/header/header";
 
 // This is the main application component that serves as the root of the Angular application.
 // It sets up the router outlet and includes the navigation bar and landing page.
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HttpClientModule, NotificationHost, StickyNav , Footer],
+  imports: [RouterOutlet, HttpClientModule, NotificationHost, StickyNav, Footer, Header],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
