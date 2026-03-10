@@ -1,8 +1,18 @@
-<!-- Loading Spinner -->
-<div class="loading-overlay" *ngIf="isLoading()">
-  <div class="spinner-container">
-    <div class="spinner"></div>
-    <p class="loading-text">Loading...</p>
+<!-- Lottie Loading Screen -->
+<div class="lottie-overlay" *ngIf="isLoading() || loadingFailed()">
+  <div class="lottie-content">
+    <ng-lottie [options]="options" (animationCreated)="animationCreated($event)" />
+
+    <p class="lottie-message" *ngIf="isLoading()">{{ loadingMessage() }}</p>
+
+    <div class="lottie-error" *ngIf="loadingFailed()">
+      <p class="lottie-error-title">Too many users right now</p>
+      <p class="lottie-error-body">
+        Our servers are a bit busy at the moment. Don't worry — your roadmap will be
+        ready and waiting in the <strong>Solve</strong> section in just a few minutes.
+      </p>
+      <button class="lottie-dismiss-btn" (click)="loadingFailed.set(false)">Got it</button>
+    </div>
   </div>
 </div>
 

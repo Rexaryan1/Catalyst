@@ -7,11 +7,16 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { DataManagerService } from '@services/data-manager/data-manager.service';
 import { provideServiceWorker } from '@angular/service-worker';
 import { environment } from '@environments/environment';
+import { provideLottieOptions } from 'ngx-lottie';
+import player from 'lottie-web';
 //import { provideServiceWorker } from '@angular/service-worker';
 // This file is used to configure the application with the necessary providers and routes.
 // It sets up the router with the defined routes for the application.
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideLottieOptions({
+      player: () => player,
+    }),
     provideRouter(routes), provideAnimationsAsync(), provideHttpClient(),
     provideAppInitializer(() => {
         const initializerFn = ((dataManager: DataManagerService) => () => dataManager.checkLoggedInStatus())(inject(DataManagerService));

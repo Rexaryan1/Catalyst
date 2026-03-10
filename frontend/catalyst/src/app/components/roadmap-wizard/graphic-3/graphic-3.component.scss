@@ -13,6 +13,34 @@ img {
   display: block;
   object-fit: contain;
   max-height: 80vh;
+
+  animation:
+    g3-enter 0.65s cubic-bezier(0.22, 1, 0.36, 1) both,
+    g3-pulse 6s ease-in-out 0.65s infinite;
+}
+
+@keyframes g3-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.88);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0px);
+  }
+}
+
+@keyframes g3-pulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 0px transparent);
+  }
+  50% {
+    transform: scale(1.025);
+    filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.12));
+  }
 }
 
 @media (max-width: 768px) {
