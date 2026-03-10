@@ -12,21 +12,24 @@ import { SolutionPage } from "@pages/solution-page/solution-page";
 import { RoadmapTrackerComponent } from './Pages/roadmap-tracker/roadmap-tracker';
 import { ProgressDashboardComponent } from './Pages/reports/progress-dashboard';
 import { StickyNav } from "@components/sticky-nav/sticky-nav";
+import {AboutPage} from "@pages/about-page/about-page";
+import {Header} from "@components/header/header";
+import {PingBoardComponent} from "@components/cards/ping-board/ping-board.component";
 
 
 
 export const routes: Routes = [
   { path: '', redirectTo: '/register', pathMatch: 'full' },
-  { path: 'home', component: LandingPage },
-  { path: 'register', component: MainPage },
-  { path: 'prompt', component: RoadmapWizardComponent },
-  { path: 'dashboard', component: UserDashboardComponent },
-  { path: 'userHome', component: UserProfileComponent },
-  { path: 'roadmap-tracker', component: RoadmapTrackerComponent },
-  { path: 'roadmap', component: RoadmapPageComponent },
-  { path: 'progress', component: ProgressDashboardComponent },
+  { path: 'home', component: LandingPage , data: { header: 'Home' }},
+  { path: 'register', component: MainPage, data: { header: 'Home' }},
+  { path: 'prompt', component: RoadmapWizardComponent , data: { header: 'Home' }},
+  { path: 'dashboard', component: UserDashboardComponent , data: { header: 'Home' }},
+  { path: 'userHome', component: UserProfileComponent , data: { header: 'Home' }},
+  { path: 'roadmap-tracker', component: RoadmapTrackerComponent , data: { header: 'Home' }},
+  { path: 'roadmap', component: RoadmapPageComponent , data: { header: 'Home' } },
+  { path: 'progress', component: ProgressDashboardComponent , data: { header: 'Home' } },
 
   // Preview for testing
-  { path: 'preview', component: StickyNav },
+  { path: 'preview', component: PingBoardComponent , data: { header: 'Testing Notifications' } },
 
 ];

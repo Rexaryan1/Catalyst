@@ -1,0 +1,156 @@
+$btn-size: 50px;       // Fixed button diameter
+$icon-size: 40px;      // Icon size inside icon buttons
+$home-icon-size: 50px; // Home icon is slightly larger since no padding container
+$accent-color: #4f46e5;
+$btn-bg: white;
+
+.header {
+  background-color: #1F1F1F;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  justify-content: space-between; // title left, menu right
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.header-content {
+  font-size: 1.1rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+
+.button-left {
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-right: 1rem;
+}
+
+.menu ul {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin: 0;
+  padding: 0;
+}
+
+.menu-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: $btn-size;
+  height: $btn-size;
+  border-radius: 50%;       // Round buttons
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+
+  .menu-icon {
+    display: block;
+    object-fit: contain;    // Scales icon to fit without distortion
+  }
+
+  &:hover {
+    transform: scale(1.08);
+  }
+}
+
+.menu-btn--icon {
+  background-color: $btn-bg;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  .menu-icon {
+    width: $icon-size;
+    height: $icon-size;
+  }
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.22);
+  }
+}
+
+.menu-btn--home {
+  background-color: transparent;
+  border: none;
+
+  .menu-icon {
+    width: $home-icon-size;
+    height: $home-icon-size;
+    border-radius: 6px; // Slightly rounded corners for a favicon/logo feel
+  }
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+}
+
+@media (max-width: 600px) {
+  .header {
+    padding: 0.6rem 1rem;
+  }
+
+  .header-title {
+    font-size: 0.95rem;
+  }
+
+  .menu ul {
+    gap: 0.5rem;
+  }
+}
+
+// ── Menu item: needs relative so the popup anchors to it ──
+.menu-item {
+  position: relative;
+  list-style: none;
+}
+
+// ── Notification popup: drops below the button ────────────
+.notif-popup-anchor {
+  position: absolute;
+  top: calc(100% + 10px); // 10px gap below the button
+  right: 0;               // aligns to the right edge of the button
+  z-index: 100;
+}
+
+// ── Backdrop: catches outside clicks ──────────────────────
+.notif-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  background: transparent;
+}
+
+// ── Tooltips via data-tooltip attribute ───────────────────
+.menu-btn {
+  position: relative; // needed for ::after positioning
+
+  &[data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(-100% - 6px); // below the button
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.75);
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 500;
+    white-space: nowrap;
+    padding: 3px 8px;
+    border-radius: 4px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    z-index: 200;
+  }
+
+  &[data-tooltip]:hover::after {
+    opacity: 1;
+  }
+}
+
