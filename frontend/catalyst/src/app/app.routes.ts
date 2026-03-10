@@ -6,8 +6,6 @@ import { UserDashboardComponent } from "@pages/user-dashboard/user-dashboard.com
 import { RoadmapWizardComponent } from "@components/roadmap-wizard/roadmap-wizard.component";
 import { MainPage } from "@pages/signup-page/signup-page";
 import { RoadmapListComponent } from "@pages/roadmap-page/roadmap-list/roadmap-list.component";
-//TODO : Chheck if this is requrired
-import { SolutionPage } from "@pages/solution-page/solution-page";
 
 import { RoadmapTrackerComponent } from './Pages/roadmap-tracker/roadmap-tracker';
 import { ProgressDashboardComponent } from './Pages/reports/progress-dashboard';
