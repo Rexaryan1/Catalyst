@@ -5,6 +5,8 @@ import { QuestionCard } from "@pages/roadmap-page/question-card/question-card";
 import { Question } from "@components/cards/roadmap-item/roadmap-item.interface";
 import { Subject, takeUntil } from 'rxjs';
 import { RoadmapService } from "@pages/roadmap-page/roadmap-list/roadmap.service";
+import { DisplayManagerService } from '@services/display-manager/display-manager.service';
+import { ProgressDashboardComponent } from '@pages/reports/progress-dashboard';
 
 type AttemptDraft = {
   question_id: string;
@@ -37,8 +39,9 @@ export class RoadmapPageComponent {
 
   constructor(
     private dataManager: DataManagerService,
-    private roadmapService: RoadmapService
-  ) {}
+    private roadmapService: RoadmapService,
+    private displayManager: DisplayManagerService
+  ) { }
 
   ngOnInit() {
     this.dataManager.select('roadmap').pipe(takeUntil(this.destroy$)).subscribe({
@@ -104,10 +107,11 @@ export class RoadmapPageComponent {
       attempts,
     };
 
-    this.dataManager.post<any>('practice/saveAttempts', payload , {withCredentials: true}).subscribe({
+    this.dataManager.post<any>('practice/saveAttempts', payload, { withCredentials: true }).subscribe({
       next: (res) => {
         // Store full response so any component can use snapshot/select.
         this.dataManager.set('practiceReport', res);
+        this.displayManager.open(ProgressDashboardComponent, { inputs: { data: res.data } });
         console.log('Submitted for analysis:', res);
         //console.log(this.dataManager.snapshot('practiceReport'));
       },
@@ -162,5 +166,5 @@ export class RoadmapPageComponent {
     this.attemptsByQuestionId = new Map<string, AttemptDraft>();
   }
 
-  ngAfterViewInit() {}
+  ngAfterViewInit() { }
 }

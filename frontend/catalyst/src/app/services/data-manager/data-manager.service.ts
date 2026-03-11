@@ -91,6 +91,32 @@ export class DataManagerService {
     });
   }
 
+  public logout(): void {
+  this.post('api/logout', {}, { withCredentials: true }).subscribe({
+    next: () => {
+      // Clear all local auth state
+      this.jwtToken = '';
+      this.cookie = '';
+      localStorage.removeItem('jwtToken');
+      localStorage.removeItem('sessionCookie');
+      this.isUserLoggedIn.set(false);
+      this.clear('userProfile');
+
+      this.router.navigateByUrl('/register');
+    },
+    error: (err) => {
+      console.error('Logout failed:', err);
+      // Force local cleanup even if the backend call fails
+      this.jwtToken = '';
+      this.cookie = '';
+      localStorage.removeItem('jwtToken');
+      localStorage.removeItem('sessionCookie');
+      this.isUserLoggedIn.set(false);
+      this.router.navigateByUrl('/register');
+    }
+  });
+}
+
   /** -------- Fetch user profile and store in cache -------- */
   private getUserProfile() {
     this.get('api/user/profile', { withCredentials: true }).subscribe({

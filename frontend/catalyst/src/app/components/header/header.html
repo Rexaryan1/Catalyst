@@ -1,0 +1,43 @@
+<header class="header">
+  <div class="header-content">{{ pageTitle }}</div>
+
+  <nav class="menu">
+    <ul>
+      <li *ngFor="let item of menuItems" class="menu-item">
+
+        <!-- Notifications -->
+        <ng-container *ngIf="item.isNotif">
+          <button class="menu-btn menu-btn--icon" [attr.data-tooltip]="item.label" (click)="toggleNotifications()">
+            <img [src]="item.icon" [alt]="item.label" class="menu-icon" />
+          </button>
+          <div class="notif-popup-anchor" *ngIf="showNotifications">
+            <app-ping-board />
+          </div>
+        </ng-container>
+
+        <!-- Logout -->
+        <button
+          *ngIf="item.isLogout"
+          class="menu-btn menu-btn--icon"
+          [attr.data-tooltip]="item.label"
+          (click)="logout()"
+        >
+          <img [src]="item.icon" [alt]="item.label" class="menu-icon" />
+        </button>
+
+        <!-- Home -->
+        <a *ngIf="item.isHome" [routerLink]="item.route" class="menu-btn menu-btn--home" [attr.data-tooltip]="item.label">
+          <img [src]="item.icon" [alt]="item.label" class="menu-icon" />
+        </a>
+
+        <!-- Any future route-based buttons -->
+        <a *ngIf="!item.isNotif && !item.isHome && !item.isLogout" [routerLink]="item.route" class="menu-btn menu-btn--icon" [attr.data-tooltip]="item.label">
+          <img [src]="item.icon" [alt]="item.label" class="menu-icon" />
+        </a>
+
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<div class="notif-backdrop" *ngIf="showNotifications" (click)="showNotifications = false"></div>

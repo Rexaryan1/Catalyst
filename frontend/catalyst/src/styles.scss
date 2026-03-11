@@ -1,11 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
 :root {
-  --primary-color: #007bff;
+  /* Color Variables */
+  --background-color: #1f1f1f;
+  --color-black: #1f1f1f;
+  --color-green: #46675D;
+  --color-white: #EAE9E5;
+  --color-light-blue: #BEDCE4;
+
+  /* Font Variables */
   --font-size-base: 16px;
-   --font-default: "Erbaum", Roboto;
+  --font-default: "Erbaum", Roboto;
+  --font-main: "Erbaum-Book", sans-serif;
+  --font-secondary: 'ZenKakuGothicAntique-Regular', sans-serif;
 }
 
 html {
@@ -19,7 +36,7 @@ body {
 @font-face {
   font-family: "Erbaum";
   src: url("assets/font/Erbaum-Thin.woff2") format("woff2"),
-       url("assets/font/Erbaum-Thin.woff") format("woff");
+    url("assets/font/Erbaum-Thin.woff") format("woff");
   font-weight: 100;
   font-style: normal;
   font-display: swap;
@@ -28,7 +45,7 @@ body {
 @font-face {
   font-family: "Erbaum";
   src: url("assets/font/Erbaum-Light.woff2") format("woff2"),
-       url("assets/font/Erbaum-Light.woff") format("woff");
+    url("assets/font/Erbaum-Light.woff") format("woff");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -37,7 +54,7 @@ body {
 @font-face {
   font-family: "Erbaum";
   src: url("assets/font/Erbaum-Book.woff2") format("woff2"),
-       url("assets/font/Erbaum-Book.woff") format("woff");
+    url("assets/font/Erbaum-Book.woff") format("woff");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -46,7 +63,7 @@ body {
 @font-face {
   font-family: "Erbaum";
   src: url("assets/font/Erbaum-Regular.woff2") format("woff2"),
-       url("assets/font/Erbaum-Regular.woff") format("woff");
+    url("assets/font/Erbaum-Regular.woff") format("woff");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -58,7 +75,7 @@ body {
 @font-face {
   font-family: "Erbaum";
   src: url("assets/font/Erbaum-Medium.woff2") format("woff2"),
-       url("assets/font/Erbaum-Medium.woff") format("woff");
+    url("assets/font/Erbaum-Medium.woff") format("woff");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -67,7 +84,7 @@ body {
 @font-face {
   font-family: "Erbaum";
   src: url("assets/font/Erbaum-Bold.woff2") format("woff2"),
-       url("assets/font/Erbaum-Bold.woff") format("woff");
+    url("assets/font/Erbaum-Bold.woff") format("woff");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -76,7 +93,7 @@ body {
 @font-face {
   font-family: "Erbaum";
   src: url("assets/font/Erbaum-Black.woff2") format("woff2"),
-       url("assets/font/Erbaum-Black.woff") format("woff");
+    url("assets/font/Erbaum-Black.woff") format("woff");
   font-weight: 900;
   font-style: normal;
   font-display: swap;
