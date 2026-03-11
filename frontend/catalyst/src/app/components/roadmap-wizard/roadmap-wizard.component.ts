@@ -141,6 +141,7 @@ export class RoadmapWizardComponent implements OnDestroy {
     if (this.stepIndex() > 0) this.stepIndex.update(i => i - 1);
   }
 
+
   private startMessageCycle(): void {
     this.messageIndex = 0;
     this.loadingMessage.set(LOADING_MESSAGES[0]);
@@ -190,6 +191,11 @@ export class RoadmapWizardComponent implements OnDestroy {
       }
     });
   }
+
+  dismissLoadingError(): void {
+    this.loadingError.set(null);
+  }
+
 
   submit() {
     if (this.form.valid) {
