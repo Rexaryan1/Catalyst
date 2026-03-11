@@ -191,6 +191,11 @@ export class RoadmapWizardComponent implements OnDestroy {
     });
   }
 
+  dismissLoadingError(): void {
+    this.loadingError.set(null);
+  }
+
+
   submit() {
     if (this.form.valid) {
       this.isLoading.set(true);
