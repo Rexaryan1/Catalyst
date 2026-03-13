@@ -175,19 +175,13 @@ h1 {
   .cards-grid {
     flex-direction: column;
     align-items: center;
-  }
+  }s
 
   .card-roadmap,
   .card-dashboard,
   .card-stack {
     flex: 1 1 auto;
-    width: min(440px, 100%);
+    width: 100%
   }
 
-  .card-roadmap,
-  .card-dashboard {
-    aspect-ratio: 326 / 341;
-    min-height: 230px;
-    max-height: none;
-  }
 }
