@@ -159,7 +159,7 @@ export class RoadmapWizardComponent implements OnDestroy {
 
   pollForJobCompletion(jobId: string): void {
     let completed = false;
-    interval(2000).pipe(
+    interval(4000).pipe(
       take(5),
       takeUntil(this.destroy$)
     ).subscribe({

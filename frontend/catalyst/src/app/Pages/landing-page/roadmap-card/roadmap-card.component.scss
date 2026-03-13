@@ -1,10 +1,19 @@
-.roadmap-card{
+.roadmap-card {
   background: #bedce4;
   height: 100%;
   width: 100%;
-  position: relative;
   overflow: hidden;
   border-radius: 10px;
+  box-sizing: border-box;
+  position: relative;
+
+  /* flex column: label → title → button stacked at the bottom */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(16px, 2.5vw, 28px);
+
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 
   &:hover {
     transform: translateY(-5px);
@@ -13,71 +22,52 @@
 }
 
 .generate {
-  box-sizing: border-box;
   color: var(--color-green);
-  text-align: center;
-  font-family: "AlbertSans-Light", sans-serif;
-  font-size: 18px;
-  font-weight: 300;
-  position: relative;
-  top: 102px;
-  left: -90px;
-  transform-origin: 0 0;
-  transform: rotate(0deg) scale(1, 1);
+  font-family: var(--font-default);
+  font-size: clamp(12px, 1.2vw, 18px);
+  font-weight: 350;
+  letter-spacing: 0.02em;
+}
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.roadmap-svg {
+  position: absolute;
+  left:7.5vw;
+  height: 3vw;
+  translate: 0 -80%; ;
+  opacity: 1;
 }
 
 .roadmap {
   color: #424241;
-  text-align: left;
-  font-family: "Erbaum-Medium", sans-serif;
-  font-size: 56px;
+  font-size: clamp(38px, 3vw, 56px);
   letter-spacing: -0.05em;
-  font-weight: 500;
-  position: relative;
-  width: 284px;
-  height: 42px;
-  transform-origin: 0 0;
-  transform: rotate(0deg) scale(1, 1);
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  position: relative;
-  top: 107px;
-  left: 32px;
+  font-weight: 400;
+  line-height: 1;
+
+  margin-bottom: clamp(12px, 1.5vw, 20px);
 }
 
 .primary-button {
-  background-color:  #46675d; /* Green */
+  background-color: #46675d;
   border: none;
-  color: #eae9e5;
-  text-align: left;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 14px;
   border-radius: 10px;
-  font-family: "AlbertSans-Light", sans-serif;
+  padding: clamp(8px, 1vw, 12px) clamp(14px, 2vw, 22px);
+  font-size: clamp(12px, 1.2vw, 14px);
   letter-spacing: 0.01em;
   font-weight: 300;
-  position: relative;
-  width: 178px;
-  height: 42px;
-  transform-origin: 0 0;
-  transform: rotate(0deg) scale(1, 1);
-  align-items: center;
-  justify-content: flex-start;
-  position: relative;
-  top: 114px;
-  left: 33px;
+
+  width: fit-content;
 
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  a {
+    color: #eae9e5;
+    text-decoration: none;
+    display: block;
+  }
 
   &:hover {
     transform: translateY(-1px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
   }
 }
-

@@ -5,7 +5,7 @@
 }
 
 .dashboard-card {
-  background: #2F2F2F;
+  background: #2f2f2f;
   height: 100%;
   width: 100%;
   position: relative;
@@ -23,23 +23,25 @@
 
 .heatmap {
   flex: 1 1 auto;
-  width: 100%;
+  min-height: 0;
+  width: 80%;
 
   display: block;
   min-height: 0;
 
-height: 113%;
-right: -60px;
-position: relative;
-top: -41px;
+  height: 113%;
+  right: -60px;
+  position: relative;
+  top: -41px;
   margin-right: 0;
 }
 
-.dashboard-title{
+.dashboard-title {
+  flex-shrink: 0;
   color: #f7f6f3;
   position: relative;
-   top: 320px;
-  font-size: 2.5rem;
+  top: 320px;
+  font-size: clamp(20px, 3vw, 42px);
   transform-origin: 0 0;
   transform: rotate(-90deg) scale(1, 1);
 
@@ -59,9 +61,7 @@ top: -41px;
 
 /* Inline | http://localhost:4200/home */
 
-.dashboard-title[_ngcontent-ng-c2775016969] {
-
-}
+.dashboard-title[_ngcontent-ng-c2775016969] {}
 
 /* Element | http://localhost:4200/ */
 
@@ -71,4 +71,3 @@ div.heatmap {
   padding-left: 0px;
   padding-top: 0px;
 }
-
