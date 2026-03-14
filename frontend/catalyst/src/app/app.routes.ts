@@ -18,14 +18,14 @@ import {PingBoardComponent} from "@components/cards/ping-board/ping-board.compon
 
 export const routes: Routes = [
   { path: '', redirectTo: '/register', pathMatch: 'full' },
-  { path: 'home', component: LandingPage , data: { header: 'Home' }},
-  { path: 'register', component: MainPage, data: { header: 'Home' }},
-  { path: 'prompt', component: RoadmapWizardComponent , data: { header: 'Home' }},
-  { path: 'dashboard', component: UserDashboardComponent , data: { header: 'Home' }},
-  { path: 'userHome', component: UserProfileComponent , data: { header: 'Home' }},
-  { path: 'roadmap-tracker', component: RoadmapTrackerComponent , data: { header: 'Home' }},
-  { path: 'roadmap', component: RoadmapPageComponent , data: { header: 'Home' } },
-  { path: 'progress', component: ProgressDashboardComponent , data: { header: 'Home' } },
+  { path: 'home', component: LandingPage , data: { title: '' }},
+  { path: 'register', component: MainPage, data: { title: '' }},
+  { path: 'prompt', component: RoadmapWizardComponent , data: { title: '' }},
+  { path: 'dashboard', component: UserDashboardComponent , data: { title: 'Your progress, decoded.' }},
+  { path: 'userHome', component: UserProfileComponent , data: { title: '' }},
+  { path: 'roadmap-tracker', component: RoadmapTrackerComponent , data: { title: 'Roadmaps You’ve Built' }},
+  { path: 'roadmap', component: RoadmapPageComponent , data: { title: 'Your roadmap is ready — let’s start cracking questions!' } },
+  { path: 'progress', component: ProgressDashboardComponent , data: { title: '' } },
 
   // Preview for testing
   { path: 'preview', component: PingBoardComponent , data: { header: 'Testing Notifications' } },
