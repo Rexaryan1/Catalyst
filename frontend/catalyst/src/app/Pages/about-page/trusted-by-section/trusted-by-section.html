@@ -1,0 +1,27 @@
+<section class="trusted-section">
+  <div class="trusted-shell">
+    <p class="trusted-kicker">Trusted by students from</p>
+
+    <div class="logo-marquee">
+      <div class="logo-track">
+        @for (logo of logos; track logo.name) {
+          <div class="logo-item">
+            <img [src]="logo.src" [alt]="logo.alt" />
+          </div>
+        }
+
+        @for (logo of logos; track 'dup-' + logo.name) {
+          <div class="logo-item" aria-hidden="true">
+            <img [src]="logo.src" [alt]="logo.alt" />
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+  <app-section-lines
+      [rows]="[100]"
+      [cols]="[]"
+      color="#46675D"
+      [squareSize]="12"
+    ></app-section-lines>
+</section>

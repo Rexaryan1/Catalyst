@@ -12,7 +12,7 @@ import { CdkDragEnd, DragDropModule } from '@angular/cdk/drag-drop';
 })
 export class StickyNav {
   isExpanded = false;
-  isVisible = true;
+  isVisible = false;
 
   // Use pixels to avoid % math causing it to drift/disappear
   topPx = Math.round(window.innerHeight / 2);
@@ -26,7 +26,7 @@ export class StickyNav {
     { label: 'Solve', icon: 'assets/icons/solve.svg', route: '/roadmap-tracker' },
   ];
 
-  private readonly excludedRoutes = ['/register' , '/home'];
+  private readonly excludedRoutes = ['/register' , '/home' , '/preview'];
 
   constructor(private router: Router) {
     this.router.events.subscribe(event => {
