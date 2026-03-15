@@ -1,0 +1,42 @@
+:host {
+  position: absolute;
+  inset: 0;
+  display: block;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.section-lines {
+  position: absolute;
+  inset: 0;
+  --line-color: #46675D;
+  --square-size: 12px;
+}
+
+.h-line,
+.v-line {
+  position: absolute;
+  background: var(--line-color);
+}
+
+.h-line {
+  left: 0;
+  width: 100%;
+  height: 1px;
+  transform: translateY(-0.5px);
+}
+
+.v-line {
+  top: 0;
+  height: 100%;
+  width: 1px;
+  transform: translateX(-0.5px);
+}
+
+.square {
+  position: absolute;
+  width: var(--square-size);
+  height: var(--square-size);
+  background: var(--line-color);
+  transform: translate(-50%, -50%) rotate(45deg);
+}

@@ -1,0 +1,25 @@
+
+<div
+  class="section-lines"
+  [style.--line-color]="color"
+  [style.--square-size.px]="squareSize"
+  aria-hidden="true"
+>
+  @for (row of rows; track $index) {
+    <span class="h-line" [style.top.%]="row"></span>
+  }
+
+  @for (col of cols; track $index) {
+    <span class="v-line" [style.left.%]="col"></span>
+  }
+
+  @for (row of rows; track row) {
+    @for (col of cols; track col) {
+      <span
+        class="square"
+        [style.top.%]="row"
+        [style.left.%]="col"
+      ></span>
+    }
+  }
+</div>

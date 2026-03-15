@@ -1,15 +1,41 @@
-import { Component } from '@angular/core';
-import {HeroBackground} from "@pages/about-page/hero-background/hero-background";
+import { CommonModule } from '@angular/common';
+import { Component, HostListener } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import {TrustedBySection} from "@pages/about-page/trusted-by-section/trusted-by-section";
+import {SectionLines} from "@pages/about-page/section-lines/section-lines";
+import {AboutHeroSection} from "@pages/about-page/about-hero-section/about-hero-section";
+import {FeaturesGridSection} from "@pages/about-page/features-grid-section/features-grid-section";
+import {FooterSection} from "@pages/about-page/footer-section/footer-section";
+
 
 @Component({
   selector: 'app-about-page',
   imports: [
-    HeroBackground
+    CommonModule,
+    RouterLink,
+    TrustedBySection,
+    SectionLines,
+    AboutHeroSection,
+    FeaturesGridSection,
+    FooterSection,
   ],
   templateUrl: './about-page.html',
   styleUrl: './about-page.scss',
 
 })
-export class AboutPage {
 
+export class AboutPage {
+  heroScrolled = false;
+
+  @HostListener('window:scroll')
+  onWindowScroll(): void {
+    this.heroScrolled = window.scrollY > 24;
+  }
+
+  scrollToDemo(): void {
+    document.getElementById('demo')?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
+  }
 }

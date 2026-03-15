@@ -13,21 +13,24 @@ import { StickyNav } from "@components/sticky-nav/sticky-nav";
 import {AboutPage} from "@pages/about-page/about-page";
 import {Header} from "@components/header/header";
 import {PingBoardComponent} from "@components/cards/ping-board/ping-board.component";
+import {AboutHeroSection} from "@pages/about-page/about-hero-section/about-hero-section";
+import {FooterSection} from "@pages/about-page/footer-section/footer-section";
+import {FeaturesGridSection} from "@pages/about-page/features-grid-section/features-grid-section";
 
 
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/register', pathMatch: 'full' },
-  { path: 'home', component: LandingPage , data: { title: '' }},
-  { path: 'register', component: MainPage, data: { title: '' }},
-  { path: 'prompt', component: RoadmapWizardComponent , data: { title: '' }},
-  { path: 'dashboard', component: UserDashboardComponent , data: { title: 'Your progress, decoded.' }},
-  { path: 'userHome', component: UserProfileComponent , data: { title: '' }},
-  { path: 'roadmap-tracker', component: RoadmapTrackerComponent , data: { title: 'Roadmaps You’ve Built' }},
-  { path: 'roadmap', component: RoadmapPageComponent , data: { title: 'Your roadmap is ready — let’s start cracking questions!' } },
-  { path: 'progress', component: ProgressDashboardComponent , data: { title: '' } },
+  { path: '', redirectTo: '/landing', pathMatch: 'full' },
+  { path: 'landing', component: AboutHeroSection },
+  { path: 'register', component: MainPage, data: { header: 'Home' }},
+  { path: 'prompt', component: RoadmapWizardComponent , data: { header: 'Home' }},
+  { path: 'dashboard', component: UserDashboardComponent , data: { header: 'Home' }},
+  { path: 'userHome', component: UserProfileComponent , data: { header: 'Home' }},
+  { path: 'roadmap-tracker', component: RoadmapTrackerComponent , data: { header: 'Home' }},
+  { path: 'roadmap', component: RoadmapPageComponent , data: { header: 'Home' } },
+  { path: 'progress', component: ProgressDashboardComponent , data: { header: 'Home' } },
 
   // Preview for testing
-  { path: 'preview', component: PingBoardComponent , data: { header: 'Testing Notifications' } },
+  { path: 'preview', component: AboutPage, data: { header: 'Testing Notifications' } },
 
 ];

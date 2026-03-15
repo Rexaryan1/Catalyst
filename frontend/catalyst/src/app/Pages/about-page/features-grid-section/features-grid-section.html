@@ -1,0 +1,21 @@
+<section class="features-section">
+  <app-section-lines
+    [rows]="rows"
+    [cols]="cols"
+    color="#46675D"
+    [squareSize]="12"
+  ></app-section-lines>
+
+  <div class="features-grid-shell">
+    @for (feature of features; track feature.title) {
+      <article
+        class="feature-cell"
+        [style.grid-row]="feature.row"
+        [style.grid-column]="feature.col"
+      >
+        <h3>{{ feature.title }}</h3>
+        <p>{{ feature.text }}</p>
+      </article>
+    }
+  </div>
+</section>

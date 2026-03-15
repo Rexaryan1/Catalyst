@@ -6,6 +6,7 @@
       class="profile-image"
     />
   </button>
+<div *ngIf="isVisible"><header class="header">
   <div class="header-content">{{ pageTitle }}</div>
     </div>
 
@@ -49,3 +50,4 @@
 </header>
 
 <div class="notif-backdrop" *ngIf="showNotifications" (click)="showNotifications = false"></div>
+</div>
