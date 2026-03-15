@@ -21,7 +21,9 @@ import {FeaturesGridSection} from "@pages/about-page/features-grid-section/featu
 
 export const routes: Routes = [
   { path: '', redirectTo: '/landing', pathMatch: 'full' },
-  { path: 'landing', component: AboutHeroSection },
+  { path: '', redirectTo: '/landing', pathMatch: 'full' },
+  { path: 'landing', component: AboutPage },
+  { path: 'home', component: LandingPage , data: { header: 'Home' }},
   { path: 'register', component: MainPage, data: { header: 'Home' }},
   { path: 'prompt', component: RoadmapWizardComponent , data: { header: 'Home' }},
   { path: 'dashboard', component: UserDashboardComponent , data: { header: 'Home' }},

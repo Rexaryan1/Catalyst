@@ -13,7 +13,7 @@ import {NgIf} from "@angular/common";
 })
 export class Footer {
   isVisible = false;
-  private readonly excludedRoutes = ['/preview' , '/register'];
+  private readonly excludedRoutes = ['/preview' , '/register' , '/landing'];
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute ) {
     this.router.events.subscribe(event => {
