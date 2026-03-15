@@ -21,6 +21,8 @@ export class Header implements OnInit, OnDestroy{
   pageTitle: string = 'Home';
   showNotifications = false;
   private routerSub!: Subscription;
+  isVisible = false;
+  private readonly excludedRoutes = ['/preview' , '/register'];
 
   menuItems = [
     { label: 'notifications', icon: '../../assets/icons/notification-bing.svg', route: null ,  isHome: false , isNotif: true , isLogout: false },
@@ -28,7 +30,14 @@ export class Header implements OnInit, OnDestroy{
     { label: 'Home', icon: '../../assets/Catalyst-Favicon.ico', route: '/home' ,  isHome: true , isNotif: false , isLogout: false },
 
   ];
-  constructor(private router: Router, private activatedRoute: ActivatedRoute , private dataManager: DataManagerService) {}
+  constructor(private router: Router, private activatedRoute: ActivatedRoute , private dataManager: DataManagerService) {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        const url = event.urlAfterRedirects || event.url;
+        this.isVisible = !this.excludedRoutes.some(r => url.startsWith(r));
+      }
+    });
+  }
 
   ngOnInit() {
     this.routerSub = this.router.events.pipe(

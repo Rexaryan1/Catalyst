@@ -1,0 +1,36 @@
+<footer class="footer-section">
+    <app-section-lines
+    [rows]="rows"
+    [cols]="cols"
+    color="#46675D"
+    [squareSize]="10"
+  ></app-section-lines>
+  <div class="footer-main">
+    <div class="footer-main-inner">
+      <div class="footer-copy">
+        <h2>Ready to Rethink Learning?</h2>
+        <p>Stay Updated. Subscribe to our newsletter</p>
+
+        <form class="footer-subscribe-form">
+          <input
+            type="email"
+            placeholder="Enter your email"
+            aria-label="Email address"
+          />
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-links">
+    <span class="footer-links-label">Quick links</span>
+
+    <nav class="footer-links-nav" aria-label="Quick links">
+      <a href="/about">About</a>
+      <a href="/signup">Sign up</a>
+      <a href="/roadmap">Roadmaps</a>
+      <a href="/contact">Contact</a>
+    </nav>
+  </div>
+</footer>
