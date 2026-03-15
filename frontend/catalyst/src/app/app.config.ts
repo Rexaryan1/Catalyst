@@ -1,7 +1,7 @@
 import { ApplicationConfig, inject, provideAppInitializer, isDevMode } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
-
+import { provideOAuthClient } from 'angular-oauth2-oidc';
 import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { DataManagerService } from '@services/data-manager/data-manager.service';

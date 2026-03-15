@@ -51,18 +51,20 @@ h1 {
 }
 
 .top-left-section {
-  flex: 1 1 clamp(280px, 55%, 700px);
+  flex: 1 1 clamp(280px, 75%, 700px);
   padding: 1rem;
   margin-bottom: clamp(1rem, 3vw, 2.5rem);
 }
 
 .top-right-section {
-  flex: 1 1 clamp(240px, 35%, 400px);
+  flex: 1 1 clamp(200px, 20%, 300px);
   padding: 1rem;
   margin-bottom: clamp(1rem, 3vw, 2.5rem);
+  margin-top: clamp(0vw, 3vw, 1.5rem);
 }
 
 @media (max-width: 768px) {
+
   .top-left-section,
   .top-right-section {
     flex: 1 1 100%;
@@ -70,18 +72,6 @@ h1 {
 }
 
 .hero-title {
-  font-family: 'Erbaum-Regular', sans-serif;
-  color: #EAE9E5;
-  font-weight: bold;
-  font-size: 6rem;
-  margin-bottom: 0.5rem;
-
-  @media (max-width: 768px) {
-    font-size: 3rem;
-  }
-}
-
-.hero-subtitle {
   font-family: 'Erbaum', sans-serif;
   color: #EAE9E5;
   text-align: left;
@@ -91,6 +81,19 @@ h1 {
   line-height: 114%;
   letter-spacing: -0.06em;
   width: 100%;
+}
+
+.hero-subtitle {
+  font-family: 'Albert Sans', sans-serif;
+  color: #F7F6F3;
+  font-weight: 100;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+
+  @media (max-width: 768px) {
+    font-size: 0.5rem;
+  }
 }
 
 .get-started-btn {
@@ -126,7 +129,7 @@ h1 {
   display: flex;
 }
 
-.card-slot > * {
+.card-slot>* {
   width: 100%;
   height: 100%;
   min-width: 0;
@@ -149,7 +152,7 @@ h1 {
   gap: 1rem;
 }
 
-.card-stack > .stack-item {
+.card-stack>.stack-item {
   width: 100%;
 }
 
@@ -175,7 +178,7 @@ h1 {
   .cards-grid {
     flex-direction: column;
     align-items: center;
-  }s
+  }
 
   .card-roadmap,
   .card-dashboard,
