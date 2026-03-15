@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HeroBackground } from './hero-background';
+import { SectionLines } from './section-lines';
 
-describe('HeroBackground', () => {
-  let component: HeroBackground;
-  let fixture: ComponentFixture<HeroBackground>;
+describe('SectionLines', () => {
+  let component: SectionLines;
+  let fixture: ComponentFixture<SectionLines>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HeroBackground]
+      imports: [SectionLines]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(HeroBackground);
+    fixture = TestBed.createComponent(SectionLines);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

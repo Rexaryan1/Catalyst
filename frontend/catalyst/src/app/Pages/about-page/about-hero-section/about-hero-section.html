@@ -1,0 +1,59 @@
+
+<section class="about-hero">
+  <div class="hero-blobs" aria-hidden="true">
+    <span class="blob blob-1"></span>
+    <span class="blob blob-2"></span>
+    <span class="blob blob-3"></span>
+  </div>
+
+  <div class="hero-grid" aria-hidden="true">
+    <span class="v-line left"></span>
+    <span class="v-line right"></span>
+
+    <span class="h-line top"></span>
+    <span class="h-line mid"></span>
+    <span class="h-line bottom" [class.is-visible]="heroScrolled"></span>
+
+    <span class="diamond d1"></span>
+    <span class="diamond d2"></span>
+    <span class="diamond d3"></span>
+    <span class="diamond d4"></span>
+    <span class="diamond d5" [class.is-visible]="heroScrolled"></span>
+    <span class="diamond d6" [class.is-visible]="heroScrolled"></span>
+  </div>
+
+  <div class="hero-content">
+    <header class="hero-nav">
+      <div class="nav-left">
+        <img
+          src="assets/icons/catalyst-logo.svg"
+          alt="Catalyst logo"
+          class="app-icon"
+        />
+      </div>
+
+      <div class="nav-center">Catalyst</div>
+
+      <div class="nav-right">
+        <a class="signup-btn" routerLink="/signup">Sign up</a>
+      </div>
+    </header>
+
+    <div class="hero-copy">
+      <p class="eyebrow">AI-powered exam preparation</p>
+
+      <h1>Your Concepts. Mapped Intelligently.</h1>
+
+      <p class="subheading">
+        Adaptive roadmaps powered by custom AI models, built from blocks of
+        questions designed around your learning style.
+      </p>
+    </div>
+
+    <div class="hero-cta">
+      <button type="button" class="demo-btn" (click)="scrollToDemo()">
+        Watch Demo
+      </button>
+    </div>
+  </div>
+</section>

@@ -1,4 +1,4 @@
-<header class="header">
+<div *ngIf="isVisible"><header class="header">
   <div class="header-content">{{ pageTitle }}</div>
 
   <nav class="menu">
@@ -41,3 +41,4 @@
 </header>
 
 <div class="notif-backdrop" *ngIf="showNotifications" (click)="showNotifications = false"></div>
+</div>

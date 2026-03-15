@@ -13,6 +13,9 @@ import { StickyNav } from "@components/sticky-nav/sticky-nav";
 import {AboutPage} from "@pages/about-page/about-page";
 import {Header} from "@components/header/header";
 import {PingBoardComponent} from "@components/cards/ping-board/ping-board.component";
+import {AboutHeroSection} from "@pages/about-page/about-hero-section/about-hero-section";
+import {FooterSection} from "@pages/about-page/footer-section/footer-section";
+import {FeaturesGridSection} from "@pages/about-page/features-grid-section/features-grid-section";
 
 
 
@@ -28,6 +31,6 @@ export const routes: Routes = [
   { path: 'progress', component: ProgressDashboardComponent , data: { header: 'Home' } },
 
   // Preview for testing
-  { path: 'preview', component: PingBoardComponent , data: { header: 'Testing Notifications' } },
+  { path: 'preview', component: AboutPage, data: { header: 'Testing Notifications' } },
 
 ];
