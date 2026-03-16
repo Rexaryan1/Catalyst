@@ -21,9 +21,16 @@ export const appConfig: ApplicationConfig = {
     provideAppInitializer(() => {
         const initializerFn = ((dataManager: DataManagerService) => () => dataManager.checkLoggedInStatus())(inject(DataManagerService));
         return initializerFn();
-      }), provideServiceWorker('ngsw-worker.js', {
+      }), 
+    provideServiceWorker('ngsw-worker.js', {
             enabled: environment.production,
             registrationStrategy: 'registerWhenStable:30000'
-          })
+          }),
+    provideOAuthClient({          // ← add this
+      resourceServer: {
+        allowedUrls: ['https://your-api.com'],
+        sendAccessToken: true
+      }
+    })
   ]
 };

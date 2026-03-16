@@ -17,11 +17,13 @@ import {AboutHeroSection} from "@pages/about-page/about-hero-section/about-hero-
 import {FooterSection} from "@pages/about-page/footer-section/footer-section";
 import {FeaturesGridSection} from "@pages/about-page/features-grid-section/features-grid-section";
 
+import { authGuard } from '@services/auth/auth.guard'
 
 
 export const routes: Routes = [
   { path: '', redirectTo: '/landing', pathMatch: 'full' },
   { path: 'landing', component: AboutHeroSection },
+  { path: 'home', component: LandingPage , data: { header: 'Home' }, canActivate : [ authGuard ]},
   { path: 'register', component: MainPage, data: { header: 'Home' }},
   { path: 'prompt', component: RoadmapWizardComponent , data: { header: 'Home' }},
   { path: 'dashboard', component: UserDashboardComponent , data: { header: 'Home' }},

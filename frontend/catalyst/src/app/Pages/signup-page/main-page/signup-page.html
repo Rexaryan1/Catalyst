@@ -92,7 +92,7 @@
 
         <!-- Social Login -->
         <div class="social-login">
-          <button class="btn btn--social">
+          <button class="btn btn--social" (click)="loginWithGoogle()">
             <img src="../../../assets/icons/google-logo.svg" alt="Google" class="btn__icon">
             <span>{{ isLoginMode ? 'Login' : 'Sign up' }} with Google</span>
           </button>

@@ -4,6 +4,7 @@ import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
 import { DataManagerService } from "@services/data-manager/data-manager.service";
 import { CommonModule } from "@angular/common";
+import { AuthService } from '@services/auth/auth.service';
 // import { PushNotificationService } from '@services/push-notification/push-notification.service';
 @Component({
   selector: 'signup-page',
@@ -28,7 +29,7 @@ export class SignupPage {
   });
   @Output() nextStep = new EventEmitter<void>();
 
-  constructor(private http: HttpClient, private router: Router, private dataManager: DataManagerService) {}
+  constructor(private http: HttpClient, private router: Router, private dataManager: DataManagerService, private authService: AuthService) {}
 
   toggleMode() {
     this.isLoginMode = !this.isLoginMode;
@@ -109,6 +110,9 @@ export class SignupPage {
     });
   }
 
+  loginWithGoogle() {
+    this.authService.login();
+  }
   // enablePush() {
   //   this.pushService.subscribeToPush();
   // }
