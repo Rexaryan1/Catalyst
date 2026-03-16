@@ -1,14 +1,19 @@
 <div class="signup-page">
   <!-- Left Section: Hero/Branding -->
   <section class="signup-hero">
-    <div class="signup-hero__logo">
-      <img src="../../../assets/Catalyst-Favicon.ico" alt="Catalyst Logo" width="100" height="100">
-    </div>
+
 
     <div class="signup-hero__content">
+      <img
+      class="signup-hero__logo"
+      src="assets/Catalyst-Favicon.ico"
+      alt="Catalyst logo"
+    />
+
       <h1 class="signup-hero__title">Building the Future...</h1>
       <p class="signup-hero__text">
-        Stop guessing and start understanding. Get personalized feedback on every question and turn your weak spots into strengths.
+        Stop guessing and start understanding. Get personalized feedback on every question and turn your weak spots into
+        strengths.
       </p>
       <!-- Carousel Indicators -->
       <div class="signup-hero__slider">
@@ -24,61 +29,63 @@
       <div class="signup-card__body">
         <header class="signup-card__header">
           <span class="signup-card__subtitle">
-            {{ isLoginMode ? 'WELCOME BACK' : "LET'S GET YOU STARTED"}}</span>
+            {{ isLoginMode ? 'WELCOME BACK' : "LET'S GET YOU STARTED" }}</span>
           <h2 class="signup-card__title">{{ isLoginMode ? 'Login to Account' : 'Create an Account' }}</h2>
         </header>
 
-        @if(!isLoginMode){
-        <form class="signup-form" [formGroup]="signUpForm" (ngSubmit)="onSignUp()">
-          <!-- Name Input -->
-          <div class="form-group">
-            <label for="name" class="form-label">Your Name</label>
-            <div class="input-wrapper">
-              <input type="text" id="name" class="form-input" formControlName ="name" placeholder="Name">
+        @if (!isLoginMode) {
+          <form class="signup-form" [formGroup]="signUpForm" (ngSubmit)="onSignUp()">
+            <!-- Name Input -->
+            <div class="form-group">
+              <label for="name" class="form-label">Your Name</label>
+              <div class="input-wrapper">
+                <input type="text" id="name" class="form-input" formControlName="name" placeholder="Name">
+              </div>
             </div>
-          </div>
 
-          <!-- Email Input -->
-          <div class="form-group">
-            <label for="email" class="form-label">Email</label>
-            <div class="input-wrapper">
-              <input type="email" id="email" class="form-input" placeholder="Email" formControlName="email">
+            <!-- Email Input -->
+            <div class="form-group">
+              <label for="email" class="form-label">Email</label>
+              <div class="input-wrapper">
+                <input type="email" id="email" class="form-input" placeholder="Email" formControlName="email">
+              </div>
             </div>
-          </div>
 
-          <!-- Password Input -->
-          <div class="form-group">
-            <label for="password" class="form-label">Password</label>
-            <div class="input-wrapper">
-              <input type="password" id="password" class="form-input" placeholder="Password" formControlName="password">
-              <button type="button" class="password-toggle">
-                <img src="../../../assets/images/eye.png" alt="Show Password">
-              </button>
+            <!-- Password Input -->
+            <div class="form-group">
+              <label for="password" class="form-label">Password</label>
+              <div class="input-wrapper">
+                <input type="password" id="password" class="form-input" placeholder="Password"
+                       formControlName="password">
+                <button type="button" class="password-toggle">
+                  <img src="../../../assets/images/eye.png" alt="Show Password">
+                </button>
+              </div>
             </div>
-          </div>
 
-          <button type="submit" class="btn btn--primary">GET STARTED</button>
-        </form>
+            <button type="submit" class="btn btn--primary">GET STARTED</button>
+          </form>
         }
 
-        @if(isLoginMode){
+        @if (isLoginMode) {
           <form class="signup-form" [formGroup]="signInForm" (ngSubmit)="onSignIn()">
             <!-- Email Input -->
-              <div class="form-group">
-                <label for="email-signin" class="form-label">Email</label>
-                <div class="input-wrapper">
-                  <input type="email" id="email-signin" class="form-input" placeholder="Email" formControlName="email">
-                </div>
-              </div>
             <div class="form-group">
-                <label for="password-signin" class="form-label">Password</label>
-                <div class="input-wrapper">
-                  <input type="password" id="password-signin" class="form-input" placeholder="Password" formControlName="password">
-                  <button type="button" class="password-toggle">
-                    <img src="../../../assets/images/eye.png" alt="Show Password">
-                  </button>
-                </div>
+              <label for="email-signin" class="form-label">Email</label>
+              <div class="input-wrapper">
+                <input type="email" id="email-signin" class="form-input" placeholder="Email" formControlName="email">
               </div>
+            </div>
+            <div class="form-group">
+              <label for="password-signin" class="form-label">Password</label>
+              <div class="input-wrapper">
+                <input type="password" id="password-signin" class="form-input" placeholder="Password"
+                       formControlName="password">
+                <button type="button" class="password-toggle">
+                  <img src="../../../assets/images/eye.png" alt="Show Password">
+                </button>
+              </div>
+            </div>
             <button type="submit" class="btn btn--primary">LOGIN</button>
           </form>
         }
@@ -109,7 +116,8 @@
 
       <footer class="signup-card__footer">
         <span class="footer-message">{{ isLoginMode ? "Don't have an account?" : "Already have an account?" }} </span>
-        <a href="javascript:void(0)" (click)="toggleMode()" class="link--highlight">{{ isLoginMode ? 'SIGN UP HERE' : 'LOGIN HERE' }}</a>
+        <a href="javascript:void(0)" (click)="toggleMode()"
+           class="link--highlight">{{ isLoginMode ? 'SIGN UP HERE' : 'LOGIN HERE' }}</a>
       </footer>
 
     </div>

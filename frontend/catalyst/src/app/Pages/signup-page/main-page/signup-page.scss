@@ -32,39 +32,75 @@ $font-secondary: "AlbertSans-Bold", sans-serif;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 0 100px; // Adjust spacing as needed
+  //padding: 0 100px; // Adjust spacing as needed
   position: relative;
   color: #ffffff;
+  align-items: center;
+  padding: clamp(32px, 6vw, 100px);
 
-  &__logo {
-    position: absolute;
-    top: 60px;
-    left: 60px;
-  }
 
-  &__content {
-    max-width: 400px;
-    margin-top: 80px; // Push down slightly to match design
-  }
 
-  &__title {
-    font-family: $font-bold;
-    font-size: 39px;
-    line-height: 47px;
-    margin-bottom: 24px;
-  }
 
-  &__text {
-    font-size: 16px;
-    line-height: 28px;
-    margin-bottom: 48px;
-    opacity: 0.9;
-  }
-
-  &__slider {
-    width: 92px;
-  }
+  //&__content {
+  //  max-width: 400px;
+  //  margin-top: 80px; // Push down slightly to match design
+  //}
+  //
+  //&__title {
+  //  font-family: $font-bold;
+  //  font-size: 39px;
+  //  line-height: 47px;
+  //  margin-bottom: 24px;
+  //}
+  //
+  //&__text {
+  //  font-size: 16px;
+  //  line-height: 28px;
+  //  margin-bottom: 48px;
+  //  opacity: 0.9;
+  //}
+  //
+  //&__slider {
+  //  width: 92px;
+  //}
 }
+
+.signup-hero__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(12px, 2vw, 24px);
+  width: min(100%, 440px);
+  margin-top: 0;
+}
+.signup-hero__logo {
+  position: static;
+  width: clamp(80px, 100px, 160px);
+  height: auto;
+  margin-bottom: 4px;
+}
+
+.signup-hero__title {
+  font-size: clamp(30px, 40px, 39px);
+  line-height: 1.15;
+  margin: 0;
+  font-family: "Erbaum", sans-serif;
+  font-weight: 400;
+}
+
+.signup-hero__text {
+  font-size: clamp(15px, 1.6vw, 16px);
+  line-height: 1.7;
+  margin: 0;
+  opacity: 0.9;
+
+}
+
+.signup-hero__slider {
+  width: clamp(72px, 8vw, 92px);
+  margin-top: 8px;
+}
+
 
 // --- Right Section: Form Container ---
 .signup-form-container {
@@ -117,7 +153,7 @@ $font-secondary: "AlbertSans-Bold", sans-serif;
   }
 
   &__title {
-    font-family: $font-medium;
+    //font-family: $font-medium;
     font-size: 25px;
     color: $color-text-black;
     margin: 0;
@@ -288,4 +324,7 @@ button.btn:nth-child(2) > img:nth-child(1) {
 .footer-message {
   color: $color-text-grey;
 }
+
+
+
 
