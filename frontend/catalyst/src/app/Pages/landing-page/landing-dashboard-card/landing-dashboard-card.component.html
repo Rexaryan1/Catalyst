@@ -1,5 +1,30 @@
-<div class = "dashboard-card">
-  <div class="dashboard-title">DASHBOARD</div>
-  <app-heatmap-small class="heatmap"></app-heatmap-small>
+<div class="dashboard-card">
+  <div class="dashboard-card__rail">
+    <button type="button" class="dashboard-card__arrow" aria-label="Open dashboard">
+      <svg
+        class="dashboard-card__arrow-icon"
+        viewBox="0 0 24 24"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M5 12H19M19 12L13 6M19 12L13 18"
+          stroke="currentColor"
+          stroke-width="2.6"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </button>
 
+    <div class="dashboard-card__title">DASHBOARD</div>
+  </div>
+
+  <div class="dashboard-card__content">
+    <app-heatmap-small
+      class="dashboard-card__heatmap"
+      [layout]="'portrait'"
+      [days]="28"
+    ></app-heatmap-small>
+  </div>
 </div>

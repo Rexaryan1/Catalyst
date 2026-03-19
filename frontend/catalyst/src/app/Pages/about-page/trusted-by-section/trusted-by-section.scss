@@ -53,22 +53,14 @@
 
 .logo-item {
   flex: 0 0 auto;
-  width: 180px;
-  height: 88px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(70, 103, 93, 0.35);
-  background: rgba(255, 255, 255, 0.02);
-  border-radius: 20px;
-  backdrop-filter: blur(8px);
 }
 
 .logo-item img {
-  max-width: 120px;
-  max-height: 42px;
+  height: 62px;   // slightly bigger than the old 42px max-height
   width: auto;
-  height: auto;
   object-fit: contain;
   opacity: 0.9;
   filter: grayscale(1) brightness(1.2);
@@ -97,14 +89,9 @@
     animation-duration: 24s;
   }
 
-  .logo-item {
-    width: 140px;
-    height: 76px;
-    border-radius: 16px;
-  }
+
 
   .logo-item img {
-    max-width: 96px;
-    max-height: 36px;
+    height: 44px;
   }
 }
