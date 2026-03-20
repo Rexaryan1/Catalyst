@@ -38,31 +38,6 @@ $font-secondary: "AlbertSans-Bold", sans-serif;
   align-items: center;
   padding: clamp(32px, 6vw, 100px);
 
-
-
-
-  //&__content {
-  //  max-width: 400px;
-  //  margin-top: 80px; // Push down slightly to match design
-  //}
-  //
-  //&__title {
-  //  font-family: $font-bold;
-  //  font-size: 39px;
-  //  line-height: 47px;
-  //  margin-bottom: 24px;
-  //}
-  //
-  //&__text {
-  //  font-size: 16px;
-  //  line-height: 28px;
-  //  margin-bottom: 48px;
-  //  opacity: 0.9;
-  //}
-  //
-  //&__slider {
-  //  width: 92px;
-  //}
 }
 
 .signup-hero__content {
@@ -325,6 +300,10 @@ button.btn:nth-child(2) > img:nth-child(1) {
   color: $color-text-grey;
 }
 
-
-
+.signup-hero{
+// Hide on mobile
+    @media (max-width: 829px) {
+      display: none;
+    }
+}
 

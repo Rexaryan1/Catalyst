@@ -7,7 +7,6 @@ import {
 } from "@pages/landing-page/landing-dashboard-card/landing-dashboard-card.component";
 import { QuickAccessComponent } from "@pages/landing-page/quick-access/quick-access.component";
 import { DataManagerService } from '@services/data-manager/data-manager.service';
-
 @Component({
   selector: 'dashboard',
   standalone: true,

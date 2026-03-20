@@ -57,7 +57,7 @@ h1 {
 }
 
 .top-right-section {
-  flex: 1 1 clamp(200px, 20%, 300px);
+  flex: 1 4 clamp(200px, 10%, 300px);
   padding: 1rem;
   // margin-bottom: clamp(1rem, 3vw, 2.5rem);
   // margin-top: clamp(0vw, 3vw, 1.5rem);
@@ -85,7 +85,7 @@ h1 {
 
 .hero-subtitle {
   font-family: 'Albert Sans', sans-serif;
-  color: #F7F6F3;
+  color: #656565;
   font-weight: 100;
   font-size: 0.9rem;
   margin-bottom: 0.5rem;
