@@ -10,7 +10,7 @@
   cursor: pointer;
 
   display: grid;
-  grid-template-columns: clamp(110px, 28%, 180px) 1fr;
+  grid-template-columns: clamp(110px, 45%, 180px) 1fr;
   gap: clamp(12px, 2vw, 20px);
   align-items: end;
 
@@ -36,7 +36,6 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 10px;
 
   position: static;
   bottom: auto;
@@ -46,8 +45,8 @@
 .profile-summary-scores-flex {
   display: flex;
   flex-direction: row;
-  gap: 10px;
-  justify-content: space-between;
+  gap: 5px;
+  justify-content: space-evenly;
   flex-wrap: wrap;
 }
 
@@ -57,12 +56,12 @@
 }
 
 .welcome {
+
+  margin-top: 3rem;
   color: #eae9e5;
   text-align: left;
-  font-family: "Roboto-Light", sans-serif;
-  font-size: clamp(16px, 1.6vw, 24px);
-  font-weight: 300;
-  text-transform: lowercase;
+  font-size: clamp(12px, 1.2vw, 24px);
+  font-weight:300;
   width: auto;
   height: auto;
   display: flex;
@@ -87,6 +86,9 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
+
+
+  margin-bottom: 3rem;
 }
 
 
@@ -100,12 +102,3 @@
     max-height: 160px;
   }
 }
-
-//.summary-info{
-//  width: 265.34px;
-//  display: flex;
-//  flex-direction: column;
-//  position: absolute;
-//  bottom: 50px;
-//  left: 205px;
-//}
