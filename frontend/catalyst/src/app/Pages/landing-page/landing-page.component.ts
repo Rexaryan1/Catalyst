@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProfileSummaryComponent } from "@components/cards/profile-summary/profile-summary.component";
+import { ProfileSummaryComponent } from "./profile-summary/profile-summary.component";
 import { RoadmapCardComponent } from "@pages/landing-page/roadmap-card/roadmap-card.component";
 import {
   LandingDashboardCardComponent
