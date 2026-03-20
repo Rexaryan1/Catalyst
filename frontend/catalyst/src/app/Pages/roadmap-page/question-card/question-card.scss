@@ -1,19 +1,17 @@
 .question-card {
   height: 100%;
   min-height: 0;
-
-  display: grid;
-  grid-template-rows: auto 1fr auto;
+  display: flex;
+  flex-direction: column;   // header, scrollable body, nav stacked vertically
 
   background: #2F2F2F;
   color: #EAE9E5;
-
   border: 1px solid rgba(247, 246, 243, 0.10);
   border-radius: 18px;
   overflow: hidden;
-
   box-shadow: 0 10px 26px rgba(0, 0, 0, 0.28);
 }
+
 
 .qc-header {
   display: flex;
@@ -34,13 +32,14 @@
 }
 
 .qc-body {
-  min-height: 0;
+  flex: 1;                  // takes all space between header and nav
+  min-height: 0;            // allows flex child to shrink below content size
+  overflow-y: auto;         // scrolls when content exceeds available space
   padding: 16px;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
+  display: flex;
+  flex-direction: column;
   gap: 14px;
 }
-
 .question-text {
   margin: 0;
   color: rgba(247, 246, 243, 0.96);
@@ -174,14 +173,15 @@
 }
 
 .nav-buttons {
+  flex-shrink: 0;           // never shrinks — always fully visible
   padding: 14px 16px;
   display: grid;
   grid-template-columns: 1fr 1.2fr 1fr;
   gap: 10px;
-
   border-top: 1px solid rgba(247, 246, 243, 0.08);
   background: rgba(255, 255, 255, 0.02);
 }
+
 
 .btn {
   height: 42px;
@@ -323,4 +323,18 @@ display: flex;
 .analysis-menu{
   display: flex;
   gap: 10px;
+}
+
+.answered-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.65rem;
+  border-radius: 4px;
+  border: 1px solid rgba(74, 222, 128, 0.35);
+  background: rgba(74, 222, 128, 0.1);
+  color: #4ade80;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
