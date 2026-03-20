@@ -46,21 +46,21 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
-  gap: clamp(1rem, 3vw, 2.5rem);
+  column-gap: clamp(1rem, 3vw, 2.5rem);
   padding-top: 1.5rem;
 }
 
 .top-left-section {
   flex: 1 1 clamp(280px, 75%, 700px);
   padding: 1rem;
-  margin-bottom: clamp(1rem, 3vw, 2.5rem);
+  // margin-bottom: clamp(1rem, 3vw, 2.5rem);
 }
 
 .top-right-section {
   flex: 1 1 clamp(200px, 20%, 300px);
   padding: 1rem;
-  margin-bottom: clamp(1rem, 3vw, 2.5rem);
-  margin-top: clamp(0vw, 3vw, 1.5rem);
+  // margin-bottom: clamp(1rem, 3vw, 2.5rem);
+  // margin-top: clamp(0vw, 3vw, 1.5rem);
 }
 
 @media (max-width: 768px) {
@@ -77,7 +77,7 @@ h1 {
   text-align: left;
   font-weight: 400;
   font-size: clamp(2rem, 5vw, 4rem);
-  margin-bottom: 0.5rem;
+  margin-left: 3rem;
   line-height: 114%;
   letter-spacing: -0.06em;
   width: 100%;

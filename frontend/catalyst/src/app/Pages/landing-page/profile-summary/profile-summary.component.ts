@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ScoreCardComponent } from "@components/cards/profile-summary/score-card/score-card.component";
+import { ScoreCardComponent } from "./score-card/score-card.component";
 import { DataManagerService } from '@services/data-manager/data-manager.service';
 
 @Component({
