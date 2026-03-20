@@ -1,29 +1,70 @@
-<div class="heatmap-shell">
-  <div class="heatmap">
-    <div class="labels" aria-hidden="true">
-      <div class="label" *ngFor="let w of weekdayLabels">{{ w }}</div>
-    </div>
+<div
+  class="heatmap"
+  [class.heatmap--portrait]="layout === 'portrait'"
+  [class.heatmap--landscape]="layout === 'landscape'"
+>
+  <ng-container *ngIf="layout === 'portrait'; else landscapeTemplate">
+    <div class="heatmap__grid">
+      <ng-container *ngFor="let row of portraitRows; trackBy: trackByIndex">
+        <div class="heatmap__label">
+          {{ row.label }}
+        </div>
 
-    <div
-      class="grid"
-      role="grid"
-      [style.--cols]="columns"
-      [attr.aria-label]="'Submission heatmap for last ' + days + ' days'"
-    >
-      <div
-        *ngFor="let c of cells; let i = index; trackBy: trackByIndex"
-        class="cell"
-        role="gridcell"
-        [class.is-empty]="!c.iso"
-        [class.l0]="c.level === 0"
-        [class.l1]="c.level === 1"
-        [class.l2]="c.level === 2"
-        [class.l3]="c.level === 3"
-        [class.l4]="c.level === 4"
-        [class.l5]="c.level === 5"
-        [attr.aria-label]="cellAriaLabel(c)"
-        [attr.title]="c.iso ? (c.iso + ' • ' + c.count + ' submissions') : ''"
-      ></div>
+        <button
+          *ngFor="let cell of row.cells; trackBy: trackByIndex"
+          type="button"
+          class="heatmap__cell"
+          [class.heatmap__cell--empty]="!cell.iso"
+          [class.heatmap__cell--lvl-0]="cell.level === 0"
+          [class.heatmap__cell--lvl-1]="cell.level === 1"
+          [class.heatmap__cell--lvl-2]="cell.level === 2"
+          [class.heatmap__cell--lvl-3]="cell.level === 3"
+          [class.heatmap__cell--lvl-4]="cell.level === 4"
+          [attr.aria-label]="cellAriaLabel(cell)"
+          [attr.title]="cell.iso ? (cell.tooltipDate + ' • ' + cell.tooltipText) : null"
+          [attr.tabindex]="cell.iso ? 0 : -1"
+          [disabled]="!cell.iso"
+        >
+          <span class="heatmap__tooltip" *ngIf="cell.iso">
+            <span class="heatmap__tooltip-date">{{ cell.tooltipDate }}</span>
+            <span class="heatmap__tooltip-meta">{{ cell.tooltipText }}</span>
+          </span>
+        </button>
+      </ng-container>
     </div>
-  </div>
+  </ng-container>
+
+  <ng-template #landscapeTemplate>
+    <div class="heatmap__grid">
+      <div
+        *ngFor="let day of weekdayLabels; trackBy: trackByIndex"
+        class="heatmap__label"
+      >
+        {{ day }}
+      </div>
+
+      <ng-container *ngFor="let week of weekRows; trackBy: trackByIndex">
+        <button
+          *ngFor="let cell of week; trackBy: trackByIndex"
+          type="button"
+          class="heatmap__cell"
+          [class.heatmap__cell--empty]="!cell.iso"
+          [class.heatmap__cell--lvl-0]="cell.level === 0"
+          [class.heatmap__cell--lvl-1]="cell.level === 1"
+          [class.heatmap__cell--lvl-2]="cell.level === 2"
+          [class.heatmap__cell--lvl-3]="cell.level === 3"
+          [class.heatmap__cell--lvl-4]="cell.level === 4"
+          [attr.aria-label]="cellAriaLabel(cell)"
+          [attr.title]="cell.iso ? (cell.tooltipDate + ' • ' + cell.tooltipText) : null"
+          [attr.tabindex]="cell.iso ? 0 : -1"
+          [disabled]="!cell.iso"
+        >
+          <span class="heatmap__tooltip" *ngIf="cell.iso">
+            <span class="heatmap__tooltip-date">{{ cell.tooltipDate }}</span>
+            <span class="heatmap__tooltip-meta">{{ cell.tooltipText }}</span>
+          </span>
+        </button>
+      </ng-container>
+    </div>
+  </ng-template>
 </div>

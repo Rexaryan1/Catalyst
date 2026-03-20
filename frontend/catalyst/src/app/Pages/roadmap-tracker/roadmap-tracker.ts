@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { DataManagerService } from '@services/data-manager/data-manager.service';
-import { Router } from '@angular/router';
-import { HttpParams } from '@angular/common/http';
+import {Component} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {DataManagerService} from '@services/data-manager/data-manager.service';
+import {Router} from '@angular/router';
+import {HttpParams} from '@angular/common/http';
 
 // Difficulty Level Enum
 export enum DifficultyLevel {
@@ -39,7 +39,8 @@ export class RoadmapTrackerComponent {
   constructor(
     private dataManager: DataManagerService,
     private router: Router
-  ) {}
+  ) {
+  }
 
   activeTab: string = 'in-progress'; // tabs are currently commented out (kept for later)
   searchTerm: string = '';
@@ -77,7 +78,7 @@ export class RoadmapTrackerComponent {
     };
 
     this.dataManager
-      .post('/roadmap/roadmap-list', payload, { withCredentials: true })
+      .post('/roadmap/roadmap-list', payload, {withCredentials: true})
       .subscribe({
         next: (res: any) => {
           this.processResponse(res);
@@ -117,20 +118,25 @@ export class RoadmapTrackerComponent {
     });
   }
 
-  onSearchChange(searchValue: string): void {
-    this.searchTerm = searchValue ?? '';
+  onSearchChange(event: Event): void {
+    const value = (event.target as HTMLInputElement | null)?.value ?? '';
+    this.searchTerm = value;
     this.offset = 0;
     this.fetchRoadmaps();
   }
 
-  onDifficultyChange(next: 'Easy' | 'Medium' | 'Hard' | null): void {
-    this.selectedDifficulty = next;
+  onDifficultyChange(event: Event): void {
+    const value = (event.target as HTMLSelectElement | null)?.value ?? '';
+    this.selectedDifficulty = value ? (value as 'Easy' | 'Medium' | 'Hard') : null;
     this.offset = 0;
     this.fetchRoadmaps();
   }
 
-  onSortChange(next: 'created_at_desc' | 'created_at_asc'): void {
-    this.selectedSort = next;
+  onSortChange(event: Event): void {
+    const value =
+      (event.target as HTMLSelectElement | null)?.value ?? 'created_at_desc';
+
+    this.selectedSort = value as 'created_at_desc' | 'created_at_asc';
     this.offset = 0;
     this.fetchRoadmaps();
   }
@@ -152,7 +158,7 @@ export class RoadmapTrackerComponent {
     const params = new HttpParams().set('roadmap_id', roadmapId);
 
     this.dataManager
-      .get('roadmap/get-roadmap', { withCredentials: true, params })
+      .get('roadmap/get-roadmap', {withCredentials: true, params})
       .subscribe({
         next: (res: any) => {
           this.dataManager.set('roadmap', res);

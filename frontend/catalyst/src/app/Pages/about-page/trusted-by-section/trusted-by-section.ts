@@ -18,12 +18,12 @@ interface UniversityLogo {
 })
 export class TrustedBySection {
   logos: UniversityLogo[] = [
-    {name: 'IIT Delhi', src: 'assets/universities/iit-delhi.svg', alt: 'IIT Delhi logo'},
-    {name: 'IIT Bombay', src: 'assets/universities/iit-bombay.svg', alt: 'IIT Bombay logo'},
-    {name: 'BITS Pilani', src: 'assets/universities/bits-pilani.svg', alt: 'BITS Pilani logo'},
-    {name: 'DTU', src: 'assets/universities/dtu.svg', alt: 'DTU logo'},
-    {name: 'NSUT', src: 'assets/universities/nsut.svg', alt: 'NSUT logo'},
-    {name: 'VIT', src: 'assets/universities/vit.svg', alt: 'VIT logo'},
+    {name: 'IIT Delhi', src: 'assets/universities/IITD.png', alt: 'IIT Delhi logo'},
+    {name: 'IIIT Delhi', src: 'assets/universities/IIITD.png', alt: 'IIT Bombay logo'},
+    {name: 'BITS Pilani', src: 'assets/universities/Washington.png', alt: 'BITS Pilani logo'},
+    {name: 'DTU', src: 'assets/universities/DTU.png', alt: 'DTU logo'},
+    {name: 'NSUT', src: 'assets/universities/Michigan.png', alt: 'NSUT logo'},
+    //{name: 'VIT', src: 'assets/universities/vit.svg', alt: 'VIT logo'},
   ];
 
 }

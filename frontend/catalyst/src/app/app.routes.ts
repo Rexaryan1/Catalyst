@@ -18,21 +18,23 @@ import { FooterSection } from "@pages/about-page/footer-section/footer-section";
 import { FeaturesGridSection } from "@pages/about-page/features-grid-section/features-grid-section";
 
 import { authGuard } from '@services/auth/auth.guard'
+import {HeatmapSmall} from '@components/cards/heatmap-small/heatmap-small';
+
 
 
 export const routes: Routes = [
   { path: '', redirectTo: '/landing', pathMatch: 'full' },
-  { path: 'home', component: LandingPage, data: { header: 'Home' }, canActivate: [authGuard] },
+  { path: 'home', component: LandingPage, data: { title: '' }, canActivate: [authGuard] },
   { path: 'landing', component: AboutPage },
   { path: 'register', component: MainPage, data: { header: 'Home' } },
   { path: 'prompt', component: RoadmapWizardComponent, data: { header: 'Home' } },
-  { path: 'dashboard', component: UserDashboardComponent, data: { header: 'Home' } },
+  { path: 'dashboard', component: UserDashboardComponent, data: { title: 'Your Learning, in Data' } },
   { path: 'userHome', component: UserProfileComponent, data: { header: 'Home' } },
-  { path: 'roadmap-tracker', component: RoadmapTrackerComponent, data: { header: 'Home' } },
+  { path: 'roadmap-tracker', component: RoadmapTrackerComponent, data: { title: "Roadmaps You've built" } },
   { path: 'roadmap', component: RoadmapPageComponent, data: { header: 'Home' } },
   { path: 'progress', component: ProgressDashboardComponent, data: { header: 'Home' } },
 
   // Preview for testing
-  { path: 'preview', component: AboutPage, data: { header: 'Testing Notifications' } },
+  { path: 'preview', component: HeatmapSmall, data: { header: 'Testing Notifications' } },
 
 ];
