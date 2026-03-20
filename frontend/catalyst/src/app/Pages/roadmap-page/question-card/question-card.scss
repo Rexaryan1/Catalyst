@@ -1,5 +1,5 @@
 .question-card {
-  height: 100%;
+  height: 88%;
   min-height: 0;
   display: flex;
   flex-direction: column;   // header, scrollable body, nav stacked vertically
@@ -9,8 +9,7 @@
   border: 1px solid rgba(247, 246, 243, 0.10);
   border-radius: 18px;
   overflow: hidden;
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.28);
-}
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.28);}
 
 
 .qc-header {
@@ -19,6 +18,8 @@
   padding: 14px 16px;
   border-bottom: 1px solid rgba(247, 246, 243, 0.08);
   background: rgba(255, 255, 255, 0.02);
+  flex-shrink: 0;           // never shrinks
+  min-height: 64px;
 }
 
 .qc-title {
@@ -32,7 +33,7 @@
 }
 
 .qc-body {
-  flex: 1;                  // takes all space between header and nav
+  flex: 1;                  // takes remaining space between header and nav
   min-height: 0;            // allows flex child to shrink below content size
   overflow-y: auto;         // scrolls when content exceeds available space
   padding: 16px;
@@ -180,6 +181,7 @@
   gap: 10px;
   border-top: 1px solid rgba(247, 246, 243, 0.08);
   background: rgba(255, 255, 255, 0.02);
+  min-height: 70px;
 }
 
 

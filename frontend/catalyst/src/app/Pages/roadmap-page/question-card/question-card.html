@@ -2,7 +2,7 @@
   <div class="qc-header">
     <div class="qc-title">Question</div>
     <div class="analysis-menu">
-      <div class="answered-badge" *ngIf="isSubmitted">Answered</div>
+      <div class="answered-badge" *ngIf="isSubmitted || wasPreAnswered">Answered</div>
       <button (click)="onSubmitClicked()" class="btn-submit">
         Submit for analysis
       </button>
