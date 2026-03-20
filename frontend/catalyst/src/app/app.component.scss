@@ -1,10 +1,22 @@
 :host {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+
+  // router-outlet renders nothing itself — its next rendered sibling
+  // is the active page component, which should grow to fill remaining space
+  router-outlet + * {
+    flex: 1 0 auto;
+  }
+
+  app-footer {
+    flex-shrink: 0;
+    margin-top: auto;
+  }
 }
 
 #overlay {
   display: none;
-  /* Hidden by default */
   position: fixed;
   top: 0;
   left: 0;

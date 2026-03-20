@@ -1,18 +1,19 @@
-import {Component, OnInit, signal} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {TopicTag} from "./topic-tag/topic-tag";
-import {DonutChart} from "./charts/donut-chart/donut-chart";
-import {DataManagerService} from '@services/data-manager/data-manager.service';
-import {Router} from '@angular/router';
-import {HttpParams} from '@angular/common/http';
-import {Roadmap, DifficultyLevel} from '@app/Pages/roadmap-tracker/roadmap-tracker';
-import {HeatmapSmall} from '@components/cards/heatmap-small/heatmap-small';
+import { Component, OnInit, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TopicTag } from "./topic-tag/topic-tag";
+import { DonutChart } from "./donut-chart/donut-chart";
+import { DataManagerService } from '@services/data-manager/data-manager.service';
+import { Router } from '@angular/router';
+import { HttpParams } from '@angular/common/http';
+import { Roadmap, DifficultyLevel } from '@app/Pages/roadmap-tracker/roadmap-tracker';
+import { HeatmapSmall } from '@components/cards/heatmap-small/heatmap-small';
 
 export interface DashboardData {
   current_streak: number;
   max_streak: number;
   accuracy_pct: number;
   avg_time_seconds: number;
+  total_correct: number;
   difficulty_breakdown: { easy: number; medium: number; hard: number };
   heatmap: HeatmapEntry[];
 }
@@ -32,8 +33,7 @@ export interface HeatmapEntry {
 export class UserDashboardComponent implements OnInit {
   isMonthDropdownOpen = false;
 
-  currentMonthName = new Date().toLocaleString('default', {month: 'short'}).toUpperCase();
-
+  currentMonthName = new Date().toLocaleString('default', { month: 'short' }).toUpperCase();
   months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   strongZones: string[] = ['JavaScript', 'CSS', 'Angular'];
 
@@ -45,8 +45,7 @@ export class UserDashboardComponent implements OnInit {
   constructor(
     private dataManagerService: DataManagerService,
     private router: Router
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.loadDashboard();
@@ -60,7 +59,7 @@ export class UserDashboardComponent implements OnInit {
       this.isLoading.set(false);
       return;
     }
-    this.dataManagerService.get('api/user/dashboard', {withCredentials: true}).subscribe({
+    this.dataManagerService.get('api/user/dashboard', { withCredentials: true }).subscribe({
       next: (response: any) => {
         const result = response.result;
         this.dataManagerService.set('dashboard', result);
@@ -79,11 +78,11 @@ export class UserDashboardComponent implements OnInit {
     const payload = {
       search: '',
       filters: {},
-      sort: [{field: 'created_at', order: 'desc'}],
+      sort: [{ field: 'created_at', order: 'desc' }],
       limit: 5,
       offset: 0
     };
-    this.dataManagerService.post<any>('/roadmap/roadmap-list', payload, {withCredentials: true})
+    this.dataManagerService.post<any>('/roadmap/roadmap-list', payload, { withCredentials: true })
       .subscribe({
         next: (res: any) => {
           this.roadmaps.set(
@@ -107,7 +106,7 @@ export class UserDashboardComponent implements OnInit {
     const roadmapId = roadmap.roadmapId ?? roadmap.id;
     if (!roadmapId) return;
     const params = new HttpParams().set('roadmap_id', roadmapId);
-    this.dataManagerService.get('roadmap/get-roadmap', {withCredentials: true, params})
+    this.dataManagerService.get('roadmap/get-roadmap', { withCredentials: true, params })
       .subscribe({
         next: (res: any) => {
           this.dataManagerService.set('roadmap', res);

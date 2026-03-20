@@ -1,0 +1,55 @@
+
+<div class="donut-wrapper">
+
+  <!-- SVG Chart -->
+  <div class="chart-area">
+    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="donut-svg">
+
+      <!-- Segments -->
+      <g>
+        <path
+          *ngFor="let seg of segments(); let i = index"
+          [attr.d]="seg.path"
+          [attr.fill]="seg.color"
+          class="segment"
+          [class.hovered]="hoveredIndex() === i"
+          (mouseenter)="onHover(i)"
+          (mouseleave)="onLeave()"
+        />
+      </g>
+
+      <!-- Hover tooltip label inside chart -->
+      <g *ngIf="hoveredIndex() !== null" class="hover-label" style="pointer-events:none">
+        <text x="100" y="95" class="hover-label-value">
+          {{ segments()[hoveredIndex()!].value }}
+        </text>
+        <text x="100" y="112" class="hover-label-sub">
+          {{ segments()[hoveredIndex()!].label }}
+        </text>
+      </g>
+
+      <!-- Centre text: total solved -->
+      <g *ngIf="hoveredIndex() === null" class="center-text">
+        <text x="100" y="96" class="center-heading">{{ total() }}</text>
+        <text x="100" y="113" class="center-subheading">Solved</text>
+      </g>
+
+    </svg>
+  </div>
+
+  <!-- Legend -->
+  <div class="legend">
+    <div
+      *ngFor="let seg of segments(); let i = index"
+      class="legend-item"
+      [class.dimmed]="hoveredIndex() !== null && hoveredIndex() !== i"
+      (mouseenter)="onHover(i)"
+      (mouseleave)="onLeave()"
+    >
+      <span class="legend-line" [style.background-color]="seg.color"></span>
+      <span class="legend-label">{{ seg.label }}</span>
+      <span class="legend-value">{{ seg.value }} Solved</span>
+    </div>
+  </div>
+
+</div>
