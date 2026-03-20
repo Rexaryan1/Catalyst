@@ -30,6 +30,7 @@ export class QuestionCard implements OnChanges, OnDestroy {
   isSubmitted = false;
   isCorrect: boolean | null = null;
   elapsedSeconds = 0;
+  wasPreAnswered = false;
 
   private timerSubscription: Subscription | null = null;
 
@@ -48,6 +49,7 @@ export class QuestionCard implements OnChanges, OnDestroy {
       this.stopTimer();
       this.elapsedSeconds = 0;
       this.startTimer();
+      this.wasPreAnswered = this.question?.status === 'answered';
     }
   }
 

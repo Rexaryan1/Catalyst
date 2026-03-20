@@ -31,7 +31,11 @@ export const routes: Routes = [
   { path: 'dashboard', component: UserDashboardComponent, data: { title: 'Your Learning, in Data' } },
   { path: 'userHome', component: UserProfileComponent, data: { header: 'Home' } },
   { path: 'roadmap-tracker', component: RoadmapTrackerComponent, data: { title: "Roadmaps You've built" } },
+<<<<<<< roadmap
+  { path: 'roadmap', component: RoadmapPageComponent, data: { title: "Let's get cracking!" } },
+=======
   { path: 'roadmap', component: RoadmapPageComponent, data: { header: 'Home' } },
+>>>>>>> main
   { path: 'progress', component: ProgressDashboardComponent, data: { header: 'Home' } },
 
   // Preview for testing
