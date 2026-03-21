@@ -25,8 +25,8 @@ import {DonutChart} from "@pages/user-dashboard/donut-chart/donut-chart";
 
 export const routes: Routes = [
   { path: '', redirectTo: '/landing', pathMatch: 'full' },
-  { path: 'home', component: LandingPage, data: { title: '' }, canActivate: [authGuard] },
   { path: 'landing', component: AboutPage },
+  { path: 'home', component: LandingPage, data: { title: '' }, canActivate: [authGuard] },
   { path: 'register', component: MainPage, data: { header: 'Home' } },
   { path: 'prompt', component: RoadmapWizardComponent, data: { header: 'Home' } },
   { path: 'dashboard', component: UserDashboardComponent, data: { title: 'Your Learning, in Data' } },
