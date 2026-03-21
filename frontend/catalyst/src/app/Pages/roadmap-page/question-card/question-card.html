@@ -2,6 +2,7 @@
   <div class="qc-header">
     <div class="qc-title">Question</div>
     <div class="analysis-menu">
+      <div class="answered-badge" *ngIf="isSubmitted || wasPreAnswered">Answered</div>
       <button (click)="onSubmitClicked()" class="btn-submit">
         Submit for analysis
       </button>
@@ -11,6 +12,7 @@
       </div>
     </div>
   </div>
+
 
   <div class="qc-body">
     <p class="question-text">{{ q.question_text }}</p>
@@ -33,11 +35,11 @@
     </div>
 
     <div class="feedback" *ngIf="isSubmitted">
-      <p @if(isCorrect) class="feedback-correct">Correct!</p>
-      <p *ngIf="isCorrect === false" class="feedback-incorrect">
-        Incorrect. Correct answer: {{ q.options[q.correct_index] }}
-      </p>
-    </div>
+  <p *ngIf="isCorrect === true" class="feedback-correct">Correct!</p>
+  <p *ngIf="isCorrect === false" class="feedback-incorrect">
+    Incorrect. Correct answer: {{ q.options[q.correct_index] }}
+  </p>
+</div>
   </div>
 
   <div class="nav-buttons">
