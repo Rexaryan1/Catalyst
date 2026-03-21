@@ -13,7 +13,6 @@ import {RoadmapItemComponent} from "@components/cards/roadmap-item/roadmap-item.
   styleUrls: ['./roadmap-list.component.scss']
 })
 export class RoadmapListComponent implements OnInit, OnDestroy {
-  activeQuestionId: string | null = null;
   roadmapItems: RoadmapItem[] = [];
   private destroy$ = new Subject<void>();
   @Output() questionSelected = new EventEmitter<{roadmapId: string; questions: Question[]; index: number }>();
@@ -41,7 +40,6 @@ export class RoadmapListComponent implements OnInit, OnDestroy {
 
   onQuestionClick(event: { roadmapId: string, questionId: string }): void {
     console.log('Question clicked:', event);
-    this.activeQuestionId = event.questionId;
     const item = this.roadmapItems.find(i => i.id === event.roadmapId);
     if (!item) return;
 
