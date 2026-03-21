@@ -62,65 +62,64 @@ export class RoadmapPageComponent {
   }
 
   onQuestionSelected(event: { roadmapId: string; questions: Question[]; index: number }): void {
-  const isNewBlock = this.activeBlockId !== event.roadmapId;
+    const isNewBlock = this.activeBlockId !== event.roadmapId;
 
-  if (isNewBlock) {
-    this.flushTiming();
-    // removed resetAttemptSession() — attempts persist across all blocks until submit
-    this.activeBlockId = event.roadmapId;
+    if (isNewBlock) {
+      this.flushTiming();
+      this.resetAttemptSession();
+      this.activeBlockId = event.roadmapId;
+    }
+
+    this.activeQuestions = event.questions ?? [];
+    this.setActiveIndex(event.index ?? 0);
   }
-
-  this.activeQuestions = event.questions ?? [];
-  this.setActiveIndex(event.index ?? 0);
-}
 
   onIndexChange(nextIndex: number): void {
     this.setActiveIndex(nextIndex);
   }
 
   onAnswered(e: { question_id: string; selected_index: number; answered_at: string }): void {
-  const timeTakenSeconds = this.getTimeSpentSeconds(e.question_id);
+    const timeTakenSeconds = this.getTimeSpentSeconds(e.question_id);
 
-  this.attemptsByQuestionId.set(e.question_id, {
-    question_id: e.question_id,
-    selected_index: e.selected_index,
-    answered_at: e.answered_at,
-    time_taken_seconds: timeTakenSeconds,
-  });
-
-  // propagate answered status back to the roadmap list
-  if (this.activeBlockId) {
-    this.roadmapService.markQuestionAnswered(this.activeBlockId, e.question_id);
+    this.attemptsByQuestionId.set(e.question_id, {
+      question_id: e.question_id,
+      selected_index: e.selected_index,
+      answered_at: e.answered_at,
+      time_taken_seconds: timeTakenSeconds,
+    });
   }
-}
 
   submitForAnalysis(): void {
-  const roadmapUuid = this.roadmapService.getRoadmapId();
-  if (!roadmapUuid) {
-    alert('Missing roadmap_id (UUID). Generate/select a roadmap again.');
-    return;
-  }
+    const roadmapUuid = this.roadmapService.getRoadmapId();
 
-  this.flushTiming();
-  const attempts: AttemptDraft[] = Array.from(this.attemptsByQuestionId.values());
-
-  const payload = {
-    roadmap_id: roadmapUuid,
-    submitted_at: new Date().toISOString(),
-    attempts,
-  };
-
-  this.dataManager.post<any>('practice/saveAttempts', payload, { withCredentials: true }).subscribe({
-    next: (res) => {
-      this.dataManager.set('practiceReport', res);
-      this.displayManager.open(ProgressDashboardComponent, { inputs: { data: res.data } });
-      this.resetAttemptSession(); // reset only on successful submit
-    },
-    error: (err) => {
-      console.error('Submit failed:', err);
+    if (!roadmapUuid) {
+      alert('Missing roadmap_id (UUID). Generate/select a roadmap again.');
+      return;
     }
-  });
-}
+
+    this.flushTiming();
+
+    const attempts: AttemptDraft[] = Array.from(this.attemptsByQuestionId.values());
+
+    const payload = {
+      roadmap_id: roadmapUuid,
+      submitted_at: new Date().toISOString(),
+      attempts,
+    };
+
+    this.dataManager.post<any>('practice/saveAttempts', payload, { withCredentials: true }).subscribe({
+      next: (res) => {
+        // Store full response so any component can use snapshot/select.
+        this.dataManager.set('practiceReport', res);
+        this.displayManager.open(ProgressDashboardComponent, { inputs: { data: res.data } });
+        console.log('Submitted for analysis:', res);
+        //console.log(this.dataManager.snapshot('practiceReport'));
+      },
+      error: (err) => {
+        console.error('Submit failed:', err);
+      }
+    });
+  }
 
   private setActiveIndex(nextIndex: number): void {
     if (!this.activeQuestions?.length) return;

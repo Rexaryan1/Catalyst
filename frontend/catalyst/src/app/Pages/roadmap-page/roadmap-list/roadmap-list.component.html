@@ -5,11 +5,11 @@
         <app-roadmap-item
           *ngFor="let item of roadmapItems"
           [roadmapItem]="item"
-          [activeQuestionId]="activeQuestionId"
           (saveToggle)="onSaveToggle($event)"
           (questionClick)="onQuestionClick($event)"
           (questionBookmark)="onQuestionBookmark($event)"
           (toggleExpansion)="onToggleExpansion($event)">
+          (titleClick)="onTitleClick($event)">
         </app-roadmap-item>
       </div>
     </div>
