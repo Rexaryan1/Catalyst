@@ -1,127 +1,133 @@
 <div class="dashboard-grid">
-    <div class="summary-skills grid-item">
-        <div class="sub-item">
-            <h4>Summary</h4>
-            <div class="icons-row">
-                <div class="icon-label">
-                    <img src="assets/icons/blue_circle.svg" class="icon-large" alt="Streak icon">
-                    <span>Streak</span>
-                </div>
-                <p>{{ dashboard()?.current_streak ?? '—' }}</p>
-            </div>
-            <div class="icons-row">
-                <div class="icon-label">
-                    <img src="assets/icons/pink_triangle.svg" class="icon-large" alt="Delta icon">
-                    <span>Delta</span>
-                </div>
-                <p>{{ dashboard()?.accuracy_pct ?? '—' }}</p>
-            </div>
-            <div class="icons-row">
-                <div class="icon-label">
-                    <img src="assets/icons/yellow_square.svg" class="icon-large" alt="XP icon">
-                    <span>XP Points</span>
-                </div>
-                <p>{{ dashboard()?.max_streak ?? '—' }}</p>
-            </div>
+
+  <!-- ── Col 1 / Row 1–2: Summary + Skills ── -->
+  <div class="summary-skills grid-item">
+    <div class="sub-item">
+      <h4>Summary</h4>
+      <div class="icons-row">
+        <div class="icon-label">
+          <img src="assets/icons/yellow_square.svg" class="icon-large" alt="Streak icon">
+          <span>Streak</span>
         </div>
-
-        <div class="sub-item">
-            <h4>Skills</h4>
-            <h6>Strong Zones</h6>
-            <div class="topic-tags-container">
-                <topic-tag *ngFor="let zone of strongZones" [topic]="zone" />
-            </div>
-            <h6>Growth Areas</h6>
-            <div class="topic-tags-container">
-                <topic-tag *ngFor="let zone of strongZones" [topic]="zone" />
-            </div>
+        <p>{{ dashboard()?.current_streak ?? '—' }}</p>
+      </div>
+      <div class="icons-row">
+        <div class="icon-label">
+          <img src="assets/icons/blue_circle.svg" class="icon-large" alt="Accuracy icon">
+          <span>Accuracy</span>
         </div>
-    </div>
-
-    <div class="grid-item highlights">
-        <h3>Highlights</h3>
-        <donut-chart />
-    </div>
-
-    <div class="grid-item progress-overview">
-
-  <div class="po-left">
-    <div class="po-header">
-      <div class="po-month-dropdown" (click)="isMonthDropdownOpen = !isMonthDropdownOpen">
-        <span class="po-month-label">{{ currentMonthName }}</span>
-        <svg class="po-chevron" [class.open]="isMonthDropdownOpen"
-             width="12" height="12" viewBox="0 0 12 12" fill="none">
-          <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="1.5"
-                stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <div class="po-dropdown-menu" *ngIf="isMonthDropdownOpen">
-          <div class="po-dropdown-item po-dropdown-coming-soon">
-            Previous months coming soon
-          </div>
-          <div *ngFor="let month of months"
-               class="po-dropdown-item po-dropdown-item--disabled">
-            {{ month }}
-          </div>
+        <p>{{ dashboard()?.accuracy_pct != null ? (dashboard()!.accuracy_pct | number:'1.0-1') + '%' : '—' }}</p>
+      </div>
+      <div class="icons-row">
+        <div class="icon-label">
+          <img src="assets/icons/pink_triangle.svg" class="icon-large" alt="Avg time icon">
+          <span>Avg Time</span>
         </div>
+        <p>{{ dashboard()?.avg_time_seconds != null ? (dashboard()!.avg_time_seconds | number:'1.0-1') + 's' : '—' }}</p>
       </div>
     </div>
 
-    <div class="po-divider"></div>
-
-    <div class="po-stats">
-      <div class="po-stat">
-        <span class="po-stat-label">Total active days</span>
-        <span class="po-stat-value">{{ dashboard()?.current_streak ?? '—' }}</span>
+    <div class="sub-item">
+      <h4>Skills</h4>
+      <h6>Strong Zones</h6>
+      <div class="topic-tags-container">
+        <topic-tag *ngFor="let zone of strongZones" [topic]="zone" />
       </div>
-      <div class="po-stat">
-        <span class="po-stat-label">Max Streak</span>
-        <span class="po-stat-value">{{ dashboard()?.max_streak ?? '—' }}</span>
+      <h6>Growth Areas</h6>
+      <div class="topic-tags-container">
+        <topic-tag *ngFor="let zone of strongZones" [topic]="zone" />
       </div>
     </div>
   </div>
 
-  <div class="po-right">
-    <app-heatmap-small [layout]="'landscape'" />
+  <!-- ── Col 2–3 / Row 1: Highlights + Donut Chart ── -->
+  <div class="grid-item highlights">
+    <h3>Highlights</h3>
+    <donut-chart />
   </div>
 
-</div>
+  <!-- ── Col 4–6 / Row 1: Progress Overview ── -->
+  <div class="grid-item progress-overview">
 
-    <div class="grid-item roadmaps">
-        <div class="roadmaps-header">
-            <h3>Roadmaps</h3>
-<!--            <button class="roadmaps-nav-btn" [routerLink]="['/roadmap-tracker']">→</button>-->
-        </div>
-
-        <div class="roadmap-list">
-            <div
-                *ngFor="let roadmap of roadmaps()"
-                class="roadmap-row"
-                (click)="onRoadmapClick(roadmap)">
-                <div class="roadmap-row-left">
-                    <svg class="progress-ring" width="28" height="28" viewBox="0 0 64 64">
-                        <circle cx="32" cy="32" r="28" fill="none" stroke="#444" stroke-width="6"/>
-                        <circle
-                            cx="32" cy="32" r="28"
-                            fill="none" stroke="#ffffff" stroke-width="6"
-                            stroke-linecap="round"
-                            [attr.stroke-dasharray]="getCircumference()"
-                            [attr.stroke-dashoffset]="getCircleStrokeDashoffset(roadmap.completion)"
-                            transform="rotate(-90 32 32)"/>
-                    </svg>
-                    <span class="roadmap-title">#{{ roadmap.title  }}</span>
-                </div>
-                <div class="roadmap-row-right">
-                    <span class="roadmap-pct">{{ roadmap.completion }}%</span>
-                    <span class="roadmap-arrow">⟶</span>
-                </div>
+    <div class="po-left">
+      <div class="po-header">
+        <div class="po-month-dropdown" (click)="isMonthDropdownOpen = !isMonthDropdownOpen">
+          <span class="po-month-label">{{ currentMonthName }}</span>
+          <svg class="po-chevron" [class.open]="isMonthDropdownOpen"
+               width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="1.5"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div class="po-dropdown-menu" *ngIf="isMonthDropdownOpen">
+            <div class="po-dropdown-item po-dropdown-coming-soon">
+              Previous months coming soon
             </div>
-
-            <p *ngIf="roadmaps().length === 0" class="roadmaps-empty">No roadmaps yet.</p>
+            <div *ngFor="let month of months"
+                 class="po-dropdown-item po-dropdown-item--disabled">
+              {{ month }}
+            </div>
+          </div>
         </div>
+      </div>
+
+      <div class="po-divider"></div>
+
+      <div class="po-stats">
+        <div class="po-stat">
+          <span class="po-stat-label">Total active days</span>
+          <span class="po-stat-value">{{ dashboard()?.current_streak ?? '—' }}</span>
+        </div>
+        <div class="po-stat">
+          <span class="po-stat-label">Max Streak</span>
+          <span class="po-stat-value">{{ dashboard()?.max_streak ?? '—' }}</span>
+        </div>
+      </div>
     </div>
 
-    <div class="grid-item unknown">
-        <h3>Upcoming Events</h3>
-        <p>Competitions and mock quizzes coming soon</p>
+    <div class="po-right">
+      <app-heatmap-small [layout]="'landscape'" />
     </div>
+
+  </div>
+
+  <!-- ── Col 2–4 / Row 2: Roadmaps ── -->
+  <div class="grid-item roadmaps">
+    <div class="roadmaps-header">
+      <h3>Roadmaps</h3>
+    </div>
+
+    <div class="roadmap-list">
+      <div
+        *ngFor="let roadmap of roadmaps()"
+        class="roadmap-row"
+        (click)="onRoadmapClick(roadmap)">
+        <div class="roadmap-row-left">
+          <svg class="progress-ring" width="28" height="28" viewBox="0 0 64 64">
+            <circle cx="32" cy="32" r="28" fill="none" stroke="#444" stroke-width="6"/>
+            <circle
+              cx="32" cy="32" r="28"
+              fill="none" stroke="#ffffff" stroke-width="6"
+              stroke-linecap="round"
+              [attr.stroke-dasharray]="getCircumference()"
+              [attr.stroke-dashoffset]="getCircleStrokeDashoffset(roadmap.completion)"
+              transform="rotate(-90 32 32)"/>
+          </svg>
+          <span class="roadmap-title">#{{ roadmap.title }}</span>
+        </div>
+        <div class="roadmap-row-right">
+          <span class="roadmap-pct">{{ roadmap.completion }}%</span>
+          <span class="roadmap-arrow">⟶</span>
+        </div>
+      </div>
+
+      <p *ngIf="roadmaps().length === 0" class="roadmaps-empty">No roadmaps yet.</p>
+    </div>
+  </div>
+
+  <!-- ── Col 5–6 / Row 2: Upcoming Events ── -->
+  <div class="grid-item unknown">
+    <h3>Upcoming Events</h3>
+    <p>Competitions and mock quizzes coming soon</p>
+  </div>
+
 </div>

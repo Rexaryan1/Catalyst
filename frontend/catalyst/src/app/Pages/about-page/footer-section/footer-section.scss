@@ -56,6 +56,8 @@
   line-height: 1.6;
 }
 
+/* ── Subscribe form ─────────────────────────────────────────── */
+
 .footer-subscribe-form {
   width: min(620px, 100%);
   display: grid;
@@ -73,6 +75,7 @@
   background: rgba(255, 255, 255, 0.05);
   color: #eae9e5;
   outline: none;
+  transition: border-color 0.2s ease, background 0.2s ease;
 }
 
 .footer-subscribe-form input::placeholder {
@@ -84,6 +87,11 @@
   background: rgba(255, 255, 255, 0.08);
 }
 
+.footer-subscribe-form input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .footer-subscribe-form button {
   height: 52px;
   padding: 0 1.4rem;
@@ -92,13 +100,74 @@
   background: rgba(190, 220, 228, 0.12);
   color: #f5f7fb;
   cursor: pointer;
-  transition: transform 0.2s ease, background 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+  transition: transform 0.2s ease, background 0.2s ease, opacity 0.2s ease;
 }
 
-.footer-subscribe-form button:hover {
+.footer-subscribe-form button:hover:not(:disabled) {
   transform: translateY(-1px);
   background: rgba(190, 220, 228, 0.2);
 }
+
+.footer-subscribe-form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ── Spinner ────────────────────────────────────────────────── */
+
+.spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(245, 247, 251, 0.3);
+  border-top-color: #f5f7fb;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Toast ──────────────────────────────────────────────────── */
+
+.footer-toast {
+  font-size: 0.875rem;
+  padding: 0.5rem 1.25rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  animation: toast-in 0.25s ease;
+
+  &--success {
+    background: rgba(74, 222, 128, 0.12);
+    border-color: rgba(74, 222, 128, 0.3);
+    color: #86efac;
+  }
+
+  &--info {
+    background: rgba(190, 220, 228, 0.1);
+    border-color: rgba(190, 220, 228, 0.3);
+    color: #bedce4;
+  }
+
+  &--error {
+    background: rgba(248, 113, 113, 0.1);
+    border-color: rgba(248, 113, 113, 0.3);
+    color: #fca5a5;
+  }
+}
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Footer links ───────────────────────────────────────────── */
 
 .footer-links {
   grid-row: 3;
@@ -135,6 +204,8 @@
   color: #bedce4;
 }
 
+/* ── Responsive ─────────────────────────────────────────────── */
+
 @media (max-width: 900px) {
   .footer-section {
     aspect-ratio: auto;
@@ -162,6 +233,7 @@
 
   .footer-subscribe-form button {
     width: 100%;
+    justify-content: center;
   }
 
   .footer-links {

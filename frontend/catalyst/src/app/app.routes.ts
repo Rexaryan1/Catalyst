@@ -19,6 +19,7 @@ import { FeaturesGridSection } from "@pages/about-page/features-grid-section/fea
 
 import { authGuard } from '@services/auth/auth.guard'
 import {HeatmapSmall} from '@components/cards/heatmap-small/heatmap-small';
+import {DonutChart} from "@pages/user-dashboard/donut-chart/donut-chart";
 
 
 
@@ -31,10 +32,12 @@ export const routes: Routes = [
   { path: 'dashboard', component: UserDashboardComponent, data: { title: 'Your Learning, in Data' } },
   { path: 'userHome', component: UserProfileComponent, data: { header: 'Home' } },
   { path: 'roadmap-tracker', component: RoadmapTrackerComponent, data: { title: "Roadmaps You've built" } },
-  { path: 'roadmap', component: RoadmapPageComponent, data: { header: 'Home' } },
+
+  { path: 'roadmap', component: RoadmapPageComponent, data: { title: "Let's get cracking!" } },
+
   { path: 'progress', component: ProgressDashboardComponent, data: { header: 'Home' } },
 
   // Preview for testing
-  { path: 'preview', component: HeatmapSmall, data: { header: 'Testing Notifications' } },
+  { path: 'preview', component: DonutChart, data: { header: 'Testing Notifications' } },
 
 ];

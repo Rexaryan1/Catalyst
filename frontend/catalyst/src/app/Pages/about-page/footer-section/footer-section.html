@@ -11,14 +11,39 @@
         <h2>Ready to Rethink Learning?</h2>
         <p>Stay Updated. Subscribe to our newsletter</p>
 
-        <form class="footer-subscribe-form">
+        <form class="footer-subscribe-form" (ngSubmit)="onSubmit()" novalidate>
           <input
             type="email"
+            name="email"
+            [ngModel]="email()"
+            (ngModelChange)="email.set($event)"
             placeholder="Enter your email"
             aria-label="Email address"
+            [attr.aria-busy]="isLoading"
+            [disabled]="isLoading"
+            autocomplete="email"
           />
-          <button type="submit">Subscribe</button>
+          <button type="submit"
+                  [disabled]="isLoading"
+                  [attr.aria-label]="isLoading ? 'Subscribing…' : 'Subscribe'">
+            @if (isLoading) {
+              <span class="spinner" aria-hidden="true"></span>
+              <span>Subscribing…</span>
+            } @else {
+              <span>Subscribe</span>
+            }
+          </button>
         </form>
+        @if (toastMessage) {
+          <div
+            class="footer-toast"
+            [ngClass]="'footer-toast--' + toastType"
+            role="status"
+            aria-live="polite"
+          >
+            {{ toastMessage }}
+          </div>
+        }
       </div>
     </div>
   </div>
