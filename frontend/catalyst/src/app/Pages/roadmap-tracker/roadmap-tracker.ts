@@ -118,23 +118,22 @@ export class RoadmapTrackerComponent {
     });
   }
 
-  onSearchChange(event: Event): void {
-    const value = (event.target as HTMLInputElement | null)?.value ?? '';
+  onSearchChange(event: string): void {
+    const value = event ?? '';
     this.searchTerm = value;
     this.offset = 0;
     this.fetchRoadmaps();
   }
 
-  onDifficultyChange(event: Event): void {
-    const value = (event.target as HTMLSelectElement | null)?.value ?? '';
+  onDifficultyChange(event: string): void {
+    const value = event ?? '';
     this.selectedDifficulty = value ? (value as 'Easy' | 'Medium' | 'Hard') : null;
     this.offset = 0;
     this.fetchRoadmaps();
   }
 
-  onSortChange(event: Event): void {
-    const value =
-      (event.target as HTMLSelectElement | null)?.value ?? 'created_at_desc';
+  onSortChange(event: string): void {
+    const value = event ?? 'created_at_desc';
 
     this.selectedSort = value as 'created_at_desc' | 'created_at_asc';
     this.offset = 0;
