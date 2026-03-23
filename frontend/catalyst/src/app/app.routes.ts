@@ -32,9 +32,7 @@ export const routes: Routes = [
   { path: 'dashboard', component: UserDashboardComponent, data: { title: 'Your Learning, in Data' }, canActivate: [authGuard] },
   { path: 'userHome', component: UserProfileComponent, data: { header: 'Home' }, canActivate: [authGuard] },
   { path: 'roadmap-tracker', component: RoadmapTrackerComponent, data: { title: "Roadmaps You've built" }, canActivate: [authGuard] },
-
-  { path: 'roadmap', component: RoadmapPageComponent, data: { title: "Let's get cracking!" } },
-
+  { path: 'roadmap', component: RoadmapPageComponent, data: { title: "Let's get cracking!" }, canActivate: [authGuard] },
   { path: 'progress', component: ProgressDashboardComponent, data: { header: 'Home' }, canActivate: [authGuard] },
   
   
