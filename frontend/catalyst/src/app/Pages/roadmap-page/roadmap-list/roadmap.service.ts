@@ -134,16 +134,4 @@ export class RoadmapService {
     });
     this.roadmapItemsSubject.next(updatedItems);
   }
-
-  markQuestionAnswered(roadmapId: string, questionId: string): void {
-  const currentItems = this.roadmapItemsSubject.value;
-  const updatedItems = currentItems.map(item => {
-    if (item.id !== roadmapId) return item;
-    const updatedQuestions = item.questions.map(q =>
-      q.id === questionId ? { ...q, status: 'answered' } : q
-    );
-    return { ...item, questions: updatedQuestions };
-  });
-  this.roadmapItemsSubject.next(updatedItems);
-}
 }

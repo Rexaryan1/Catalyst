@@ -25,18 +25,19 @@ import {DonutChart} from "@pages/user-dashboard/donut-chart/donut-chart";
 
 export const routes: Routes = [
   { path: '', redirectTo: '/landing', pathMatch: 'full' },
-  { path: 'home', component: LandingPage, data: { title: '' }, canActivate: [authGuard] },
   { path: 'landing', component: AboutPage },
+  { path: 'home', component: LandingPage, data: { title: '' }, canActivate: [authGuard] },
   { path: 'register', component: MainPage, data: { header: 'Home' } },
-  { path: 'prompt', component: RoadmapWizardComponent, data: { header: 'Home' } },
-  { path: 'dashboard', component: UserDashboardComponent, data: { title: 'Your Learning, in Data' } },
-  { path: 'userHome', component: UserProfileComponent, data: { header: 'Home' } },
-  { path: 'roadmap-tracker', component: RoadmapTrackerComponent, data: { title: "Roadmaps You've built" } },
+  { path: 'prompt', component: RoadmapWizardComponent, data: { header: 'Home' },canActivate: [authGuard] },
+  { path: 'dashboard', component: UserDashboardComponent, data: { title: 'Your Learning, in Data' }, canActivate: [authGuard] },
+  { path: 'userHome', component: UserProfileComponent, data: { header: 'Home' }, canActivate: [authGuard] },
+  { path: 'roadmap-tracker', component: RoadmapTrackerComponent, data: { title: "Roadmaps You've built" }, canActivate: [authGuard] },
 
   { path: 'roadmap', component: RoadmapPageComponent, data: { title: "Let's get cracking!" } },
 
-  { path: 'progress', component: ProgressDashboardComponent, data: { header: 'Home' } },
-
+  { path: 'progress', component: ProgressDashboardComponent, data: { header: 'Home' }, canActivate: [authGuard] },
+  
+  
   // Preview for testing
   { path: 'preview', component: DonutChart, data: { header: 'Testing Notifications' } },
 

@@ -10,7 +10,7 @@
   cursor: pointer;
 
   display: grid;
-  grid-template-columns: clamp(110px, 45%, 180px) 1fr;
+  grid-template-columns: 0.6fr 1fr;
   gap: clamp(12px, 2vw, 20px);
   align-items: end;
 

@@ -26,8 +26,7 @@
 
           <div class="expand-icon" [class.rotated]="roadmapItem.isExpanded" aria-hidden="true">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M6 9L12 15L18 9" stroke="#ECECEC" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round"/>
+              <path d="M6 9L12 15L18 9" stroke="#ECECEC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
         </div>
@@ -58,19 +57,16 @@
       <div
         class="question-item"
         *ngFor="let question of roadmapItem.questions"
-        [class.active]="question.id === activeQuestionId"
         (click)="onQuestionClick(question)"
       >
         <div class="question-content">
-          <div class="question-title">
-            <span class="answered-dot" *ngIf="question.status === 'answered'"></span>
-            {{ getQuestionListTitle(question) }}
-          </div>
+          <div class="question-title">{{ getQuestionListTitle(question) }}</div>
           <div class="question-summary">{{ question.topic ?? '' }}</div>
+
           <div class="question-difficulty">
-    <span class="difficulty-text" [ngClass]="getDifficultyClass(question.difficulty)">
-      {{ question.difficulty }}
-    </span>
+            <span class="difficulty-text" [ngClass]="getDifficultyClass(question.difficulty)">
+              {{ question.difficulty }}
+            </span>
           </div>
         </div>
 

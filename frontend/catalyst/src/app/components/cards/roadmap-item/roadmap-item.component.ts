@@ -13,8 +13,6 @@ import { DataManagerService } from '@services/data-manager/data-manager.service'
 export class RoadmapItemComponent {
   constructor(private dataManager: DataManagerService) { }
 
-  @Input() activeQuestionId: string | null = null;
-
   @Input() roadmapItem!: RoadmapItem;
   @Output() saveToggle = new EventEmitter<string>();
   @Output() questionClick = new EventEmitter<{ roadmapId: string, questionId: string }>();

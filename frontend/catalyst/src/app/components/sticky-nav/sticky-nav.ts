@@ -26,7 +26,7 @@ export class StickyNav {
     { label: 'Solve', icon: 'assets/icons/solve.svg', route: '/roadmap-tracker' },
   ];
 
-  private readonly excludedRoutes = ['/register' , '/home' , '/preview', '/landing'];
+  private readonly excludedRoutes = ['/register' , '/home' , '/preview'];
 
   constructor(private router: Router) {
     this.router.events.subscribe(event => {

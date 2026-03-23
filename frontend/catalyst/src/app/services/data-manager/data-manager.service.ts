@@ -23,25 +23,10 @@ export class DataManagerService {
   constructor(private http: HttpClient, private router: Router) {
   }
 
-  private getCurrentPath(): string {
-    if (typeof window !== 'undefined' && window.location?.pathname) return window.location.pathname;
-    return this.router.url || '';
-  }
-
-  private isRegisterRoute(path: string): boolean {
-    return path === '/register';
-  }
 
   /** -------- Fetch user credentials and store JWT token -------- */
   public checkLoggedInStatus(): Promise<void> {
     return new Promise((resolve, reject) => {
-      const path = this.getCurrentPath();
-
-      if (this.isRegisterRoute(path)) {
-        resolve();
-        return;
-      }
-
       this.get('api/user', { withCredentials: true }).subscribe({
         next: (res: any) => {
           if (res.id) {
@@ -53,10 +38,6 @@ export class DataManagerService {
         error: (err) => {
           if (err.status === 401 || err.status === 403) {
             this.isUserLoggedIn.set(false);
-            const current = this.getCurrentPath();
-            if (!this.isRegisterRoute(current)) {
-              this.router.navigateByUrl('/register');
-            }
             resolve();
             return;
           }
