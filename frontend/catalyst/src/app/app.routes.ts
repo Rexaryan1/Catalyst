@@ -20,6 +20,7 @@ import { FeaturesGridSection } from "@pages/about-page/features-grid-section/fea
 import { authGuard } from '@services/auth/auth.guard'
 import {HeatmapSmall} from '@components/cards/heatmap-small/heatmap-small';
 import {DonutChart} from "@pages/user-dashboard/donut-chart/donut-chart";
+import {PromptPage} from "@pages/prompt-page/prompt-page" ;
 
 
 
@@ -28,15 +29,15 @@ export const routes: Routes = [
   { path: 'landing', component: AboutPage },
   { path: 'home', component: LandingPage, data: { title: '' }, canActivate: [authGuard] },
   { path: 'register', component: MainPage, data: { header: 'Home' } },
-  { path: 'prompt', component: RoadmapWizardComponent, data: { header: 'Home' },canActivate: [authGuard] },
+  { path: 'prompt', component: PromptPage, data: { title: 'Catalyst roadmap builder' },canActivate: [authGuard] },
   { path: 'dashboard', component: UserDashboardComponent, data: { title: 'Your Learning, in Data' }, canActivate: [authGuard] },
   { path: 'userHome', component: UserProfileComponent, data: { header: 'Home' }, canActivate: [authGuard] },
   { path: 'roadmap-tracker', component: RoadmapTrackerComponent, data: { title: "Roadmaps You've built" }, canActivate: [authGuard] },
   { path: 'roadmap', component: RoadmapPageComponent, data: { title: "Let's get cracking!" }, canActivate: [authGuard] },
   { path: 'progress', component: ProgressDashboardComponent, data: { header: 'Home' }, canActivate: [authGuard] },
-  
-  
+
+
   // Preview for testing
-  { path: 'preview', component: DonutChart, data: { header: 'Testing Notifications' } },
+  //{ path: 'preview', component: PromptPage, data: { header: 'Testing Notifications' } },
 
 ];
