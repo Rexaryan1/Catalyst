@@ -22,7 +22,7 @@ export class Header implements OnInit, OnDestroy{
   showNotifications = false;
   private routerSub!: Subscription;
   isVisible = false;
-  private readonly excludedRoutes = ['/register', '/landing'];
+  private readonly excludedRoutes = ['/register', '/landing' , '/prompt'];
 
   menuItems = [
     { label: 'notifications', icon: '../../assets/icons/notification-bing.svg', route: null ,  isHome: false , isNotif: true , isLogout: false },

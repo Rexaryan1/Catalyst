@@ -17,7 +17,8 @@ $c-border:    #3A3A3A;
 :host {
   --header-height: 88px;   // 56px content + 2×1rem padding
   --footer-height: 45px;
-  --page-height: calc(100vh - var(--header-height) - var(--footer-height));
+  --page-height: 100vh;
+  //--page-height: calc(100vh - var(--header-height) - var(--footer-height));
   display: block;
   height: var(--page-height);
   overflow: hidden;
@@ -545,4 +546,160 @@ button {
 .instructions{
   font-family: "erbaum";
   color: $c-accent;
+}
+
+
+// ── Floating prompt-page header ───────────────────────────────────────────────
+// Sits above the two-panel grid via position:fixed + z-index.
+// The grid content is NOT shifted — the header floats over it.
+
+$prompt-header-height: 72px;
+$prompt-header-btn-size: 50px;
+$prompt-header-icon-size: 40px;
+$prompt-header-catalyst-size: 50px;
+
+.prompt-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: $prompt-header-height;
+  z-index: 50;                          // above page content, below lottie overlay (9999)
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5vh 1.5rem;
+  // Glassmorphism feel — blends over both panels without blocking them
+  //background: linear-gradient(
+  //    to bottom,
+  //    rgba(#1F1F1F, 0.72) 0%,
+  //    rgba(#1F1F1F, 0.0) 100%
+  //);
+  //backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  pointer-events: none;                 // let clicks pass through the empty space
+}
+
+.prompt-header__left,
+.prompt-header__right {
+  pointer-events: all;                  // buttons are still clickable
+  display: flex;
+  align-items: center;
+}
+
+.prompt-header__right .menu {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin: 0;
+  padding: 0;
+}
+
+// Reuse header's .menu-btn, .menu-btn--icon, .menu-btn--home tokens
+// (already defined in header.scss — just set local sizing vars here)
+.prompt-header {
+  .menu-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: $prompt-header-btn-size;
+    height: $prompt-header-btn-size;
+    border-radius: 50%;
+    cursor: pointer;
+    text-decoration: none;
+    //transition: background-color 0.2s ease, transform 0.15s ease;
+    position: relative;
+
+    .menu-icon {
+      display: block;
+      object-fit: contain;
+    }
+
+    &:hover {
+      transform: scale(1.08);
+    }
+
+    // Tooltip
+    &[data-tooltip]::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: calc(-100% - 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.75);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 500;
+      white-space: nowrap;
+      padding: 3px 8px;
+      border-radius: 4px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.15s ease;
+      z-index: 200;
+    }
+
+    &[data-tooltip]:hover::after {
+      opacity: 1;
+    }
+  }
+
+  .menu-btn--icon {
+    background-color: white;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+
+    .menu-icon {
+      width: $prompt-header-icon-size;
+      height: $prompt-header-icon-size;
+    }
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.22);
+    }
+  }
+
+  .menu-btn--home {
+    background-color: transparent;
+    border: none;
+
+    .menu-icon {
+      width: $prompt-header-catalyst-size;
+      height: $prompt-header-catalyst-size;
+      border-radius: 6px;
+    }
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.08);
+    }
+  }
+
+  // Notification popup anchor — same pattern as header
+  .menu-item {
+    position: relative;
+    list-style: none;
+  }
+
+  .notif-popup-anchor {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    z-index: 100;
+  }
+
+  .notif-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 99;
+    background: transparent;
+  }
+}
+
+
+// ── Fix: progress bar should span full width of its container ─────────────────
+// Override the existing 60% width rule
+.progress-bar {
+  width: 100% !important;   // was 60% — now fills the full .progress-wrap div
+  border-radius: 4px;
+  overflow: hidden;
 }
