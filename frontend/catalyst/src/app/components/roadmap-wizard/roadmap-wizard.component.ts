@@ -2,7 +2,7 @@ import {Component, computed, signal, OnDestroy, CUSTOM_ELEMENTS_SCHEMA} from '@a
 import {FormBuilder, Validators, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {CommonModule, NgIf, NgSwitchCase} from "@angular/common";
 import {trigger, transition, style, animate, query, animateChild, group} from '@angular/animations';
-import {RoadmapRequest} from "@components/roadmap-wizard/roadmap-types.interface";
+import {RoadmapRequest} from "@pages/prompt-page/roadmap-types.interface";
 import {Graphic1Component} from "@components/roadmap-wizard/graphic-1/graphic-1.component";
 import {Graphic2Component} from "@components/roadmap-wizard/graphic-2/graphic-2.component";
 import {Graphic3Component} from "@components/roadmap-wizard/graphic-3/graphic-3.component";

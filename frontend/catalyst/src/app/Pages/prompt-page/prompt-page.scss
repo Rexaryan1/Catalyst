@@ -1,0 +1,548 @@
+@use '@angular/material' as mat;
+
+// ── Design tokens ────────────────────────────────────────────────────────────
+// Adjust these custom properties to match your app's global theme.
+// They mirror what was used in the original roadmap-wizard.
+$c-bg:        #2A2A2A;
+$c-surface:   #1F1F1F;
+$c-text:      #EAE9E5;
+$c-muted:     #858585;
+$c-accent:    var(--color-green);
+$c-accent-lt: #BEDCE4;
+$c-border:    #3A3A3A;
+
+// Heights provided by the layout — keep in sync with your shell component.
+// All arithmetic is done in CSS calc() so no value is ever hardcoded in a
+// place that would break if the shell changes.
+:host {
+  --header-height: 88px;   // 56px content + 2×1rem padding
+  --footer-height: 45px;
+  --page-height: calc(100vh - var(--header-height) - var(--footer-height));
+  display: block;
+  height: var(--page-height);
+  overflow: hidden;
+}
+
+// ── Material progress bar theme ──────────────────────────────────────────────
+mat-progress-bar {
+  --mat-progress-bar-active-indicator-color: var(--color-green);
+  --mat-progress-bar-track-color: #3A3A3A;
+}
+
+// ── Lottie overlay ───────────────────────────────────────────────────────────
+.lottie-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: $c-surface;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  flex-direction: column;
+}
+
+.lottie-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  max-width: 480px;
+  text-align: center;
+  padding: 2rem;
+}
+
+.lottie-message {
+  color: $c-text;
+  font-family: Erbaum, sans-serif;
+  font-size: 1.2rem;
+  margin: 0;
+  animation: fadeMessage 0.5s ease-in-out;
+}
+
+@keyframes fadeMessage {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.lottie-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.lottie-error-title {
+  color: $c-text;
+  font-family: Erbaum, sans-serif;
+  font-size: 1.4rem;
+  margin: 0;
+  font-weight: 600;
+}
+
+.lottie-error-body {
+  color: $c-muted;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0;
+  strong { color: $c-accent-lt; }
+}
+
+.lottie-dismiss-btn {
+  margin-top: 1rem;
+  background-color: $c-accent;
+  border: none;
+  color: $c-text;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background-color 0.25s ease;
+  font-family: inherit;
+  &:hover { background-color: #5F856E; }
+}
+
+
+// ── Main layout ──────────────────────────────────────────────────────────────
+.prompt-page {
+  display: grid;
+  // Left panel is 42% of the viewport width, right takes the rest.
+  // Using minmax keeps the right side usable on narrow viewports.
+  grid-template-columns: clamp(280px, 42%, 600px) 1fr;
+  height: var(--page-height);
+  width: 100%;
+  overflow: hidden;
+}
+
+
+// ═══ LEFT PANEL ══════════════════════════════════════════════════════════════
+.panel-left {
+  position: relative;
+  background-color: darken($c-bg, 4%);
+  // Subtle left-edge glow that matches the brand accent
+  border-right: 1px solid $c-border;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// ── Graphic stack ────────────────────────────────────────────────────────────
+// All three images are in the DOM. They sit on top of each other and we
+// crossfade by toggling opacity. No layout reflow, no component swap.
+.graphic-stack {
+  position: absolute;
+  inset: 0;
+  background-color: #F2EEE4;
+}
+
+.graphic-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;     // preserve aspect ratio, no cropping
+  object-position: center;
+  // Start invisible; fade in only once the image byte-stream is done
+  opacity: 0;
+  transition: opacity 2s cubic-bezier(0.4, 0, 0.2, 1);
+  // GPU layer hint — avoids repaints during the crossfade
+  will-change: opacity;
+  pointer-events: none;
+  padding: 2rem;
+  box-sizing: border-box;
+
+  // Only show when this step is active AND the image has loaded
+  &.graphic-visible.graphic-loaded {
+    opacity: 1;
+  }
+}
+
+// Skeleton shimmer shown until the first image is ready
+.graphic-skeleton {
+  position: absolute;
+  inset: 10%;
+  border-radius: 16px;
+  background: linear-gradient(
+      110deg,
+      rgba(255,255,255,0.03) 30%,
+      rgba(255,255,255,0.07) 50%,
+      rgba(255,255,255,0.03) 70%
+  );
+  background-size: 200% 100%;
+  animation: skeletonShimmer 1.6s infinite;
+  transition: opacity 2s ease;
+
+  &.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+@keyframes skeletonShimmer {
+  0%   { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+// ── Step indicator dots ───────────────────────────────────────────────────────
+.panel-dots {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 2;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: rgba($c-text, 0.2);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+
+  &.dot-active {
+    background-color: $c-accent;
+    transform: scale(1.3);
+  }
+}
+
+
+// ═══ RIGHT PANEL ════════════════════════════════════════════════════════════
+.panel-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(2rem, 5vw, 5rem);
+  color: $c-text;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.6;
+  overflow-y: auto;         // if viewport is extremely short, allow scroll inside right panel only
+  // Subtle vertical scroll indicator that doesn't affect left panel
+  scrollbar-width: thin;
+  scrollbar-color: $c-border transparent;
+}
+
+// ── Step label ────────────────────────────────────────────────────────────────
+.step-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: $c-muted;
+  margin-bottom: 1.5rem;
+}
+
+// ── Step content wrapper ─────────────────────────────────────────────────────
+// position:relative is required for Angular's enter/leave animation queries
+.step-content {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  min-height: 0;
+}
+
+.step-block {
+  width: 100%;
+}
+
+// ── Prompt text ───────────────────────────────────────────────────────────────
+.prompt-text {
+  font-family: Erbaum, sans-serif;
+  color: $c-muted;
+  margin-bottom: 2rem;
+  font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+  line-height: 1.4;
+}
+
+.highlight {
+  font-style: italic;
+  color: $c-text;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 255, 255, 0.25);
+  text-underline-offset: 4px;
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+
+  &:hover {
+    color: $c-accent-lt;
+    text-decoration-color: rgba(190, 220, 228, 0.5);
+  }
+}
+
+.highlight-static {
+  font-family: Erbaum, sans-serif;
+  font-style: italic;
+  color: $c-text;
+  font-weight: 500;
+  font-size: inherit;
+  //text-decoration: underline;
+  text-decoration-color: rgba(255, 255, 255, 0.2);
+  text-underline-offset: 4px;
+}
+
+// ── Inline auto-sizing input ──────────────────────────────────────────────────
+.inline-field {
+  display: inline-grid;
+  vertical-align: baseline;
+  align-items: baseline;
+  position: relative;
+  //min-width: 100px;
+
+  &::after,
+  input,
+  .shadow-text {
+    width: auto;
+    grid-area: 1 / 2;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    letter-spacing: inherit;
+    box-sizing: content-box;
+    padding: 0;
+    margin: 0;
+    line-height: inherit;
+  }
+
+  .shadow-text {
+    visibility: hidden;
+    white-space: pre;
+    height: 0;
+    padding-right: 2px;
+  }
+
+  input {
+    background: transparent !important;
+    border: none !important;
+    border-bottom: 2px solid $c-accent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    color: $c-accent-lt;
+    //min-width: 10px;
+    outline: none;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    //width: 100% !important;
+    height: auto !important;
+    caret-color: $c-accent;
+    font-size: inherit !important;
+    font-family: inherit !important;
+    appearance: none;
+    -webkit-appearance: none;
+    transition: border-color 0.2s ease;
+
+    &::placeholder {
+      color: rgba(190, 220, 228, 0.35);
+      font-style: italic;
+    }
+
+    &:focus {
+      border: none !important;
+      border-bottom: 2px solid $c-accent-lt !important;
+      box-shadow: none !important;
+      background: transparent !important;
+      outline: none !important;
+    }
+  }
+}
+
+// ── Intent grid ───────────────────────────────────────────────────────────────
+.intent-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+  margin-bottom: 1.5rem;
+}
+
+.radio-card {
+  position: relative;
+  display: flex;
+  cursor: pointer;
+  background-color: rgba(31, 31, 31, 0.6);
+  border: 2px solid $c-border;
+  border-radius: 12px;
+  padding: 1.1rem 1.25rem;
+  transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    border-color: #555;
+    background-color: rgba(50, 50, 50, 0.8);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  }
+
+  input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    margin: 0;
+  }
+
+  &:has(input:checked) {
+    border-color: $c-accent;
+    background-color: rgba(70, 103, 93, 0.12);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+
+    .card-title { color: $c-accent; }
+  }
+
+  .card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .card-title {
+    font-weight: 600;
+    font-size: 1rem;
+    color: $c-text;
+    transition: color 0.2s ease;
+  }
+
+  .card-desc {
+    font-size: 0.82rem;
+    color: $c-muted;
+    line-height: 1.4;
+  }
+}
+
+// ── Controls (Back / Next|Generate) ──────────────────────────────────────────
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-top: 1.5rem;
+  padding-bottom: 1rem;
+  flex-shrink: 0;
+}
+
+button {
+  background-color: $c-accent;
+  border: none;
+  color: $c-text;
+  padding: 0.7rem 1.75rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background-color 0.25s ease, transform 0.15s ease, box-shadow 0.25s ease;
+  font-family: inherit;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+
+  &:hover:not(:disabled) {
+    background-color: #5F856E;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(70, 103, 93, 0.35);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    background-color: #3A3A3A;
+    color: #666;
+    cursor: not-allowed;
+  }
+}
+
+.btn-secondary {
+  background-color: transparent;
+  border: 2px solid $c-accent;
+  color: $c-accent;
+
+  &:hover:not(:disabled) {
+    background-color: $c-accent;
+    color: $c-text;
+  }
+
+  &:disabled {
+    border-color: #3A3A3A;
+    color: #555;
+    background-color: transparent;
+  }
+}
+
+// ── Progress ──────────────────────────────────────────────────────────────────
+.progress-wrap {
+  flex-shrink: 0;
+  padding-bottom: 0.5rem;
+}
+
+.progress-bar {
+  width: 60%;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.percent {
+  margin-top: 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: $c-muted;
+  letter-spacing: 0.05em;
+}
+
+
+// ── Responsive ───────────────────────────────────────────────────────────────
+@media (max-width: 768px) {
+  :host {
+    // On mobile, allow the page to scroll naturally since landscape logic
+    // breaks in portrait mode. Override the fixed height constraint.
+    height: auto;
+    overflow: visible;
+  }
+
+  .prompt-page {
+    grid-template-columns: 1fr;
+    grid-template-rows: 40vh auto;
+    height: auto;
+  }
+
+  .panel-left {
+    border-right: none;
+    border-bottom: 1px solid $c-border;
+    height: 40vh;
+  }
+
+  .panel-right {
+    padding: 1.75rem 1.5rem;
+    overflow-y: visible;
+    justify-content: flex-start;
+  }
+
+  .prompt-text {
+    font-size: clamp(1.4rem, 5vw, 2rem);
+  }
+
+  .controls {
+    flex-direction: column-reverse;
+    align-items: stretch;
+
+    button {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  .intent-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .intent-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.instructions{
+  font-family: "erbaum";
+  color: $c-accent;
+}
