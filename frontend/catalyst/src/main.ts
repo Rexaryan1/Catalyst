@@ -11,5 +11,4 @@ if (environment.production) {
   console.log('Development mode: Production optimizations are disabled.');
 }
 
-bootstrapApplication(AppComponent, appConfig)
-  .catch((err) => console.error(err));
+bootstrapApplication(AppComponent, appConfig).catch((err) => console.error(err));
