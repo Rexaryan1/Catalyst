@@ -1,0 +1,207 @@
+<!-- ─── Lottie Loading Overlay ─── -->
+<div class="lottie-overlay" *ngIf="isLoading() || loadingFailed">
+  <div class="lottie-content">
+    <ng-lottie [options]="options" (animationCreated)="animationCreated($event)" />
+
+    <p class="lottie-message" *ngIf="isLoading()">{{ loadingMessage() }}</p>
+
+    <div class="lottie-error" *ngIf="loadingFailed">
+      <p class="lottie-error-title">Too many users right now</p>
+      <p class="lottie-error-body">
+        Our servers are a bit busy at the moment. Don't worry — your roadmap will be
+        ready and waiting in the <strong>Solve</strong> section in just a few minutes.
+      </p>
+      <button class="lottie-dismiss-btn" (click)="dismissLoadingError()">Got it</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─── Main prompt page ─── -->
+<div [formGroup]="form" class="prompt-page">
+
+  <!-- ═══ LEFT PANEL — preloaded graphic stack ═══ -->
+  <div class="panel-left" aria-hidden="true">
+    <!--
+      All three images are rendered in the DOM from the start and
+      stacked via CSS (position: absolute, full size).
+      Opacity toggling = zero layout shift, instant crossfade.
+    -->
+    <div class="graphic-stack">
+      <img
+        *ngFor="let src of graphics; let i = index"
+        [src]="src"
+        [alt]="'Step ' + (i + 1) + ' illustration'"
+        class="graphic-img"
+        [class.graphic-visible]="stepIndex() === i"
+        [class.graphic-loaded]="imagesLoaded()[i]"
+        loading="eager"
+        decoding="async"
+      />
+      <!-- subtle skeleton shown until image[0] is ready -->
+      <div class="graphic-skeleton" [class.hidden]="imagesLoaded()[0]"></div>
+    </div>
+
+    <!-- Step indicator dots on the left panel -->
+    <div class="panel-dots">
+      <span
+        *ngFor="let src of graphics; let i = index"
+        class="dot"
+        [class.dot-active]="stepIndex() === i"
+      ></span>
+    </div>
+  </div>
+
+  <!-- ═══ RIGHT PANEL — form steps ═══ -->
+  <div class="panel-right">
+
+    <!-- Step counter -->
+    <div class="step-label">Step {{ stepIndex() + 1 }} of {{ totalSteps }}</div>
+
+    <!-- ── Step content area with animation trigger ── -->
+    <div class="step-content" [@stepChange]="stepIndex()">
+
+      <!-- Step 0 — Subject -->
+      <div *ngIf="stepIndex() === 0" class="step-block">
+        <span class = "instructions">Click the highlighted text to input </span>
+        <p class="prompt-text">
+          I want to create a roadmap for
+          <span
+            *ngIf="!showSubjectInput()"
+            class="highlight"
+            (click)="showSubjectInput.set(true)"
+          >{{ form.get('subject')?.value || 'a subject' }}</span
+          >
+          <span *ngIf="showSubjectInput()" class="inline-field">
+            <span class="shadow-text">{{
+                form.get('subject')?.value || 'e.g., DSA'
+              }}</span>
+            <input
+              type="text"
+              placeholder="e.g., DSA"
+              [formControl]="$any(form.get('subject'))"
+              (blur)="showSubjectInput.set(false)"
+              (keydown.enter)="showSubjectInput.set(false)"
+              autoFocus
+            />
+          </span>
+        </p>
+
+      </div>
+
+      <!-- Step 1 — Topic -->
+      <div *ngIf="stepIndex() === 1" class="step-block">
+        <span class = "instructions">Click the highlighted text to input </span>
+        <p class="prompt-text">
+          I want to create a roadmap for
+          <span class="highlight-static">{{
+              form.get('subject')?.value || 'a subject'
+            }}</span>
+        </p>
+        <p class="prompt-text">
+          covering
+          <span
+            *ngIf="!showTopicInput()"
+            class="highlight"
+            (click)="showTopicInput.set(true)"
+          >{{ form.get('topic')?.value || 'a specific topic' }}</span
+          >
+          <span *ngIf="showTopicInput()" class="inline-field">
+            <span class="shadow-text">{{
+                form.get('topic')?.value || 'e.g., Dynamic Programming'
+              }}</span>
+            <input
+              type="text"
+              placeholder="e.g., Dynamic Programming"
+              [formControl]="$any(form.get('topic'))"
+              (blur)="showTopicInput.set(false)"
+              (keydown.enter)="showTopicInput.set(false)"
+              autoFocus
+            />
+          </span>
+
+        </p>
+
+      </div>
+
+
+
+      <!-- Step 2 — Intent -->
+      <div *ngIf="stepIndex() === 2" class="step-block">
+        <p class="prompt-text">
+          Choose your
+          <span class="highlight" (click)="showIntentInput.set(true)">goal</span>.
+        </p>
+        <div *ngIf="showIntentInput()" class="intent-grid">
+          <label class="radio-card">
+            <input type="radio" value="exam" formControlName="intent" />
+            <span class="card-content">
+              <span class="card-title">Exam Prep</span>
+              <span class="card-desc">Preparing for an upcoming exam</span>
+            </span>
+          </label>
+
+          <label class="radio-card">
+            <input type="radio" value="upskilling" formControlName="intent" />
+            <span class="card-content">
+              <span class="card-title">Upskilling</span>
+              <span class="card-desc">Learning new skills for career growth</span>
+            </span>
+          </label>
+
+          <label class="radio-card">
+            <input type="radio" value="revision" formControlName="intent" />
+            <span class="card-content">
+              <span class="card-title">Revision</span>
+              <span class="card-desc">Refreshing existing knowledge</span>
+            </span>
+          </label>
+
+          <label class="radio-card">
+            <input type="radio" value="understanding" formControlName="intent" />
+            <span class="card-content">
+              <span class="card-title">Deep Dive</span>
+              <span class="card-desc">Understanding the topic in depth</span>
+            </span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <!-- /step-content -->
+
+    <!-- ── Controls ── -->
+    <div class="controls">
+      <button
+        type="button"
+        class="btn-secondary"
+        (click)="back()"
+        [disabled]="stepIndex() === 0"
+      >
+        Back
+      </button>
+      <button
+        type="button"
+        (click)="next()"
+        [disabled]="
+          (stepIndex() === 0 && form.get('subject')?.invalid) ||
+          (stepIndex() === 1 && form.get('topic')?.invalid) ||
+          (stepIndex() === 2 && form.get('intent')?.invalid) ||
+          isLoading()
+        "
+      >
+        {{ stepIndex() < totalSteps - 1 ? 'Next' : 'Generate' }}
+      </button>
+    </div>
+
+    <!-- ── Progress ── -->
+    <div class="progress-wrap">
+      <mat-progress-bar
+        mode="determinate"
+        [value]="progress()"
+        class="progress-bar"
+      ></mat-progress-bar>
+      <div class="percent">{{ progress() }}%</div>
+    </div>
+
+  </div>
+  <!-- /panel-right -->
+</div>
