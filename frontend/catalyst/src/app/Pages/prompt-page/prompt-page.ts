@@ -17,6 +17,7 @@ import { interval, Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 import { AnimationOptions, LottieComponent } from 'ngx-lottie';
 import { AnimationItem } from 'lottie-web';
+import {PingBoardComponent} from "@components/cards/ping-board/ping-board.component";
 
 const LOADING_MESSAGES = [
   'Generating your learning path...',
@@ -40,7 +41,7 @@ const GRAPHICS = [
   styleUrls: ['./prompt-page.scss'],
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  imports: [NgIf, CommonModule, ReactiveFormsModule, MatProgressBarModule, LottieComponent],
+  imports: [NgIf, CommonModule, ReactiveFormsModule, MatProgressBarModule, LottieComponent , PingBoardComponent],
   animations: [
     // Keep the right-panel step transition as a subtle fade+slide (no layout disruption)
     trigger('stepChange', [
@@ -159,9 +160,10 @@ export class PromptPage implements OnDestroy, AfterViewInit {
     }
   }
 
+
   pollForJobCompletion(jobId: string): void {
     let completed = false;
-    interval(4000)
+    interval(6000)
       .pipe(take(5), takeUntil(this.destroy$))
       .subscribe({
         next: () => {
@@ -173,6 +175,12 @@ export class PromptPage implements OnDestroy, AfterViewInit {
                   completed = true;
                   this.stopMessageCycle();
                   this.isLoading.set(false);
+                  const roadmapData = response?.result ?? response;
+                  const wrappedData = {
+                    data: roadmapData
+                  };
+
+                  this.dataManagerService.set('roadmap', wrappedData);
                   this.router.navigate(['/roadmap']);
                 }
               },
@@ -241,4 +249,11 @@ export class PromptPage implements OnDestroy, AfterViewInit {
       this.form.markAllAsTouched();
     }
   }
+  showNotifications = false;
+
+  toggleNotifications() {
+    this.showNotifications = !this.showNotifications;
+  }
+
+  //protected readonly NgIf = NgIf;
 }

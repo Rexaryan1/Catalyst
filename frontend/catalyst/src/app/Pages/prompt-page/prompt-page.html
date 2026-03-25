@@ -6,13 +6,71 @@
     <p class="lottie-message" *ngIf="isLoading()">{{ loadingMessage() }}</p>
 
     <div class="lottie-error" *ngIf="loadingFailed">
-      <p class="lottie-error-title">Too many users right now</p>
-      <p class="lottie-error-body">
-        Our servers are a bit busy at the moment. Don't worry — your roadmap will be
-        ready and waiting in the <strong>Solve</strong> section in just a few minutes.
-      </p>
+      <ng-container *ngIf="loadingError() === 'rate_limit'; else defaultError">
+        <p class="lottie-error-title">You've reached today's limit</p>
+        <p class="lottie-error-body">
+          You've used all your roadmap generations for today. Come back tomorrow to
+          create more, or check your existing roadmaps in the <strong>Solve</strong> section.
+        </p>
+      </ng-container>
+
+      <ng-template #defaultError>
+        <p class="lottie-error-title">Too many users right now</p>
+        <p class="lottie-error-body">
+          Our servers are a bit busy at the moment. Don't worry — your roadmap will be
+          ready and waiting in the <strong>Solve</strong> section in just a few minutes.
+        </p>
+      </ng-template>
+
       <button class="lottie-dismiss-btn" (click)="dismissLoadingError()">Got it</button>
     </div>
+  </div>
+</div>
+
+<div class="prompt-header">
+
+  <!-- Left: Catalyst standalone icon -->
+  <div class="prompt-header__left">
+    <button class="menu-btn menu-btn--home prompt-header__catalyst-btn" aria-label="Catalyst home">
+      <img class="menu-icon" src="assets/Catalyst-Favicon.ico" alt="Catalyst" />
+    </button>
+  </div>
+
+  <!-- Right: Notifications + Settings -->
+  <div class="prompt-header__right">
+    <ul class="menu">
+
+      <!-- Notifications button -->
+      <li class="menu-item">
+        <button
+          class="menu-btn menu-btn--icon"
+          data-tooltip="Notifications"
+          aria-label="Notifications"
+          (click)="toggleNotifications()"
+        >
+          <img class="menu-icon" src="assets/icons/notification-bing.svg" alt="notifications" />
+        </button>
+
+        <!-- Notification popup anchors here -->
+        <div class="notif-popup-anchor" *ngIf="showNotifications">
+          <app-ping-board />
+          <!-- Replace with your <app-ping-board> or notification panel -->
+        </div>
+        <div class="notif-backdrop" *ngIf="showNotifications" (click)="toggleNotifications()"></div>
+      </li>
+
+      <!-- Settings button (icon/link TBD) -->
+      <li class="menu-item">
+        <button
+          class="menu-btn menu-btn--icon"
+          data-tooltip="Settings"
+          aria-label="Settings"
+        >
+          <img class="menu-icon" src="assets/icons/settings.svg" alt="settings" />
+        </button>
+      </li>
+
+    </ul>
   </div>
 </div>
 
