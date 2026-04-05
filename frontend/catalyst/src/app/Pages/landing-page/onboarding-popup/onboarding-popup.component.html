@@ -1,0 +1,58 @@
+<!--
+  Fixed transparent backdrop — covers the whole viewport.
+  Sits BEHIND the popup card (z-index: 999).
+  Click anywhere on it → advance to next step.
+-->
+<div class="onboarding-backdrop" (click)="advance.emit()"></div>
+
+<!--
+  Popup card — position: absolute, anchored to the nearest
+  position:relative parent in the DOM.
+  Sits ABOVE the backdrop (z-index: 1000).
+-->
+<div
+  class="onboarding-popup"
+  [class.onboarding-popup--above]="arrowPosition === 'bottom'"
+  [style.width]="width"
+  [ngStyle]="popupPositionStyle"
+  role="dialog"
+  aria-modal="true"
+  [attr.aria-label]="step?.title"
+  (click)="$event.stopPropagation()"
+>
+
+  <!-- Arrow caret -->
+  <span class="onboarding-popup__arrow" [ngStyle]="arrowStyle"></span>
+
+  <!-- Content -->
+  <p class="onboarding-popup__title">{{ step?.title }}</p>
+  <p class="onboarding-popup__desc">{{ step?.description }}</p>
+
+  <!-- Progress dots -->
+  <div class="onboarding-popup__progress">
+    <span
+      *ngFor="let dot of dots"
+      class="onboarding-popup__dot"
+      [class.onboarding-popup__dot--active]="dot <= stepIndex"
+    ></span>
+  </div>
+
+  <!-- Footer -->
+  <div class="onboarding-popup__footer">
+    <button
+      class="onboarding-popup__btn onboarding-popup__btn--back"
+      [disabled]="isFirst"
+      (click)="back.emit()"
+    >
+      ‹ Back
+    </button>
+
+    <button
+      class="onboarding-popup__btn onboarding-popup__btn--next"
+      (click)="advance.emit()"
+    >
+      {{ isLast ? 'Done' : 'Next ›' }}
+    </button>
+  </div>
+
+</div>
