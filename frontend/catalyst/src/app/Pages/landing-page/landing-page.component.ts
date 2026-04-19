@@ -25,7 +25,7 @@ export class LandingPage {
   constructor(public dataManager: DataManagerService) { }
 
   // -1 means onboarding is finished / not active
-  onboardingStep: number = 0;
+  onboardingStep: number = -1;
 
   steps: OnboardingStep[] = [
     {
