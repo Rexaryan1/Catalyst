@@ -6,6 +6,7 @@ import {SectionLines} from "@pages/about-page/section-lines/section-lines";
 import {AboutHeroSection} from "@pages/about-page/about-hero-section/about-hero-section";
 import {FeaturesGridSection} from "@pages/about-page/features-grid-section/features-grid-section";
 import {FooterSection} from "@pages/about-page/footer-section/footer-section";
+import { DataManagerService } from '@services/data-manager/data-manager.service';
 
 
 @Component({
@@ -26,6 +27,16 @@ import {FooterSection} from "@pages/about-page/footer-section/footer-section";
 
 export class AboutPage {
   heroScrolled = false;
+
+  constructor(private dataManager: DataManagerService) {}
+
+  ngOnInit(): void {
+    // Fire-and-forget warm-up call; do not block landing page render.
+    this.dataManager.get('api/user', { withCredentials: true }).subscribe({
+      next: () => {},
+      error: () => {},
+    });
+  }
 
   @HostListener('window:scroll')
   onWindowScroll(): void {
