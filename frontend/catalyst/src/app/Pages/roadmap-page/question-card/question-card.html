@@ -40,6 +40,14 @@
     Incorrect. Correct answer: {{ q.options[q.correct_index] }}
   </p>
 </div>
+
+    <div
+      class="explanation"
+      *ngIf="(isSubmitted || wasPreAnswered) && q.explanation?.trim()"
+    >
+      <p class="explanation-title">Explanation</p>
+      <p class="explanation-text">{{ q.explanation }}</p>
+    </div>
   </div>
 
   <div class="nav-buttons">
