@@ -6,7 +6,8 @@
 
 .about-hero {
   position: relative;
-  min-height: 100vh;
+  height: 100svh;
+  min-height: 480px;
   overflow: clip;
   background:
     radial-gradient(circle at 50% 15%, rgba(255, 255, 255, 0.04), transparent 30%),
@@ -152,7 +153,6 @@
   z-index: 3;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
 }
 
 .hero-nav {
@@ -195,18 +195,24 @@
 }
 
 .signup-btn {
-  min-width: 104px;
-  height: 42px;
+  height: 38px;
   padding: 0 1rem;
   border: 1px solid rgba(255, 255, 255, 0.16);
   background: rgba(255, 255, 255, 0.06);
   color: #fff;
+  white-space: nowrap;
 }
 
 .hero-copy {
-  width: min(860px, 60vw);
-  margin: 18vh auto 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: min(860px, calc(100% - 3rem));
+  margin: 0 auto;
   text-align: center;
+  padding: 1rem 0;
 }
 
 .eyebrow {
@@ -248,8 +254,8 @@
 }
 
 .hero-cta {
-  margin-top: auto;
-  padding-bottom: 2.25rem;
+  flex-shrink: 0;
+  padding-bottom: clamp(1.5rem, 3vh, 2.25rem);
   display: flex;
   justify-content: center;
 }
@@ -271,6 +277,38 @@
   background: rgba(255, 255, 255, 0.12);
 }
 
+/* ── Hero load animations ───────────────────────────────────── */
+@keyframes heroFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-nav {
+  animation: heroFadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.eyebrow {
+  animation: heroFadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+}
+
+.hero-copy h1 {
+  animation: heroFadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both;
+}
+
+.subheading {
+  animation: heroFadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.6s both;
+}
+
+.hero-cta {
+  animation: heroFadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.8s both;
+}
+
 @keyframes driftOne {
   0% { transform: translate3d(0, 0, 0) scale(1); }
   100% { transform: translate3d(140px, -50px, 0) scale(1.08); }
@@ -290,11 +328,6 @@
   .hero-grid .v-line.left { left: 8vw; }
   .hero-grid .v-line.right { right: 8vw; }
 
-  .hero-copy {
-    width: min(680px, calc(100vw - 5rem));
-    margin-top: 22vh;
-  }
-
   .hero-grid .d1 { left: calc(8vw - 6px); }
   .hero-grid .d2 { right: calc(8vw - 6px); }
   .hero-grid .d3 { left: calc(8vw - 6px); }
@@ -304,5 +337,17 @@
 
   .hero-nav {
     padding: 1.25rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-nav {
+    padding: 1rem 0.75rem;
+  }
+
+  .signup-btn {
+    height: 34px;
+    padding: 0 0.75rem;
+    font-size: 0.85rem;
   }
 }

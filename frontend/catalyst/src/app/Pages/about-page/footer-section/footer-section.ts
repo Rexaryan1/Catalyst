@@ -6,18 +6,19 @@ import {
   SubscriptionService,
   SubscribeResult,
 } from './subscription.service';
+import { AnimateOnScrollDirective } from '@app/directives/animate-on-scroll.directive';
 
 type FormState = 'idle' | 'loading' | 'success' | 'already_subscribed' | 'error';
 
 @Component({
   selector: 'app-footer-section',
-  imports: [SectionLines, FormsModule, NgClass],
+  imports: [SectionLines, FormsModule, NgClass, AnimateOnScrollDirective],
   templateUrl: './footer-section.html',
   styleUrl: './footer-section.scss',
 })
 export class FooterSection {
   readonly rows = [0, 15, 85, 100];
-  readonly cols = [15, 85];
+  readonly cols = [4.6875, 95.3125];
 
   email = signal('');
   formState = signal<FormState>('idle');

@@ -109,3 +109,16 @@ html, body {
   height: 100%;
   background-color: #1f1f1f; // match your --primary-color
 }
+
+/* ── Scroll-triggered animations ───────────────────────────── */
+.scroll-anim {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.scroll-anim--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
