@@ -49,30 +49,33 @@
   text-align: left;
 }
 
-@media (max-width: 900px) {
-  .features-grid-shell {
-    inset: 8% 8% 8% 8%;
+@media (max-width: 948px) {
+  app-section-lines {
+    display: none;
   }
-}
 
-@media (max-width: 700px) {
   .features-section {
     min-height: auto;
-    padding: 4rem 0;
+    padding: 3rem 0 4.5rem;
   }
 
   .features-grid-shell {
     position: relative;
     inset: auto;
-    width: min(680px, calc(100vw - 2rem));
+    width: min(600px, calc(100vw - 3rem));
     margin: 0 auto;
     grid-template-columns: 1fr;
     grid-template-rows: auto;
+    gap: 0;
   }
 
   .feature-cell {
     grid-column: auto !important;
     grid-row: auto !important;
-    padding: 1.5rem 0;
+    padding: 2rem 0;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid rgba(70, 103, 93, 0.35);
+    }
   }
 }

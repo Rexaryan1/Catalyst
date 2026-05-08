@@ -8,19 +8,22 @@
   position: relative;
   width: 100%;
   overflow: hidden;
-  height: clamp(180px, 24vw, 420px);
+  height: clamp(80px, 24vw, 420px);
   transform: translateY(12%);
 }
 
 .catalyst-wordmark {
   width: 100%;
   text-align: center;
-  font-size: clamp(8rem, 22vw, 22rem);
+  font-size: clamp(4.5rem, 22vw, 22rem);
   line-height: 0.9;
   font-weight: 600;
   letter-spacing: -0.08em;
   white-space: nowrap;
-  transform: translateY(17%);
+  transform: translateY(55%);
+  opacity: 0;
+  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+              opacity 1s ease;
   background: linear-gradient(to bottom, #050816 0%, #bedce4 100%);
   background-clip: text;
   -webkit-background-clip: text;
@@ -28,6 +31,11 @@
   -webkit-text-fill-color: transparent;
   user-select: none;
   pointer-events: none;
+
+  &.wordmark--visible {
+    transform: translateY(17%);
+    opacity: 1;
+  }
 }
 
 .credits{
@@ -154,25 +162,21 @@
 
 .about-cards-section {
   background: #050816;
-  padding: 5rem 0 6rem;
+  padding: 5rem 0 7rem;
 }
 
 .about-cards-shell {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.75rem;
+  gap: 2.25rem;
   width: min(1200px, calc(100vw - 3rem));
   margin: 0 auto;
-
-  @media (max-width: 900px) {
-    grid-template-columns: 1fr;
-    max-width: 480px;
-  }
 }
 
 .about-card {
   display: grid;
-  grid-template-rows: 1fr 2px auto;  // top half fluid, fixed divider, copy auto
+  grid-template-rows: 1fr 1px auto;
+  aspect-ratio: 3 / 4;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
   overflow: hidden;
@@ -183,30 +187,45 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem 1.75rem;
+  padding: 2.5rem 2rem;
 
   img {
     width: 100%;
     height: auto;
     display: block;
     border-radius: 6px;
-    object-fit: cover;
+  }
+}
+
+@media (max-width: 900px) {
+  .about-cards-shell {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+    gap: 1.75rem;
+  }
+
+  .about-card {
+    aspect-ratio: auto;
+  }
+
+  .about-card-media {
+    min-height: 220px;
   }
 }
 
 .about-card-divider {
-  height: 2px;
-  margin: 0 1.75rem;
-  background: rgba(255, 255, 255, 0.14);
+  height: 1px;
+  margin: 0 2rem;
+  background: rgba(255, 255, 255, 0.12);
   border-radius: 1px;
   flex-shrink: 0;
 }
 
 .about-card-copy {
-  padding: 1.5rem 1.75rem 2rem;
+  padding: 1.75rem 2rem 2.25rem;
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
+  gap: 0.65rem;
 
   h3 {
     margin: 0;
@@ -227,20 +246,40 @@
   }
 }
 
-.section-tag{
-  background: #2f2f2f;
-  border-radius: 5px;
-  padding: 9px 16px 9px 16px;
-  display: inline-block;
-  flex-direction: column;
-  gap: 10px;
-  align-items: flex-start;
-  justify-content: flex-start;
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 14px 6px 10px;
+  border-radius: 8px;
+  background: rgba(190, 220, 228, 0.06);
+  border: 1px solid rgba(190, 220, 228, 0.18);
+  color: rgba(190, 220, 228, 0.9);
+  font-family: "AlbertSans-Regular", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
   margin-left: 1.5rem;
   margin-top: 1.5rem;
-  color: #ffffff;
-  font-family: "AlbertSans-Regular", sans-serif;
-  font-weight:400;
+  box-shadow: 0 0 18px rgba(190, 220, 228, 0.06),
+              inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+  &::before {
+    content: '';
+    flex-shrink: 0;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #bedce4;
+    box-shadow: 0 0 6px 1px rgba(190, 220, 228, 0.55);
+    animation: tag-dot-pulse 2.4s ease-in-out infinite;
+  }
+}
+
+@keyframes tag-dot-pulse {
+  0%, 100% { opacity: 1;   box-shadow: 0 0 6px 1px rgba(190, 220, 228, 0.55); }
+  50%       { opacity: 0.4; box-shadow: 0 0 3px 0px rgba(190, 220, 228, 0.2); }
 }
 
 .filler-heading{
@@ -258,11 +297,31 @@
 
 }
 
-.filler-subheading{
-  max-width: 18ch;
-
-  color: var(--color-primary-cream, #eae9e5);
+.filler-subheading {
+  max-width: 26ch;
+  color: rgba(234, 233, 229, 0.58);
   text-align: left;
   font-family: "AlbertSans-Regular", sans-serif;
-  margin-right: 2rem;
+  font-size: clamp(0.875rem, 1vw, 1rem);
+  line-height: 1.72;
+  letter-spacing: -0.01em;
+  margin-right: 2.5rem;
+  padding-left: 1rem;
+  border-left: 1px solid rgba(70, 103, 93, 0.5);
+}
+
+@media (max-width: 948px) {
+  .flex-layout {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 2.5rem;
+    gap: 0.75rem;
+  }
+
+  .filler-subheading {
+    margin-right: 0;
+    margin-left: 1.5rem;
+    margin-top: 0;
+    max-width: 44ch;
+  }
 }

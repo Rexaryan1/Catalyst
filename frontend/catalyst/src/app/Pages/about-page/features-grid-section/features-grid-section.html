@@ -12,6 +12,8 @@
         class="feature-cell"
         [style.grid-row]="feature.row"
         [style.grid-column]="feature.col"
+        animateOnScroll
+        [animDelay]="feature.delay"
       >
         <h3>{{ feature.title }}</h3>
         <p>{{ feature.text }}</p>

@@ -3,22 +3,22 @@
   <app-about-hero-section></app-about-hero-section>
   <app-trusted-by-section></app-trusted-by-section>
   <div class="divider">
-    <div class = "section-tag">why us?</div>
-    <div class = "flex-layout">
-    <div class = "filler-heading">Built for the way you think</div>
-    <div class = "filler-subheading">No two minds learn the same way. Our models adapt the roadmap around your patterns.</div>
-</div>
+    <div class="section-tag" animateOnScroll [animDelay]="0">why us?</div>
+    <div class="flex-layout">
+      <div class="filler-heading" animateOnScroll [animDelay]="100">Built for the way you think</div>
+      <div class="filler-subheading" animateOnScroll [animDelay]="200">No two minds learn the same way. Our models adapt the roadmap around your patterns.</div>
+    </div>
   </div>
 
   <app-features-grid-section></app-features-grid-section>
-  <div class = "filler-section">
-  <div class = "section-tag"> How it works</div>
-  <div class = "filler-heading">From challenge to mastery</div>
-    </div>
+  <div class="filler-section">
+    <div class="section-tag" animateOnScroll [animDelay]="0">How it works</div>
+    <div class="filler-heading" animateOnScroll [animDelay]="120">From challenge to mastery</div>
+  </div>
 
   <section class="about-cards-section">
   <div class="about-cards-shell">
-    <article class="about-card">
+    <article class="about-card" animateOnScroll [animDelay]="0">
       <div class="about-card-media">
         <img src="assets/images/card1.png" alt="Catalyst roadmap screen" />
       </div>
@@ -32,7 +32,7 @@
       </div>
     </article>
 
-    <article class="about-card">
+    <article class="about-card" animateOnScroll [animDelay]="120">
       <div class="about-card-media">
         <img src="assets/images/card2.png" alt="Catalyst practice screen" />
       </div>
@@ -46,7 +46,7 @@
       </div>
     </article>
 
-    <article class="about-card">
+    <article class="about-card" animateOnScroll [animDelay]="240">
       <div class="about-card-media">
         <img src="assets/images/card3.png" alt="Catalyst analytics screen" />
       </div>
@@ -63,8 +63,8 @@
 </section>
   <app-footer-section></app-footer-section>
   <div class = "credits">© 2025 Catalyst. All rights reserved.</div>
-  <div class="catalyst-wordmark-wrap">
-    <div class="catalyst-wordmark">Catalyst</div>
+  <div class="catalyst-wordmark-wrap" #wordmarkEl>
+    <div class="catalyst-wordmark" [class.wordmark--visible]="wordmarkVisible">Catalyst</div>
   </div>
 
 

@@ -8,10 +8,10 @@
   <div class="footer-main">
     <div class="footer-main-inner">
       <div class="footer-copy">
-        <h2>Ready to Rethink Learning?</h2>
-        <p>Stay Updated. Subscribe to our newsletter</p>
+        <h2 animateOnScroll [animDelay]="0">Ready to Rethink Learning?</h2>
+        <p animateOnScroll [animDelay]="120">Stay Updated. Subscribe to our newsletter</p>
 
-        <form class="footer-subscribe-form" (ngSubmit)="onSubmit()" novalidate>
+        <form class="footer-subscribe-form" animateOnScroll [animDelay]="240" (ngSubmit)="onSubmit()" novalidate>
           <input
             type="email"
             name="email"

@@ -207,6 +207,10 @@
 /* ── Responsive ─────────────────────────────────────────────── */
 
 @media (max-width: 900px) {
+  app-section-lines {
+    display: none;
+  }
+
   .footer-section {
     aspect-ratio: auto;
     min-height: unset;
