@@ -11,11 +11,6 @@ import { RoadmapTrackerComponent } from './Pages/roadmap-tracker/roadmap-tracker
 import { ProgressDashboardComponent } from './Pages/reports/progress-dashboard';
 import { StickyNav } from "@components/sticky-nav/sticky-nav";
 import { AboutPage } from "@pages/about-page/about-page";
-import { Header } from "@components/header/header";
-import { PingBoardComponent } from "@components/cards/ping-board/ping-board.component";
-import { AboutHeroSection } from "@pages/about-page/about-hero-section/about-hero-section";
-import { FooterSection } from "@pages/about-page/footer-section/footer-section";
-import { FeaturesGridSection } from "@pages/about-page/features-grid-section/features-grid-section";
 
 import { authGuard } from '@services/auth/auth.guard'
 import {HeatmapSmall} from '@components/cards/heatmap-small/heatmap-small';
