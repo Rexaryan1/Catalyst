@@ -13,6 +13,7 @@ export interface Question {
   id: string;
   title? : string;
   summary? : string;
+  explanation?: string;
 
   topic?: string;
   status?: 'unanswered' | 'answered' | string;

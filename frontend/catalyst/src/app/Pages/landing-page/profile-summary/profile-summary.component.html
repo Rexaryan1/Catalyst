@@ -5,8 +5,8 @@
     <div class="name">{{ userProfile?.name }}</div>
     <div class="profile-summary-scores-flex">
       <app-score-card [score]="userProfile?.profile.learning_streak" [metricName]="'Streak'"/>
-      <app-score-card [score]="userProfile?.profile.average_accuracy" [metricName]="'Delta'"/>
-      <app-score-card [score]="userProfile?.profile.average_time_per_question" [metricName]="'XP Points'"/>
+      <app-score-card [score]="userProfile?.profile.average_accuracy" [metricName]="'Accuracy'"/>
+      <app-score-card [score]="userProfile?.profile.average_time_per_question" [metricName]="'Avg Time'"/>
     </div>
   </div>
 </div>

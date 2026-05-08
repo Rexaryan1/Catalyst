@@ -173,6 +173,29 @@
   color: rgba(224, 139, 139, 0.95);
 }
 
+.explanation {
+  margin-top: 4px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(190, 220, 228, 0.25);
+  background: rgba(190, 220, 228, 0.06);
+}
+
+.explanation-title {
+  margin: 0 0 6px 0;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(190, 220, 228, 0.9);
+}
+
+.explanation-text {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: rgba(234, 233, 229, 0.92);
+}
+
 .nav-buttons {
   flex-shrink: 0;           // never shrinks — always fully visible
   padding: 14px 16px;

@@ -1,37 +1,60 @@
-<div class="dashboard-container text-white ">
+<div class="dashboard-container text-white">
   <div class="container-fluid pt-1">
-    <!-- Hero Section -->
-    <div class="top-left-section text-center ">
-      <div>
-        <h1 class="hero-title">Ready to take your learning to the next level?</h1>
-      </div>
+    <div class="top-left-section text-center" style="position: relative;">
+      <h1 class="hero-title">Ready to take your learning to the next level?</h1>
+      <app-onboarding-popup *ngIf="onboardingStep === 0" [step]="steps[0]" [stepIndex]="0" [totalSteps]="steps.length"
+        [arrowPosition]="'top'" [arrowOffset]="'center'" [width]="'320px'" (advance)="nextOnboardingStep()"
+        (back)="prevOnboardingStep()" />
     </div>
-    <div class="top-right-section text-center">
-      <p class="hero-subtitle">Your AI-powered learning companion — personalized, dynamic, and ready to help you grow.
+
+    <div class="top-right-section text-center" style="position: relative;">
+      <p class="hero-subtitle">
+        Your AI-powered learning companion — personalized, dynamic, and ready to help you grow.
       </p>
 
       <div class="d-flex justify-content-center gap-3 mt-4">
-        <img src="assets/icons/availGoogle.png" alt="Hero Image" class="hero-image">
-        <img src="assets/icons/apple.png" alt="Hero Image" class="hero-image">
+        <img src="assets/icons/availGoogle.png" alt="Available on Google Play" class="hero-image">
+        <img src="assets/icons/apple.png" alt="Available on App Store" class="hero-image">
       </div>
+
+      <app-onboarding-popup *ngIf="onboardingStep === 1" [step]="steps[1]" [stepIndex]="1" [totalSteps]="steps.length"
+        [arrowPosition]="'top'" [arrowOffset]="'center'" [width]="'320px'" (advance)="nextOnboardingStep()"
+        (back)="prevOnboardingStep()" />
     </div>
 
-    <!-- Cards Grid Section -->
-    <div *ngIf="this.dataManager.isUserLoggedIn()" class="cards-grid">
-      <section class="card-slot card-roadmap">
+    <div class="cards-grid">
+      <section class="card-slot card-roadmap" style="position: relative;">
         <app-roadmap-card />
+        <app-onboarding-popup *ngIf="onboardingStep === 2" [step]="steps[2]" [stepIndex]="2" [totalSteps]="steps.length"
+          [arrowPosition]="'bottom'" [arrowOffset]="'18px'" [width]="'300px'" (advance)="nextOnboardingStep()"
+          (back)="prevOnboardingStep()" />
       </section>
 
-      <section class="card-slot card-dashboard">
+      <section class="card-slot card-dashboard" style="position: relative;">
         <landing-dashboard-card />
+        <app-onboarding-popup *ngIf="onboardingStep === 3" [step]="steps[3]" [stepIndex]="3" [totalSteps]="steps.length"
+          [arrowPosition]="'bottom'" [arrowOffset]="'18px'" [width]="'300px'" (advance)="nextOnboardingStep()"
+          (back)="prevOnboardingStep()" />
       </section>
 
-      <section class="card-slot card-stack">
+      <section class="card-slot card-stack" style="position: relative;">
         <app-profile-summary class="stack-item" />
-        <app-quick-access class="stack-item" />
+        <app-quick-access class="stack-item" style="position: relative;" />
+        
+        <app-onboarding-popup *ngIf="onboardingStep === 4" [step]="steps[4]" [stepIndex]="4" [totalSteps]="steps.length"
+          [arrowPosition]="'bottom'" [arrowOffset]="'28px'" [width]="'300px'" (advance)="nextOnboardingStep()"
+          (back)="prevOnboardingStep()" />
+        <app-onboarding-popup *ngIf="onboardingStep === 5" [step]="steps[5]" [stepIndex]="5" [totalSteps]="steps.length"
+          [arrowPosition]="'bottom'" [arrowOffset]="'18px'" [top]="'calc(100% + 10px)'" [left]="'0px'" [width]="'260px'"
+          (advance)="nextOnboardingStep()" (back)="prevOnboardingStep()" />
+        <app-onboarding-popup *ngIf="onboardingStep === 6" [step]="steps[6]" [stepIndex]="6" [totalSteps]="steps.length"
+          [arrowPosition]="'bottom'" [arrowOffset]="'18px'" [top]="'calc(100% + 10px)'" [left]="'120px'"
+          [width]="'260px'" (advance)="nextOnboardingStep()" (back)="prevOnboardingStep()" />
+        <app-onboarding-popup *ngIf="onboardingStep === 7" [step]="steps[7]" [stepIndex]="7" [totalSteps]="steps.length"
+          [arrowPosition]="'bottom'" [arrowOffset]="'18px'" [top]="'calc(100% + 10px)'" [right]="'0px'"
+          [width]="'260px'" (advance)="nextOnboardingStep()" (back)="prevOnboardingStep()" />
       </section>
+
     </div>
   </div>
-
-  <!-- <app-beta-page class="login-container" (closeLogin)="toggleLoginVisibility()"></app-beta-page> -->
 </div>

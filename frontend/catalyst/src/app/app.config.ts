@@ -1,10 +1,9 @@
-import { ApplicationConfig, inject, provideAppInitializer, isDevMode } from '@angular/core';
+import { ApplicationConfig } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import { provideOAuthClient } from 'angular-oauth2-oidc';
 import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { DataManagerService } from '@services/data-manager/data-manager.service';
 import { provideServiceWorker } from '@angular/service-worker';
 import { environment } from '@environments/environment';
 import { provideLottieOptions } from 'ngx-lottie';
@@ -18,10 +17,10 @@ export const appConfig: ApplicationConfig = {
       player: () => player,
     }),
     provideRouter(routes), provideAnimationsAsync(), provideHttpClient(),
-    provideAppInitializer(() => {
-        const initializerFn = ((dataManager: DataManagerService) => () => dataManager.checkLoggedInStatus())(inject(DataManagerService));
-        return initializerFn();
-      }), 
+    // provideAppInitializer(() => {
+    //     const initializerFn = ((dataManager: DataManagerService) => () => dataManager.checkLoggedInStatus())(inject(DataManagerService));
+    //     return initializerFn();
+    //   }),
     provideServiceWorker('ngsw-worker.js', {
             enabled: environment.production,
             registrationStrategy: 'registerWhenStable:30000'
