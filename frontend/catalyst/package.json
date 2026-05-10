@@ -22,6 +22,7 @@
     "@angular/router": "^20.3.12",
     "@angular/service-worker": "^20.3.17",
     "@lottiefiles/dotlottie-wc": "^0.9.4",
+    "@vercel/analytics": "1.2.2",
     "angular-oauth2-oidc": "^20.0.2",
     "bootstrap": "^5.3.7",
     "lottie-web": "^5.13.0",
