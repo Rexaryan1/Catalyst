@@ -1,0 +1,67 @@
+# Vercel Web Analytics Installation Report
+
+## Summary
+Successfully installed and configured Vercel Web Analytics for the Catalyst Angular project following the latest official documentation from Vercel.
+
+## Changes Made
+
+### 1. Package Installation
+- **File Modified**: `package.json`
+- **Change**: Added `@vercel/analytics` version `^2.0.1` to dependencies
+- **Status**: ✅ Package installed and verified at latest version
+
+### 2. Analytics Configuration
+- **File Modified**: `src/main.ts`
+- **Changes**:
+  - Imported the `inject` function from `@vercel/analytics`
+  - Initialized Vercel Analytics with environment-specific configuration:
+    - `mode`: Set to 'production' in production environments, 'development' otherwise
+    - `debug`: Enabled in development environments for console logging of analytics events
+- **Placement**: Analytics initialization placed before `bootstrapApplication()` to ensure analytics tracks from app startup
+
+## Implementation Details
+
+### Configuration Options Used
+According to the official Vercel Analytics documentation:
+
+1. **`mode`**: Forces environment to 'production' or 'development' based on `environment.production`
+   - This ensures accurate event tracking in both environments
+   
+2. **`debug`**: Enables console logging of analytics events in development
+   - Automatically set to `true` in development, `false` in production
+   - Helps developers verify analytics events during development
+
+### Framework-Specific Implementation
+Since Angular is not explicitly documented in the Vercel Analytics quickstart guide, we followed the generic JavaScript approach using the `inject()` function, which is recommended for frameworks that don't have component-based implementations.
+
+This approach:
+- ✅ Works with Angular's bootstrapping process
+- ✅ Ensures analytics is initialized before the app loads
+- ✅ Follows Vercel's recommended patterns for non-React frameworks
+
+## Verification Steps Completed
+
+1. ✅ Verified `@vercel/analytics` is at the latest version (2.0.1)
+2. ✅ Built the project successfully with no errors related to analytics
+3. ✅ Confirmed implementation follows official Vercel documentation
+4. ✅ Environment-specific configuration properly integrated with existing environment files
+
+## Technical Notes
+
+- The analytics initialization is placed in `main.ts` before app bootstrapping to ensure all page views and events are captured from the moment the application starts
+- The configuration dynamically adjusts based on the `environment.production` flag, ensuring proper tracking in both development and production environments
+- Debug mode in development allows developers to see analytics events in the browser console for verification
+
+## Testing Recommendations
+
+When deployed to Vercel:
+1. Check the Vercel Analytics dashboard to verify events are being tracked
+2. In development, open browser console to see debug logs of analytics events
+3. Verify page view events are captured on route changes
+
+## Additional Information
+
+- **Package Manager**: npm
+- **Lock File**: package-lock.json (already up-to-date with the installed package)
+- **Build Status**: ✅ Successful (warnings present are pre-existing and unrelated to analytics)
+- **Framework**: Angular 20.3.12
