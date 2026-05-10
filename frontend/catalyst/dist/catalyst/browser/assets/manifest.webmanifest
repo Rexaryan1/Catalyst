@@ -1,0 +1,17 @@
+{
+  "name": "Catalyst",
+  "short_name": "Catalyst",
+  "description": "Catalyst web app",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0d6efd",
+  "icons": [
+    {
+      "src": "assets/Catalyst-Favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    }
+  ]
+}

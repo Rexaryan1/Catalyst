@@ -1,0 +1,84 @@
+@font-face {
+    font-family: 'Erbaum';
+    src: url('Erbaum-Thin.eot');
+    src: local('Erbaum Thin'), local('Erbaum-Thin'),
+        url('Erbaum-Thin.eot?#iefix') format('embedded-opentype'),
+        url('Erbaum-Thin.woff2') format('woff2'),
+        url('Erbaum-Thin.woff') format('woff'),
+        url('Erbaum-Thin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Erbaum';
+    src: url('Erbaum-Medium.eot');
+    src: local('Erbaum Medium'), local('Erbaum-Medium'),
+        url('Erbaum-Medium.eot?#iefix') format('embedded-opentype'),
+        url('Erbaum-Medium.woff2') format('woff2'),
+        url('Erbaum-Medium.woff') format('woff'),
+        url('Erbaum-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Erbaum';
+    src: url('Erbaum-Regular.eot');
+    src: local('Erbaum Regular'), local('Erbaum-Regular'),
+        url('Erbaum-Regular.eot?#iefix') format('embedded-opentype'),
+        url('Erbaum-Regular.woff2') format('woff2'),
+        url('Erbaum-Regular.woff') format('woff'),
+        url('Erbaum-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Erbaum';
+    src: url('Erbaum-Black.eot');
+    src: local('Erbaum Black'), local('Erbaum-Black'),
+        url('Erbaum-Black.eot?#iefix') format('embedded-opentype'),
+        url('Erbaum-Black.woff2') format('woff2'),
+        url('Erbaum-Black.woff') format('woff'),
+        url('Erbaum-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Erbaum';
+    src: url('Erbaum-Light.eot');
+    src: local('Erbaum Light'), local('Erbaum-Light'),
+        url('Erbaum-Light.eot?#iefix') format('embedded-opentype'),
+        url('Erbaum-Light.woff2') format('woff2'),
+        url('Erbaum-Light.woff') format('woff'),
+        url('Erbaum-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Erbaum';
+    src: url('Erbaum-Bold.eot');
+    src: local('Erbaum Bold'), local('Erbaum-Bold'),
+        url('Erbaum-Bold.eot?#iefix') format('embedded-opentype'),
+        url('Erbaum-Bold.woff2') format('woff2'),
+        url('Erbaum-Bold.woff') format('woff'),
+        url('Erbaum-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Erbaum';
+    src: url('Erbaum-Book.eot');
+    src: local('Erbaum Book'), local('Erbaum-Book'),
+        url('Erbaum-Book.eot?#iefix') format('embedded-opentype'),
+        url('Erbaum-Book.woff2') format('woff2'),
+        url('Erbaum-Book.woff') format('woff'),
+        url('Erbaum-Book.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
