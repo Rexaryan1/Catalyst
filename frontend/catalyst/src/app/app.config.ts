@@ -22,7 +22,9 @@ export const appConfig: ApplicationConfig = {
     //     return initializerFn();
     //   }),
     provideServiceWorker('ngsw-worker.js', {
+      enabled: !isDevMode(),
       registrationStrategy: 'registerWhenStable:30000'
-    })
+    }),
+    provideOAuthClient()
   ]
 };
