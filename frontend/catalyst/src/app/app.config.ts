@@ -1,4 +1,4 @@
-import { ApplicationConfig } from '@angular/core';
+import { ApplicationConfig, isDevMode } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import { provideOAuthClient } from 'angular-oauth2-oidc';
@@ -22,14 +22,7 @@ export const appConfig: ApplicationConfig = {
     //     return initializerFn();
     //   }),
     provideServiceWorker('ngsw-worker.js', {
-            enabled: environment.production,
-            registrationStrategy: 'registerWhenStable:30000'
-          }),
-    provideOAuthClient({          // ← add this
-      resourceServer: {
-        allowedUrls: ['https://your-api.com'],
-        sendAccessToken: true
-      }
+      registrationStrategy: 'registerWhenStable:30000'
     })
   ]
 };

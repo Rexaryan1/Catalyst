@@ -1,7 +1,6 @@
 // push.service.ts
 import { Injectable } from '@angular/core';
 import { SwPush } from '@angular/service-worker';
-import { HttpClient } from '@angular/common/http';
 import { DataManagerService } from '@services/data-manager/data-manager.service';
 import { InAppNotificationsService } from '@services/notifications/in-app-notifications.service';
 
@@ -24,6 +23,7 @@ export class PushService {
     private dataManager: DataManagerService,
     private inApp: InAppNotificationsService
   ) {}
+  
   initIncomingPushListener() {
     if (this.listening) return;
     this.listening = true;
