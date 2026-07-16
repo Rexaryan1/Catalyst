@@ -1,0 +1,221 @@
+<div class="qp-page">
+
+  <!-- ── Loading ─────────────────────────────────────────────── -->
+  @if (pageState === 'loading') {
+    <div class="qp-center">
+      <div class="qp-spinner"></div>
+    </div>
+  }
+
+  <!-- ── Error ───────────────────────────────────────────────── -->
+  @if (pageState === 'error') {
+    <div class="qp-center">
+      <p class="qp-muted">No session data. Start a session from the dashboard.</p>
+      <button class="qp-btn" (click)="goBack()">← Back</button>
+    </div>
+  }
+
+  <!-- ── Quiz layout ─────────────────────────────────────────── -->
+  @if (pageState === 'quiz') {
+
+    <!-- Global progress bar -->
+    <div class="qp-progress-track">
+      <div class="qp-progress-fill" [style.width.%]="progressPct"></div>
+    </div>
+
+    <div class="qp-layout">
+
+      <!-- ══ LEFT: Topics panel ══════════════════════════════ -->
+      <div class="qp-left">
+
+        <div class="qp-topics-scroll">
+          <div class="qp-topics-header">
+            <span class="qp-label">Topics</span>
+            <span class="qp-label">{{ answeredCount }}/{{ questions.length }}</span>
+          </div>
+
+          <div class="qp-topic-list">
+            @for (topic of topicSummaries; track topic.topicName) {
+              <button
+                class="qp-topic-card"
+                [ngClass]="typeClasses('qp-topic-card', topic.type)"
+                [class.qp-topic-card--active]="isActiveTopic(topic)"
+                (click)="jumpToTopic(topic)"
+              >
+                <div class="qp-topic-card-inner">
+                  <div class="qp-topic-top">
+                    <span class="qp-topic-name">{{ topic.topicName }}</span>
+                    <span class="qp-type-badge"
+                      [ngClass]="typeClasses('qp-type-badge', topic.type)">
+                      {{ topic.type }}
+                    </span>
+                  </div>
+                  <div class="qp-topic-meta">
+                    {{ topicAnsweredCount(topic) }}/{{ topic.total }}
+                  </div>
+                  <div class="qp-topic-prog-track">
+                    <div class="qp-topic-prog-fill"
+                      [ngClass]="typeClasses('qp-topic-prog-fill', topic.type)"
+                      [style.width.%]="topicProgressPct(topic)">
+                    </div>
+                  </div>
+                </div>
+              </button>
+            }
+          </div>
+        </div>
+
+        <!-- Vertical divider — color follows current question's topic type -->
+        <div class="qp-divider"
+          [ngClass]="typeClasses('qp-divider', currentTopicType)">
+          <span class="qp-divider-text">{{ current?.topicName }}</span>
+        </div>
+
+      </div>
+      <!-- ══ end LEFT ═════════════════════════════════════════ -->
+
+      <!-- ══ RIGHT: Question card ════════════════════════════ -->
+      <div class="qp-right">
+        <div class="qp-question-card">
+
+          <!-- Card header -->
+          <div class="qpc-header">
+            <div class="qpc-header-left">
+              <button class="qpc-back" (click)="goBack()">← Sessions</button>
+              <span class="qpc-counter">{{ currentIndex + 1 }} / {{ questions.length }}</span>
+            </div>
+            <div class="qpc-header-right">
+              @if (isSubmitted) {
+                <span class="qpc-answered-badge">Answered</span>
+              }
+              <div class="qpc-timer" [class.qpc-timer--paused]="isSubmitted">
+                <span class="qpc-timer-val">{{ formattedTime }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Topic bar — same color family as divider -->
+          <div class="qpc-topic-bar"
+            [ngClass]="typeClasses('qpc-topic-bar', currentTopicType)">
+            <span class="qpc-topic-chip">{{ current?.topicName }}</span>
+            <span class="qpc-type-chip"
+              [ngClass]="typeClasses('qpc-type-chip', currentTopicType)">
+              {{ current?.topicType }}
+            </span>
+          </div>
+
+          <!-- Card body (scrollable) -->
+          <div class="qpc-body">
+
+            <!-- Code snippet (optional) -->
+            @if (current?.snippet_body) {
+              <pre class="qpc-snippet"><code>{{ current?.snippet_body }}</code></pre>
+            }
+
+            <!-- Question text -->
+            <p class="qpc-question-text">{{ current?.text }}</p>
+
+            <!-- Options -->
+            <div class="qpc-options" [class.qpc-options--submitted]="isSubmitted">
+              @for (opt of current?.options ?? []; track $index; let i = $index) {
+                <button
+                  class="qpc-option"
+                  [class.qpc-option--selected]="optionState(i) === 'selected'"
+                  [class.qpc-option--correct]="optionState(i) === 'correct'"
+                  [class.qpc-option--incorrect]="optionState(i) === 'incorrect'"
+                  [class.qpc-option--neutral]="optionState(i) === 'neutral'"
+                  (click)="selectOption(i)"
+                >
+                  <span class="qpc-option-badge">{{ optionLabel(i) }}</span>
+                  <span class="qpc-option-text">{{ opt }}</span>
+                </button>
+              }
+            </div>
+
+            <!-- Feedback (after answering) -->
+            @if (isSubmitted) {
+              <div class="qpc-feedback" [class.qpc-feedback--correct]="isCorrect">
+                <span class="qpc-feedback-verdict">
+                  {{ isCorrect ? 'Correct' : 'Incorrect' }}
+                </span>
+                @if (!isCorrect && current) {
+                  <p class="qpc-feedback-answer">
+                    Correct: {{ current.options[current.correct_index] }}
+                  </p>
+                }
+              </div>
+            }
+
+            <!-- Explanation (after answering) -->
+            @if (isSubmitted && current?.explanation) {
+              <div class="qpc-explanation">
+                <span class="qpc-explanation-label">Explanation</span>
+                <p class="qpc-explanation-text">{{ current?.explanation }}</p>
+
+                @if (current?.distractor_explanations) {
+                  <div class="qpc-distractor">
+                    <span class="qpc-distractor-icon">!</span>
+                    <p class="qpc-distractor-text">{{ current?.distractor_explanations }}</p>
+                  </div>
+                }
+              </div>
+            }
+
+          </div>
+          <!-- end .qpc-body -->
+
+          <!-- Card nav -->
+          <div class="qpc-nav">
+            <button class="qpc-nav-btn"
+              (click)="prev()"
+              [disabled]="currentIndex === 0">
+              Previous
+            </button>
+            <button class="qpc-nav-btn qpc-nav-btn--primary" (click)="continue()">
+              @if (!isSubmitted) { Check Answer }
+              @else if (!isLastQuestion) { Next → }
+              @else { Finish → }
+            </button>
+            <button class="qpc-nav-btn"
+              (click)="skip()"
+              [disabled]="isLastQuestion">
+              Skip
+            </button>
+          </div>
+
+        </div>
+      </div>
+      <!-- ══ end RIGHT ════════════════════════════════════════ -->
+
+    </div>
+  }
+
+  <!-- ── Done screen ─────────────────────────────────────────── -->
+  @if (pageState === 'done') {
+    <div class="qp-center">
+      <div class="qp-done-card">
+        <div class="qp-done-icon">✓</div>
+        <h1 class="qp-done-title">Session complete</h1>
+        <p class="qp-done-sub">{{ questions.length }} questions answered</p>
+
+        <div class="qp-done-stats">
+          <div class="qp-done-stat">
+            <span class="qp-done-val">{{ accuracyPct }}%</span>
+            <span class="qp-done-label">Accuracy</span>
+          </div>
+          <div class="qp-done-stat">
+            <span class="qp-done-val">{{ correctCount }}</span>
+            <span class="qp-done-label">Correct</span>
+          </div>
+          <div class="qp-done-stat">
+            <span class="qp-done-val">{{ questions.length - correctCount }}</span>
+            <span class="qp-done-label">Incorrect</span>
+          </div>
+        </div>
+
+        <button class="qp-btn qp-btn--cta" (click)="goBack()">Back to sessions</button>
+      </div>
+    </div>
+  }
+
+</div>

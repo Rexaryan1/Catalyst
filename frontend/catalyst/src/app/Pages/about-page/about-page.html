@@ -16,51 +16,60 @@
     <div class="filler-heading" animateOnScroll [animDelay]="120">From challenge to mastery</div>
   </div>
 
-  <section class="about-cards-section">
-  <div class="about-cards-shell">
-    <article class="about-card" animateOnScroll [animDelay]="0">
-      <div class="about-card-media">
-        <img src="assets/images/card1.png" alt="Catalyst roadmap screen" />
-      </div>
-      <div class="about-card-divider"></div>
-      <div class="about-card-copy">
-        <h3>Personalized Roadmaps</h3>
-        <p>
-          Build structured learning paths that adapt to your goals and keep
-          every concept connected.
-        </p>
-      </div>
-    </article>
+  <section class="usp-section">
 
-    <article class="about-card" animateOnScroll [animDelay]="120">
-      <div class="about-card-media">
-        <img src="assets/images/card2.png" alt="Catalyst practice screen" />
+    <!-- Row 1: Image left, Text right -->
+    <div class="usp-row">
+      <div class="usp-visual" animateOnScroll [animDelay]="0">
+        <div class="usp-glow"></div>
+        <div class="usp-phone-mockup">
+          <div class="usp-phone-frame">
+            <img src="assets/images/ss1.png" alt="Catalyst today's session screen" />
+          </div>
+        </div>
       </div>
-      <div class="about-card-divider"></div>
-      <div class="about-card-copy">
-        <h3>Quiz-First Practice</h3>
-        <p>
-          Turn passive reading into active understanding with practice that
-          sharpens recall and reasoning.
-        </p>
+      <div class="usp-copy" animateOnScroll [animDelay]="150">
+        <span class="usp-kicker">01 — Your session</span>
+        <h2 class="usp-headline">Not a quiz.<br>An intervention.</h2>
+        <p class="usp-body">Today's session isn't pulled from a library. It's built from what your last three sessions actually revealed — your weakest subtopics, your accuracy drops, your newest concepts. Fourteen questions, assembled from your data. Nothing more, nothing less.</p>
       </div>
-    </article>
+    </div>
 
-    <article class="about-card" animateOnScroll [animDelay]="240">
-      <div class="about-card-media">
-        <img src="assets/images/card3.png" alt="Catalyst analytics screen" />
+    <!-- Row 2: Text left, Image right -->
+    <div class="usp-row usp-row--reverse">
+      <div class="usp-copy" animateOnScroll [animDelay]="0">
+        <span class="usp-kicker">02 — In session</span>
+        <h2 class="usp-headline">Designed to find what you think you understand.</h2>
+        <p class="usp-body">Every question targets a specific edge — the concept you half-grasp, the assumption you've been papering over. Catalyst doesn't ask what you know. It asks where you'll get it wrong. And it already suspects the answer.</p>
       </div>
-      <div class="about-card-divider"></div>
-      <div class="about-card-copy">
-        <h3>Progress Insights</h3>
-        <p>
-          See meaningful signals around pace, accuracy, and momentum without
-          getting buried in noise.
-        </p>
+      <div class="usp-visual" animateOnScroll [animDelay]="150">
+        <div class="usp-glow usp-glow--right"></div>
+        <div class="usp-phone-mockup">
+          <div class="usp-phone-frame">
+            <img src="assets/images/ss2.png" alt="Catalyst precision question screen" />
+          </div>
+        </div>
       </div>
-    </article>
-  </div>
-</section>
+    </div>
+
+    <!-- Row 3: Image left, Text right -->
+    <div class="usp-row">
+      <div class="usp-visual" animateOnScroll [animDelay]="0">
+        <div class="usp-glow"></div>
+        <div class="usp-phone-mockup">
+          <div class="usp-phone-frame">
+            <img src="assets/images/ss3.png" alt="Catalyst session analysis screen" />
+          </div>
+        </div>
+      </div>
+      <div class="usp-copy" animateOnScroll [animDelay]="150">
+        <span class="usp-kicker">03 — After every session</span>
+        <h2 class="usp-headline">It didn't just score you.<br>It found why.</h2>
+        <p class="usp-body">38% on Synchronization — not because the topic is hard, but because Process States was never fully resolved three weeks ago. Catalyst traces root causes, maps the dependency chain, and adds the fix to tomorrow's session. Automatically.</p>
+      </div>
+    </div>
+
+  </section>
   <app-footer-section></app-footer-section>
   <div class = "credits">© 2025 Catalyst. All rights reserved.</div>
   <div class="catalyst-wordmark-wrap" #wordmarkEl>

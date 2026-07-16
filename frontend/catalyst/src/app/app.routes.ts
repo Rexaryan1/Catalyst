@@ -16,6 +16,8 @@ import { authGuard } from '@services/auth/auth.guard'
 import {HeatmapSmall} from '@components/cards/heatmap-small/heatmap-small';
 import {DonutChart} from "@pages/user-dashboard/donut-chart/donut-chart";
 import {PromptPage} from "@pages/prompt-page/prompt-page" ;
+import { SessionHomePageComponent } from '@pages/session-home-page/session-home-page.component';
+import { SessionQuizPageComponent } from '@pages/session-quiz-page/session-quiz-page.component';
 
 
 
@@ -31,8 +33,7 @@ export const routes: Routes = [
   { path: 'roadmap', component: RoadmapPageComponent, data: { title: "Let's get cracking!" }, canActivate: [authGuard] },
   { path: 'progress', component: ProgressDashboardComponent, data: { header: 'Home' }, canActivate: [authGuard] },
 
-
-  // Preview for testing
-  //{ path: 'preview', component: PromptPage, data: { header: 'Testing Notifications' } },
-
+  // Preview
+  { path: 'preview/quiz', component: SessionQuizPageComponent },
+  { path: 'preview', component: SessionHomePageComponent },
 ];
