@@ -1,7 +1,6 @@
 import { ApplicationConfig, isDevMode } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { appSecInterceptor } from './services/app-sec.interceptor';
 import { provideOAuthClient } from 'angular-oauth2-oidc';
 import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -17,7 +16,7 @@ export const appConfig: ApplicationConfig = {
     provideLottieOptions({
       player: () => player,
     }),
-    provideRouter(routes), provideAnimationsAsync(), provideHttpClient(withInterceptors([appSecInterceptor])),
+    provideRouter(routes), provideAnimationsAsync(), provideHttpClient(),
     // provideAppInitializer(() => {
     //     const initializerFn = ((dataManager: DataManagerService) => () => dataManager.checkLoggedInStatus())(inject(DataManagerService));
     //     return initializerFn();
