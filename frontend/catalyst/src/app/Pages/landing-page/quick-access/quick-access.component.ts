@@ -20,6 +20,6 @@ export class QuickAccessComponent {
     { label: 'Dashboard', icon: 'assets/icons/dashboard-icon.svg', route: '/dashboard' },
     { label: 'Home', icon: 'assets/icons/home-icon.svg', route: '/home' },
     { label: 'Generate', icon: 'assets/icons/generate-icon.svg', route: '/prompt' },
-    { label: 'Solve', icon: 'assets/icons/solve.svg', route: '/roadmap-tracker' },
+    { label: 'Solve', icon: 'assets/icons/solve.svg', route: '/preview' },
   ];
 }

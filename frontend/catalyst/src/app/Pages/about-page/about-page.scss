@@ -160,89 +160,228 @@
 //  }
 //}
 
-.about-cards-section {
+// ── USP alternating rows ─────────────────────────────────────
+
+.filler-section {
+  padding-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.usp-section {
   background: #050816;
-  padding: 5rem 0 7rem;
-}
-
-.about-cards-shell {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2.25rem;
-  width: min(1200px, calc(100vw - 3rem));
-  margin: 0 auto;
-}
-
-.about-card {
-  display: grid;
-  grid-template-rows: 1fr 1px auto;
-  aspect-ratio: 3 / 4;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
+  padding: 0 0 clamp(5rem, 10vw, 9rem);
   overflow: hidden;
-  background: rgba(217, 217, 217, 0.08);
 }
 
-.about-card-media {
-  display: flex;
+.usp-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(3rem, 7vw, 6rem);
   align-items: center;
+  width: min(1200px, calc(100vw - 4rem));
+  margin: 0 auto;
+  padding: clamp(5rem, 8vw, 7rem) 0;
+
+  & + .usp-row {
+    border-top: 1px solid rgba(70, 103, 93, 0.2);
+  }
+}
+
+.usp-visual {
+  position: relative;
+  display: flex;
   justify-content: center;
-  padding: 2.5rem 2rem;
+  align-items: center;
+}
+
+.usp-glow {
+  position: absolute;
+  width: 70%;
+  height: 70%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(70, 103, 93, 0.3) 0%, transparent 72%);
+  filter: blur(48px);
+  pointer-events: none;
+  z-index: 0;
+  transform: translateY(10%);
+}
+
+.usp-glow--right {
+  right: -10%;
+}
+
+.usp-phone-mockup {
+  position: relative;
+  z-index: 1;
+  width: min(304px, 86%);
+  background: #0b0f1a;
+  border-radius: 22px;
+  padding: 18px 7px 14px;
+  border: 1.5px solid rgba(255, 255, 255, 0.09);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.55),
+    0 40px 80px rgba(0, 0, 0, 0.55),
+    0 16px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  animation: usp-float 8s ease-in-out infinite;
+
+  // Front camera
+  &::before {
+    content: '';
+    display: block;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #181e2e;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    margin: -10px auto 8px;
+  }
+
+  // Android nav bar indicator
+  &::after {
+    content: '';
+    display: block;
+    width: 52px;
+    height: 3px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.2);
+    margin: 9px auto -6px;
+  }
+}
+
+.usp-phone-frame {
+  aspect-ratio: 390 / 844;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #080d1a;
 
   img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
     display: block;
-    border-radius: 6px;
   }
 }
 
-@media (max-width: 900px) {
-  .about-cards-shell {
-    grid-template-columns: 1fr;
-    max-width: 480px;
-    gap: 1.75rem;
-  }
-
-  .about-card {
-    aspect-ratio: auto;
-  }
-
-  .about-card-media {
-    min-height: 220px;
-  }
+.usp-row:nth-child(2) .usp-phone-mockup {
+  animation-duration: 9s;
+  animation-delay: -3s;
 }
 
-.about-card-divider {
-  height: 1px;
-  margin: 0 2rem;
-  background: rgba(255, 255, 255, 0.12);
-  border-radius: 1px;
-  flex-shrink: 0;
+.usp-row:nth-child(3) .usp-phone-mockup {
+  animation-duration: 10s;
+  animation-delay: -6s;
 }
 
-.about-card-copy {
-  padding: 1.75rem 2rem 2.25rem;
+@keyframes usp-float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+
+.usp-copy {
   display: flex;
   flex-direction: column;
-  gap: 0.65rem;
+  gap: 1.4rem;
+}
 
-  h3 {
-    margin: 0;
-    font-size: clamp(0.95rem, 1.1vw, 1.05rem);
-    font-weight: 600;
-    color: #BEDCE4;
-    line-height: 1.3;
+.usp-kicker {
+  display: inline-block;
+  font-family: "AlbertSans-Regular", sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(190, 220, 228, 0.6);
+}
+
+.usp-headline {
+  margin: 0;
+  font-family: "Erbaum", sans-serif;
+  font-size: clamp(1.9rem, 3.2vw, 2.9rem);
+  line-height: 1.08;
+  letter-spacing: -0.045em;
+  font-weight: 400;
+  color: #bedce4;
+}
+
+.usp-body {
+  margin: 0;
+  font-family: "AlbertSans-Regular", sans-serif;
+  font-size: clamp(0.95rem, 1.15vw, 1.05rem);
+  line-height: 1.8;
+  letter-spacing: -0.01em;
+  color: rgba(234, 233, 229, 0.65);
+  max-width: 46ch;
+}
+
+// ── Tablet ───────────────────────────────────────────────────
+@media (max-width: 900px) {
+  .usp-section {
+    padding-bottom: clamp(4rem, 8vw, 6rem);
   }
 
-  p {
-    margin: 0;
-    font-family: 'Albert Sans', sans-serif;
-    font-size: clamp(0.875rem, 1vw, 0.95rem);
-    font-weight: 400;
-    color: #EAE9E5;
-    line-height: 1.65;
-    opacity: 0.85;
+  .usp-row {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    width: min(560px, calc(100vw - 3rem));
+    padding: clamp(3rem, 5vw, 4.5rem) 0;
+  }
+
+  // All rows: image always on top on mobile/tablet
+  .usp-row--reverse .usp-visual {
+    order: -1;
+  }
+
+  .usp-visual {
+    justify-content: center;
+  }
+
+  .usp-phone-mockup {
+    width: min(240px, 60vw);
+  }
+
+  .usp-headline {
+    font-size: clamp(1.6rem, 5.5vw, 2rem);
+  }
+
+  .usp-body {
+    max-width: 100%;
+    font-size: 0.975rem;
+  }
+}
+
+// ── Phone ─────────────────────────────────────────────────────
+@media (max-width: 480px) {
+  .usp-section {
+    padding-bottom: 4rem;
+  }
+
+  .usp-row {
+    width: calc(100vw - 2.5rem);
+    gap: 2rem;
+    padding: 2.75rem 0;
+  }
+
+  .usp-row + .usp-row {
+    border-top: 1px solid rgba(70, 103, 93, 0.18);
+  }
+
+  .usp-phone-mockup {
+    width: min(220px, 72vw);
+  }
+
+  .usp-kicker {
+    font-size: 0.68rem;
+  }
+
+  .usp-headline {
+    font-size: clamp(1.45rem, 6vw, 1.75rem);
+    letter-spacing: -0.035em;
+  }
+
+  .usp-body {
+    font-size: 0.9rem;
+    line-height: 1.72;
   }
 }
 

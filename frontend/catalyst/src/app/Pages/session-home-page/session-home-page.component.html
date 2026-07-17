@@ -1,0 +1,234 @@
+<div class="sh-page">
+
+  <!-- Loading -->
+  @if (screenState() === 'loading') {
+    <div class="sh-center">
+      <div class="sh-spinner"></div>
+    </div>
+  }
+
+  <!-- Initial network error -->
+  @if (screenState() === 'error') {
+    <div class="sh-center">
+      <p class="sh-muted">Couldn't reach the server.</p>
+      <button class="sh-btn" (click)="loadEnrollments()">Try again</button>
+    </div>
+  }
+
+  <!-- State A: zero enrollments — course picker -->
+  @if (screenState() === 'empty') {
+    <div class="sh-empty">
+      <h1 class="sh-title">What are you learning?</h1>
+      <p class="sh-subtitle">Pick a course and we'll build your first session.</p>
+
+      <div class="sh-course-list">
+        @for (course of availableCourses; track course.id) {
+          <button
+            class="sh-course-card"
+            [disabled]="enrolling()"
+            (click)="enrollInCourse(course.id)"
+          >
+            <div>
+              <div class="sh-course-name">{{ course.name }}</div>
+              <div class="sh-course-desc">{{ course.description }}</div>
+            </div>
+            <span class="sh-course-cta">
+              @if (enrolling()) { Enrolling… } @else { Start → }
+            </span>
+          </button>
+        }
+      </div>
+
+      @if (enrollError() === 'cap') {
+        <p class="sh-error">You've reached the course limit.</p>
+      }
+      @if (enrollError() === 'network') {
+        <p class="sh-error">
+          Something went wrong. <button class="sh-link" (click)="enrollInCourse('OS')">Try again</button>
+        </p>
+      }
+    </div>
+  }
+
+  <!-- State B: one to three enrollments -->
+  @if (screenState() === 'enrolled') {
+    <div class="sh-enrolled">
+      <h1 class="sh-title">Today's sessions</h1>
+
+      <div class="sh-card-list">
+        @for (card of cards; track card.enrollment.id; let i = $index) {
+          <div class="sh-session-card"
+            [class.sh-session-card--active]="card.cardState === 'ready' || card.cardState === 'in_progress'"
+          >
+            <div class="sh-card-header">
+              <span class="sh-card-name">{{ card.enrollment.course }}</span>
+              <span class="sh-dot"
+                [class.sh-dot--green]="card.cardState === 'ready' || card.cardState === 'in_progress'"
+                [class.sh-dot--gold]="card.cardState === 'completed'"
+                [class.sh-dot--pulse]="card.cardState === 'preparing'"
+              ></span>
+            </div>
+
+            <!-- Loading skeleton -->
+            @if (card.cardState === 'loading') {
+              <div class="sh-skeleton-wrap">
+                <div class="sh-skeleton sh-skeleton--lg"></div>
+                <div class="sh-skeleton sh-skeleton--sm"></div>
+                <div class="sh-skeleton sh-skeleton--md"></div>
+              </div>
+            }
+
+            <!-- Rich session info: ready or in_progress -->
+            @if (card.cardState === 'ready' || card.cardState === 'in_progress') {
+              <div class="sh-session-info">
+
+                <div class="sh-topic-block">
+                  <h2 class="sh-headline">{{ card.session?.topicHeadline }}</h2>
+                  <p class="sh-reason">{{ card.session?.reason }}</p>
+                </div>
+
+                <div class="sh-meta-row">
+                  <span class="sh-meta-item">{{ card.session?.questionCount }} questions</span>
+                  <span class="sh-meta-dot">·</span>
+                  <span class="sh-meta-item">{{ card.session?.estimatedMinutes }} min</span>
+                  @if (card.session?.bloomsRange) {
+                    <span class="sh-meta-dot">·</span>
+                    <span class="sh-meta-item">Bloom's {{ card.session?.bloomsRange?.min }}–{{ card.session?.bloomsRange?.max }}</span>
+                  }
+                </div>
+
+                @if (card.session?.focusAreas?.length) {
+                  <div class="sh-focus-section">
+                    <span class="sh-label">Focus areas</span>
+                    <div class="sh-focus-list">
+                      @for (area of card.session?.focusAreas; track area.topicName) {
+                        <div class="sh-focus-item"
+                          [class.sh-focus-item--weakness]="area.type === 'weakness'"
+                          [class.sh-focus-item--new]="area.type === 'new'"
+                          [class.sh-focus-item--advance]="area.type === 'advance'"
+                        >
+                          <span class="sh-focus-name">{{ area.topicName }}</span>
+                          <span class="sh-focus-right">
+                            <span class="sh-focus-count">{{ area.questionCount }}Q</span>
+                            @if (area.accuracy !== null) {
+                              <span class="sh-focus-acc">{{ area.accuracy }}%</span>
+                            } @else {
+                              <span class="sh-focus-tag sh-focus-tag--{{ area.type }}">{{ area.type }}</span>
+                            }
+                          </span>
+                        </div>
+                      }
+                    </div>
+                  </div>
+                }
+
+                @if (card.session?.weeklyProgress) {
+                  <div class="sh-week-row">
+                    <span class="sh-week-label">This week</span>
+                    <div class="sh-week-dots">
+                      @for (filled of weekDots(card.session!); track $index) {
+                        <span class="sh-week-dot" [class.sh-week-dot--filled]="filled"></span>
+                      }
+                    </div>
+                    <span class="sh-week-count">
+                      {{ card.session?.weeklyProgress?.completed }}/{{ card.session?.weeklyProgress?.target }}
+                    </span>
+                  </div>
+                }
+
+                <button class="sh-btn sh-btn--cta sh-btn--full" (click)="openSession(i)">
+                  {{ card.cardState === 'in_progress' ? 'Resume session →' : 'Start session →' }}
+                </button>
+
+              </div>
+            }
+
+            <!-- Preparing -->
+            @if (card.cardState === 'preparing') {
+              <div class="sh-card-body">
+                <div class="sh-preparing">
+                  <span class="sh-preparing-dot"></span>
+                  <span>Preparing your session…</span>
+                </div>
+              </div>
+            }
+
+            <!-- Completed -->
+            @if (card.cardState === 'completed') {
+              <div class="sh-done">
+                @if (card.session?.completionAccuracy !== null) {
+                  <div class="sh-done-stats">
+                    <div class="sh-done-stat">
+                      <span class="sh-done-val">{{ card.session?.completionAccuracy }}%</span>
+                      <span class="sh-done-label">accuracy</span>
+                    </div>
+                    @if (card.session?.completionQuestions) {
+                      <div class="sh-done-stat">
+                        <span class="sh-done-val">{{ card.session?.completionQuestions }}</span>
+                        <span class="sh-done-label">questions</span>
+                      </div>
+                    }
+                    @if (card.session?.completionStreak) {
+                      <div class="sh-done-stat">
+                        <span class="sh-done-val">{{ card.session?.completionStreak }}</span>
+                        <span class="sh-done-label">day streak</span>
+                      </div>
+                    }
+                  </div>
+                }
+                <span class="sh-muted">Done for today</span>
+              </div>
+            }
+
+            <!-- Session error -->
+            @if (card.cardState === 'session_error') {
+              <div class="sh-card-body">
+                <button class="sh-btn" (click)="retrySessionFetch(i)">
+                  {{ card.showManualRefresh ? 'Check again' : 'Retry' }}
+                </button>
+              </div>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Add another course (< 3 enrolled only) -->
+      @if (canAddCourse) {
+        @if (!showCoursePicker()) {
+          <button class="sh-add-btn" (click)="showCoursePicker.set(true)">+ Add another course</button>
+        } @else {
+          <div class="sh-picker">
+            <div class="sh-picker-header">
+              <span class="sh-label">Add a course</span>
+              <button class="sh-close" (click)="showCoursePicker.set(false)">✕</button>
+            </div>
+            @for (course of availableCourses; track course.id) {
+              <button
+                class="sh-course-card sh-course-card--sm"
+                [disabled]="enrolling()"
+                (click)="enrollInCourse(course.id)"
+              >
+                <div>
+                  <div class="sh-course-name">{{ course.name }}</div>
+                  <div class="sh-course-desc">{{ course.description }}</div>
+                </div>
+                <span class="sh-course-cta">
+                  @if (enrolling()) { Enrolling… } @else { Enrol → }
+                </span>
+              </button>
+            }
+            @if (enrollError() === 'cap') {
+              <p class="sh-error">You've reached the 3-course limit.</p>
+            }
+            @if (enrollError() === 'network') {
+              <p class="sh-error">
+                Something went wrong. <button class="sh-link" (click)="enrollInCourse('OS')">Retry</button>
+              </p>
+            }
+          </div>
+        }
+      }
+    </div>
+  }
+
+</div>
