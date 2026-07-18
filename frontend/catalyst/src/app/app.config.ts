@@ -1,4 +1,4 @@
-import { ApplicationConfig, isDevMode } from '@angular/core';
+import { ApplicationConfig, isDevMode, inject, provideAppInitializer } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideOAuthClient } from 'angular-oauth2-oidc';
@@ -8,19 +8,18 @@ import { provideServiceWorker } from '@angular/service-worker';
 import { environment } from '@environments/environment';
 import { provideLottieOptions } from 'ngx-lottie';
 import player from 'lottie-web';
-//import { provideServiceWorker } from '@angular/service-worker';
-// This file is used to configure the application with the necessary providers and routes.
-// It sets up the router with the defined routes for the application.
+import { DataManagerService } from '@services/data-manager/data-manager.service';
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideLottieOptions({
       player: () => player,
     }),
     provideRouter(routes), provideAnimationsAsync(), provideHttpClient(),
-    // provideAppInitializer(() => {
-    //     const initializerFn = ((dataManager: DataManagerService) => () => dataManager.checkLoggedInStatus())(inject(DataManagerService));
-    //     return initializerFn();
-    //   }),
+    provideAppInitializer(() => {
+      const dataManager = inject(DataManagerService);
+      return dataManager.checkLoggedInStatus();
+    }),
     provideServiceWorker('ngsw-worker.js', {
       enabled: !isDevMode(),
       registrationStrategy: 'registerWhenStable:30000'

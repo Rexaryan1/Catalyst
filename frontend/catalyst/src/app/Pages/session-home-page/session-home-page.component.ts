@@ -208,11 +208,11 @@ export class SessionHomePageComponent implements OnInit, OnDestroy {
         next: (res) => {
           console.log('[quiz] questions response:', res);
           this.dataManager.set('sessionQuestions', res);
-          this.router.navigate(['/preview/quiz']);
+          this.router.navigate(['/sessions/quiz']);
         },
         error: (err) => {
           console.error('[quiz] failed to fetch questions:', err);
-          this.router.navigate(['/preview/quiz']);
+          this.router.navigate(['/sessions/quiz']);
         },
       });
   }

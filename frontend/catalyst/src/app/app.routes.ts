@@ -32,8 +32,9 @@ export const routes: Routes = [
   { path: 'roadmap-tracker', component: RoadmapTrackerComponent, data: { title: "Roadmaps You've built" }, canActivate: [authGuard] },
   { path: 'roadmap', component: RoadmapPageComponent, data: { title: "Let's get cracking!" }, canActivate: [authGuard] },
   { path: 'progress', component: ProgressDashboardComponent, data: { header: 'Home' }, canActivate: [authGuard] },
+  { path: 'sessions', component: SessionHomePageComponent, data: { title: "Let's get cracking!" }, canActivate: [authGuard] },
+  { path: 'sessions/quiz', component: SessionQuizPageComponent, data: { title: "Let's get cracking!" }, canActivate: [authGuard] },
 
   // Preview
-  { path: 'preview/quiz', component: SessionQuizPageComponent },
-  { path: 'preview', component: SessionHomePageComponent },
+
 ];
