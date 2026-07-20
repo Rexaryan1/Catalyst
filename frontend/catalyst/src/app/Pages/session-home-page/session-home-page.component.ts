@@ -12,6 +12,11 @@ export interface Enrollment {
   created_at: string;
 }
 
+export interface Course {
+  name: string;
+  topics: string[];
+}
+
 export interface FocusArea {
   topicName: string;
   questionCount: number;
@@ -67,15 +72,10 @@ export class SessionHomePageComponent implements OnInit, OnDestroy {
 
   showCoursePicker = signal(false);
   enrolling = signal(false);
-  enrollError = signal<'cap' | 'network' | null>(null);
+  enrollError = signal<'cap' | 'network' | 'already_enrolled' | null>(null);
+  lastAttemptedCourse = signal<string | null>(null);
 
-  readonly availableCourses = [
-    {
-      id: 'Operating Systems',
-      name: 'Operating Systems',
-      description: 'Memory management, processes, scheduling, and concurrency.',
-    },
-  ];
+  availableCourses = signal<Course[]>([]);
 
   constructor(
     private dataManager: DataManagerService,
@@ -84,11 +84,22 @@ export class SessionHomePageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loadEnrollments();
+    this.loadCourses();
   }
 
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  loadCourses(): void {
+    this.dataManager
+      .get<Course[]>('api/enrollments/courses', { withCredentials: true })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (courses) => this.availableCourses.set(courses ?? []),
+        error: () => {},
+      });
   }
 
   loadEnrollments(): void {
@@ -174,11 +185,12 @@ export class SessionHomePageComponent implements OnInit, OnDestroy {
     return Array.from({ length: target }, (_, i) => i < completed);
   }
 
-  enrollInCourse(courseId: string): void {
+  enrollInCourse(courseName: string): void {
     this.enrolling.set(true);
     this.enrollError.set(null);
+    this.lastAttemptedCourse.set(courseName);
     this.dataManager
-      .post<any>('api/enrollments/', { course: courseId }, { withCredentials: true })
+      .post<any>('api/enrollments/', { course: courseName }, { withCredentials: true })
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: () => {
@@ -188,9 +200,16 @@ export class SessionHomePageComponent implements OnInit, OnDestroy {
         },
         error: (err) => {
           this.enrolling.set(false);
-          this.enrollError.set(err?.status === 402 ? 'cap' : 'network');
+          if (err?.status === 402) this.enrollError.set('cap');
+          else if (err?.status === 409) this.enrollError.set('already_enrolled');
+          else this.enrollError.set('network');
         },
       });
+  }
+
+  topicsPreview(topics: string[]): string {
+    const shown = topics.slice(0, 3).join(', ');
+    return topics.length > 3 ? `${shown}…` : shown;
   }
 
   openSession(cardIndex: number): void {

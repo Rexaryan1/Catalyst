@@ -22,15 +22,15 @@
       <p class="sh-subtitle">Pick a course and we'll build your first session.</p>
 
       <div class="sh-course-list">
-        @for (course of availableCourses; track course.id) {
+        @for (course of availableCourses(); track course.name) {
           <button
             class="sh-course-card"
             [disabled]="enrolling()"
-            (click)="enrollInCourse(course.id)"
+            (click)="enrollInCourse(course.name)"
           >
             <div>
               <div class="sh-course-name">{{ course.name }}</div>
-              <div class="sh-course-desc">{{ course.description }}</div>
+              <div class="sh-course-desc">{{ topicsPreview(course.topics) }}</div>
             </div>
             <span class="sh-course-cta">
               @if (enrolling()) { Enrolling… } @else { Start → }
@@ -42,9 +42,12 @@
       @if (enrollError() === 'cap') {
         <p class="sh-error">You've reached the course limit.</p>
       }
+      @if (enrollError() === 'already_enrolled') {
+        <p class="sh-error">You're already enrolled in this course.</p>
+      }
       @if (enrollError() === 'network') {
         <p class="sh-error">
-          Something went wrong. <button class="sh-link" (click)="enrollInCourse('OS')">Try again</button>
+          Something went wrong. <button class="sh-link" (click)="enrollInCourse(lastAttemptedCourse()!)">Try again</button>
         </p>
       }
     </div>
@@ -202,15 +205,15 @@
               <span class="sh-label">Add a course</span>
               <button class="sh-close" (click)="showCoursePicker.set(false)">✕</button>
             </div>
-            @for (course of availableCourses; track course.id) {
+            @for (course of availableCourses(); track course.name) {
               <button
                 class="sh-course-card sh-course-card--sm"
                 [disabled]="enrolling()"
-                (click)="enrollInCourse(course.id)"
+                (click)="enrollInCourse(course.name)"
               >
                 <div>
                   <div class="sh-course-name">{{ course.name }}</div>
-                  <div class="sh-course-desc">{{ course.description }}</div>
+                  <div class="sh-course-desc">{{ topicsPreview(course.topics) }}</div>
                 </div>
                 <span class="sh-course-cta">
                   @if (enrolling()) { Enrolling… } @else { Enrol → }
@@ -220,9 +223,12 @@
             @if (enrollError() === 'cap') {
               <p class="sh-error">You've reached the 3-course limit.</p>
             }
+            @if (enrollError() === 'already_enrolled') {
+              <p class="sh-error">You're already enrolled in this course.</p>
+            }
             @if (enrollError() === 'network') {
               <p class="sh-error">
-                Something went wrong. <button class="sh-link" (click)="enrollInCourse('OS')">Retry</button>
+                Something went wrong. <button class="sh-link" (click)="enrollInCourse(lastAttemptedCourse()!)">Retry</button>
               </p>
             }
           </div>
