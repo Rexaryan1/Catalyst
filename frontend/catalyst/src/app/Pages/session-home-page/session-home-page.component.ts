@@ -20,7 +20,7 @@ export interface Course {
 export interface FocusArea {
   topicName: string;
   questionCount: number;
-  type: 'weakness' | 'new' | 'advance';
+  type: 'weakness' | 'new' | 'advance' | 'review';
   accuracy: number | null;
 }
 

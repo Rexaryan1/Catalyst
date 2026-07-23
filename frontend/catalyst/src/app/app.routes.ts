@@ -18,6 +18,7 @@ import {DonutChart} from "@pages/user-dashboard/donut-chart/donut-chart";
 import {PromptPage} from "@pages/prompt-page/prompt-page" ;
 import { SessionHomePageComponent } from '@pages/session-home-page/session-home-page.component';
 import { SessionQuizPageComponent } from '@pages/session-quiz-page/session-quiz-page.component';
+import { SessionResultPageComponent } from '@pages/session-result-page/session-result-page.component';
 
 
 
@@ -34,6 +35,7 @@ export const routes: Routes = [
   { path: 'progress', component: ProgressDashboardComponent, data: { header: 'Home' }, canActivate: [authGuard] },
   { path: 'sessions', component: SessionHomePageComponent, data: { title: "Let's get cracking!" }, canActivate: [authGuard] },
   { path: 'sessions/quiz', component: SessionQuizPageComponent, data: { title: "Let's get cracking!" }, canActivate: [authGuard] },
+  { path: 'sessions/result', component: SessionResultPageComponent, data: { title: 'Session results' }, canActivate: [authGuard] },
 
   // Preview
 
