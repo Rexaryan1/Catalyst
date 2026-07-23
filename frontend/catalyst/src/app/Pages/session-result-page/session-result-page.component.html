@@ -1,0 +1,143 @@
+<div class="sr-page">
+
+  <!-- No data fallback -->
+  @if (!hasData) {
+    <div class="sr-center">
+      <p class="sr-muted">No session results found.</p>
+      <button class="sr-btn" (click)="goToSessions()">← Back to sessions</button>
+    </div>
+  }
+
+  @if (hasData && result) {
+
+    <!-- Header -->
+    <div class="sr-header">
+      <button class="sr-back" (click)="goToSessions()">← Sessions</button>
+      <span class="sr-header-title">Session complete</span>
+      <span class="sr-header-duration">{{ formattedDuration }}</span>
+    </div>
+
+    <div class="sr-body">
+
+      <!-- ── Mastery change callout (payoff moment) ──────────────── -->
+      @if (changedMasteryTopics.length > 0) {
+        <div class="sr-mastery-callout">
+          <div class="sr-mastery-callout-hd">
+            <span class="sr-mastery-star">★</span>
+            <span class="sr-mastery-callout-title">
+              {{ changedMasteryTopics.length === 1 ? 'Mastery level up' : changedMasteryTopics.length + ' topics leveled up' }}
+            </span>
+          </div>
+          <div class="sr-mastery-changes">
+            @for (topic of changedMasteryTopics; track topic.topic) {
+              <div class="sr-mastery-change-row">
+                <span class="sr-mastery-change-name">{{ topic.topic }}</span>
+                <div class="sr-mastery-change-states">
+                  <span class="sr-mastery-badge" [ngClass]="'sr-mastery-badge--' + topic.previous_mastery">
+                    {{ masteryLabel(topic.previous_mastery) }}
+                  </span>
+                  <span class="sr-mastery-arrow">→</span>
+                  <span class="sr-mastery-badge sr-mastery-badge--leveled" [ngClass]="'sr-mastery-badge--' + topic.mastery">
+                    {{ masteryLabel(topic.mastery) }}
+                  </span>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      }
+
+      <!-- ── Overall score ───────────────────────────────────────── -->
+      <div class="sr-score-card">
+        <div class="sr-score-hero">
+          <span class="sr-score-big">{{ accuracyPct }}</span>
+          <span class="sr-score-unit">%</span>
+        </div>
+        <span class="sr-score-label">accuracy</span>
+
+        <div class="sr-score-divider"></div>
+
+        <div class="sr-score-stats">
+          <div class="sr-score-stat">
+            <span class="sr-score-stat-val sr-score-stat-val--correct">{{ result.summary.correct }}</span>
+            <span class="sr-score-stat-label">correct</span>
+          </div>
+          <div class="sr-score-stat">
+            <span class="sr-score-stat-val sr-score-stat-val--incorrect">{{ incorrectCount }}</span>
+            <span class="sr-score-stat-label">incorrect</span>
+          </div>
+          @if (skippedCount > 0) {
+            <div class="sr-score-stat">
+              <span class="sr-score-stat-val sr-score-stat-val--skipped">{{ skippedCount }}</span>
+              <span class="sr-score-stat-label">skipped</span>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- ── Topic breakdown ────────────────────────────────────── -->
+      @if (attemptedTopics.length > 0) {
+        <div class="sr-section">
+          <span class="sr-section-label">Topics covered</span>
+          <div class="sr-topic-list">
+            @for (topic of attemptedTopics; track topic.topic) {
+              <div class="sr-topic-row" [class.sr-topic-row--changed]="topic.mastery_changed">
+                <div class="sr-topic-info">
+                  <span class="sr-topic-name">{{ topic.topic }}</span>
+                  @if (topic.mastery_changed) {
+                    <span class="sr-topic-up-badge">leveled up</span>
+                  }
+                </div>
+                <div class="sr-topic-right">
+                  <span class="sr-topic-score">{{ topic.correct }}/{{ topic.attempted }}</span>
+                  <span class="sr-mastery-badge" [ngClass]="'sr-mastery-badge--' + topic.mastery">
+                    {{ masteryLabel(topic.mastery) }}
+                  </span>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      }
+
+      <!-- ── Weekly progress ────────────────────────────────────── -->
+      @if (result.weekly_progress) {
+        <div class="sr-section">
+          <span class="sr-section-label">This week</span>
+          <div class="sr-weekly">
+            <div class="sr-weekly-stat">
+              <span class="sr-weekly-val">{{ result.weekly_progress.sessions_completed }}</span>
+              <span class="sr-weekly-label">sessions</span>
+            </div>
+            <div class="sr-weekly-divider"></div>
+            <div class="sr-weekly-stat">
+              <span class="sr-weekly-val">{{ weeklyAccuracyPct }}%</span>
+              <span class="sr-weekly-label">accuracy</span>
+            </div>
+            <div class="sr-weekly-divider"></div>
+            <div class="sr-weekly-stat">
+              @if (deltaVsLastWeek === null) {
+                <span class="sr-weekly-val sr-weekly-val--neutral">—</span>
+                <span class="sr-weekly-label">first week</span>
+              } @else {
+                <span class="sr-weekly-val"
+                  [class.sr-weekly-val--up]="deltaVsLastWeek > 0"
+                  [class.sr-weekly-val--down]="deltaVsLastWeek < 0">
+                  {{ deltaDisplay }}
+                </span>
+                <span class="sr-weekly-label">vs last week</span>
+              }
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- ── Actions ─────────────────────────────────────────────── -->
+      <div class="sr-actions">
+        <button class="sr-btn sr-btn--cta" (click)="goToSessions()">Back to sessions</button>
+      </div>
+
+    </div>
+  }
+
+</div>
