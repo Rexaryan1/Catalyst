@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CommonModule, DecimalPipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Subscription, timer } from 'rxjs';
 import { DataManagerService } from '@services/data-manager/data-manager.service';
@@ -43,7 +43,7 @@ export interface TopicSummary {
   firstFlatIndex: number;
 }
 
-export type PageState = 'loading' | 'quiz' | 'done' | 'error';
+export type PageState = 'loading' | 'quiz' | 'confirm' | 'submitting' | 'done' | 'error';
 export type OptionState = 'default' | 'selected' | 'correct' | 'incorrect' | 'neutral';
 
 // ── Component ──────────────────────────────────────────────────────────────────
@@ -59,6 +59,7 @@ export class SessionQuizPageComponent implements OnInit, OnDestroy {
 
   // ── Page state
   pageState: PageState = 'loading';
+  submitError = false;
 
   // ── Question data
   questions: FlatQuestion[] = [];
@@ -70,6 +71,9 @@ export class SessionQuizPageComponent implements OnInit, OnDestroy {
   isSubmitted = false;
   isCorrect: boolean | null = null;
   elapsedSeconds = 0;
+
+  // ── Session-level tracking
+  private sessionStartedAt = '';
 
   // ── Timer
   private timerSub: Subscription | null = null;
@@ -121,12 +125,13 @@ export class SessionQuizPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const raw = this.dataManager.snapshot<any>('sessionQuestions');
-    console.log('[quiz page] sessionQuestions:', raw);
 
     if (!raw?.focusAreas?.length) {
       this.pageState = 'error';
       return;
     }
+
+    this.sessionStartedAt = new Date().toISOString();
     this.buildQuestions(raw.focusAreas);
     this.pageState = 'quiz';
     this.startTimer();
@@ -180,7 +185,6 @@ export class SessionQuizPageComponent implements OnInit, OnDestroy {
     this.isSubmitted = true;
     this.isCorrect = this.selectedOption === this.current.correct_index;
 
-    // persist answer on the flat question object
     this.questions[this.currentIndex] = {
       ...this.current,
       selectedIndex: this.selectedOption,
@@ -194,10 +198,26 @@ export class SessionQuizPageComponent implements OnInit, OnDestroy {
     if (!this.isSubmitted) {
       this.checkAnswer();
     } else if (this.isLastQuestion) {
-      this.pageState = 'done';
+      this.finishSession();
     } else {
       this.setIndex(this.currentIndex + 1);
     }
+  }
+
+  finishSession(): void {
+    if (this.answeredCount < this.questions.length) {
+      this.pageState = 'confirm';
+    } else {
+      this.submitSession();
+    }
+  }
+
+  confirmSubmit(): void {
+    this.submitSession();
+  }
+
+  cancelConfirm(): void {
+    this.pageState = 'quiz';
   }
 
   prev(): void {
@@ -213,7 +233,12 @@ export class SessionQuizPageComponent implements OnInit, OnDestroy {
   }
 
   goBack(): void {
-    this.router.navigate(['/preview']);
+    this.router.navigate(['/sessions']);
+  }
+
+  retrySubmit(): void {
+    this.submitError = false;
+    this.submitSession();
   }
 
   private setIndex(i: number): void {
@@ -226,6 +251,62 @@ export class SessionQuizPageComponent implements OnInit, OnDestroy {
     this.elapsedSeconds = 0;
     this.stopTimer();
     if (!this.isSubmitted) this.startTimer();
+  }
+
+  // ── Submit ────────────────────────────────────────────────────────────────────
+
+  private submitSession(): void {
+    const active = this.dataManager.snapshot<any>('activeSession');
+    const sessionId = active?.sessionId;
+
+    if (!sessionId) {
+      this.pageState = 'done';
+      return;
+    }
+
+    this.pageState = 'submitting';
+    const payload = this.buildSubmitPayload();
+
+    this.dataManager
+      .post<any>(`api/sessions/${sessionId}/submit`, payload, { withCredentials: true })
+      .subscribe({
+        next: (res) => {
+          this.dataManager.set('sessionResult', res);
+          this.router.navigate(['/sessions/result']);
+        },
+        error: (err) => {
+          if (err?.status === 409) {
+            // Already submitted (e.g. double-tap) — navigate to result if we have data
+            this.router.navigate(['/sessions/result']);
+          } else {
+            this.pageState = 'quiz';
+            this.submitError = true;
+          }
+        },
+      });
+  }
+
+  private buildSubmitPayload() {
+    const focus_area_attempts = this.topicSummaries.map((s, _) => ({
+      topic_name: s.topicName,
+      topic_type: s.type,
+      attempts: this.questions
+        .slice(s.firstFlatIndex, s.firstFlatIndex + s.total)
+        .map((q, j) => ({
+          question_id: q.id,
+          selected_index: q.selectedIndex ?? null,
+          is_correct: q.selectedIndex !== null ? q.selectedIndex === q.correct_index : null,
+          bloom_level: q.bloom_level,
+          difficulty: q.difficulty,
+          sequence_position: s.firstFlatIndex + j,
+        })),
+    }));
+
+    return {
+      session_started_at: this.sessionStartedAt,
+      device_timezone_offset_minutes: new Date().getTimezoneOffset() * -1,
+      focus_area_attempts,
+    };
   }
 
   // ── Timer ─────────────────────────────────────────────────────────────────────
@@ -269,7 +350,6 @@ export class SessionQuizPageComponent implements OnInit, OnDestroy {
     return summary.total === 0 ? 0 : (answered / summary.total) * 100;
   }
 
-  // Returns [class.X]=bool bindings for topic-type classes — keeps the template clean
   typeClasses(prefix: string, type: string): Record<string, boolean> {
     return {
       [`${prefix}--weakness`]: type === 'weakness',
