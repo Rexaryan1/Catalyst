@@ -55,9 +55,11 @@
             <div class="form-group">
               <label for="password" class="form-label">Password</label>
               <div class="input-wrapper">
-                <input type="password" id="password" class="form-input" placeholder="Password"
+                <input [type]="showSignUpPassword ? 'text' : 'password'" id="password" class="form-input" placeholder="Password"
                        formControlName="password">
-                <button type="button" class="password-toggle">
+                <button type="button" class="password-toggle"
+                        (mouseenter)="setSignUpPasswordVisible(true)"
+                        (mouseleave)="setSignUpPasswordVisible(false)">
                   <img src="../../../assets/images/eye.png" alt="Show Password">
                 </button>
               </div>
@@ -79,9 +81,11 @@
             <div class="form-group">
               <label for="password-signin" class="form-label">Password</label>
               <div class="input-wrapper">
-                <input type="password" id="password-signin" class="form-input" placeholder="Password"
+                <input [type]="showSignInPassword ? 'text' : 'password'" id="password-signin" class="form-input" placeholder="Password"
                        formControlName="password">
-                <button type="button" class="password-toggle">
+                <button type="button" class="password-toggle"
+                        (mouseenter)="setSignInPasswordVisible(true)"
+                        (mouseleave)="setSignInPasswordVisible(false)">
                   <img src="../../../assets/images/eye.png" alt="Show Password">
                 </button>
               </div>
