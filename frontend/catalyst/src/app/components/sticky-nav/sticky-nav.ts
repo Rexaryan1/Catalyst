@@ -23,7 +23,7 @@ export class StickyNav {
     { label: 'Dashboard', icon: 'assets/icons/dashboard-icon.svg', route: '/dashboard' },
     { label: 'Home', icon: 'assets/icons/home-icon.svg', route: '/home' },
     { label: 'Generate', icon: 'assets/icons/generate-icon.svg', route: '/prompt' },
-    { label: 'Solve', icon: 'assets/icons/solve.svg', route: '/roadmap-tracker' },
+    { label: 'Solve', icon: 'assets/icons/solve.svg', route: '/sessions' },
   ];
 
   private readonly excludedRoutes = ['/register' , '/home' , '/preview', '/landing'];
