@@ -52,6 +52,16 @@ export class LandingPage {
     { title: 'Explore', description: 'Browse topics and discover new learning paths.' },
     { title: 'Settings', description: 'Manage your profile, notifications, and preferences.' }
   ];
+  ngOnInit() {
+    // Start onboarding if user is new
+    this.dataManager.get('api/user/profile', { withCredentials: true }).subscribe({
+      next: (response: any) => {
+      },
+      error: (error) => {
+        console.error('Error checking if user is new:', error);
+      }
+    });
+  }
 
   nextOnboardingStep(): void {
     if (this.onboardingStep < this.steps.length - 1) {
