@@ -17,6 +17,8 @@ import { AuthService } from '@services/auth/auth.service';
 })
 export class SignupPage {
   isLoginMode = true;
+  showSignUpPassword = false;
+  showSignInPassword = false;
   signInForm = new FormGroup({
     email: new FormControl(''),
     password: new FormControl('')
@@ -33,6 +35,14 @@ export class SignupPage {
 
   toggleMode() {
     this.isLoginMode = !this.isLoginMode;
+  }
+
+  setSignUpPasswordVisible(visible: boolean) {
+    this.showSignUpPassword = visible;
+  }
+
+  setSignInPasswordVisible(visible: boolean) {
+    this.showSignInPassword = visible;
   }
 
   ngAfterViewInit() {
