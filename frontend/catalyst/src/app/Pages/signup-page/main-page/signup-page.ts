@@ -29,7 +29,7 @@ export class SignupPage {
   });
   @Output() nextStep = new EventEmitter<void>();
 
-  constructor(private http: HttpClient, private router: Router, private dataManager: DataManagerService, private authService: AuthService) {}
+  constructor(private http: HttpClient, private router: Router, private dataManager: DataManagerService, private authService: AuthService) { }
 
   toggleMode() {
     this.isLoginMode = !this.isLoginMode;
@@ -111,7 +111,7 @@ export class SignupPage {
   }
 
   loginWithGoogle() {
-    this.authService.login();
+    window.location.href = 'https://api.catalystedutech.com/api/user/google/auth';
   }
   // enablePush() {
   //   this.pushService.subscribeToPush();
