@@ -15,6 +15,31 @@
     </div>
   }
 
+  <!-- ── Submitting ─────────────────────────────────────────── -->
+  @if (pageState === 'submitting') {
+    <div class="qp-center">
+      <div class="qp-spinner"></div>
+      <p class="qp-muted">Submitting your session…</p>
+    </div>
+  }
+
+  <!-- ── Partial confirm ────────────────────────────────────── -->
+  @if (pageState === 'confirm') {
+    <div class="qp-center">
+      <div class="qp-confirm-card">
+        <h2 class="qp-confirm-title">Submit session?</h2>
+        <p class="qp-confirm-body">
+          You've answered <strong>{{ answeredCount }}</strong> of <strong>{{ questions.length }}</strong> questions.
+          Unanswered questions won't be counted.
+        </p>
+        <div class="qp-confirm-actions">
+          <button class="qp-btn" (click)="cancelConfirm()">Keep going</button>
+          <button class="qp-btn qp-btn--cta" (click)="confirmSubmit()">Submit anyway</button>
+        </div>
+      </div>
+    </div>
+  }
+
   <!-- ── Quiz layout ─────────────────────────────────────────── -->
   @if (pageState === 'quiz') {
 
@@ -78,6 +103,14 @@
       <div class="qp-right">
         <div class="qp-question-card">
 
+          <!-- Submit error banner -->
+          @if (submitError) {
+            <div class="qpc-submit-error">
+              Failed to submit. Your answers are safe —
+              <button class="qpc-link" (click)="retrySubmit()">try again</button>
+            </div>
+          }
+
           <!-- Card header -->
           <div class="qpc-header">
             <div class="qpc-header-left">
@@ -91,6 +124,7 @@
               <div class="qpc-timer" [class.qpc-timer--paused]="isSubmitted">
                 <span class="qpc-timer-val">{{ formattedTime }}</span>
               </div>
+              <button class="qpc-finish-btn" (click)="finishSession()">Finish session</button>
             </div>
           </div>
 
@@ -190,27 +224,29 @@
     </div>
   }
 
-  <!-- ── Done screen ─────────────────────────────────────────── -->
+  <!-- ── Done screen (fallback when no session ID) ────────────── -->
   @if (pageState === 'done') {
     <div class="qp-center">
       <div class="qp-done-card">
         <div class="qp-done-icon">✓</div>
         <h1 class="qp-done-title">Session complete</h1>
-        <p class="qp-done-sub">{{ questions.length }} questions answered</p>
+        <p class="qp-done-sub">{{ answeredCount }} of {{ questions.length }} answered</p>
 
         <div class="qp-done-stats">
-          <div class="qp-done-stat">
-            <span class="qp-done-val">{{ accuracyPct }}%</span>
-            <span class="qp-done-label">Accuracy</span>
-          </div>
           <div class="qp-done-stat">
             <span class="qp-done-val">{{ correctCount }}</span>
             <span class="qp-done-label">Correct</span>
           </div>
           <div class="qp-done-stat">
-            <span class="qp-done-val">{{ questions.length - correctCount }}</span>
+            <span class="qp-done-val">{{ answeredCount - correctCount }}</span>
             <span class="qp-done-label">Incorrect</span>
           </div>
+          @if (questions.length - answeredCount > 0) {
+            <div class="qp-done-stat">
+              <span class="qp-done-val">{{ questions.length - answeredCount }}</span>
+              <span class="qp-done-label">Skipped</span>
+            </div>
+          }
         </div>
 
         <button class="qp-btn qp-btn--cta" (click)="goBack()">Back to sessions</button>

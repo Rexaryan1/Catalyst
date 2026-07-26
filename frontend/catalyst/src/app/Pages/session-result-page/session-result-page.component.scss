@@ -1,0 +1,456 @@
+// ── Host ──────────────────────────────────────────────────────────────────────
+
+:host {
+  display: block;
+  background: #1f1f1f;
+  color: #eae9e5;
+  font-family: 'AlbertSans-Regular', sans-serif;
+  min-height: 100vh;
+}
+
+.sr-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.sr-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  gap: 1.25rem;
+  text-align: center;
+  padding: 2rem;
+}
+
+.sr-muted {
+  font-size: 0.875rem;
+  color: rgba(234, 233, 229, 0.45);
+  margin: 0;
+}
+
+// ── Header ────────────────────────────────────────────────────────────────────
+
+.sr-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1.5rem;
+  border-bottom: 1px solid rgba(247, 246, 243, 0.07);
+  background: rgba(255, 255, 255, 0.015);
+  flex-shrink: 0;
+}
+
+.sr-back {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'AlbertSans-Regular', sans-serif;
+  font-size: 0.78rem;
+  color: rgba(234, 233, 229, 0.35);
+  padding: 0;
+  transition: color 0.15s ease;
+
+  &:hover { color: rgba(234, 233, 229, 0.72); }
+}
+
+.sr-header-title {
+  font-family: 'Erbaum', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: rgba(234, 233, 229, 0.9);
+}
+
+.sr-header-duration {
+  font-size: 0.75rem;
+  color: rgba(234, 233, 229, 0.3);
+  font-variant-numeric: tabular-nums;
+  min-width: 3rem;
+  text-align: right;
+}
+
+// ── Body ──────────────────────────────────────────────────────────────────────
+
+.sr-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 2rem 1.5rem 2.5rem;
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+// ── Mastery callout ───────────────────────────────────────────────────────────
+// Primary payoff moment — shown above the score card when mastery changes occur
+
+.sr-mastery-callout {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding: 1.25rem 1.4rem;
+  background: rgba(195, 175, 100, 0.06);
+  border: 1px solid rgba(195, 175, 100, 0.25);
+  border-radius: 14px;
+  box-shadow: 0 0 0 4px rgba(195, 175, 100, 0.04);
+}
+
+.sr-mastery-callout-hd {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.sr-mastery-star {
+  font-size: 0.95rem;
+  color: rgba(215, 190, 80, 0.9);
+}
+
+.sr-mastery-callout-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(215, 190, 80, 0.85);
+}
+
+.sr-mastery-changes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.sr-mastery-change-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.sr-mastery-change-name {
+  font-size: 0.88rem;
+  color: rgba(234, 233, 229, 0.88);
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sr-mastery-change-states {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-shrink: 0;
+}
+
+.sr-mastery-arrow {
+  font-size: 0.72rem;
+  color: rgba(234, 233, 229, 0.28);
+}
+
+// ── Score card ────────────────────────────────────────────────────────────────
+
+.sr-score-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 2rem 1.5rem 1.75rem;
+  background: #2f2f2f;
+  border: 1px solid rgba(247, 246, 243, 0.08);
+  border-radius: 16px;
+  text-align: center;
+}
+
+.sr-score-hero {
+  display: flex;
+  align-items: baseline;
+  gap: 0.15rem;
+  line-height: 1;
+}
+
+.sr-score-big {
+  font-family: 'Erbaum', sans-serif;
+  font-size: 4.5rem;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  color: #eae9e5;
+}
+
+.sr-score-unit {
+  font-family: 'Erbaum', sans-serif;
+  font-size: 2rem;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: rgba(234, 233, 229, 0.4);
+}
+
+.sr-score-label {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(234, 233, 229, 0.3);
+}
+
+.sr-score-divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(247, 246, 243, 0.07);
+  margin: 0.75rem 0 0.25rem;
+}
+
+.sr-score-stats {
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+}
+
+.sr-score-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.sr-score-stat-val {
+  font-family: 'Erbaum', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+
+  &--correct  { color: rgba(100, 200, 100, 0.88); }
+  &--incorrect { color: rgba(215, 95, 95, 0.82); }
+  &--skipped  { color: rgba(234, 233, 229, 0.3); }
+}
+
+.sr-score-stat-label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(234, 233, 229, 0.28);
+}
+
+// ── Sections ──────────────────────────────────────────────────────────────────
+
+.sr-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.sr-section-label {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(234, 233, 229, 0.28);
+}
+
+// ── Topic list ────────────────────────────────────────────────────────────────
+
+.sr-topic-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sr-topic-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.7rem 1rem;
+  border-radius: 10px;
+  background: rgba(247, 246, 243, 0.025);
+  border: 1px solid rgba(247, 246, 243, 0.06);
+  gap: 0.75rem;
+
+  &--changed {
+    background: rgba(195, 175, 100, 0.04);
+    border-color: rgba(195, 175, 100, 0.15);
+  }
+}
+
+.sr-topic-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.sr-topic-name {
+  font-size: 0.84rem;
+  color: rgba(234, 233, 229, 0.82);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sr-topic-up-badge {
+  flex-shrink: 0;
+  font-size: 0.56rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 1px 5px;
+  border-radius: 3px;
+  background: rgba(195, 175, 100, 0.14);
+  color: rgba(215, 190, 80, 0.85);
+  border: 1px solid rgba(195, 175, 100, 0.22);
+}
+
+.sr-topic-right {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-shrink: 0;
+}
+
+.sr-topic-score {
+  font-size: 0.78rem;
+  color: rgba(234, 233, 229, 0.38);
+  font-variant-numeric: tabular-nums;
+  min-width: 2.2rem;
+  text-align: right;
+}
+
+// ── Mastery badges (shared) ───────────────────────────────────────────────────
+
+.sr-mastery-badge {
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+
+  &--new        { background: rgba(90, 140, 200, 0.12);  color: rgba(105, 155, 210, 0.9); border-color: rgba(90, 140, 200, 0.22); }
+  &--developing { background: rgba(195, 155, 80, 0.12);  color: rgba(215, 175, 90, 0.9);  border-color: rgba(195, 155, 80, 0.22); }
+  &--proficient { background: rgba(70, 140, 70, 0.12);   color: rgba(90, 200, 90, 0.9);   border-color: rgba(70, 140, 70, 0.22); }
+  &--weakness   { background: rgba(200, 75, 75, 0.12);   color: rgba(215, 95, 95, 0.9);   border-color: rgba(200, 75, 75, 0.22); }
+
+  // Glow the destination badge in mastery changes
+  &--leveled.sr-mastery-badge--developing { box-shadow: 0 0 0 2px rgba(195, 155, 80, 0.18); }
+  &--leveled.sr-mastery-badge--proficient { box-shadow: 0 0 0 2px rgba(70, 140, 70, 0.2); }
+}
+
+// ── Weekly progress ───────────────────────────────────────────────────────────
+
+.sr-weekly {
+  display: flex;
+  align-items: center;
+  padding: 1.25rem 1.5rem;
+  background: #2f2f2f;
+  border: 1px solid rgba(247, 246, 243, 0.08);
+  border-radius: 14px;
+}
+
+.sr-weekly-stat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  text-align: center;
+}
+
+.sr-weekly-divider {
+  width: 1px;
+  height: 34px;
+  background: rgba(247, 246, 243, 0.07);
+  flex-shrink: 0;
+}
+
+.sr-weekly-val {
+  font-family: 'Erbaum', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: #eae9e5;
+
+  &--up      { color: rgba(100, 200, 100, 0.88); }
+  &--down    { color: rgba(215, 95, 95, 0.82); }
+  &--neutral { color: rgba(234, 233, 229, 0.28); }
+}
+
+.sr-weekly-label {
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: rgba(234, 233, 229, 0.28);
+}
+
+// ── Actions ───────────────────────────────────────────────────────────────────
+
+.sr-actions {
+  display: flex;
+  justify-content: center;
+  padding-top: 0.25rem;
+}
+
+// ── Buttons ───────────────────────────────────────────────────────────────────
+
+.sr-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: 'AlbertSans-Regular', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.6rem 1.25rem;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(234, 233, 229, 0.75);
+  transition: background 0.15s ease;
+
+  &:hover { background: rgba(255, 255, 255, 0.11); }
+
+  &--cta {
+    background: #d9d9d9;
+    border-color: transparent;
+    color: #2d2d2d;
+    padding: 0.65rem 2.25rem;
+
+    &:hover { background: #e3e3e3; }
+  }
+}
+
+// ── Responsive ────────────────────────────────────────────────────────────────
+
+@media (max-width: 520px) {
+  .sr-body {
+    padding: 1.25rem 1rem 2rem;
+    gap: 1rem;
+  }
+
+  .sr-score-big {
+    font-size: 3.5rem;
+  }
+
+  .sr-score-stats {
+    gap: 1.5rem;
+  }
+
+  .sr-mastery-change-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sr-btn,
+  .sr-back { transition: none !important; }
+}
