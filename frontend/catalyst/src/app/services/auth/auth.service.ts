@@ -3,6 +3,7 @@ import { OAuthService } from 'angular-oauth2-oidc';
 import { authConfig } from './auth.config';
 import { Router } from '@angular/router';
 import { DataManagerService } from '../data-manager/data-manager.service';
+import { catchError, map, Observable, of } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
@@ -37,15 +38,24 @@ export class AuthService {
     // Log user out and redirect to login
     logout(): void {
         this.oauthService.logOut();
+        this.dataManager.logout();
         this.router.navigate(['/login']);
     }
 
     // Check if user has a valid token
-    get isLoggedIn(): boolean {
+    get isLoggedIn(): Observable<boolean> {
         if (this.oauthService.hasValidAccessToken() || this.dataManager.isUserLoggedIn()) {
-            return true;
+            return of(true);
         }
-        return false;
+        return this.dataManager.get('api/user/dashboard', { withCredentials: true }).pipe(
+            map((response: any) => {
+                return true; // User is logged in, let them through
+            }),
+            catchError(() => {
+                this.dataManager.logout();
+                return of(false);
+            })
+        );
     }
 
     // Get user profile info (name, email, picture)
