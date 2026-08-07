@@ -1,0 +1,90 @@
+:host {
+  display: block;
+}
+
+.cs-block {
+  font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+  font-size: 0.8rem;
+  line-height: 1.65;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  color: rgba(234, 233, 229, 0.88);
+  margin: 0;
+
+  &--output {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.76rem;
+  }
+}
+
+.cs-line {
+  display: flex;
+  white-space: pre;
+
+  &--hl {
+    background: rgba(190, 220, 228, 0.08);
+    box-shadow: inset 3px 0 0 rgba(190, 220, 228, 0.55);
+  }
+}
+
+.cs-gutter {
+  flex-shrink: 0;
+  width: 2rem;
+  margin-right: 0.85rem;
+  text-align: right;
+  color: rgba(234, 233, 229, 0.28);
+  user-select: none;
+}
+
+.cs-code {
+  flex: 1;
+  min-width: 0;
+}
+
+// ── Syntax token colors — tuned to sit alongside the app's muted palette
+// rather than a stock highlight.js theme.
+
+.cs-code ::ng-deep {
+  .hljs-keyword,
+  .hljs-selector-tag,
+  .hljs-literal,
+  .hljs-type {
+    color: rgba(190, 220, 228, 0.95); // light-blue accent, same family as --color-light-blue
+  }
+
+  .hljs-string,
+  .hljs-attr,
+  .hljs-regexp {
+    color: rgba(150, 195, 150, 0.9); // muted green, same family as --color-green
+  }
+
+  .hljs-number {
+    color: rgba(210, 175, 120, 0.9); // muted amber
+  }
+
+  .hljs-comment,
+  .hljs-quote {
+    color: rgba(234, 233, 229, 0.35);
+    font-style: italic;
+  }
+
+  .hljs-title,
+  .hljs-title.function_,
+  .hljs-built_in {
+    color: rgba(220, 190, 140, 0.95);
+  }
+
+  .hljs-variable,
+  .hljs-params,
+  .hljs-name {
+    color: rgba(234, 233, 229, 0.88);
+  }
+
+  .hljs-operator,
+  .hljs-punctuation {
+    color: rgba(234, 233, 229, 0.6);
+  }
+}

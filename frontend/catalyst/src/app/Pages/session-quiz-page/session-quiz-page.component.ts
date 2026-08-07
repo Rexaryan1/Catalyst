@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Subscription, timer } from 'rxjs';
 import { DataManagerService } from '@services/data-manager/data-manager.service';
+import { CodeSnippetComponent } from '@components/code-snippet/code-snippet.component';
 
 // ── Interfaces ────────────────────────────────────────────────────────────────
 
@@ -19,7 +20,8 @@ export interface RawQuestion {
   status: string;
   snippet_language: string | null;
   snippet_body: string | null;
-  snippet_line_range: string | null;
+  snippet_line_range: string | number[] | null;
+  snippet_output: string | null;
 }
 
 export interface RawFocusArea {
@@ -51,7 +53,7 @@ export type OptionState = 'default' | 'selected' | 'correct' | 'incorrect' | 'ne
 @Component({
   selector: 'app-session-quiz-page',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, CodeSnippetComponent],
   templateUrl: './session-quiz-page.component.html',
   styleUrl: './session-quiz-page.component.scss',
 })

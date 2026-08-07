@@ -1,0 +1,4 @@
+<!-- Whitespace inside <pre> is significant, so the loop body below is kept on one line by design. -->
+@if (lines.length) {
+  <pre class="cs-block" [class.cs-block--output]="variant === 'output'"><code>@for (line of lines; track line.num) {<span class="cs-line" [class.cs-line--hl]="line.highlighted">@if (variant === 'default') {<span class="cs-gutter">{{ line.num }}</span>}<span class="cs-code" [innerHTML]="line.html"></span></span>}</code></pre>
+}

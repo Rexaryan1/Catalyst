@@ -385,22 +385,6 @@
   scrollbar-color: rgba(255, 255, 255, 0.07) transparent;
 }
 
-// Code snippet
-.qpc-snippet {
-  font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
-  font-size: 0.8rem;
-  line-height: 1.65;
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 10px;
-  padding: 0.85rem 1rem;
-  overflow-x: auto;
-  color: rgba(234, 233, 229, 0.88);
-  margin: 0;
-  white-space: pre;
-  flex-shrink: 0;
-}
-
 // Question text
 .qpc-question-text {
   font-size: 1.05rem;
@@ -568,6 +552,20 @@
   font-size: 0.86rem;
   line-height: 1.58;
   color: rgba(234, 233, 229, 0.8);
+}
+
+.qpc-output {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.qpc-output-label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(234, 233, 229, 0.35);
 }
 
 .qpc-distractor {
