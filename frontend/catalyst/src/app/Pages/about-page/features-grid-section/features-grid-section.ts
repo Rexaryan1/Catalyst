@@ -25,28 +25,28 @@ export class FeaturesGridSection {
   readonly features: FeatureItem[] = [
     {
       title: 'Block by Block',
-      text: 'Complex topics, broken into structured question flows that make progress tangible.',
+      text: 'Dense topics, broken into focused question flows — so progress is something you can actually feel.',
       row: 1,
       col: 1,
       delay: 0,
     },
     {
       title: 'Designed to Adapt',
-      text: 'Custom-trained AI models shape each roadmap around your learning behavior.',
+      text: 'Custom-trained models rebuild your roadmap in real time, based on how you actually learn.',
       row: 1,
       col: 2,
       delay: 120,
     },
     {
       title: 'Thinking Over Scrolling',
-      text: 'A quiz-first approach that prioritizes active understanding over passive consumption.',
+      text: "A quiz-first approach built on one idea: you learn by doing, not by scrolling.",
       row: 2,
       col: 1,
       delay: 240,
     },
     {
       title: 'Signals That Matter',
-      text: 'Clear insights into your accuracy, pace, and progress without the noise.',
+      text: 'Accuracy, pace, and progress — the numbers that actually predict your score, with none of the noise.',
       row: 2,
       col: 2,
       delay: 360,

@@ -143,7 +143,11 @@
 
             <!-- Code snippet (optional) -->
             @if (current?.snippet_body) {
-              <pre class="qpc-snippet"><code>{{ current?.snippet_body }}</code></pre>
+              <app-code-snippet
+                [body]="current?.snippet_body ?? null"
+                [language]="current?.snippet_language ?? null"
+                [lineRange]="current?.snippet_line_range ?? null"
+              ></app-code-snippet>
             }
 
             <!-- Question text -->
@@ -185,6 +189,17 @@
               <div class="qpc-explanation">
                 <span class="qpc-explanation-label">Explanation</span>
                 <p class="qpc-explanation-text">{{ current?.explanation }}</p>
+
+                @if (current?.snippet_output) {
+                  <div class="qpc-output">
+                    <span class="qpc-output-label">Output</span>
+                    <app-code-snippet
+                      [body]="current?.snippet_output ?? null"
+                      [language]="null"
+                      variant="output"
+                    ></app-code-snippet>
+                  </div>
+                }
 
                 @if (current?.distractor_explanations) {
                   <div class="qpc-distractor">

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { HeatmapSmall } from '@components/cards/heatmap-small/heatmap-small';
-
-// ... existing code ...
 
 @Component({
   selector: 'landing-dashboard-card',
@@ -11,6 +10,10 @@ import { HeatmapSmall } from '@components/cards/heatmap-small/heatmap-small';
   styleUrl: './landing-dashboard-card.component.scss'
 })
 export class LandingDashboardCardComponent {
-  // Intentionally empty: this card only hosts the heatmap UI.
+  constructor(private router: Router) {}
+
+  openDashboard() {
+    this.router.navigate(['/dashboard']);
+  }
 }
 
