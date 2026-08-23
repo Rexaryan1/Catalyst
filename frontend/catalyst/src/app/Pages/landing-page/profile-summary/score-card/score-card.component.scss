@@ -11,8 +11,8 @@
   align-items: flex-start;
   justify-content: space-between;
   flex-shrink: 0;
-  width: 100.61px;
-  height: 100.15px;
+  width: 100%;
+  height: clamp(52px, 10vh, 88px);
   position: relative;
 
   //Glassmorphism
@@ -59,7 +59,7 @@
   color: #eae9e5;
   text-align: left;
   font-family: "Erbaum-Regular", sans-serif;
-  font-size: 24px;
+  font-size: clamp(15px, 2.4vh, 24px);
   font-weight: 400;
   position: relative;
   align-self: center;

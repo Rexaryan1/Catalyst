@@ -491,6 +491,46 @@
   transition: color 0.15s ease;
 }
 
+// ── Numeric input ────────────────────────────────────────────────────────────
+
+.qpc-numeric {
+  display: flex;
+}
+
+.qpc-numeric-input {
+  width: 100%;
+  max-width: 220px;
+  padding: 0.7rem 0.85rem;
+  border-radius: 12px;
+  background: rgba(247, 246, 243, 0.03);
+  border: 1px solid rgba(247, 246, 243, 0.14);
+  color: rgba(234, 233, 229, 0.92);
+  font-family: 'AlbertSans-Regular', sans-serif;
+  font-size: 0.95rem;
+  transition: border-color 0.15s ease, background 0.15s ease;
+
+  &::placeholder { color: rgba(234, 233, 229, 0.3); }
+
+  &:focus {
+    outline: none;
+    border-color: rgba(190, 220, 228, 0.5);
+    background: rgba(190, 220, 228, 0.05);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+
+  // Hide native number spinners for a cleaner look
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  appearance: textfield;
+}
+
 // ── Feedback ──────────────────────────────────────────────────────────────────
 
 .qpc-feedback {
@@ -505,6 +545,18 @@
   &--correct {
     background: rgba(76, 140, 76, 0.09);
     border-left-color: rgba(76, 140, 76, 0.5);
+  }
+
+  &--incorrect {
+    background: rgba(153, 60, 60, 0.09);
+    border-left-color: rgba(153, 60, 60, 0.5);
+  }
+
+  &--pending {
+    background: rgba(190, 220, 228, 0.06);
+    border-left-color: rgba(190, 220, 228, 0.4);
+
+    .qpc-feedback-verdict { color: rgba(190, 220, 228, 0.85); }
   }
 }
 
@@ -614,6 +666,10 @@
   border-top: 1px solid rgba(247, 246, 243, 0.07);
   background: rgba(255, 255, 255, 0.02);
   min-height: 64px;
+
+  &--review {
+    grid-template-columns: 1fr 1.4fr;
+  }
 }
 
 .qpc-nav-btn {

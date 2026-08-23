@@ -35,156 +35,132 @@ h1 {
   font-size: 5rem;
 }
 
+// app-header (~100px: 2rem/1rem padding + 52px profile button) and
+// app-footer (~45px) both render outside this component, above and below
+// the router outlet — subtracted so the bento shell fits the viewport
+// with no page-level scroll in normal landscape use.
+$header-height: 105px;
+$footer-height: 46px;
+$chrome-height: $header-height + $footer-height;
+
+// Single source of truth for the bento rhythm — scales with the available
+// viewport height instead of a flat px value, so it stays proportionate
+// whether the shell is tall (portrait-ish window) or short (full landscape).
+$bento-gap: clamp(8px, 1.6vh, 14px);
+
 .dashboard-container {
   background-color: var(--background-color);
   width: 100%;
-  min-height: 100vh;
+  height: calc(100vh - #{$chrome-height});
+  overflow: hidden;
 }
 
-/* Hero row — flex so that left/right sections sit side-by-side and wrap gracefully */
-.container-fluid {
+/* ---------- Bento shell: left column (quick access + session), right column (dashboard + profile) ---------- */
+.bento-shell {
   display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  column-gap: clamp(1rem, 3vw, 2.5rem);
-  padding-top: 1.5rem;
-}
-
-.top-left-section {
-  flex: 1 1 clamp(280px, 75%, 700px);
-  padding: 1rem;
-  margin-bottom: clamp(1rem, 2vw, 4rem);
-}
-
-.top-right-section {
-  flex: 1 4 clamp(200px, 10%, 300px);
-  padding: 1rem;
-  // margin-bottom: clamp(1rem, 3vw, 2.5rem);
-  // margin-top: clamp(0vw, 3vw, 1.5rem);
-}
-
-@media (max-width: 768px) {
-
-  .top-left-section,
-  .top-right-section {
-    flex: 1 1 100%;
-  }
-}
-
-.hero-title {
-  font-family: 'Erbaum', sans-serif;
-  color: #EAE9E5;
-  text-align: left;
-  font-weight: 400;
-  font-size: clamp(2rem, 5vw, 4rem);
-  margin-left: 3rem;
-  line-height: 114%;
-  letter-spacing: -0.06em;
-  width: 100%;
-}
-
-.hero-subtitle {
-  font-family: 'Albert Sans', sans-serif;
-  color: #656565;
-  font-weight: 100;
-  font-size: 0.9rem;
-  margin-bottom: 0.5rem;
-  margin-top: 0.5rem;
-
-  @media (max-width: 768px) {
-    font-size: 0.5rem;
-  }
-}
-
-.get-started-btn {
-  font-weight: 600;
-  padding: 1rem 2rem !important;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  }
-}
-
-/* ---------- Cards Layout ---------- */
-.cards-grid {
-  --gap: clamp(14px, 1vw, 28px);
-  --pad: clamp(16px, 2.4vw, 32px);
-
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  gap: var(--gap);
-  padding: var(--pad);
-
-  /* keeps scaling pleasing on large screens */
+  gap: $bento-gap;
+  height: 100%;
   max-width: 1400px;
   margin: 0 auto;
+  padding: 20px 24px 24px;
+  box-sizing: border-box;
+  animation: bento-fade-in 420ms ease both;
 }
 
-.card-slot {
+@keyframes bento-fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.bento-col {
+  display: flex;
+  flex-direction: column;
+  gap: $bento-gap;
   min-width: 0;
+  min-height: 0;
+  height: 100%;
+}
+
+.bento-col--left {
+  flex: 2;
+}
+
+.bento-col--right {
+  flex: 1;
+}
+
+.quick-access-row {
+  flex: 0 0 auto;
+}
+
+.bento-tile {
+  min-width: 0;
+  min-height: 0;
   display: flex;
 }
 
-.card-slot>* {
+.bento-tile > * {
   width: 100%;
   height: 100%;
   min-width: 0;
+  min-height: 0;
 }
 
-/* Roadmap + Dashboard: fixed flex-basis keeps the Figma-ish 326/341 ratio */
-.card-roadmap,
-.card-dashboard {
-  flex: 0 0 clamp(220px, 24vw, 360px);
-  aspect-ratio: 326 / 341;
-  min-height: 260px;
-  max-height: 420px;
+/* Session tile: dominant, fills the rest of the left column */
+.bento-tile--session {
+  flex: 1;
+  min-height: 0;
 }
 
-/* Stack fills whatever space remains after the two fixed-width cards */
-.card-stack {
-  flex: 1 1 0;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+/* Right column: dashboard + profile split the column evenly —
+   wide relative to their height, i.e. a landscape aspect ratio */
+.bento-tile--dashboard,
+.bento-tile--profile {
+  flex: 1;
+  min-height: 0;
 }
 
-.card-stack>.stack-item {
-  width: 100%;
-}
-
-/* ---------- Medium: wrap into two rows ---------- */
+/* ---------- Medium: stack columns, allow the page to scroll ---------- */
 @media (max-width: 1024px) {
-  .cards-grid {
-    flex-wrap: wrap;
+  .dashboard-container {
+    height: auto;
+    min-height: calc(100vh - #{$chrome-height});
+    overflow: visible;
   }
 
-  .card-roadmap,
-  .card-dashboard {
-    flex: 1 1 calc(50% - var(--gap) / 2);
-    max-height: none;
+  .bento-shell {
+    flex-direction: column;
+    height: auto;
   }
 
-  .card-stack {
-    flex: 1 1 100%;
+  .bento-col--left,
+  .bento-col--right {
+    height: auto;
+  }
+
+  .bento-tile--session {
+    min-height: 480px;
+  }
+
+  .bento-tile--dashboard,
+  .bento-tile--profile {
+    min-height: 200px;
   }
 }
 
 /* ---------- Small/Portrait: single column ---------- */
 @media (max-width: 640px) {
-  .cards-grid {
-    flex-direction: column;
-    align-items: center;
+  .bento-shell {
+    padding: 16px;
+    gap: 12px;
   }
 
-  .card-roadmap,
-  .card-dashboard,
-  .card-stack {
-    flex: 1 1 auto;
-    width: 100%
+  .bento-tile--session {
+    min-height: 440px;
   }
 
+  .bento-tile--dashboard,
+  .bento-tile--profile {
+    min-height: 200px;
+  }
 }

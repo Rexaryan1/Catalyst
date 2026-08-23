@@ -1,6 +1,6 @@
-<div class="dashboard-card">
+<div class="dashboard-card" role="button" tabindex="0" aria-label="Open dashboard" (click)="openDashboard()" (keydown.enter)="openDashboard()">
   <div class="dashboard-card__rail">
-    <button type="button" class="dashboard-card__arrow" aria-label="Open dashboard" (click)="openDashboard()">
+    <span class="dashboard-card__arrow" aria-hidden="true">
       <svg
         class="dashboard-card__arrow-icon"
         viewBox="0 0 24 24"
@@ -15,7 +15,7 @@
           stroke-linejoin="round"
         />
       </svg>
-    </button>
+    </span>
 
     <div class="dashboard-card__title">DASHBOARD</div>
   </div>
@@ -23,7 +23,7 @@
   <div class="dashboard-card__content">
     <app-heatmap-small
       class="dashboard-card__heatmap"
-      [layout]="'portrait'"
+      [layout]="'landscape'"
       [days]="28"
     ></app-heatmap-small>
   </div>
