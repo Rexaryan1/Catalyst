@@ -10,7 +10,11 @@
   <!-- ── Error ───────────────────────────────────────────────── -->
   @if (pageState === 'error') {
     <div class="qp-center">
-      <p class="qp-muted">No session data. Start a session from the dashboard.</p>
+      @if (mode === 'review') {
+        <p class="qp-muted">No review data available for this session yet. Review is only available right after finishing a session.</p>
+      } @else {
+        <p class="qp-muted">No session data. Start a session from the dashboard.</p>
+      }
       <button class="qp-btn" (click)="goBack()">← Back</button>
     </div>
   }
@@ -118,13 +122,18 @@
               <span class="qpc-counter">{{ currentIndex + 1 }} / {{ questions.length }}</span>
             </div>
             <div class="qpc-header-right">
-              @if (isSubmitted) {
-                <span class="qpc-answered-badge">Answered</span>
+              @if (mode === 'review') {
+                <span class="qpc-answered-badge">Reviewing</span>
+                <button class="qpc-finish-btn" (click)="goBack()">Exit review</button>
+              } @else {
+                @if (isSubmitted) {
+                  <span class="qpc-answered-badge">Answered</span>
+                }
+                <div class="qpc-timer" [class.qpc-timer--paused]="isSubmitted">
+                  <span class="qpc-timer-val">{{ formattedTime }}</span>
+                </div>
+                <button class="qpc-finish-btn" (click)="finishSession()">Finish session</button>
               }
-              <div class="qpc-timer" [class.qpc-timer--paused]="isSubmitted">
-                <span class="qpc-timer-val">{{ formattedTime }}</span>
-              </div>
-              <button class="qpc-finish-btn" (click)="finishSession()">Finish session</button>
             </div>
           </div>
 
@@ -153,33 +162,68 @@
             <!-- Question text -->
             <p class="qpc-question-text">{{ current?.text }}</p>
 
-            <!-- Options -->
-            <div class="qpc-options" [class.qpc-options--submitted]="isSubmitted">
-              @for (opt of current?.options ?? []; track $index; let i = $index) {
-                <button
-                  class="qpc-option"
-                  [class.qpc-option--selected]="optionState(i) === 'selected'"
-                  [class.qpc-option--correct]="optionState(i) === 'correct'"
-                  [class.qpc-option--incorrect]="optionState(i) === 'incorrect'"
-                  [class.qpc-option--neutral]="optionState(i) === 'neutral'"
-                  (click)="selectOption(i)"
-                >
-                  <span class="qpc-option-badge">{{ optionLabel(i) }}</span>
-                  <span class="qpc-option-text">{{ opt }}</span>
-                </button>
-              }
-            </div>
+            <!-- Options (MCQ) -->
+            @if (!isNumericalQuestion) {
+              <div class="qpc-options" [class.qpc-options--submitted]="isSubmitted">
+                @for (opt of current?.options ?? []; track $index; let i = $index) {
+                  <button
+                    class="qpc-option"
+                    [class.qpc-option--selected]="optionState(i) === 'selected'"
+                    [class.qpc-option--correct]="optionState(i) === 'correct'"
+                    [class.qpc-option--incorrect]="optionState(i) === 'incorrect'"
+                    [class.qpc-option--neutral]="optionState(i) === 'neutral'"
+                    (click)="selectOption(i)"
+                  >
+                    <span class="qpc-option-badge">{{ optionLabel(i) }}</span>
+                    <span class="qpc-option-text">{{ opt }}</span>
+                  </button>
+                }
+              </div>
+            }
+
+            <!-- Numeric input (numerical) -->
+            @if (isNumericalQuestion) {
+              <div class="qpc-numeric">
+                <input
+                  class="qpc-numeric-input"
+                  type="number"
+                  inputmode="decimal"
+                  placeholder="Enter your answer"
+                  [ngModel]="numericAnswer"
+                  (ngModelChange)="onNumericChange($event)"
+                  [disabled]="isSubmitted"
+                />
+              </div>
+            }
 
             <!-- Feedback (after answering) -->
             @if (isSubmitted) {
-              <div class="qpc-feedback" [class.qpc-feedback--correct]="isCorrect">
+              <div class="qpc-feedback"
+                [class.qpc-feedback--correct]="isCorrect === true"
+                [class.qpc-feedback--incorrect]="isCorrect === false"
+                [class.qpc-feedback--pending]="isCorrect === null">
                 <span class="qpc-feedback-verdict">
-                  {{ isCorrect ? 'Correct' : 'Incorrect' }}
+                  {{ isCorrect === null ? 'Answer recorded' : (isCorrect ? 'Correct' : 'Incorrect') }}
                 </span>
-                @if (!isCorrect && current) {
-                  <p class="qpc-feedback-answer">
-                    Correct: {{ current.options[current.correct_index] }}
-                  </p>
+
+                @if (mode === 'review') {
+                  @if (isNumericalQuestion) {
+                    <p class="qpc-feedback-answer">
+                      {{ current?.skipped ? 'Not answered' : 'Your answer: ' + current?.selectedValue }}
+                    </p>
+                    @if (!isCorrect) {
+                      <p class="qpc-feedback-answer">
+                        Correct answer: {{ current?.correct_value }}
+                        @if (current?.tolerance) { (± {{ current?.tolerance }}) }
+                      </p>
+                    }
+                  } @else if (!isCorrect && current) {
+                    <p class="qpc-feedback-answer">
+                      Correct: {{ current.options?.[current.correct_index!] }}
+                    </p>
+                  }
+                } @else {
+                  <p class="qpc-feedback-answer">You'll see whether this was correct once you submit the session.</p>
                 }
               </div>
             }
@@ -214,22 +258,28 @@
           <!-- end .qpc-body -->
 
           <!-- Card nav -->
-          <div class="qpc-nav">
+          <div class="qpc-nav" [class.qpc-nav--review]="mode === 'review'">
             <button class="qpc-nav-btn"
               (click)="prev()"
               [disabled]="currentIndex === 0">
               Previous
             </button>
             <button class="qpc-nav-btn qpc-nav-btn--primary" (click)="continue()">
-              @if (!isSubmitted) { Check Answer }
-              @else if (!isLastQuestion) { Next → }
-              @else { Finish → }
+              @if (mode === 'review') {
+                @if (!isLastQuestion) { Next → } @else { Finish review }
+              } @else {
+                @if (!isSubmitted) { Check Answer }
+                @else if (!isLastQuestion) { Next → }
+                @else { Finish → }
+              }
             </button>
-            <button class="qpc-nav-btn"
-              (click)="skip()"
-              [disabled]="isLastQuestion">
-              Skip
-            </button>
+            @if (mode !== 'review') {
+              <button class="qpc-nav-btn"
+                (click)="skip()"
+                [disabled]="isLastQuestion">
+                Skip
+              </button>
+            }
           </div>
 
         </div>

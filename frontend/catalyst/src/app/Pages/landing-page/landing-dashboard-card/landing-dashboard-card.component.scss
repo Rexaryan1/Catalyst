@@ -22,8 +22,9 @@
   position: relative;
   overflow: hidden;
 
-  background: #2f2f2f;
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: #262626;
+  border: 1px solid rgba(190, 220, 228, 0.15);
+  cursor: pointer;
 
   transition:
     transform 180ms ease,
@@ -34,6 +35,11 @@
 .dashboard-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+}
+
+.dashboard-card:focus-visible {
+  outline: 2px solid rgba(190, 220, 228, 0.6);
+  outline-offset: 2px;
 }
 
 .dashboard-card__rail {
@@ -52,29 +58,19 @@
   display: grid;
   place-items: center;
   align-self: flex-start;
+  flex-shrink: 0;
 
   background: #d9d9d9;
-  border: none;
   border-radius: 12px;
   color: #2d2d2d;
-  cursor: pointer;
   padding: 0;
 
-  transition:
-    transform 150ms ease,
-    box-shadow 150ms ease,
-    background-color 150ms ease;
+  transition: transform 180ms ease, background-color 180ms ease;
 }
 
-.dashboard-card__arrow:hover {
+.dashboard-card:hover .dashboard-card__arrow {
   transform: translateY(-1px);
   background: #e3e3e3;
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
-}
-
-.dashboard-card__arrow:focus-visible {
-  outline: 2px solid rgba(255, 255, 255, 0.8);
-  outline-offset: 2px;
 }
 
 .dashboard-card__arrow-icon {
@@ -93,10 +89,11 @@
   transform: rotate(180deg);
 
   color: #f7f6f3;
-  font-size: clamp(38px, 2.75vw, 56px);
+  font-size: clamp(15px, 2.4vh, 26px);
   font-weight: 400;
   letter-spacing: 0.01em;
   user-select: none;
+  white-space: nowrap;
 }
 
 .dashboard-card__content {

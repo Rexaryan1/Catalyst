@@ -122,20 +122,16 @@
   text-align: left;
   transition: border-left-color 0.2s ease, background 0.15s ease;
 
-  // Type-colored left border
-  &--weakness { border-left-color: rgba(200, 75, 75, 0.35); }
-  &--new      { border-left-color: rgba(90, 140, 200, 0.35); }
-  &--advance  { border-left-color: rgba(70, 103, 93, 0.45); }
-  &--review   { border-left-color: rgba(195, 175, 100, 0.35); }
+  // Type-colored left border; --accent holds the brighter active-state shade
+  &--weakness { border-left-color: rgba(200, 75, 75, 0.35); --accent: rgba(200, 75, 75, 0.8); }
+  &--new      { border-left-color: rgba(90, 140, 200, 0.35); --accent: rgba(90, 140, 200, 0.8); }
+  &--advance  { border-left-color: rgba(70, 103, 93, 0.45); --accent: rgba(70, 103, 93, 0.9); }
+  &--review   { border-left-color: rgba(195, 175, 100, 0.35); --accent: rgba(195, 175, 100, 0.8); }
 
-  // Active: brighter border + faint bg tint
+  // Active: brighter border (via --accent set above) + faint bg tint
   &--active {
     background: rgba(255, 255, 255, 0.04);
-
-    &.qp-topic-card--weakness { border-left-color: rgba(200, 75, 75, 0.8); }
-    &.qp-topic-card--new      { border-left-color: rgba(90, 140, 200, 0.8); }
-    &.qp-topic-card--advance  { border-left-color: rgba(70, 103, 93, 0.9); }
-    &.qp-topic-card--review   { border-left-color: rgba(195, 175, 100, 0.8); }
+    border-left-color: var(--accent);
   }
 
   &:hover:not(.qp-topic-card--active) {
@@ -491,6 +487,46 @@
   transition: color 0.15s ease;
 }
 
+// ── Numeric input ────────────────────────────────────────────────────────────
+
+.qpc-numeric {
+  display: flex;
+}
+
+.qpc-numeric-input {
+  width: 100%;
+  max-width: 220px;
+  padding: 0.7rem 0.85rem;
+  border-radius: 12px;
+  background: rgba(247, 246, 243, 0.03);
+  border: 1px solid rgba(247, 246, 243, 0.14);
+  color: rgba(234, 233, 229, 0.92);
+  font-family: 'AlbertSans-Regular', sans-serif;
+  font-size: 0.95rem;
+  transition: border-color 0.15s ease, background 0.15s ease;
+
+  &::placeholder { color: rgba(234, 233, 229, 0.3); }
+
+  &:focus {
+    outline: none;
+    border-color: rgba(190, 220, 228, 0.5);
+    background: rgba(190, 220, 228, 0.05);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+
+  // Hide native number spinners for a cleaner look
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  appearance: textfield;
+}
+
 // ── Feedback ──────────────────────────────────────────────────────────────────
 
 .qpc-feedback {
@@ -505,6 +541,18 @@
   &--correct {
     background: rgba(76, 140, 76, 0.09);
     border-left-color: rgba(76, 140, 76, 0.5);
+  }
+
+  &--incorrect {
+    background: rgba(153, 60, 60, 0.09);
+    border-left-color: rgba(153, 60, 60, 0.5);
+  }
+
+  &--pending {
+    background: rgba(190, 220, 228, 0.06);
+    border-left-color: rgba(190, 220, 228, 0.4);
+
+    .qpc-feedback-verdict { color: rgba(190, 220, 228, 0.85); }
   }
 }
 
@@ -614,6 +662,10 @@
   border-top: 1px solid rgba(247, 246, 243, 0.07);
   background: rgba(255, 255, 255, 0.02);
   min-height: 64px;
+
+  &--review {
+    grid-template-columns: 1fr 1.4fr;
+  }
 }
 
 .qpc-nav-btn {
@@ -817,15 +869,12 @@
     border-bottom: 3px solid transparent;
     border-radius: 8px 8px 0 0;
 
-    &--weakness { border-bottom-color: rgba(200, 75, 75, 0.4); }
-    &--new      { border-bottom-color: rgba(90, 140, 200, 0.4); }
-    &--advance  { border-bottom-color: rgba(70, 103, 93, 0.5); }
-    &--review   { border-bottom-color: rgba(195, 175, 100, 0.4); }
+    &--weakness { border-bottom-color: rgba(200, 75, 75, 0.4); --accent: rgba(200, 75, 75, 0.85); }
+    &--new      { border-bottom-color: rgba(90, 140, 200, 0.4); --accent: rgba(90, 140, 200, 0.85); }
+    &--advance  { border-bottom-color: rgba(70, 103, 93, 0.5); --accent: rgba(70, 103, 93, 0.95); }
+    &--review   { border-bottom-color: rgba(195, 175, 100, 0.4); --accent: rgba(195, 175, 100, 0.85); }
 
-    &--active.qp-topic-card--weakness { border-bottom-color: rgba(200, 75, 75, 0.85); }
-    &--active.qp-topic-card--new      { border-bottom-color: rgba(90, 140, 200, 0.85); }
-    &--active.qp-topic-card--advance  { border-bottom-color: rgba(70, 103, 93, 0.95); }
-    &--active.qp-topic-card--review   { border-bottom-color: rgba(195, 175, 100, 0.85); }
+    &--active { border-bottom-color: var(--accent); }
   }
 
   .qp-divider { display: none; }

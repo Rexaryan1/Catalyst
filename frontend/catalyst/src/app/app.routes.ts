@@ -35,6 +35,7 @@ export const routes: Routes = [
   { path: 'progress', component: ProgressDashboardComponent, data: { header: 'Home' }, canActivate: [authGuard] },
   { path: 'sessions', component: SessionHomePageComponent, data: { title: "Let's get cracking!" }, canActivate: [authGuard] },
   { path: 'sessions/quiz', component: SessionQuizPageComponent, data: { title: "Let's get cracking!" }, canActivate: [authGuard] },
+  { path: 'sessions/review', component: SessionQuizPageComponent, data: { title: 'Review session', mode: 'review' }, canActivate: [authGuard] },
   { path: 'sessions/result', component: SessionResultPageComponent, data: { title: 'Session results' }, canActivate: [authGuard] },
 
   // Preview

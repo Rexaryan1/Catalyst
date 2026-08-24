@@ -1,0 +1,133 @@
+<div class="stile">
+
+  <!-- Loading -->
+  <div class="stile-center" *ngIf="state === 'loading'">
+    <div class="stile-spinner"></div>
+  </div>
+
+  <!-- Error -->
+  <div class="stile-center" *ngIf="state === 'error'">
+    <p class="stile-muted">Couldn't load your sessions.</p>
+    <button class="stile-btn" (click)="loadEnrollments()">Try again</button>
+  </div>
+
+  <!-- No enrollments -->
+  <div class="stile-center stile-center--empty" *ngIf="state === 'empty'">
+    <h2 class="stile-empty-title">No active course yet</h2>
+    <p class="stile-muted">Enroll in a course to get your first personalised session.</p>
+    <button class="stile-btn stile-btn--cta" (click)="goToSessions()">Get started →</button>
+  </div>
+
+  <!-- Sessions: one full-tile slide per course, snap-scrollable -->
+  <div class="stile-body" *ngIf="state === 'ready'">
+    <div class="stile-scroller" #scroller (scroll)="onScroll()">
+
+      <div class="stile-slide" *ngFor="let card of cards; let i = index">
+        <div class="stile-top">
+          <div class="stile-top-text">
+            <span class="stile-course">{{ card.enrollment.course }}</span>
+            <h1 class="stile-headline" *ngIf="card.session?.topicHeadline">{{ card.session?.topicHeadline }}</h1>
+            <p class="stile-reason" *ngIf="card.session?.reason">{{ card.session?.reason }}</p>
+          </div>
+
+          <span
+            class="stile-status-dot"
+            [class.stile-status-dot--pulse]="card.cardState === 'preparing'"
+            [class.stile-status-dot--gold]="card.cardState === 'completed'"
+          ></span>
+        </div>
+
+        <!-- Loading skeleton -->
+        <div class="stile-skeleton-wrap" *ngIf="card.cardState === 'loading'">
+          <div class="stile-skeleton stile-skeleton--lg"></div>
+          <div class="stile-skeleton stile-skeleton--sm"></div>
+          <div class="stile-skeleton stile-skeleton--sm"></div>
+        </div>
+
+        <!-- Preparing -->
+        <p class="stile-muted" *ngIf="card.cardState === 'preparing'">Preparing your session…</p>
+
+        <!-- Ready / in progress -->
+        <ng-container *ngIf="card.cardState === 'ready' || card.cardState === 'in_progress'">
+
+          <div class="stile-meta-row">
+            <span class="stile-meta-item" *ngIf="card.session?.questionCount">{{ card.session?.questionCount }} questions</span>
+            <span class="stile-meta-dot" *ngIf="card.session?.questionCount && card.session?.estimatedMinutes">·</span>
+            <span class="stile-meta-item" *ngIf="card.session?.estimatedMinutes">{{ card.session?.estimatedMinutes }} min</span>
+            <ng-container *ngIf="card.session?.bloomsRange as bloom">
+              <span class="stile-meta-dot">·</span>
+              <span class="stile-meta-item">Bloom's {{ bloom.min }}–{{ bloom.max }}</span>
+            </ng-container>
+          </div>
+
+          <div class="stile-focus-list" *ngIf="focusAreasFor(card).length">
+            <div class="stile-focus" *ngFor="let area of focusAreasFor(card)" [ngClass]="focusAccentClass(area.type)">
+              <span class="stile-focus-name">{{ area.topicName }}</span>
+              <span class="stile-focus-right">
+                <span class="stile-focus-count">{{ area.questionCount }}Q</span>
+                <span class="stile-focus-acc" *ngIf="area.accuracy !== null">{{ area.accuracy }}%</span>
+                <span class="stile-focus-badge" *ngIf="area.accuracy === null">{{ area.type }}</span>
+              </span>
+            </div>
+          </div>
+
+          <div class="stile-week-row" *ngIf="card.session?.weeklyProgress as wp">
+            <span class="stile-week-label">This week</span>
+            <div class="stile-week-dots">
+              <span class="stile-week-dot" *ngFor="let filled of weekDots(card)" [class.stile-week-dot--filled]="filled"></span>
+            </div>
+            <span class="stile-week-count">{{ wp.completed }}/{{ wp.target }}</span>
+          </div>
+
+          <button class="stile-cta" (click)="openSession(i)">{{ primaryLabel(card) }} →</button>
+        </ng-container>
+
+        <!-- Completed -->
+        <ng-container *ngIf="card.cardState === 'completed'">
+          <div class="stile-done-stats" *ngIf="card.session?.completionAccuracy !== null">
+            <div class="stile-done-stat-block">
+              <span class="stile-done-val">{{ card.session?.completionAccuracy }}%</span>
+              <span class="stile-done-label">accuracy</span>
+            </div>
+            <div class="stile-done-stat-block" *ngIf="card.session?.completionQuestions">
+              <span class="stile-done-val">{{ card.session?.completionQuestions }}</span>
+              <span class="stile-done-label">questions</span>
+            </div>
+            <div class="stile-done-stat-block" *ngIf="card.session?.completionStreak">
+              <span class="stile-done-val">{{ card.session?.completionStreak }}</span>
+              <span class="stile-done-label">day streak</span>
+            </div>
+          </div>
+          <p class="stile-muted">Done for today</p>
+          <button class="stile-cta" (click)="reviewSession(i)">Review session →</button>
+        </ng-container>
+
+        <!-- Error -->
+        <ng-container *ngIf="card.cardState === 'session_error'">
+          <button class="stile-btn" (click)="retry(i)">Retry</button>
+        </ng-container>
+      </div>
+
+      <!-- Trailing slide: add another course -->
+      <div class="stile-slide stile-slide--add" *ngIf="showAddSlide">
+        <div class="stile-add">
+          <h2 class="stile-empty-title">Add another course</h2>
+          <p class="stile-muted">Enroll in a new subject to add it to your daily sessions.</p>
+          <button class="stile-btn stile-btn--cta" (click)="goToSessions()">Get started →</button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="stile-dots" *ngIf="totalSlides > 1">
+      <button
+        *ngFor="let s of slideIndexes; let i = index"
+        class="stile-dot"
+        [class.stile-dot--active]="i === activeIndex"
+        [attr.aria-label]="'Go to slide ' + (i + 1)"
+        (click)="goToSlide(i)"
+      ></button>
+    </div>
+  </div>
+
+</div>

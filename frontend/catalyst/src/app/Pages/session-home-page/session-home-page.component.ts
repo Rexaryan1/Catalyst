@@ -236,6 +236,32 @@ export class SessionHomePageComponent implements OnInit, OnDestroy {
       });
   }
 
+  reviewSession(cardIndex: number): void {
+    const card = this.cards[cardIndex];
+    if (!card.session) return;
+    const sessionId = card.session.sessionId;
+
+    // Review data (question_results) only exists in memory from the submit response
+    // of the session that was just finished in this tab — no fetch endpoint for it yet.
+    const cachedResult = this.dataManager.snapshot<any>('sessionResult');
+    if (cachedResult?.session_id !== sessionId) {
+      this.router.navigate(['/sessions/review']);
+      return;
+    }
+
+    this.dataManager
+      .get<any>(`api/sessions/${sessionId}/questions`, { withCredentials: true })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (res) => {
+          this.dataManager.set('sessionQuestions', res);
+          this.dataManager.set('sessionQuestionResults', cachedResult.question_results ?? []);
+          this.router.navigate(['/sessions/review']);
+        },
+        error: () => this.router.navigate(['/sessions/review']),
+      });
+  }
+
   retrySessionFetch(cardIndex: number): void {
     this.cards[cardIndex] = {
       ...this.cards[cardIndex],

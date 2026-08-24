@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProfileSummaryComponent } from './profile-summary/profile-summary.component';
-import { RoadmapCardComponent } from '@pages/landing-page/roadmap-card/roadmap-card.component';
+import { SessionSummaryComponent } from '@pages/landing-page/session-summary/session-summary.component';
 import { LandingDashboardCardComponent } from '@pages/landing-page/landing-dashboard-card/landing-dashboard-card.component';
 import { QuickAccessComponent } from '@pages/landing-page/quick-access/quick-access.component';
 import { OnboardingPopupComponent, OnboardingStep } from './onboarding-popup/onboarding-popup.component';
@@ -14,9 +14,9 @@ import { DataManagerService } from '@services/data-manager/data-manager.service'
     CommonModule,
     LandingDashboardCardComponent,
     ProfileSummaryComponent,
-    RoadmapCardComponent,
-    OnboardingPopupComponent,
+    SessionSummaryComponent,
     QuickAccessComponent,
+    OnboardingPopupComponent,
   ],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.scss',
@@ -30,27 +30,16 @@ export class LandingPage {
   steps: OnboardingStep[] = [
     {
       title: 'Welcome!',
-      description: 'Your AI-powered learning companion is ready to help you grow.',
+      description: 'Here\'s your session for today — pick up right where you left off.',
     },
     {
-      title: 'Available everywhere',
-      description: 'Download the app on iOS or Android and learn on the go.',
+      title: 'Your Progress',
+      description: 'Track your streaks and activity heatmap at a glance.',
     },
     {
-      title: 'Your Roadmap',
-      description: 'We build a personalised learning path based on your goals.',
+      title: 'Your Profile',
+      description: 'Streak, accuracy, and average time — tap to see your full profile.',
     },
-    {
-      title: 'Your Dashboard',
-      description: 'Track sessions, streaks, and progress all in one place.',
-    },
-    {
-      title: 'Quick Access',
-      description: 'Jump straight back into where you left off. That is it — you are all set!',
-    },
-    { title: 'Home', description: 'Jump back to your dashboard any time.' },
-    { title: 'Explore', description: 'Browse topics and discover new learning paths.' },
-    { title: 'Settings', description: 'Manage your profile, notifications, and preferences.' }
   ];
   ngOnInit() {
     // Start onboarding if user is new

@@ -16,10 +16,11 @@ type QuickAccessItem = {
   styleUrls: ['./quick-access.component.scss'],
 })
 export class QuickAccessComponent {
+  // Dashboard and Home already live in the persistent top nav — this strip
+  // only needs to surface the actions that don't have a home elsewhere.
   items: QuickAccessItem[] = [
-    { label: 'Dashboard', icon: 'assets/icons/dashboard-icon.svg', route: '/dashboard' },
-    { label: 'Home', icon: 'assets/icons/home-icon.svg', route: '/home' },
     { label: 'Generate', icon: 'assets/icons/generate-icon.svg', route: '/prompt' },
     { label: 'Solve', icon: 'assets/icons/solve.svg', route: '/sessions' },
+    { label: 'Roadmaps', icon: 'assets/icons/dashboard-icon.svg', route: '/roadmap-tracker' },
   ];
 }
