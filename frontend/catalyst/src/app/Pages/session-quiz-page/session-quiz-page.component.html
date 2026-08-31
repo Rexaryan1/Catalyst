@@ -162,6 +162,11 @@
             <!-- Question text -->
             <p class="qpc-question-text">{{ current?.text }}</p>
 
+            <!-- Image (optional) -->
+            @if (current?.image_url) {
+              <app-question-image [url]="current?.image_url" [alt]="current?.text ?? ''"></app-question-image>
+            }
+
             <!-- Options (MCQ) -->
             @if (!isNumericalQuestion) {
               <div class="qpc-options" [class.qpc-options--submitted]="isSubmitted">

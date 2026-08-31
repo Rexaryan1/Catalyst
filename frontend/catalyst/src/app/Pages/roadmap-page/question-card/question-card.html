@@ -17,6 +17,8 @@
   <div class="qc-body">
     <p class="question-text">{{ q.question_text }}</p>
 
+    <app-question-image *ngIf="q.image_url" [url]="q.image_url" [alt]="q.question_text"></app-question-image>
+
     <div class="options-container" role="list">
       <button
         *ngFor="let option of (q.options ?? []); let i = index"

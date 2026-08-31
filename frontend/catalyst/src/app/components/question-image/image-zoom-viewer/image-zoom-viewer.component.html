@@ -1,0 +1,18 @@
+<div
+  #stage
+  class="izv-stage"
+  (pointerdown)="onPointerDown($event)"
+  (pointermove)="onPointerMove($event)"
+  (pointerup)="onPointerUp($event)"
+  (pointercancel)="onPointerUp($event)"
+  (wheel)="onWheel($event)"
+>
+  <img
+    class="izv-image"
+    [src]="url"
+    [alt]="alt"
+    draggable="false"
+    [style.transform]="transform"
+  />
+</div>
+<p class="izv-hint">Pinch or scroll to zoom &middot; drag to pan &middot; double-tap to reset</p>

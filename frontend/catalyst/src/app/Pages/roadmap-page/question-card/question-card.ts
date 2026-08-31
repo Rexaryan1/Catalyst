@@ -2,12 +2,13 @@ import { Input, Component, Output, EventEmitter, OnChanges, SimpleChanges , OnDe
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Question } from '@components/cards/roadmap-item/roadmap-item.interface';
+import { QuestionImageComponent } from '@components/question-image/question-image.component';
 import { Subscription, timer } from 'rxjs';
 
 @Component({
   selector: 'app-question-card',
   standalone: true,
-  imports: [RouterModule, CommonModule],
+  imports: [RouterModule, CommonModule, QuestionImageComponent],
   templateUrl: './question-card.html',
   styleUrl: './question-card.scss',
 })

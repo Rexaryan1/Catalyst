@@ -1,0 +1,105 @@
+:host {
+  display: block;
+  margin: 0.75rem 0;
+}
+
+.qi-container {
+  position: relative;
+  min-height: 8rem;
+  border-radius: 10px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.qi-skeleton {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.04) 25%,
+    rgba(255, 255, 255, 0.09) 37%,
+    rgba(255, 255, 255, 0.04) 63%
+  );
+  background-size: 400% 100%;
+  animation: qi-shimmer 1.4s ease infinite;
+  min-height: 8rem;
+}
+
+@keyframes qi-shimmer {
+  0% { background-position: 100% 50%; }
+  100% { background-position: 0 50%; }
+}
+
+.qi-image {
+  display: block;
+  width: 100%;
+  max-height: 24rem;
+  object-fit: contain;
+
+  &--hidden {
+    display: none;
+  }
+}
+
+.qi-zoom-btn {
+  position: absolute;
+  bottom: 0.6rem;
+  right: 0.6rem;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 0, 0, 0.55);
+  color: rgba(234, 233, 229, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s ease;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.75);
+  }
+
+  .material-icons {
+    font-size: 1.2rem;
+  }
+}
+
+.qi-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 1.5rem 1rem;
+  min-height: 8rem;
+  text-align: center;
+}
+
+.qi-error-icon {
+  font-size: 1.8rem;
+  color: rgba(234, 233, 229, 0.45);
+}
+
+.qi-error-text {
+  margin: 0;
+  font-size: 0.85rem;
+  color: rgba(234, 233, 229, 0.65);
+}
+
+.qi-retry-btn {
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: transparent;
+  color: rgba(234, 233, 229, 0.85);
+  border-radius: 6px;
+  padding: 0.3rem 0.9rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background 0.15s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.08);
+  }
+}

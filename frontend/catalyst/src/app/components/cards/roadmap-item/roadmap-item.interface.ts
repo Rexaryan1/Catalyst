@@ -20,6 +20,7 @@ export interface Question {
   question_text: string;
   options: string[];
   correct_index: number;
+  image_url?: string | null;
 
   isBookmarked: boolean;
   difficulty: 'Easy' | 'Medium' | 'Hard';

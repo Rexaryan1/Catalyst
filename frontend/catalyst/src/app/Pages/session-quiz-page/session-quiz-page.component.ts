@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, timer } from 'rxjs';
 import { DataManagerService } from '@services/data-manager/data-manager.service';
 import { CodeSnippetComponent } from '@components/code-snippet/code-snippet.component';
+import { QuestionImageComponent } from '@components/question-image/question-image.component';
 
 // ── Interfaces ────────────────────────────────────────────────────────────────
 
@@ -28,6 +29,7 @@ export interface RawQuestion {
   snippet_body: string | null;
   snippet_line_range: string | number[] | null;
   snippet_output: string | null;
+  image_url?: string | null;
 }
 
 export interface RawFocusArea {
@@ -86,7 +88,7 @@ export type OptionState = 'default' | 'selected' | 'correct' | 'incorrect' | 'ne
 @Component({
   selector: 'app-session-quiz-page',
   standalone: true,
-  imports: [CommonModule, FormsModule, CodeSnippetComponent],
+  imports: [CommonModule, FormsModule, CodeSnippetComponent, QuestionImageComponent],
   templateUrl: './session-quiz-page.component.html',
   styleUrl: './session-quiz-page.component.scss',
 })
