@@ -201,40 +201,38 @@
               </div>
             }
 
-            <!-- Feedback (after answering) -->
-            @if (isSubmitted) {
+            <!-- Feedback — only meaningful in review mode, where the answer key
+                 exists. Live mode has nothing to reveal yet, so records the
+                 attempt and moves straight on without an interim pause. -->
+            @if (mode === 'review' && isSubmitted) {
               <div class="qpc-feedback"
                 [class.qpc-feedback--correct]="isCorrect === true"
                 [class.qpc-feedback--incorrect]="isCorrect === false"
                 [class.qpc-feedback--pending]="isCorrect === null">
                 <span class="qpc-feedback-verdict">
-                  {{ isCorrect === null ? 'Answer recorded' : (isCorrect ? 'Correct' : 'Incorrect') }}
+                  {{ isCorrect === null ? 'Not answered' : (isCorrect ? 'Correct' : 'Incorrect') }}
                 </span>
 
-                @if (mode === 'review') {
-                  @if (isNumericalQuestion) {
+                @if (isNumericalQuestion) {
+                  <p class="qpc-feedback-answer">
+                    {{ current?.skipped ? 'Not answered' : 'Your answer: ' + current?.selectedValue }}
+                  </p>
+                  @if (!isCorrect) {
                     <p class="qpc-feedback-answer">
-                      {{ current?.skipped ? 'Not answered' : 'Your answer: ' + current?.selectedValue }}
-                    </p>
-                    @if (!isCorrect) {
-                      <p class="qpc-feedback-answer">
-                        Correct answer: {{ current?.correct_value }}
-                        @if (current?.tolerance) { (± {{ current?.tolerance }}) }
-                      </p>
-                    }
-                  } @else if (!isCorrect && current) {
-                    <p class="qpc-feedback-answer">
-                      Correct: {{ current.options?.[current.correct_index!] }}
+                      Correct answer: {{ current?.correct_value }}
+                      @if (current?.tolerance) { (± {{ current?.tolerance }}) }
                     </p>
                   }
-                } @else {
-                  <p class="qpc-feedback-answer">You'll see whether this was correct once you submit the session.</p>
+                } @else if (!isCorrect && current) {
+                  <p class="qpc-feedback-answer">
+                    Correct: {{ current.options?.[current.correct_index!] }}
+                  </p>
                 }
               </div>
             }
 
-            <!-- Explanation (after answering) -->
-            @if (isSubmitted && current?.explanation) {
+            <!-- Explanation (review mode only) -->
+            @if (mode === 'review' && isSubmitted && current?.explanation) {
               <div class="qpc-explanation">
                 <span class="qpc-explanation-label">Explanation</span>
                 <p class="qpc-explanation-text">{{ current?.explanation }}</p>
@@ -269,13 +267,13 @@
               [disabled]="currentIndex === 0">
               Previous
             </button>
-            <button class="qpc-nav-btn qpc-nav-btn--primary" (click)="continue()">
+            <button class="qpc-nav-btn qpc-nav-btn--primary"
+              (click)="continue()"
+              [disabled]="mode !== 'review' && !isSubmitted && !hasCurrentAnswer">
               @if (mode === 'review') {
                 @if (!isLastQuestion) { Next → } @else { Finish review }
               } @else {
-                @if (!isSubmitted) { Check Answer }
-                @else if (!isLastQuestion) { Next → }
-                @else { Finish → }
+                @if (!isLastQuestion) { Save & Next → } @else { Finish → }
               }
             </button>
             @if (mode !== 'review') {

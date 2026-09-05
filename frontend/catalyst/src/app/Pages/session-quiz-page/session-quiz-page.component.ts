@@ -164,6 +164,13 @@ export class SessionQuizPageComponent implements OnInit, OnDestroy {
     return this.currentIndex >= this.questions.length - 1;
   }
 
+  get hasCurrentAnswer(): boolean {
+    if (!this.current) return false;
+    return this.isNumericalQuestion
+      ? this.numericAnswer !== null && this.numericAnswer !== undefined && !Number.isNaN(this.numericAnswer)
+      : this.selectedOption !== null;
+  }
+
   // ── Lifecycle ─────────────────────────────────────────────────────────────────
 
   constructor(
@@ -338,6 +345,9 @@ export class SessionQuizPageComponent implements OnInit, OnDestroy {
     return q.response_type === 'numerical' ? q.selectedValue !== null : q.selectedIndex !== null;
   }
 
+  // Live mode has no answer key until the whole session is submitted, so
+  // there is nothing worth pausing on between "check" and "next" — one
+  // click records the attempt (if not already recorded) and advances.
   continue(): void {
     if (this.mode === 'review') {
       if (this.isLastQuestion) {
@@ -349,8 +359,11 @@ export class SessionQuizPageComponent implements OnInit, OnDestroy {
     }
 
     if (!this.isSubmitted) {
+      if (!this.hasCurrentAnswer) return;
       this.checkAnswer();
-    } else if (this.isLastQuestion) {
+    }
+
+    if (this.isLastQuestion) {
       this.finishSession();
     } else {
       this.setIndex(this.currentIndex + 1);

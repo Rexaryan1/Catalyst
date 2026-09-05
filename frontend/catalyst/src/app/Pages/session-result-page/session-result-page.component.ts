@@ -123,4 +123,11 @@ export class SessionResultPageComponent implements OnInit {
   goToSessions(): void {
     this.router.navigate(['/sessions']);
   }
+
+  // sessionQuestions/sessionQuestionResults are already in the data-manager
+  // cache from the quiz+submit flow that led here, so review mode can read
+  // them straight off the shelf with no extra fetch.
+  reviewSession(): void {
+    this.router.navigate(['/sessions/review']);
+  }
 }
