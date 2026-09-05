@@ -50,7 +50,7 @@ export class DataManagerService {
 
   /** -------- Login user and store JWT token -------- */
   /** routes the user back to home on successful login -------- */
-  public login(email: any, password: any, route: string | boolean = '/home'): void {
+  public login(email: any, password: any, route: string | boolean = '/home', onError?: (err: any) => void): void {
     this.post('api/login', {
       "email": email,
       "password": password
@@ -68,6 +68,7 @@ export class DataManagerService {
       },
       error: (err) => {
         console.error('Error fetching user credentials:', err);
+        onError?.(err);
       }
     });
   }

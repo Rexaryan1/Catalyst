@@ -4,19 +4,26 @@
   block-size: 100%;
   min-inline-size: 0;
   min-block-size: 0;
+  container-type: size;
+  container-name: heatmap;
 
-  --cell-size: 24px;
-  --label-col-size: 32px;
-  --label-row-size: 22px;
+  // Cell/label sizes scale off the container's inline size (cqi), not
+  // cqmin — the grid has a fixed column count, so width is always the
+  // true constraint. Sizing off cqmin flips basis when the card's height
+  // outgrows its width (e.g. a tall dashboard tile), overshooting the
+  // actual available width and cropping the grid.
+  --cell-size: clamp(20px, 6.5cqi, 44px);
+  --label-col-size: clamp(26px, 7.5cqi, 40px);
+  --label-row-size: clamp(18px, 5cqi, 30px);
 }
 
 .heatmap {
-  --hm-gap: clamp(0.55rem, 0.75cqi, 0.9rem);
-  --hm-pad: clamp(0.55rem, 1.2cqi, 1rem);
+  --hm-gap: clamp(0.55rem, 1.1cqi, 0.9rem);
+  --hm-pad: clamp(0.55rem, 1.6cqi, 1rem);
   //--hm-radius: clamp(0.45rem, 0.95cqi, 0.85rem);
   --hm-radius: 4px;
 
-  --hm-label-font: clamp(0.86rem, 5.5px, 1.08rem);
+  --hm-label-font: clamp(0.72rem, 1.9cqi, 1.15rem);
 
   --hm-level-0: rgba(190, 220, 228, 0.10);
   --hm-level-1: rgba(190, 220, 228, 0.24);

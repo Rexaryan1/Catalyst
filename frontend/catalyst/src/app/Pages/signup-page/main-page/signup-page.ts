@@ -19,6 +19,7 @@ export class SignupPage {
   isLoginMode = true;
   showSignUpPassword = false;
   showSignInPassword = false;
+  signInError: string | null = null;
   signInForm = new FormGroup({
     email: new FormControl(''),
     password: new FormControl('')
@@ -35,6 +36,7 @@ export class SignupPage {
 
   toggleMode() {
     this.isLoginMode = !this.isLoginMode;
+    this.signInError = null;
   }
 
   setSignUpPasswordVisible(visible: boolean) {
@@ -65,7 +67,35 @@ export class SignupPage {
 
   onSignIn() {
     console.log('SignIn Payload:', this.signInForm.value);
-    this.dataManager.login(this.signInForm.value.email, this.signInForm.value.password);
+    this.signInError = null;
+    this.dataManager.login(
+      this.signInForm.value.email,
+      this.signInForm.value.password,
+      '/home',
+      (err: any) => {
+        const body = err?.error;
+        // A 500 (e.g. the backend throwing on a lookup for an email that
+        // doesn't exist) comes back as a raw Django HTML error page, not
+        // JSON — never surface that markup, show a generic message instead.
+        if (err?.status >= 500 || (typeof body === 'string' && body.trim().startsWith('<'))) {
+          this.signInError = "We couldn't log you in with those details. Check your email and password, or sign up if you don't have an account.";
+        } else if (Array.isArray(body?.email) && body.email.length > 0) {
+          this.signInError = body.email[0];
+        } else if (Array.isArray(body?.password) && body.password.length > 0) {
+          this.signInError = body.password[0];
+        } else if (Array.isArray(body?.non_field_errors) && body.non_field_errors.length > 0) {
+          this.signInError = body.non_field_errors[0];
+        } else if (typeof body?.detail === 'string') {
+          this.signInError = body.detail;
+        } else if (typeof body?.message === 'string') {
+          this.signInError = body.message;
+        } else if (typeof body === 'string') {
+          this.signInError = body;
+        } else {
+          this.signInError = 'Something went wrong. Please try again.';
+        }
+      },
+    );
     // this.enablePush();
   }
 

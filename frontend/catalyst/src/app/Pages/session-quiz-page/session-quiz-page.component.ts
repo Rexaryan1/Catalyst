@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, timer } from 'rxjs';
 import { DataManagerService } from '@services/data-manager/data-manager.service';
 import { CodeSnippetComponent } from '@components/code-snippet/code-snippet.component';
+import { QuestionImageComponent } from '@components/question-image/question-image.component';
 
 // ── Interfaces ────────────────────────────────────────────────────────────────
 
@@ -28,6 +29,7 @@ export interface RawQuestion {
   snippet_body: string | null;
   snippet_line_range: string | number[] | null;
   snippet_output: string | null;
+  image_url?: string | null;
 }
 
 export interface RawFocusArea {
@@ -86,7 +88,7 @@ export type OptionState = 'default' | 'selected' | 'correct' | 'incorrect' | 'ne
 @Component({
   selector: 'app-session-quiz-page',
   standalone: true,
-  imports: [CommonModule, FormsModule, CodeSnippetComponent],
+  imports: [CommonModule, FormsModule, CodeSnippetComponent, QuestionImageComponent],
   templateUrl: './session-quiz-page.component.html',
   styleUrl: './session-quiz-page.component.scss',
 })
@@ -160,6 +162,13 @@ export class SessionQuizPageComponent implements OnInit, OnDestroy {
 
   get isLastQuestion(): boolean {
     return this.currentIndex >= this.questions.length - 1;
+  }
+
+  get hasCurrentAnswer(): boolean {
+    if (!this.current) return false;
+    return this.isNumericalQuestion
+      ? this.numericAnswer !== null && this.numericAnswer !== undefined && !Number.isNaN(this.numericAnswer)
+      : this.selectedOption !== null;
   }
 
   // ── Lifecycle ─────────────────────────────────────────────────────────────────
@@ -336,6 +345,9 @@ export class SessionQuizPageComponent implements OnInit, OnDestroy {
     return q.response_type === 'numerical' ? q.selectedValue !== null : q.selectedIndex !== null;
   }
 
+  // Live mode has no answer key until the whole session is submitted, so
+  // there is nothing worth pausing on between "check" and "next" — one
+  // click records the attempt (if not already recorded) and advances.
   continue(): void {
     if (this.mode === 'review') {
       if (this.isLastQuestion) {
@@ -347,8 +359,11 @@ export class SessionQuizPageComponent implements OnInit, OnDestroy {
     }
 
     if (!this.isSubmitted) {
+      if (!this.hasCurrentAnswer) return;
       this.checkAnswer();
-    } else if (this.isLastQuestion) {
+    }
+
+    if (this.isLastQuestion) {
       this.finishSession();
     } else {
       this.setIndex(this.currentIndex + 1);

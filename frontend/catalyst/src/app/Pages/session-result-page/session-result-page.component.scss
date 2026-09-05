@@ -337,10 +337,14 @@
   &--developing { background: rgba(195, 155, 80, 0.12);  color: rgba(215, 175, 90, 0.9);  border-color: rgba(195, 155, 80, 0.22); }
   &--proficient { background: rgba(70, 140, 70, 0.12);   color: rgba(90, 200, 90, 0.9);   border-color: rgba(70, 140, 70, 0.22); }
   &--weakness   { background: rgba(200, 75, 75, 0.12);   color: rgba(215, 95, 95, 0.9);   border-color: rgba(200, 75, 75, 0.22); }
+  &--review     { background: rgba(195, 175, 100, 0.12); color: rgba(200, 180, 110, 0.9); border-color: rgba(195, 175, 100, 0.22); }
+  &--advance    { background: rgba(70, 103, 93, 0.15);   color: rgba(85, 125, 110, 0.95); border-color: rgba(70, 103, 93, 0.25); }
 
   // Glow the destination badge in mastery changes
   &--leveled.sr-mastery-badge--developing { box-shadow: 0 0 0 2px rgba(195, 155, 80, 0.18); }
   &--leveled.sr-mastery-badge--proficient { box-shadow: 0 0 0 2px rgba(70, 140, 70, 0.2); }
+  &--leveled.sr-mastery-badge--review     { box-shadow: 0 0 0 2px rgba(195, 175, 100, 0.18); }
+  &--leveled.sr-mastery-badge--advance    { box-shadow: 0 0 0 2px rgba(70, 103, 93, 0.2); }
 }
 
 // ── Weekly progress ───────────────────────────────────────────────────────────
@@ -395,6 +399,7 @@
 .sr-actions {
   display: flex;
   justify-content: center;
+  gap: 0.75rem;
   padding-top: 0.25rem;
 }
 

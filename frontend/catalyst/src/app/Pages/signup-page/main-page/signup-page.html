@@ -90,6 +90,9 @@
                 </button>
               </div>
             </div>
+            @if (signInError) {
+              <p class="form-error">{{ signInError }}</p>
+            }
             <button type="submit" class="btn btn--primary">LOGIN</button>
           </form>
         }

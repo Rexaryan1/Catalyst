@@ -1,0 +1,30 @@
+@if (url) {
+  <div class="qi-container">
+    @if (state === 'loading') {
+      <div class="qi-skeleton" aria-hidden="true"></div>
+    }
+
+    <img
+      class="qi-image"
+      [class.qi-image--hidden]="state !== 'loaded'"
+      [src]="displayUrl"
+      [alt]="alt"
+      (load)="onLoad()"
+      (error)="onError()"
+    />
+
+    @if (state === 'loaded') {
+      <button type="button" class="qi-zoom-btn" (click)="openZoom()" aria-label="Expand image">
+        <span class="material-icons">zoom_in</span>
+      </button>
+    }
+
+    @if (state === 'error') {
+      <div class="qi-error">
+        <span class="material-icons qi-error-icon">broken_image</span>
+        <p class="qi-error-text">Image failed to load</p>
+        <button type="button" class="qi-retry-btn" (click)="retry()">Retry</button>
+      </div>
+    }
+  </div>
+}

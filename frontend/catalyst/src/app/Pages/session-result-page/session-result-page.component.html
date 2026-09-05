@@ -29,16 +29,16 @@
             </span>
           </div>
           <div class="sr-mastery-changes">
-            @for (topic of changedMasteryTopics; track topic.topic) {
+            @for (topic of changedMasteryTopics; track topic.topic_name) {
               <div class="sr-mastery-change-row">
-                <span class="sr-mastery-change-name">{{ topic.topic }}</span>
+                <span class="sr-mastery-change-name">{{ topic.topic_name }}</span>
                 <div class="sr-mastery-change-states">
-                  <span class="sr-mastery-badge" [ngClass]="'sr-mastery-badge--' + topic.previous_mastery">
-                    {{ masteryLabel(topic.previous_mastery) }}
+                  <span class="sr-mastery-badge" [ngClass]="'sr-mastery-badge--' + topic.previous_state">
+                    {{ masteryLabel(topic.previous_state) }}
                   </span>
                   <span class="sr-mastery-arrow">→</span>
-                  <span class="sr-mastery-badge sr-mastery-badge--leveled" [ngClass]="'sr-mastery-badge--' + topic.mastery">
-                    {{ masteryLabel(topic.mastery) }}
+                  <span class="sr-mastery-badge sr-mastery-badge--leveled" [ngClass]="'sr-mastery-badge--' + topic.updated_state">
+                    {{ masteryLabel(topic.updated_state) }}
                   </span>
                 </div>
               </div>
@@ -80,18 +80,18 @@
         <div class="sr-section">
           <span class="sr-section-label">Topics covered</span>
           <div class="sr-topic-list">
-            @for (topic of attemptedTopics; track topic.topic) {
-              <div class="sr-topic-row" [class.sr-topic-row--changed]="topic.mastery_changed">
+            @for (topic of attemptedTopics; track topic.topic_name) {
+              <div class="sr-topic-row" [class.sr-topic-row--changed]="masteryChanged(topic)">
                 <div class="sr-topic-info">
-                  <span class="sr-topic-name">{{ topic.topic }}</span>
-                  @if (topic.mastery_changed) {
+                  <span class="sr-topic-name">{{ topic.topic_name }}</span>
+                  @if (masteryChanged(topic)) {
                     <span class="sr-topic-up-badge">leveled up</span>
                   }
                 </div>
                 <div class="sr-topic-right">
-                  <span class="sr-topic-score">{{ topic.correct }}/{{ topic.attempted }}</span>
-                  <span class="sr-mastery-badge" [ngClass]="'sr-mastery-badge--' + topic.mastery">
-                    {{ masteryLabel(topic.mastery) }}
+                  <span class="sr-topic-score">{{ topic.correct }}/{{ topic.total }}</span>
+                  <span class="sr-mastery-badge" [ngClass]="'sr-mastery-badge--' + topic.updated_state">
+                    {{ masteryLabel(topic.updated_state) }}
                   </span>
                 </div>
               </div>
@@ -134,7 +134,8 @@
 
       <!-- ── Actions ─────────────────────────────────────────────── -->
       <div class="sr-actions">
-        <button class="sr-btn sr-btn--cta" (click)="goToSessions()">Back to sessions</button>
+        <button class="sr-btn" (click)="goToSessions()">Back to sessions</button>
+        <button class="sr-btn sr-btn--cta" (click)="reviewSession()">Review session</button>
       </div>
 
     </div>

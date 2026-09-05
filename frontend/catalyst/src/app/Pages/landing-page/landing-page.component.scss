@@ -112,11 +112,17 @@ $bento-gap: clamp(8px, 1.6vh, 14px);
   min-height: 0;
 }
 
-/* Right column: dashboard + profile split the column evenly —
-   wide relative to their height, i.e. a landscape aspect ratio */
-.bento-tile--dashboard,
-.bento-tile--profile {
+/* Right column: dashboard tile absorbs the column's leftover space;
+   profile card and quick-access bar stay sized to their own content so
+   the gaps around the profile card come only from the column's uniform
+   `gap`, never from the tile itself stretching taller than its card. */
+.bento-tile--dashboard {
   flex: 1;
+  min-height: 0;
+}
+
+.bento-tile--profile {
+  flex: 0 0 auto;
   min-height: 0;
 }
 
