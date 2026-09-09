@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { DataManagerService } from '@services/data-manager/data-manager.service';
 
-interface TopicResult {
-  topic_name: string;
+interface TopicBreakdown {
+  topic: string;
   correct: number;
-  total: number;
-  accuracy: number;
-  previous_state: string;
-  updated_state: string;
+  attempted: number;
+  mastery: string;
+  mastery_changed: boolean;
+  previous_mastery: string;
 }
 
 interface WeeklyProgress {
@@ -24,14 +24,13 @@ interface SessionSummary {
   correct: number;
   accuracy_rate: number;
   session_duration_seconds: number;
-  topics: TopicResult[];
 }
 
 export interface SessionResult {
   status: string;
   session_id: string;
   summary: SessionSummary;
-  topic_breakdown: unknown;
+  topic_breakdown: TopicBreakdown[] | null;
   weekly_progress: WeeklyProgress | null;
 }
 
@@ -74,16 +73,12 @@ export class SessionResultPageComponent implements OnInit {
     return this.result.summary.total_questions - this.result.summary.answered;
   }
 
-  get attemptedTopics(): TopicResult[] {
-    return (this.result?.summary?.topics ?? []).filter(t => t.total > 0);
+  get attemptedTopics(): TopicBreakdown[] {
+    return (this.result?.topic_breakdown ?? []).filter(t => t.attempted > 0);
   }
 
-  get changedMasteryTopics(): TopicResult[] {
-    return (this.result?.summary?.topics ?? []).filter(t => t.previous_state !== t.updated_state);
-  }
-
-  masteryChanged(t: TopicResult): boolean {
-    return t.previous_state !== t.updated_state;
+  get changedMasteryTopics(): TopicBreakdown[] {
+    return (this.result?.topic_breakdown ?? []).filter(t => t.mastery_changed);
   }
 
   get weeklyAccuracyPct(): number {

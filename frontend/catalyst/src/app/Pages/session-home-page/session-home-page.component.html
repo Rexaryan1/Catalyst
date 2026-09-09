@@ -96,7 +96,7 @@
                   <span class="sh-meta-item">{{ card.session?.estimatedMinutes }} min</span>
                   @if (card.session?.bloomsRange) {
                     <span class="sh-meta-dot">·</span>
-                    <span class="sh-meta-item">Bloom's {{ card.session?.bloomsRange?.min }}–{{ card.session?.bloomsRange?.max }}</span>
+                    <span class="sh-meta-item">Bloom's {{ card.session?.bloomsRange?.[0] }}–{{ card.session?.bloomsRange?.[1] }}</span>
                   }
                 </div>
 
@@ -179,14 +179,20 @@
                     }
                   </div>
                 }
-                <span class="sh-muted">Done for today</span>
+                <span class="sh-muted">{{ card.completionMessage ?? 'Done for today' }}</span>
                 <button class="sh-btn sh-btn--cta sh-btn--full" (click)="reviewSession(i)">Review session →</button>
+                @if (card.premiumUpsell) {
+                  <span class="sh-upsell-badge">Go Premium for multiple sessions a day</span>
+                }
               </div>
             }
 
             <!-- Session error -->
             @if (card.cardState === 'session_error') {
               <div class="sh-card-body">
+                @if (card.errorMessage) {
+                  <p class="sh-muted">{{ card.errorMessage }}</p>
+                }
                 <button class="sh-btn" (click)="retrySessionFetch(i)">
                   {{ card.showManualRefresh ? 'Check again' : 'Retry' }}
                 </button>

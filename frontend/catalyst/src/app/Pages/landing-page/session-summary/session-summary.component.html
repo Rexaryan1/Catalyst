@@ -56,7 +56,7 @@
             <span class="stile-meta-item" *ngIf="card.session?.estimatedMinutes">{{ card.session?.estimatedMinutes }} min</span>
             <ng-container *ngIf="card.session?.bloomsRange as bloom">
               <span class="stile-meta-dot">·</span>
-              <span class="stile-meta-item">Bloom's {{ bloom.min }}–{{ bloom.max }}</span>
+              <span class="stile-meta-item">Bloom's {{ bloom[0] }}–{{ bloom[1] }}</span>
             </ng-container>
           </div>
 
@@ -98,12 +98,14 @@
               <span class="stile-done-label">day streak</span>
             </div>
           </div>
-          <p class="stile-muted">Done for today</p>
+          <p class="stile-muted">{{ card.completionMessage ?? 'Done for today' }}</p>
           <button class="stile-cta" (click)="reviewSession(i)">Review session →</button>
+          <span class="stile-upsell-badge" *ngIf="card.premiumUpsell">Go Premium for multiple sessions a day</span>
         </ng-container>
 
         <!-- Error -->
         <ng-container *ngIf="card.cardState === 'session_error'">
+          <p class="stile-muted" *ngIf="card.errorMessage">{{ card.errorMessage }}</p>
           <button class="stile-btn" (click)="retry(i)">Retry</button>
         </ng-container>
       </div>

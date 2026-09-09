@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { Subject, timer } from 'rxjs';
+import { Subject, forkJoin, timer } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { DataManagerService } from '@services/data-manager/data-manager.service';
 
@@ -31,7 +31,7 @@ export interface SessionData {
   reason: string;
   questionCount: number;
   estimatedMinutes: number;
-  bloomsRange: { min: number; max: number } | null;
+  bloomsRange: [number, number] | null;
   weeklyProgress: { completed: number; target: number } | null;
   focusAreas: FocusArea[];
   sessionStatus: 'READY' | 'IN_PROGRESS' | 'COMPLETED';
@@ -51,6 +51,9 @@ interface EnrollmentCard {
   session: SessionData | null;
   pollCount: number;
   showManualRefresh: boolean;
+  completionMessage: string | null;
+  premiumUpsell: boolean;
+  errorMessage: string | null;
 }
 
 const MAX_POLL_RETRIES = 2;
@@ -128,6 +131,9 @@ export class SessionHomePageComponent implements OnInit, OnDestroy {
       session: null,
       pollCount: 0,
       showManualRefresh: false,
+      completionMessage: null,
+      premiumUpsell: false,
+      errorMessage: null,
     }));
     this.cards.forEach((_, i) => this.fetchSession(i));
   }
@@ -142,12 +148,27 @@ export class SessionHomePageComponent implements OnInit, OnDestroy {
           if (res?.status === 'preparing') {
             this.cards[cardIndex] = { ...this.cards[cardIndex], cardState: 'preparing' };
             this.schedulePoll(cardIndex);
+          } else if (res?.session) {
+            // Wrapped envelope (e.g. "already_completed" premium gating) —
+            // the real session payload lives under `session`; the wrapper
+            // itself only carries the gating metadata.
+            this.applySessionState(cardIndex, res.session, {
+              completionMessage: res.message ?? null,
+              premiumUpsell: !!res.premiumUpsell,
+            });
           } else {
             this.applySessionState(cardIndex, res);
           }
         },
-        error: () => {
-          this.cards[cardIndex] = { ...this.cards[cardIndex], cardState: 'session_error' };
+        error: (err) => {
+          // Paused enrollments (403) and generation failures (500) won't be
+          // fixed by hitting Retry — surface the backend's message so it's
+          // clear whether retrying will actually help.
+          this.cards[cardIndex] = {
+            ...this.cards[cardIndex],
+            cardState: 'session_error',
+            errorMessage: typeof err?.error?.error === 'string' ? err.error.error : null,
+          };
         },
       });
   }
@@ -166,7 +187,11 @@ export class SessionHomePageComponent implements OnInit, OnDestroy {
       });
   }
 
-  private applySessionState(cardIndex: number, res: SessionData): void {
+  private applySessionState(
+    cardIndex: number,
+    res: SessionData,
+    extra?: { completionMessage: string | null; premiumUpsell: boolean },
+  ): void {
     const map: Record<string, CardState> = {
       READY: 'ready',
       IN_PROGRESS: 'in_progress',
@@ -176,6 +201,8 @@ export class SessionHomePageComponent implements OnInit, OnDestroy {
       ...this.cards[cardIndex],
       cardState: map[res?.sessionStatus] ?? 'session_error',
       session: res,
+      completionMessage: extra?.completionMessage ?? null,
+      premiumUpsell: extra?.premiumUpsell ?? false,
     };
   }
 
@@ -241,21 +268,15 @@ export class SessionHomePageComponent implements OnInit, OnDestroy {
     if (!card.session) return;
     const sessionId = card.session.sessionId;
 
-    // Review data (question_results) only exists in memory from the submit response
-    // of the session that was just finished in this tab — no fetch endpoint for it yet.
-    const cachedResult = this.dataManager.snapshot<any>('sessionResult');
-    if (cachedResult?.session_id !== sessionId) {
-      this.router.navigate(['/sessions/review']);
-      return;
-    }
-
-    this.dataManager
-      .get<any>(`api/sessions/${sessionId}/questions`, { withCredentials: true })
+    forkJoin({
+      questions: this.dataManager.get<any>(`api/sessions/${sessionId}/questions`, { withCredentials: true }),
+      review: this.dataManager.get<any>(`api/sessions/${sessionId}/review`, { withCredentials: true }),
+    })
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: (res) => {
-          this.dataManager.set('sessionQuestions', res);
-          this.dataManager.set('sessionQuestionResults', cachedResult.question_results ?? []);
+        next: ({ questions, review }) => {
+          this.dataManager.set('sessionQuestions', questions);
+          this.dataManager.set('sessionQuestionResults', review?.question_results ?? []);
           this.router.navigate(['/sessions/review']);
         },
         error: () => this.router.navigate(['/sessions/review']),
@@ -268,6 +289,7 @@ export class SessionHomePageComponent implements OnInit, OnDestroy {
       cardState: 'loading',
       pollCount: 0,
       showManualRefresh: false,
+      errorMessage: null,
     };
     this.fetchSession(cardIndex);
   }

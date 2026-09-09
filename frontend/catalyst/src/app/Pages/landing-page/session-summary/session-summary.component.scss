@@ -439,6 +439,16 @@
   letter-spacing: 0.06em;
 }
 
+.stile-upsell-badge {
+  text-align: center;
+  font-size: 0.75rem;
+  color: #d3c182;
+  background: rgba(211, 193, 130, 0.1);
+  border: 1px solid rgba(211, 193, 130, 0.22);
+  border-radius: 8px;
+  padding: 0.4rem 0.7rem;
+}
+
 // ── Skeleton ───────────────────────────────────────────────────
 
 @keyframes stile-shimmer {
