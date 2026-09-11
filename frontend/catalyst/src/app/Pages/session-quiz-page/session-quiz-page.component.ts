@@ -454,8 +454,21 @@ export class SessionQuizPageComponent implements OnInit, OnDestroy {
         },
         error: (err) => {
           if (err?.status === 409) {
-            // Already submitted (e.g. double-tap) — navigate to result if we have data
-            this.router.navigate(['/sessions/result']);
+            // Already submitted (e.g. double-tap) — the submit response is
+            // gone, so pull the graded result back from the review endpoint.
+            this.dataManager
+              .get<any>(`api/sessions/${sessionId}/review`, { withCredentials: true })
+              .subscribe({
+                next: (res) => {
+                  this.dataManager.set('sessionResult', res);
+                  this.dataManager.set('sessionQuestionResults', res?.question_results ?? []);
+                  this.router.navigate(['/sessions/result']);
+                },
+                error: () => {
+                  this.pageState = 'quiz';
+                  this.submitError = true;
+                },
+              });
           } else {
             this.pageState = 'quiz';
             this.submitError = true;
@@ -470,19 +483,15 @@ export class SessionQuizPageComponent implements OnInit, OnDestroy {
       topic_type: s.type,
       attempts: this.questions
         .slice(s.firstFlatIndex, s.firstFlatIndex + s.total)
-        .map((q, j) => {
-          const base = {
-            question_id: q.id,
-            time_to_first_tap_ms: q.timeToFirstTapMs ?? null,
-            answer_changed: q.answerChanged,
-            bloom_level: q.bloom_level,
-            difficulty: q.difficulty,
-            sequence_position: s.firstFlatIndex + j,
-          };
-          return q.response_type === 'numerical'
-            ? { ...base, value: q.selectedValue ?? null }
-            : { ...base, selected_index: q.selectedIndex ?? null };
-        }),
+        .map((q, j) => ({
+          question_id: q.id,
+          value: q.response_type === 'numerical' ? (q.selectedValue ?? null) : null,
+          selected_index: q.response_type === 'mcq' ? (q.selectedIndex ?? null) : null,
+          time_to_first_tap_ms: q.timeToFirstTapMs ?? null,
+          answer_changed: q.answerChanged,
+          // 1-indexed — matches the backend's flattened question ordering.
+          sequence_position: s.firstFlatIndex + j + 1,
+        })),
     }));
 
     return {

@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { Subject, timer } from 'rxjs';
+import { Subject, forkJoin, timer } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { DataManagerService } from '@services/data-manager/data-manager.service';
 import {
@@ -16,6 +16,9 @@ interface TileCard {
   cardState: CardState;
   session: SessionData | null;
   pollCount: number;
+  completionMessage: string | null;
+  premiumUpsell: boolean;
+  errorMessage: string | null;
 }
 
 type TileState = 'loading' | 'empty' | 'error' | 'ready';
@@ -70,6 +73,9 @@ export class SessionSummaryComponent implements OnInit, OnDestroy {
             cardState: 'loading' as CardState,
             session: null,
             pollCount: 0,
+            completionMessage: null,
+            premiumUpsell: false,
+            errorMessage: null,
           }));
           this.state = 'ready';
           this.cards.forEach((_, i) => this.fetchSession(i));
@@ -81,7 +87,7 @@ export class SessionSummaryComponent implements OnInit, OnDestroy {
   }
 
   retry(i: number): void {
-    this.cards[i] = { ...this.cards[i], cardState: 'loading', pollCount: 0 };
+    this.cards[i] = { ...this.cards[i], cardState: 'loading', pollCount: 0, errorMessage: null };
     this.fetchSession(i);
   }
 
@@ -95,12 +101,23 @@ export class SessionSummaryComponent implements OnInit, OnDestroy {
           if (res?.status === 'preparing') {
             this.cards[i] = { ...this.cards[i], cardState: 'preparing' };
             this.schedulePoll(i);
+          } else if (res?.session) {
+            // Wrapped envelope (e.g. "already_completed" premium gating) —
+            // the real session payload lives under `session`.
+            this.applySessionState(i, res.session, {
+              completionMessage: res.message ?? null,
+              premiumUpsell: !!res.premiumUpsell,
+            });
           } else {
             this.applySessionState(i, res);
           }
         },
-        error: () => {
-          this.cards[i] = { ...this.cards[i], cardState: 'session_error' };
+        error: (err) => {
+          this.cards[i] = {
+            ...this.cards[i],
+            cardState: 'session_error',
+            errorMessage: typeof err?.error?.error === 'string' ? err.error.error : null,
+          };
         },
       });
   }
@@ -115,7 +132,11 @@ export class SessionSummaryComponent implements OnInit, OnDestroy {
       });
   }
 
-  private applySessionState(i: number, res: SessionData): void {
+  private applySessionState(
+    i: number,
+    res: SessionData,
+    extra?: { completionMessage: string | null; premiumUpsell: boolean },
+  ): void {
     const map: Record<string, CardState> = {
       READY: 'ready',
       IN_PROGRESS: 'in_progress',
@@ -125,6 +146,8 @@ export class SessionSummaryComponent implements OnInit, OnDestroy {
       ...this.cards[i],
       cardState: map[res?.sessionStatus] ?? 'session_error',
       session: res,
+      completionMessage: extra?.completionMessage ?? null,
+      premiumUpsell: extra?.premiumUpsell ?? false,
     };
   }
 
@@ -197,18 +220,16 @@ export class SessionSummaryComponent implements OnInit, OnDestroy {
     const card = this.cards[i];
     if (!card.session) return;
     const sessionId = card.session.sessionId;
-    const cachedResult = this.dataManager.snapshot<any>('sessionResult');
-    if (cachedResult?.session_id !== sessionId) {
-      this.router.navigate(['/sessions']);
-      return;
-    }
-    this.dataManager
-      .get<any>(`api/sessions/${sessionId}/questions`, { withCredentials: true })
+
+    forkJoin({
+      questions: this.dataManager.get<any>(`api/sessions/${sessionId}/questions`, { withCredentials: true }),
+      review: this.dataManager.get<any>(`api/sessions/${sessionId}/review`, { withCredentials: true }),
+    })
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: (res) => {
-          this.dataManager.set('sessionQuestions', res);
-          this.dataManager.set('sessionQuestionResults', cachedResult.question_results ?? []);
+        next: ({ questions, review }) => {
+          this.dataManager.set('sessionQuestions', questions);
+          this.dataManager.set('sessionQuestionResults', review?.question_results ?? []);
           this.router.navigate(['/sessions/review']);
         },
         error: () => this.router.navigate(['/sessions/review']),
