@@ -31,7 +31,7 @@ export interface SessionResult {
   status: string;
   session_id: string;
   summary: SessionSummary;
-  topic_breakdown: TopicBreakdown[] | null;
+  topic_breakdown: TopicResult[] | null;
   weekly_progress: WeeklyProgress | null;
 }
 
