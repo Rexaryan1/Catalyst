@@ -160,7 +160,7 @@
             }
 
             <!-- Question text -->
-            <p class="qpc-question-text">{{ current?.text }}</p>
+            <p class="qpc-question-text"><app-math-text [text]="current?.text"></app-math-text></p>
 
             <!-- Image (optional) -->
             @if (current?.image_url) {
@@ -180,7 +180,7 @@
                     (click)="selectOption(i)"
                   >
                     <span class="qpc-option-badge">{{ optionLabel(i) }}</span>
-                    <span class="qpc-option-text">{{ opt }}</span>
+                    <span class="qpc-option-text"><app-math-text [text]="opt"></app-math-text></span>
                   </button>
                 }
               </div>
@@ -235,7 +235,7 @@
             @if (mode === 'review' && isSubmitted && current?.explanation) {
               <div class="qpc-explanation">
                 <span class="qpc-explanation-label">Explanation</span>
-                <p class="qpc-explanation-text">{{ current?.explanation }}</p>
+                <p class="qpc-explanation-text"><app-math-text [text]="current?.explanation"></app-math-text></p>
 
                 @if (current?.snippet_output) {
                   <div class="qpc-output">
@@ -251,7 +251,7 @@
                 @if (current?.distractor_explanations) {
                   <div class="qpc-distractor">
                     <span class="qpc-distractor-icon">!</span>
-                    <p class="qpc-distractor-text">{{ current?.distractor_explanations }}</p>
+                    <p class="qpc-distractor-text"><app-math-text [text]="current?.distractor_explanations"></app-math-text></p>
                   </div>
                 }
               </div>

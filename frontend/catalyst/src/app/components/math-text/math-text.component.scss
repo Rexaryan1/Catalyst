@@ -1,0 +1,8 @@
+.math-text {
+  white-space: pre-wrap;
+
+  &__math {
+    white-space: normal;
+    display: inline-block;
+  }
+}

@@ -3,12 +3,13 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Question } from '@components/cards/roadmap-item/roadmap-item.interface';
 import { QuestionImageComponent } from '@components/question-image/question-image.component';
+import { MathTextComponent } from '@components/math-text/math-text.component';
 import { Subscription, timer } from 'rxjs';
 
 @Component({
   selector: 'app-question-card',
   standalone: true,
-  imports: [RouterModule, CommonModule, QuestionImageComponent],
+  imports: [RouterModule, CommonModule, QuestionImageComponent, MathTextComponent],
   templateUrl: './question-card.html',
   styleUrl: './question-card.scss',
 })

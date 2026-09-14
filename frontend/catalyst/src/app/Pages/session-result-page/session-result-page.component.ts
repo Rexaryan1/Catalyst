@@ -12,6 +12,15 @@ interface TopicResult {
   updated_state: string;
 }
 
+interface TopicBreakdown {
+  topic: string;
+  correct: number;
+  attempted: number;
+  mastery: string;
+  mastery_changed: boolean;
+  previous_mastery: string;
+}
+
 interface WeeklyProgress {
   sessions_completed: number;
   weekly_accuracy: number;

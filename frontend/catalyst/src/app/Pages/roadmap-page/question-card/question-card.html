@@ -15,7 +15,7 @@
 
 
   <div class="qc-body">
-    <p class="question-text">{{ q.question_text }}</p>
+    <p class="question-text"><app-math-text [text]="q.question_text"></app-math-text></p>
 
     <app-question-image *ngIf="q.image_url" [url]="q.image_url" [alt]="q.question_text"></app-question-image>
 
@@ -32,7 +32,7 @@
         (click)="selectOption(i)"
       >
         <span class="option-badge">{{ ('ABCDEFGHIJKLMNOPQRSTUVWXYZ'.charAt(i)) }}</span>
-        <span class="option-label">{{ option }}</span>
+        <span class="option-label"><app-math-text [text]="option"></app-math-text></span>
       </button>
     </div>
 
@@ -48,7 +48,7 @@
       *ngIf="(isSubmitted || wasPreAnswered) && q.explanation?.trim()"
     >
       <p class="explanation-title">Explanation</p>
-      <p class="explanation-text">{{ q.explanation }}</p>
+      <p class="explanation-text"><app-math-text [text]="q.explanation"></app-math-text></p>
     </div>
   </div>
 

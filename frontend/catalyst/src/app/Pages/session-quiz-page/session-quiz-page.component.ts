@@ -6,6 +6,7 @@ import { Subscription, timer } from 'rxjs';
 import { DataManagerService } from '@services/data-manager/data-manager.service';
 import { CodeSnippetComponent } from '@components/code-snippet/code-snippet.component';
 import { QuestionImageComponent } from '@components/question-image/question-image.component';
+import { MathTextComponent } from '@components/math-text/math-text.component';
 
 // ── Interfaces ────────────────────────────────────────────────────────────────
 
@@ -88,7 +89,7 @@ export type OptionState = 'default' | 'selected' | 'correct' | 'incorrect' | 'ne
 @Component({
   selector: 'app-session-quiz-page',
   standalone: true,
-  imports: [CommonModule, FormsModule, CodeSnippetComponent, QuestionImageComponent],
+  imports: [CommonModule, FormsModule, CodeSnippetComponent, QuestionImageComponent, MathTextComponent],
   templateUrl: './session-quiz-page.component.html',
   styleUrl: './session-quiz-page.component.scss',
 })
