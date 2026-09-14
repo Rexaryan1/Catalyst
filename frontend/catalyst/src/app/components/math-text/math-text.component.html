@@ -1,0 +1,9 @@
+<span class="math-text">
+  @for (segment of segments; track $index) {
+    @if (segment.type === 'text') {
+      <span>{{ segment.text }}</span>
+    } @else {
+      <span class="math-text__math" [innerHTML]="segment.html"></span>
+    }
+  }
+</span>
