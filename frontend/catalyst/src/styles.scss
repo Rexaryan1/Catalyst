@@ -1,6 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
 @import "katex/dist/katex.min.css";
 
+// RC passage / DI table (session-quiz-page) — kept global since the
+// component's own stylesheet is already near its per-component budget.
+.qpc-stimulus {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: rgba(247, 246, 243, 0.78);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 0.9rem 1rem;
+}
+
+.qpc-table-wrap { display: flex; flex-direction: column; gap: 0.5rem; overflow-x: auto; }
+.qpc-table-name { font-size: 0.8rem; color: rgba(247, 246, 243, 0.6); }
+
+.qpc-table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.9rem;
+
+  th, td {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    text-align: left;
+    white-space: nowrap;
+    color: rgba(247, 246, 243, 0.9);
+  }
+
+  th { font-weight: 600; background: rgba(255, 255, 255, 0.04); }
+}
+
 html,
 body {
   height: 100%;
