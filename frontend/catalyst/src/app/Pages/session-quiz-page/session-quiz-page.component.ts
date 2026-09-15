@@ -16,6 +16,11 @@ export type QuizMode = 'live' | 'review';
 // GET /sessions/{id}/questions — presentational only, no answer key.
 // Neither MCQ nor numerical questions carry correct_index/correct_value/explanation
 // at fetch time; that data only exists once the session has been submitted.
+export interface TableData {
+  header: string[];
+  rows: (string | number)[][];
+}
+
 export interface RawQuestion {
   id: string;
   text: string;
@@ -31,6 +36,13 @@ export interface RawQuestion {
   snippet_line_range: string | number[] | null;
   snippet_output: string | null;
   image_url?: string | null;
+  // Reading-comprehension passage, shown above the question for every
+  // question that shares it.
+  stimulus_text?: string | null;
+  // Data-interpretation table, shown above the question.
+  table_data?: TableData | null;
+  table_name?: string | null;
+  table_unit?: string | null;
 }
 
 export interface RawFocusArea {

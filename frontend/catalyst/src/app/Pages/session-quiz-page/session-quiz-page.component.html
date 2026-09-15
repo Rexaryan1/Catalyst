@@ -159,6 +159,43 @@
               ></app-code-snippet>
             }
 
+            <!-- Reading-comprehension passage (optional) -->
+            @if (current?.stimulus_text) {
+              <div class="qpc-stimulus">
+                <app-math-text [text]="current?.stimulus_text"></app-math-text>
+              </div>
+            }
+
+            <!-- Data-interpretation table (optional) -->
+            @if (current?.table_data) {
+              <div class="qpc-table-wrap">
+                @if (current?.table_name) {
+                  <span class="qpc-table-name">
+                    {{ current?.table_name }}
+                    @if (current?.table_unit) { ({{ current?.table_unit }}) }
+                  </span>
+                }
+                <table class="qpc-table">
+                  <thead>
+                    <tr>
+                      @for (col of current?.table_data?.header ?? []; track $index) {
+                        <th>{{ col }}</th>
+                      }
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @for (row of current?.table_data?.rows ?? []; track $index) {
+                      <tr>
+                        @for (cell of row; track $index) {
+                          <td>{{ cell }}</td>
+                        }
+                      </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
+            }
+
             <!-- Question text -->
             <p class="qpc-question-text"><app-math-text [text]="current?.text"></app-math-text></p>
 

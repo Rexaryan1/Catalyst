@@ -390,6 +390,9 @@
   letter-spacing: 0.005em;
 }
 
+// RC passage / DI table styles live in global styles.scss — this file is
+// already near its per-component style budget.
+
 // ── Options ────────────────────────────────────────────────────────────────────
 
 .qpc-options {
