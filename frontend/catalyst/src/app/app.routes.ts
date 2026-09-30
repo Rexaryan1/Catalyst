@@ -19,6 +19,8 @@ import {PromptPage} from "@pages/prompt-page/prompt-page" ;
 import { SessionHomePageComponent } from '@pages/session-home-page/session-home-page.component';
 import { SessionQuizPageComponent } from '@pages/session-quiz-page/session-quiz-page.component';
 import { SessionResultPageComponent } from '@pages/session-result-page/session-result-page.component';
+import { sessionPreviewResolver } from '@pages/session-quiz-page/session-preview.resolver';
+import { PaymentPreviewComponent } from '@pages/payment-preview/payment-preview';
 
 
 
@@ -39,5 +41,13 @@ export const routes: Routes = [
   { path: 'sessions/result', component: SessionResultPageComponent, data: { title: 'Session results' }, canActivate: [authGuard] },
 
   // Preview
+  {
+    path: 'preview',
+    component: SessionQuizPageComponent,
+    data: { title: 'Preview' },
+    resolve: { ready: sessionPreviewResolver },
+  },
+
+  { path: 'payment-preview', component: PaymentPreviewComponent, data: { title: 'Payments preview' }, canActivate: [authGuard] },
 
 ];
