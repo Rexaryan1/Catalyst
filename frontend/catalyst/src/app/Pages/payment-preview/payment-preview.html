@@ -1,0 +1,20 @@
+<div class="preview-page">
+  <h1>Payments preview (test mode)</h1>
+  <p class="hint">
+    Hits <code>POST api/payments/subscriptions</code> with the hardcoded test plan, then opens
+    Razorpay's hosted checkout in subscription mode. Nothing here confirms entitlement — that
+    happens server-side via the webhook.
+  </p>
+
+  <button
+    type="button"
+    (click)="startTestSubscription()"
+    [disabled]="status() === 'creating' || status() === 'checkout'"
+  >
+    Start test subscription
+  </button>
+
+  <p class="status">Status: <strong>{{ status() }}</strong></p>
+
+  <pre class="log">{{ log().join('\n') }}</pre>
+</div>
