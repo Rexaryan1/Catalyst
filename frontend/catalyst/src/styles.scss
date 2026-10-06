@@ -32,6 +32,142 @@
   th { font-weight: 600; background: rgba(255, 255, 255, 0.04); }
 }
 
+// Bookmark/flag review actions (session-quiz-page, review mode) — kept
+// global for the same reason as the RC/DI styles above.
+.qpc-review-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.qpc-review-action-btn {
+  // Bookmark accent (default) — light-blue, the app's primary accent color
+  --ra-bg: rgba(190, 220, 228, 0.1);
+  --ra-border: rgba(190, 220, 228, 0.4);
+  --ra-fg: var(--color-light-blue, #bedce4);
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  height: 30px;
+  padding: 0 0.65rem;
+  border-radius: 8px;
+  background: rgba(247, 246, 243, 0.04);
+  border: 1px solid rgba(247, 246, 243, 0.12);
+  color: rgba(234, 233, 229, 0.6);
+  font-family: 'AlbertSans-Regular', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.14s ease, border-color 0.14s ease, color 0.14s ease, transform 0.12s ease;
+
+  &:hover { background: rgba(255, 255, 255, 0.08); color: rgba(234, 233, 229, 0.85); transform: translateY(-1px); }
+  &:active { transform: translateY(0); }
+
+  // Flag accent — red, matches the "incorrect" semantic color already used on this screen
+  &--flag { --ra-bg: rgba(200, 75, 75, 0.12); --ra-border: rgba(200, 75, 75, 0.4); --ra-fg: rgba(220, 110, 110, 0.95); }
+
+  &--active, &--open {
+    background: var(--ra-bg);
+    border-color: var(--ra-border);
+    color: var(--ra-fg);
+  }
+}
+
+.qpc-review-action-icon {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+}
+
+.qpc-action-form {
+  // Bookmark accent (default) — light-blue
+  --fa-fg: var(--color-light-blue, #bedce4);
+  --fa-bg: rgba(190, 220, 228, 0.07);
+  --fa-border: rgba(190, 220, 228, 0.4);
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0.9rem 1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(190, 220, 228, 0.18);
+  background: rgba(190, 220, 228, 0.04);
+
+  // Flag accent — red
+  &--flag {
+    --fa-fg: rgba(220, 110, 110, 0.95);
+    --fa-bg: rgba(200, 75, 75, 0.08);
+    --fa-border: rgba(200, 75, 75, 0.4);
+    border-color: rgba(200, 75, 75, 0.22);
+    background: rgba(200, 75, 75, 0.05);
+  }
+}
+
+.qpc-action-form-head { display: flex; align-items: center; gap: 0.5rem; }
+.qpc-action-form-icon { width: 15px; height: 15px; flex-shrink: 0; color: var(--fa-fg); }
+.qpc-action-form-title { font-size: 0.85rem; font-weight: 600; color: rgba(247, 246, 243, 0.92); }
+.qpc-action-form-options { display: flex; flex-direction: column; gap: 0.4rem; }
+
+.qpc-action-form-option {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 0.65rem;
+  border-radius: 8px;
+  border: 1px solid rgba(247, 246, 243, 0.08);
+  background: rgba(247, 246, 243, 0.02);
+  color: rgba(234, 233, 229, 0.78);
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: background 0.14s ease, border-color 0.14s ease;
+
+  &:hover { background: rgba(247, 246, 243, 0.05); }
+  input { accent-color: var(--fa-fg); width: 15px; height: 15px; flex-shrink: 0; cursor: pointer; }
+
+  &--checked {
+    border-color: var(--fa-border);
+    background: var(--fa-bg);
+    color: rgba(247, 246, 243, 0.95);
+  }
+}
+
+.qpc-action-form-text {
+  width: 100%;
+  min-height: 56px;
+  padding: 0.6rem 0.75rem;
+  border-radius: 10px;
+  background: rgba(247, 246, 243, 0.03);
+  border: 1px solid rgba(247, 246, 243, 0.12);
+  color: rgba(234, 233, 229, 0.9);
+  font-family: 'AlbertSans-Regular', sans-serif;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  resize: vertical;
+  transition: border-color 0.15s ease, background 0.15s ease;
+
+  &::placeholder { color: rgba(234, 233, 229, 0.3); }
+  &:focus { outline: none; border-color: var(--fa-border); background: var(--fa-bg); }
+}
+
+.qpc-action-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+
+  .qpc-nav-btn { padding: 0 1.1rem; }
+}
+
+.qpc-nav-btn--danger {
+  background: rgba(200, 75, 75, 0.18) !important;
+  border-color: rgba(200, 75, 75, 0.45) !important;
+
+  &:hover:not(:disabled) {
+    background: rgba(200, 75, 75, 0.28) !important;
+    border-color: rgba(200, 75, 75, 0.6) !important;
+  }
+}
+
 html,
 body {
   height: 100%;

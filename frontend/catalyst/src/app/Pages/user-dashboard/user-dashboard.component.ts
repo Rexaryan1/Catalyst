@@ -5,6 +5,7 @@ import { DonutChart } from "./donut-chart/donut-chart";
 import { DataManagerService } from '@services/data-manager/data-manager.service';
 import { Router } from '@angular/router';
 import { HttpParams } from '@angular/common/http';
+import { forkJoin } from 'rxjs';
 import { Roadmap, DifficultyLevel } from '@app/Pages/roadmap-tracker/roadmap-tracker';
 import { HeatmapSmall } from '@components/cards/heatmap-small/heatmap-small';
 
@@ -21,6 +22,13 @@ export interface DashboardData {
 export interface HeatmapEntry {
   date: string;
   count: number;
+}
+
+export interface CompletedSession {
+  sessionId: string;
+  subject: string;
+  date: string;
+  topicHeadline: string;
 }
 
 @Component({
@@ -42,6 +50,10 @@ export class UserDashboardComponent implements OnInit {
   isLoading = signal(true);
   hasError = signal(false);
 
+  completedSessions = signal<CompletedSession[]>([]);
+  isLoadingSessions = signal(true);
+  sessionsError = signal(false);
+
   constructor(
     private dataManagerService: DataManagerService,
     private router: Router
@@ -50,6 +62,7 @@ export class UserDashboardComponent implements OnInit {
   ngOnInit(): void {
     this.loadDashboard();
     this.loadRoadmaps();
+    this.loadCompletedSessions();
   }
 
   private loadDashboard(): void {
@@ -100,6 +113,35 @@ export class UserDashboardComponent implements OnInit {
         },
         error: (err) => console.error('Error fetching roadmaps:', err)
       });
+  }
+
+  private loadCompletedSessions(): void {
+    this.dataManagerService.get<{ sessions: CompletedSession[] }>('api/sessions/solved', { withCredentials: true })
+      .subscribe({
+        next: (res) => {
+          this.completedSessions.set(res?.sessions ?? []);
+          this.isLoadingSessions.set(false);
+        },
+        error: (err) => {
+          console.error('Error fetching completed sessions:', err);
+          this.sessionsError.set(true);
+          this.isLoadingSessions.set(false);
+        }
+      });
+  }
+
+  onSessionClick(session: CompletedSession): void {
+    forkJoin({
+      questions: this.dataManagerService.get<any>(`api/sessions/${session.sessionId}/questions`, { withCredentials: true }),
+      review: this.dataManagerService.get<any>(`api/sessions/${session.sessionId}/review`, { withCredentials: true }),
+    }).subscribe({
+      next: ({ questions, review }) => {
+        this.dataManagerService.set('sessionQuestions', questions);
+        this.dataManagerService.set('sessionQuestionResults', review?.question_results ?? []);
+        this.router.navigate(['/sessions/review']);
+      },
+      error: (err) => console.error('Error fetching session review:', err)
+    });
   }
 
   onRoadmapClick(roadmap: Roadmap): void {

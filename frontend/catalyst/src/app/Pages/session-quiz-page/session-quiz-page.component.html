@@ -124,6 +124,30 @@
             <div class="qpc-header-right">
               @if (mode === 'review') {
                 <span class="qpc-answered-badge">Reviewing</span>
+
+                <div class="qpc-review-actions">
+                  <button class="qpc-review-action-btn qpc-review-action-btn--bookmark"
+                    [class.qpc-review-action-btn--active]="isCurrentBookmarked"
+                    [class.qpc-review-action-btn--open]="activeActionForm === 'bookmark'"
+                    (click)="openBookmarkForm()">
+                    <svg class="qpc-review-action-icon" viewBox="0 0 24 24" [attr.fill]="isCurrentBookmarked ? 'currentColor' : 'none'" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M6 3.5h12a1 1 0 0 1 1 1V21l-7-4.5L5 21V4.5a1 1 0 0 1 1-1Z"/>
+                    </svg>
+                    <span>{{ isCurrentBookmarked ? 'Bookmarked' : 'Bookmark' }}</span>
+                  </button>
+
+                  <button class="qpc-review-action-btn qpc-review-action-btn--flag"
+                    [class.qpc-review-action-btn--active]="isCurrentFlagged"
+                    [class.qpc-review-action-btn--open]="activeActionForm === 'flag'"
+                    (click)="openFlagForm()">
+                    <svg class="qpc-review-action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M5 21V4"/>
+                      <path [attr.fill]="isCurrentFlagged ? 'currentColor' : 'none'" d="M5 4h13l-3 4 3 4H5Z"/>
+                    </svg>
+                    <span>{{ isCurrentFlagged ? 'Flagged' : 'Flag' }}</span>
+                  </button>
+                </div>
+
                 <button class="qpc-finish-btn" (click)="goBack()">Exit review</button>
               } @else {
                 @if (isSubmitted) {
@@ -149,6 +173,85 @@
 
           <!-- Card body (scrollable) -->
           <div class="qpc-body">
+
+            <!-- Bookmark form -->
+            @if (mode === 'review' && activeActionForm === 'bookmark') {
+              <div class="qpc-action-form qpc-action-form--bookmark">
+                <div class="qpc-action-form-head">
+                  <svg class="qpc-action-form-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 3.5h12a1 1 0 0 1 1 1V21l-7-4.5L5 21V4.5a1 1 0 0 1 1-1Z"/>
+                  </svg>
+                  <span class="qpc-action-form-title">Why save this one?</span>
+                </div>
+                <div class="qpc-action-form-options">
+                  @for (option of bookmarkReasons; track option.value) {
+                    <label class="qpc-action-form-option" [class.qpc-action-form-option--checked]="selectedBookmarkReason === option.value">
+                      <input
+                        type="radio"
+                        name="bookmarkReason"
+                        [value]="option.value"
+                        [checked]="selectedBookmarkReason === option.value"
+                        (change)="selectBookmarkReason(option.value)"
+                      />
+                      <span>{{ option.label }}</span>
+                    </label>
+                  }
+                </div>
+                <textarea
+                  class="qpc-action-form-text"
+                  placeholder="Add a note (optional)"
+                  [ngModel]="bookmarkReasonText"
+                  (ngModelChange)="bookmarkReasonText = $event"
+                ></textarea>
+                <div class="qpc-action-form-actions">
+                  <button class="qpc-nav-btn" (click)="closeActionForm()">Cancel</button>
+                  <button class="qpc-nav-btn qpc-nav-btn--primary"
+                    [disabled]="!selectedBookmarkReason || bookmarkSubmitting"
+                    (click)="submitBookmark()">
+                    Save bookmark
+                  </button>
+                </div>
+              </div>
+            }
+
+            <!-- Flag form -->
+            @if (mode === 'review' && activeActionForm === 'flag') {
+              <div class="qpc-action-form qpc-action-form--flag">
+                <div class="qpc-action-form-head">
+                  <svg class="qpc-action-form-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 21V4"/>
+                    <path d="M5 4h13l-3 4 3 4H5Z"/>
+                  </svg>
+                  <span class="qpc-action-form-title">What's wrong with this question?</span>
+                </div>
+                <div class="qpc-action-form-options">
+                  @for (option of flagCategories; track option.value) {
+                    <label class="qpc-action-form-option" [class.qpc-action-form-option--checked]="isFlagCategorySelected(option.value)">
+                      <input
+                        type="checkbox"
+                        [checked]="isFlagCategorySelected(option.value)"
+                        (change)="toggleFlagCategory(option.value)"
+                      />
+                      <span>{{ option.label }}</span>
+                    </label>
+                  }
+                </div>
+                <textarea
+                  class="qpc-action-form-text"
+                  placeholder="Add details (optional)"
+                  [ngModel]="flagDescription"
+                  (ngModelChange)="flagDescription = $event"
+                ></textarea>
+                <div class="qpc-action-form-actions">
+                  <button class="qpc-nav-btn" (click)="closeActionForm()">Cancel</button>
+                  <button class="qpc-nav-btn qpc-nav-btn--primary qpc-nav-btn--danger"
+                    [disabled]="flagSubmitting"
+                    (click)="submitFlag()">
+                    Submit report
+                  </button>
+                </div>
+              </div>
+            }
 
             <!-- Code snippet (optional) -->
             @if (current?.snippet_body) {

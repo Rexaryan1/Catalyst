@@ -7,6 +7,9 @@ import { DataManagerService } from '@services/data-manager/data-manager.service'
 import { CodeSnippetComponent } from '@components/code-snippet/code-snippet.component';
 import { QuestionImageComponent } from '@components/question-image/question-image.component';
 import { MathTextComponent } from '@components/math-text/math-text.component';
+import { BookmarksService, BookmarkReason } from '@services/bookmarks/bookmarks.service';
+import { FlagsService, FlagCategory } from '@services/flags/flags.service';
+import { InAppNotificationsService } from '@services/notifications/in-app-notifications.service';
 
 // ── Interfaces ────────────────────────────────────────────────────────────────
 
@@ -35,6 +38,9 @@ export interface RawQuestion {
   snippet_body: string | null;
   snippet_line_range: string | number[] | null;
   snippet_output: string | null;
+  // Not yet returned by the review data load — defaults to false until the
+  // backend includes flagged status alongside isBookmarked.
+  isFlagged?: boolean;
   image_url?: string | null;
   // Reading-comprehension passage, shown above the question for every
   // question that shares it.
@@ -96,6 +102,23 @@ export interface TopicSummary {
 export type PageState = 'loading' | 'quiz' | 'confirm' | 'submitting' | 'done' | 'error';
 export type OptionState = 'default' | 'selected' | 'correct' | 'incorrect' | 'neutral';
 
+export type ReviewActionForm = 'none' | 'bookmark' | 'flag';
+
+export const BOOKMARK_REASONS: { value: BookmarkReason; label: string }[] = [
+  { value: 'want_more_practice', label: 'Want more practice like this' },
+  { value: 'new_concept', label: 'New concept, want to revisit' },
+  { value: 'good_example', label: 'Good example to reference later' },
+  { value: 'curious', label: 'Just curious / interesting problem' },
+];
+
+export const FLAG_CATEGORIES: { value: FlagCategory; label: string }[] = [
+  { value: 'answer_or_explanation_wrong', label: 'Answer or explanation seems wrong' },
+  { value: 'options_unclear_or_not_distinct', label: "Options don't make sense / aren't distinct" },
+  { value: 'missing_table_image_or_related_question', label: 'Missing table, image, or related question' },
+  { value: 'confusing_wording', label: 'Confusing or unclear wording' },
+  { value: 'something_else', label: 'Something else' },
+];
+
 // ── Component ──────────────────────────────────────────────────────────────────
 
 @Component({
@@ -134,6 +157,20 @@ export class SessionQuizPageComponent implements OnInit, OnDestroy {
 
   // ── Timer
   private timerSub: Subscription | null = null;
+
+  // ── Bookmark / flag actions (review mode) ───────────────────────────────────
+  readonly bookmarkReasons = BOOKMARK_REASONS;
+  readonly flagCategories = FLAG_CATEGORIES;
+
+  activeActionForm: ReviewActionForm = 'none';
+  bookmarkSubmitting = false;
+  flagSubmitting = false;
+
+  selectedBookmarkReason: BookmarkReason | null = null;
+  bookmarkReasonText = '';
+
+  selectedFlagCategories: FlagCategory[] = [];
+  flagDescription = '';
 
   // ── Getters ───────────────────────────────────────────────────────────────────
 
@@ -190,6 +227,9 @@ export class SessionQuizPageComponent implements OnInit, OnDestroy {
     private dataManager: DataManagerService,
     private router: Router,
     private route: ActivatedRoute,
+    private bookmarksService: BookmarksService,
+    private flagsService: FlagsService,
+    private notifications: InAppNotificationsService,
   ) {}
 
   ngOnInit(): void {
@@ -428,6 +468,7 @@ export class SessionQuizPageComponent implements OnInit, OnDestroy {
     this.currentIndex = i;
     this.selectedOption = q.selectedIndex;
     this.numericAnswer = q.selectedValue;
+    this.closeActionForm();
 
     if (this.mode === 'review') {
       this.isSubmitted = true;
@@ -566,5 +607,99 @@ export class SessionQuizPageComponent implements OnInit, OnDestroy {
       [`${prefix}--advance`]:  type === 'advance',
       [`${prefix}--review`]:   type === 'review',
     };
+  }
+
+  // ── Bookmark / flag actions (review mode only) ───────────────────────────────
+
+  get isCurrentBookmarked(): boolean {
+    return !!this.current?.isBookmarked;
+  }
+
+  get isCurrentFlagged(): boolean {
+    return !!this.current?.isFlagged;
+  }
+
+  openBookmarkForm(): void {
+    this.activeActionForm = this.activeActionForm === 'bookmark' ? 'none' : 'bookmark';
+    this.selectedBookmarkReason = null;
+    this.bookmarkReasonText = '';
+  }
+
+  openFlagForm(): void {
+    this.activeActionForm = this.activeActionForm === 'flag' ? 'none' : 'flag';
+    this.selectedFlagCategories = [];
+    this.flagDescription = '';
+  }
+
+  closeActionForm(): void {
+    this.activeActionForm = 'none';
+  }
+
+  selectBookmarkReason(reason: BookmarkReason): void {
+    this.selectedBookmarkReason = reason;
+  }
+
+  isFlagCategorySelected(category: FlagCategory): boolean {
+    return this.selectedFlagCategories.includes(category);
+  }
+
+  toggleFlagCategory(category: FlagCategory): void {
+    this.selectedFlagCategories = this.isFlagCategorySelected(category)
+      ? this.selectedFlagCategories.filter(c => c !== category)
+      : [...this.selectedFlagCategories, category];
+  }
+
+  submitBookmark(): void {
+    if (!this.current || !this.selectedBookmarkReason || this.bookmarkSubmitting) return;
+
+    this.bookmarkSubmitting = true;
+    const questionId = this.current.id;
+    this.bookmarksService
+      .create({
+        question_id: questionId,
+        reason: this.selectedBookmarkReason,
+        reason_text: this.bookmarkReasonText.trim() || undefined,
+      })
+      .subscribe({
+        next: () => {
+          this.bookmarkSubmitting = false;
+          this.markQuestion(questionId, { isBookmarked: true });
+          this.closeActionForm();
+          this.notifications.push({ title: 'Saved for revision', body: '', type: 'bookmark' });
+        },
+        error: () => {
+          this.bookmarkSubmitting = false;
+          this.notifications.push({ title: "Couldn't save bookmark", body: 'Please try again.', type: 'error' });
+        },
+      });
+  }
+
+  submitFlag(): void {
+    if (!this.current || this.flagSubmitting) return;
+
+    this.flagSubmitting = true;
+    const questionId = this.current.id;
+    this.flagsService
+      .create({
+        question_id: questionId,
+        categories: this.selectedFlagCategories,
+        description: this.flagDescription.trim() || undefined,
+      })
+      .subscribe({
+        next: () => {
+          this.flagSubmitting = false;
+          this.markQuestion(questionId, { isFlagged: true });
+          this.closeActionForm();
+          this.notifications.push({ title: 'Reported — thanks for flagging this', body: '', type: 'flag' });
+        },
+        error: () => {
+          this.flagSubmitting = false;
+          this.notifications.push({ title: "Couldn't submit report", body: 'Please try again.', type: 'error' });
+        },
+      });
+  }
+
+  private markQuestion(questionId: string, patch: Partial<FlatQuestion>): void {
+    this.questions = this.questions.map(q => (q.id === questionId ? { ...q, ...patch } : q));
   }
 }

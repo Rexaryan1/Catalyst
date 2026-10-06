@@ -113,6 +113,15 @@ export class DataManagerService {
 
   /** -------- GET with automatic caching and HTTP options -------- */
   get<T>(path: string, options?: Options): Observable<T> {
+    if (!options?.headers) {
+      options = {
+        ...options,
+        headers: new HttpHeaders({
+          'Authorization': `Bearer ${this.jwtToken}`,
+        })
+      };
+    }
+
     const http$ = this.http.get<T>(this.backendURL + path, options);
     return this.saveInCache(path, http$);
   }
@@ -137,6 +146,20 @@ export class DataManagerService {
 
     const http$ = this.http.post<T>(this.backendURL + path, payload, options);
     return cacheKey ? this.saveInCache(cacheKey, http$) : http$;
+  }
+
+  /** -------- DELETE -------- */
+  delete<T>(path: string, options?: Options): Observable<T> {
+    if (!options?.headers) {
+      options = {
+        ...options,
+        headers: new HttpHeaders({
+          'Authorization': `Bearer ${this.jwtToken}`,
+        })
+      };
+    }
+
+    return this.http.delete<T>(this.backendURL + path, options);
   }
 
   /** set value in cached Store */
