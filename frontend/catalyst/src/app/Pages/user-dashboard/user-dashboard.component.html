@@ -124,10 +124,31 @@
     </div>
   </div>
 
-  <!-- ── Col 5–6 / Row 2: Upcoming Events ── -->
-  <div class="grid-item unknown">
-    <h3>Upcoming Events</h3>
-    <p>Competitions and mock quizzes coming soon</p>
+  <!-- ── Col 5–6 / Row 2: Completed Sessions ── -->
+  <div class="grid-item completed-sessions">
+    <h3>Completed Sessions</h3>
+
+    <div class="completed-sessions-list">
+      <div
+        *ngFor="let session of completedSessions()"
+        class="session-row"
+        (click)="onSessionClick(session)">
+        <div class="session-row-left">
+          <span class="session-subject">{{ session.subject }}</span>
+          <span class="session-headline">{{ session.topicHeadline }}</span>
+        </div>
+        <div class="session-row-right">
+          <span class="session-date">{{ session.date | date:'MMM d' }}</span>
+          <span class="session-arrow">⟶</span>
+        </div>
+      </div>
+
+      <p *ngIf="isLoadingSessions()" class="completed-sessions-empty">Loading…</p>
+      <p *ngIf="!isLoadingSessions() && sessionsError()" class="completed-sessions-empty">Couldn't load sessions.</p>
+      <p *ngIf="!isLoadingSessions() && !sessionsError() && completedSessions().length === 0" class="completed-sessions-empty">
+        No completed sessions yet.
+      </p>
+    </div>
   </div>
 
 </div>
