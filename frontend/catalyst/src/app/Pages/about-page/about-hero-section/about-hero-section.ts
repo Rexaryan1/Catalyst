@@ -53,8 +53,8 @@ export class AboutHeroSection implements AfterViewInit, OnDestroy{
     this.updateFrameLines();
   }
 
-  scrollToDemo(): void {
-    document.getElementById('demo')?.scrollIntoView({
+  scrollToHowItWorks(): void {
+    document.getElementById('how-it-works')?.scrollIntoView({
       behavior: 'smooth',
       block: 'start',
     });
