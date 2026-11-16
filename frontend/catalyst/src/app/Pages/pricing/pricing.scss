@@ -1,0 +1,329 @@
+// ── Host ──────────────────────────────────────────────────────────────────────
+
+:host {
+  display: block;
+  background: #1f1f1f;
+  color: #eae9e5;
+  font-family: 'AlbertSans-Regular', sans-serif;
+  min-height: 100vh;
+}
+
+.pp-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+// ── Header ────────────────────────────────────────────────────────────────────
+
+.pp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1.5rem;
+  border-bottom: 1px solid rgba(247, 246, 243, 0.07);
+  background: rgba(255, 255, 255, 0.015);
+  flex-shrink: 0;
+}
+
+.pp-back {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'AlbertSans-Regular', sans-serif;
+  font-size: 0.78rem;
+  color: rgba(234, 233, 229, 0.35);
+  text-decoration: none;
+  transition: color 0.15s ease;
+
+  &:hover { color: rgba(234, 233, 229, 0.72); }
+}
+
+.pp-header-title {
+  font-family: 'Erbaum', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: rgba(234, 233, 229, 0.9);
+}
+
+// ── Body ──────────────────────────────────────────────────────────────────────
+
+.pp-body {
+  flex: 1;
+  padding: 3rem 1.5rem 3.5rem;
+  max-width: 1080px;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.pp-intro {
+  text-align: center;
+  max-width: 480px;
+  margin: 0 auto 2.75rem;
+}
+
+.pp-title {
+  font-family: 'Erbaum', sans-serif;
+  font-size: 2rem;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.6rem;
+  color: #f7f6f3;
+}
+
+.pp-subtitle {
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: rgba(234, 233, 229, 0.5);
+  margin: 0;
+}
+
+// ── Plan cards ────────────────────────────────────────────────────────────────
+
+.pp-plans {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  align-items: stretch;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+    max-width: 380px;
+    margin: 0 auto;
+  }
+}
+
+.pp-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1.75rem 1.5rem;
+  background: #2f2f2f;
+  border: 1px solid rgba(247, 246, 243, 0.08);
+  border-radius: 16px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+
+  &--pro {
+    border-color: rgba(190, 220, 228, 0.35);
+    box-shadow: 0 0 0 1px rgba(190, 220, 228, 0.12), 0 12px 32px rgba(0, 0, 0, 0.28);
+
+    @media (min-width: 901px) { transform: translateY(-10px); }
+  }
+
+  &--cat {
+    border-color: rgba(195, 175, 100, 0.3);
+  }
+}
+
+.pp-card-badge {
+  position: absolute;
+  top: -11px;
+  left: 1.5rem;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  background: var(--color-light-blue, #bedce4);
+  color: #1f2a2d;
+
+  &--gold {
+    background: rgba(215, 190, 80, 0.9);
+    color: #2a2210;
+  }
+}
+
+.pp-card-head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.pp-card-name {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(234, 233, 229, 0.45);
+}
+
+.pp-card-price {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+}
+
+.pp-price-amount {
+  font-family: 'Erbaum', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: #f7f6f3;
+}
+
+.pp-price-strike {
+  font-family: 'Erbaum', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: rgba(234, 233, 229, 0.3);
+  text-decoration: line-through;
+}
+
+.pp-price-period {
+  font-size: 0.8rem;
+  color: rgba(234, 233, 229, 0.4);
+}
+
+.pp-card-tagline {
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: rgba(234, 233, 229, 0.55);
+  margin: 0;
+}
+
+// ── Feature list ──────────────────────────────────────────────────────────────
+
+.pp-features {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    position: relative;
+    padding-left: 1.3rem;
+    font-size: 0.84rem;
+    line-height: 1.45;
+    color: rgba(234, 233, 229, 0.78);
+
+    &::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: rgba(100, 200, 100, 0.8);
+    }
+  }
+}
+
+.pp-card--cat .pp-features li::before {
+  color: rgba(215, 190, 80, 0.85);
+}
+
+// ── CTAs ──────────────────────────────────────────────────────────────────────
+
+.pp-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: 'AlbertSans-Regular', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.7rem 1.25rem;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.12s ease;
+
+  &--ghost {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.12);
+    color: rgba(234, 233, 229, 0.78);
+
+    &:hover { background: rgba(255, 255, 255, 0.09); }
+  }
+
+  &--primary {
+    background: #d9d9d9;
+    color: #2d2d2d;
+
+    &:hover:not(:disabled) { background: #e3e3e3; transform: translateY(-1px); }
+    &:active:not(:disabled) { transform: translateY(0); }
+
+    &:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      transform: none;
+    }
+  }
+}
+
+// ── Dev / test panel ──────────────────────────────────────────────────────────
+
+.pp-debug {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.pp-debug-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'AlbertSans-Regular', sans-serif;
+  font-size: 0.72rem;
+  color: rgba(234, 233, 229, 0.3);
+  text-decoration: underline;
+  text-decoration-color: rgba(234, 233, 229, 0.15);
+
+  &:hover { color: rgba(234, 233, 229, 0.55); }
+}
+
+.pp-debug-panel {
+  margin: 1rem auto 0;
+  max-width: 560px;
+  text-align: left;
+  padding: 1rem 1.1rem;
+  border-radius: 10px;
+  border: 1px solid rgba(247, 246, 243, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.pp-debug-hint {
+  font-size: 0.76rem;
+  line-height: 1.5;
+  color: rgba(234, 233, 229, 0.45);
+  margin: 0 0 0.6rem;
+
+  code {
+    color: rgba(190, 220, 228, 0.8);
+  }
+}
+
+.pp-debug-status {
+  font-size: 0.78rem;
+  color: rgba(234, 233, 229, 0.6);
+  margin: 0 0 0.5rem;
+}
+
+.pp-debug-log {
+  margin: 0;
+  padding: 0.75rem;
+  border-radius: 8px;
+  background: #151515;
+  color: rgba(100, 200, 100, 0.85);
+  font-family: 'AlbertSans-Regular', monospace;
+  font-size: 0.72rem;
+  min-height: 60px;
+  max-height: 220px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pp-card,
+  .pp-cta {
+    transition: none !important;
+  }
+}

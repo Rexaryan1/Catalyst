@@ -1,0 +1,120 @@
+<div class="pp-page">
+
+  <div class="pp-header">
+    <a class="pp-back" routerLink="/dashboard">← Dashboard</a>
+    <span class="pp-header-title">Pricing</span>
+  </div>
+
+  <div class="pp-body">
+
+    <div class="pp-intro">
+      <h1 class="pp-title">Choose how you want to prep</h1>
+      <p class="pp-subtitle">Start free, upgrade the moment you feel the limit. Cancel anytime, no questions asked.</p>
+    </div>
+
+    <div class="pp-plans">
+
+      <!-- ── Free ── -->
+      <div class="pp-card">
+        <div class="pp-card-head">
+          <span class="pp-card-name">Free</span>
+          <div class="pp-card-price">
+            <span class="pp-price-amount">₹0</span>
+            <span class="pp-price-period">/ forever</span>
+          </div>
+          <p class="pp-card-tagline">Get a feel for how Catalyst learns with you.</p>
+        </div>
+
+        <ul class="pp-features">
+          <li>1 active roadmap at a time</li>
+          <li>Up to 15 practice questions a day</li>
+          <li>Streak &amp; accuracy tracking</li>
+          <li>Dashboard overview</li>
+        </ul>
+
+        <a class="pp-cta pp-cta--ghost" routerLink="/dashboard">Continue free</a>
+      </div>
+
+      <!-- ── Pro ── -->
+      <div class="pp-card pp-card--pro">
+        <span class="pp-card-badge">Most popular</span>
+
+        <div class="pp-card-head">
+          <span class="pp-card-name">Pro</span>
+          <div class="pp-card-price">
+            <span class="pp-price-amount">₹400</span>
+            <span class="pp-price-period">/ month</span>
+          </div>
+          <p class="pp-card-tagline">Full access, every day, no limits.</p>
+        </div>
+
+        <ul class="pp-features">
+          <li>Unlimited roadmaps &amp; regenerations</li>
+          <li>Unlimited daily practice sessions</li>
+          <li>Full performance analytics &amp; heatmap</li>
+          <li>Bookmark &amp; flag tools for review</li>
+          <li>Priority doubt support</li>
+        </ul>
+
+        <button
+          type="button"
+          class="pp-cta pp-cta--primary"
+          [disabled]="isBusy()"
+          (click)="startTestSubscription()">
+          {{ ctaLabel() }}
+        </button>
+      </div>
+
+      <!-- ── CAT 2027 Aspirants ── -->
+      <div class="pp-card pp-card--cat">
+        <span class="pp-card-badge pp-card-badge--gold">Early-bird offer</span>
+
+        <div class="pp-card-head">
+          <span class="pp-card-name">CAT 2027 Aspirants</span>
+          <div class="pp-card-price">
+            <span class="pp-price-strike">₹400</span>
+            <span class="pp-price-amount">₹249</span>
+            <span class="pp-price-period">/ month</span>
+          </div>
+          <p class="pp-card-tagline">Everything in Pro, priced for this year's CAT cycle.</p>
+        </div>
+
+        <ul class="pp-features">
+          <li>Everything in Pro</li>
+          <li>QA · DILR · VARC focused roadmap presets</li>
+          <li>Sectional mock test analysis</li>
+          <li>Price locked till CAT 2027</li>
+        </ul>
+
+        <button
+          type="button"
+          class="pp-cta pp-cta--primary"
+          [disabled]="isBusy()"
+          (click)="startTestSubscription()">
+          {{ ctaLabel() }}
+        </button>
+      </div>
+
+    </div>
+
+    <!-- ── Dev / test panel ── -->
+    <div class="pp-debug">
+      <button type="button" class="pp-debug-toggle" (click)="showDebug.set(!showDebug())">
+        {{ showDebug() ? 'Hide' : 'Show' }} technical details
+      </button>
+
+      @if (showDebug()) {
+        <div class="pp-debug-panel">
+          <p class="pp-debug-hint">
+            Both paid plans currently hit the same hardcoded test plan
+            (<code>POST api/payments/subscriptions</code>) and open Razorpay's hosted checkout.
+            Entitlement is confirmed server-side via webhook, not here.
+          </p>
+          <p class="pp-debug-status">Status: <strong>{{ status() }}</strong></p>
+          <pre class="pp-debug-log">{{ log().join('\n') }}</pre>
+        </div>
+      }
+    </div>
+
+  </div>
+</div>

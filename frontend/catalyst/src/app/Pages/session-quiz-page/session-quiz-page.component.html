@@ -269,34 +269,37 @@
               </div>
             }
 
-            <!-- Data-interpretation table (optional) -->
-            @if (current?.table_data) {
-              <div class="qpc-table-wrap">
-                @if (current?.table_name) {
-                  <span class="qpc-table-name">
-                    {{ current?.table_name }}
-                    @if (current?.table_unit) { ({{ current?.table_unit }}) }
-                  </span>
-                }
-                <table class="qpc-table">
-                  <thead>
-                    <tr>
-                      @for (col of current?.table_data?.header ?? []; track $index) {
-                        <th>{{ col }}</th>
-                      }
-                    </tr>
-                  </thead>
-                  <tbody>
-                    @for (row of current?.table_data?.rows ?? []; track $index) {
+            <!-- Data-interpretation table(s) (optional) — a question can carry
+                 more than one named table (e.g. a two-stage DI set) -->
+            @if (current?.table_data?.items?.length) {
+              @for (item of current?.table_data?.items ?? []; track item.name) {
+                <div class="qpc-table-wrap">
+                  @if (item.name) {
+                    <span class="qpc-table-name">
+                      {{ item.name }}
+                      @if (current?.table_unit) { ({{ current?.table_unit }}) }
+                    </span>
+                  }
+                  <table class="qpc-table">
+                    <thead>
                       <tr>
-                        @for (cell of row; track $index) {
-                          <td>{{ cell }}</td>
+                        @for (col of item.header; track $index) {
+                          <th>{{ col }}</th>
                         }
                       </tr>
-                    }
-                  </tbody>
-                </table>
-              </div>
+                    </thead>
+                    <tbody>
+                      @for (row of item.rows; track $index) {
+                        <tr>
+                          @for (cell of row; track $index) {
+                            <td>{{ cell }}</td>
+                          }
+                        </tr>
+                      }
+                    </tbody>
+                  </table>
+                </div>
+              }
             }
 
             <!-- Question text -->
