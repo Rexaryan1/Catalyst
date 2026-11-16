@@ -26,7 +26,7 @@ export class Header implements OnInit, OnDestroy{
 
   menuItems = [
     { label: 'notifications', icon: '../../assets/icons/notification-bing.svg', route: null ,  isHome: false , isNotif: true , isLogout: false },
-    { label: 'Home', icon: '../../assets/Catalyst-Favicon.ico', route: '/home' ,  isHome: true , isNotif: false , isLogout: false },
+    { label: 'Home', icon: '../../assets/Catalyst-Favicon.ico', route: '/pricing' ,  isHome: true , isNotif: false , isLogout: false },
     { label: 'Logout', icon: '../../assets/icons/logout.svg' , route: null ,  isHome: false , isNotif: false , isLogout: true },
 
   ];

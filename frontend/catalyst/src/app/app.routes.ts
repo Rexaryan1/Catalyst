@@ -20,7 +20,7 @@ import { SessionHomePageComponent } from '@pages/session-home-page/session-home-
 import { SessionQuizPageComponent } from '@pages/session-quiz-page/session-quiz-page.component';
 import { SessionResultPageComponent } from '@pages/session-result-page/session-result-page.component';
 import { sessionPreviewResolver } from '@pages/session-quiz-page/session-preview.resolver';
-import { PaymentPreviewComponent } from '@pages/payment-preview/payment-preview';
+import { PricingComponent } from '@pages/pricing/pricing';
 
 
 
@@ -48,6 +48,6 @@ export const routes: Routes = [
     resolve: { ready: sessionPreviewResolver },
   },
 
-  { path: 'payment-preview', component: PaymentPreviewComponent, data: { title: 'Payments preview' }, canActivate: [authGuard] },
+  { path: 'pricing', component: PricingComponent, data: { title: 'Pricing' }, canActivate: [authGuard] },
 
 ];

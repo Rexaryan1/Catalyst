@@ -19,9 +19,18 @@ export type QuizMode = 'live' | 'review';
 // GET /sessions/{id}/questions — presentational only, no answer key.
 // Neither MCQ nor numerical questions carry correct_index/correct_value/explanation
 // at fetch time; that data only exists once the session has been submitted.
-export interface TableData {
+export interface TableItem {
+  name: string;
+  type?: string;
   header: string[];
   rows: (string | number)[][];
+}
+
+// A question can carry more than one named table (e.g. a two-stage DI set
+// like "Refinery → Depot" and "Depot → District") — hence `items`, not a
+// single flat header/rows pair.
+export interface TableData {
+  items: TableItem[];
 }
 
 export interface RawQuestion {

@@ -1,26 +1,42 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { PaymentsService } from '@services/payments/payments.service';
 import { environment } from '@environments/environment';
 
 type Status = 'idle' | 'creating' | 'checkout' | 'success' | 'cancelled' | 'error';
 
 // Only Plan row that exists right now (plan_Ti4zLpmH2eoC4z, "catalyst test", ₹400/mo).
-// Hardcoded for this end-to-end test — replace with a plans-listing call once one exists.
+// Both paid cards point at this single test plan until real Pro / CAT-2027 plans
+// are created and wired in on the backend.
 const TEST_PLAN_ID = 'f1caf295-1805-4a18-8785-d4016ab846be';
 
 declare const Razorpay: any;
 
 @Component({
-  selector: 'app-payment-preview',
+  selector: 'app-pricing',
   standalone: true,
-  imports: [CommonModule],
-  templateUrl: './payment-preview.html',
-  styleUrl: './payment-preview.scss',
+  imports: [CommonModule, RouterModule],
+  templateUrl: './pricing.html',
+  styleUrl: './pricing.scss',
 })
-export class PaymentPreviewComponent {
+export class PricingComponent {
   status = signal<Status>('idle');
   log = signal<string[]>([]);
+  showDebug = signal(false);
+
+  isBusy = computed(() => this.status() === 'creating' || this.status() === 'checkout');
+
+  ctaLabel = computed(() => {
+    switch (this.status()) {
+      case 'creating': return 'Creating subscription…';
+      case 'checkout': return 'Redirecting to checkout…';
+      case 'success': return 'Subscribed ✓';
+      case 'cancelled': return 'Try again';
+      case 'error': return 'Try again';
+      default: return 'Start test subscription';
+    }
+  });
 
   private razorpayScriptLoaded = false;
 
