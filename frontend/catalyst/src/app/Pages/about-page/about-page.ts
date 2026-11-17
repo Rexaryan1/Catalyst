@@ -1,8 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, ViewChild } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import {TrustedBySection} from "@pages/about-page/trusted-by-section/trusted-by-section";
-import {SectionLines} from "@pages/about-page/section-lines/section-lines";
 import {AboutHeroSection} from "@pages/about-page/about-hero-section/about-hero-section";
 import {FeaturesGridSection} from "@pages/about-page/features-grid-section/features-grid-section";
 import {FooterSection} from "@pages/about-page/footer-section/footer-section";
@@ -14,9 +12,7 @@ import { DataManagerService } from '@services/data-manager/data-manager.service'
   selector: 'app-about-page',
   imports: [
     CommonModule,
-    RouterLink,
     TrustedBySection,
-    SectionLines,
     AboutHeroSection,
     FeaturesGridSection,
     FooterSection,
