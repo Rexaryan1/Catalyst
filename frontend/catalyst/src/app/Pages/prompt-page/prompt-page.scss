@@ -1,4 +1,5 @@
 @use '@angular/material' as mat;
+@use 'sass:color';
 
 // ── Design tokens ────────────────────────────────────────────────────────────
 // Adjust these custom properties to match your app's global theme.
@@ -119,7 +120,7 @@ mat-progress-bar {
 // ═══ LEFT PANEL ══════════════════════════════════════════════════════════════
 .panel-left {
   position: relative;
-  background-color: darken($c-bg, 4%);
+  background-color: color.adjust($c-bg, $lightness: -4%);
   // Subtle left-edge glow that matches the brand accent
   border-right: 1px solid $c-border;
   overflow: hidden;

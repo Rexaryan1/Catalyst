@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 // Variables & Fonts
 $color-bg-dark: #1f1f1f;
 $color-bg-cream: #eae9e5;
@@ -14,6 +16,34 @@ $font-secondary: "AlbertSans-Bold", sans-serif;
 // Global Box Sizing
 *, *::before, *::after {
   box-sizing: border-box;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .signup-page, .signup-page * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+@keyframes signup-card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes signup-fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes signup-logo-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
 }
 
 // Main Container
@@ -47,12 +77,14 @@ $font-secondary: "AlbertSans-Bold", sans-serif;
   gap: clamp(12px, 2vw, 24px);
   width: min(100%, 440px);
   margin-top: 0;
+  animation: signup-fade-in 0.7s ease both;
 }
 .signup-hero__logo {
   position: static;
   width: clamp(80px, 100px, 160px);
   height: auto;
   margin-bottom: 4px;
+  animation: signup-logo-float 4.5s ease-in-out infinite;
 }
 
 .signup-hero__title {
@@ -104,6 +136,8 @@ $font-secondary: "AlbertSans-Bold", sans-serif;
   position: relative; // anchor the absolute footer to this card
 
   border-radius: 10px 10px 0 0; // only top corners rounded
+
+  animation: signup-card-enter 0.6s cubic-bezier(.22, 1, .36, 1) both;
 
   &__body {
     flex: 1 1 auto;
@@ -192,16 +226,20 @@ $font-secondary: "AlbertSans-Bold", sans-serif;
   width: 100%;
   height: 50px;
   border: 1px solid $color-border;
-  border-radius: 8px;
-  background: transparent;
+  border-radius: 10px;
+  background: #ffffff;
   padding: 0 16px;
   font-size: 16px;
   color: $color-text-dark-grey;
   font-family: $font-main;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 
   &:focus {
     outline: none;
     border-color: $color-primary-green;
+    box-shadow: 0 0 0 4px rgba(70, 103, 93, 0.15);
+    transform: translateY(-1px);
   }
 }
 
@@ -220,7 +258,7 @@ $font-secondary: "AlbertSans-Bold", sans-serif;
 .btn {
   width: 100%;
   height: 56px;
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 13px;
   font-weight: 700;
   font-family: $font-bold;
@@ -229,29 +267,43 @@ $font-secondary: "AlbertSans-Bold", sans-serif;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  transition: all 0.2s;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease, opacity 0.18s ease;
 
   &--primary {
-    background: $color-primary-green;
+    background: linear-gradient(135deg, color.adjust($color-primary-green, $lightness: 4%) 0%, $color-primary-green 55%, color.adjust($color-primary-green, $lightness: -6%) 100%);
     color: white;
     border: none;
     margin-top: 8px;
+    box-shadow: 0 10px 24px rgba(70, 103, 93, 0.3);
 
     &:hover {
-      opacity: 0.9;
+      box-shadow: 0 12px 28px rgba(70, 103, 93, 0.4);
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: scale(0.98);
+      box-shadow: 0 6px 14px rgba(70, 103, 93, 0.3);
     }
   }
 
   &--social {
-    background: #fafafa;
+    background: #ffffff;
     border: 1px solid #eeeeee;
     color: #616161;
     font-family: $font-main;
     font-weight: 400;
     height: 48px; // Slightly smaller than primary btn
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 
     &:hover {
-      background: #f0f0f0;
+      border-color: rgba(70, 103, 93, 0.3);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: scale(0.98);
     }
   }
 }
@@ -274,6 +326,9 @@ $font-secondary: "AlbertSans-Bold", sans-serif;
     font-family: $font-bold;
     font-size: 13px;
     color: #212121;
+    padding: 2px 10px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.04);
   }
 }
 
@@ -284,22 +339,13 @@ $font-secondary: "AlbertSans-Bold", sans-serif;
   gap: 12px;
 }
 
-.btn__icon{
-  width: 18px;
-  position: relative;
-  right: 30px;
-}
-
-/* Element | http://localhost:4200/ */
-
-button.btn:nth-child(3) > img:nth-child(1) {
-  margin-left: -7px;
-}
-
-/* Element | http://localhost:4200/ */
-
-button.btn:nth-child(2) > img:nth-child(1) {
-  margin-right: -16px;
+.btn__icon {
+  width: 20px;
+  height: 20px;
+  padding: 6px;
+  border-radius: 50%;
+  background: #f1f1ef;
+  box-sizing: content-box;
 }
 
 .footer-message {
@@ -311,5 +357,103 @@ button.btn:nth-child(2) > img:nth-child(1) {
     @media (max-width: 829px) {
       display: none;
     }
+}
+
+// --- Mobile layout ---
+// Below 829px the full hero panel is replaced by a compact branded banner,
+// and the form becomes a layered "card over backdrop" page instead of the
+// fixed-height bottom sheet used alongside the hero on desktop.
+@media (max-width: 829px) {
+  .signup-page {
+    flex-direction: column;
+    height: auto;
+    min-height: 100dvh;
+    overflow: visible;
+    background:
+      radial-gradient(circle at 50% 0%, rgba(190, 220, 228, 0.16), transparent 55%),
+      radial-gradient(circle at 15% 15%, rgba(70, 103, 93, 0.45), transparent 60%),
+      $color-bg-dark;
+  }
+
+  // Compact branded banner replacing the full hero panel
+  .signup-hero {
+    display: flex;
+    flex: 0 0 auto;
+    padding: calc(28px + env(safe-area-inset-top, 0px)) 24px 64px;
+    align-items: flex-start;
+  }
+
+  .signup-hero__content {
+    width: 100%;
+    gap: 10px;
+    margin-top: 0;
+  }
+
+  .signup-hero__logo {
+    width: 44px;
+    margin-bottom: 0;
+  }
+
+  .signup-hero__title {
+    font-size: 24px;
+    background: linear-gradient(135deg, #ffffff 0%, #bedce4 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .signup-hero__text,
+  .signup-hero__slider {
+    display: none;
+  }
+
+  .signup-form-container {
+    flex: 1 1 auto;
+    width: 100%;
+    align-items: stretch;
+    padding-top: 0;
+    margin-top: -36px; // pulls the card up to overlap the banner
+  }
+
+  .signup-card {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    min-height: auto;
+    overflow: visible;
+    border-radius: 24px 24px 0 0;
+    box-shadow: 0 -16px 48px rgba(0, 0, 0, 0.35);
+    padding: 28px 20px 0;
+
+    &__body {
+      overflow-y: visible;
+      padding-bottom: 24px;
+    }
+
+    &__footer {
+      position: static;
+      padding: 16px 20px calc(16px + env(safe-area-inset-bottom, 0px));
+    }
+  }
+
+}
+
+@media (max-width: 420px) {
+  .signup-hero {
+    padding-inline: 20px;
+  }
+
+  .signup-card {
+    padding-inline: 16px;
+
+    &__title {
+      font-size: 22px;
+    }
+  }
+
+  .signup-card__footer {
+    padding-inline: 16px;
+  }
 }
 

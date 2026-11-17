@@ -17,7 +17,7 @@
   [ngStyle]="popupPositionStyle"
   role="dialog"
   aria-modal="true"
-  [attr.aria-label]="step?.title"
+  [attr.aria-label]="step.title"
   (click)="$event.stopPropagation()"
 >
 
@@ -25,8 +25,8 @@
   <span class="onboarding-popup__arrow" [ngStyle]="arrowStyle"></span>
 
   <!-- Content -->
-  <p class="onboarding-popup__title">{{ step?.title }}</p>
-  <p class="onboarding-popup__desc">{{ step?.description }}</p>
+  <p class="onboarding-popup__title">{{ step.title }}</p>
+  <p class="onboarding-popup__desc">{{ step.description }}</p>
 
   <!-- Progress dots -->
   <div class="onboarding-popup__progress">
